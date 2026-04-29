@@ -49,6 +49,7 @@ CREATE TABLE SanPham (
     gia DECIMAL(10,2),
     moTa NVARCHAR(MAX),
     maDanhMuc INT,
+    hinhAnh NVARCHAR(255),
     FOREIGN KEY (maDanhMuc) REFERENCES DanhMuc(maDanhMuc)
 );
 
