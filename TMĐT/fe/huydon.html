@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#b52424",
+                        "tertiary": "#795553",
+                        "on-surface-variant": "#514534",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed-dim": "#eabcb8",
+                        "tertiary-fixed": "#ffdad7",
+                        "inverse-primary": "#ffba47",
+                        "outline": "#837562",
+                        "background": "#fbf9f4",
+                        "surface-container-highest": "#e4e2dd",
+                        "outline-variant": "#d6c4ae",
+                        "surface-dim": "#dbdad5",
+                        "on-tertiary-container": "#593937",
+                        "secondary-fixed-dim": "#ffb4ac",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#5f3e3c",
+                        "on-tertiary-fixed": "#2e1413",
+                        "on-background": "#1b1c19",
+                        "primary-fixed-dim": "#ffba47",
+                        "on-primary-fixed-variant": "#614000",
+                        "on-secondary-container": "#600006",
+                        "inverse-surface": "#30312e",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-surface": "#1b1c19",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#ffdad6",
+                        "on-secondary-fixed": "#410003",
+                        "surface-container-low": "#f5f3ee",
+                        "inverse-on-surface": "#f2f1ec",
+                        "surface-tint": "#805600",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "secondary-container": "#ff5a52",
+                        "surface": "#fbf9f4",
+                        "surface-bright": "#fbf9f4",
+                        "on-primary-container": "#5a3b00",
+                        "tertiary-container": "#cfa3a0",
+                        "surface-container": "#f0eee9",
+                        "primary-container": "#e5a022",
+                        "on-primary-fixed": "#281800",
+                        "surface-container-high": "#eae8e3",
+                        "on-secondary-fixed-variant": "#92030f",
+                        "primary": "#805600",
+                        "surface-variant": "#e4e2dd",
+                        "primary-fixed": "#ffddb0",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "stack-lg": "32px",
+                        "gutter": "16px",
+                        "base": "4px",
+                        "section-gap": "48px",
+                        "stack-md": "16px",
+                        "margin-mobile": "20px"
+                    },
+                    "fontFamily": {
+                        "title-sm": ["Noto Serif"],
+                        "label-caps": ["Be Vietnam Pro"],
+                        "body-lg": ["Be Vietnam Pro"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "headline-md": ["Noto Serif"],
+                        "display-lg": ["Noto Serif"]
+                    },
+                    "fontSize": {
+                        "title-sm": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                        "display-lg": ["34px", {"lineHeight": "42px", "letterSpacing": "-0.02em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .lantern-radio:checked {
+            background-color: #805600;
+            box-shadow: 0 0 8px rgba(229, 160, 34, 0.6);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md">
+<!-- Top Navigation Bar (Shared Component) -->
+<header class="bg-[#FDFCF0] dark:bg-stone-950 shadow-sm dark:shadow-none border-b border-[#4A2C2A]/10 sticky top-0 z-50">
+<div class="flex justify-between items-center px-8 py-4 w-full max-w-7xl mx-auto">
+<div class="text-2xl font-serif font-bold text-[#4A2C2A] dark:text-[#E5A022]">Hội An Di Sản</div>
+<nav class="hidden md:flex gap-8 font-serif text-lg tracking-wide">
+<a class="text-[#4A2C2A] dark:text-stone-300 hover:text-[#8B1E14] transition-colors" href="#">Trang Chủ</a>
+<a class="text-[#4A2C2A] dark:text-stone-300 hover:text-[#8B1E14] transition-colors" href="#">Sản Phẩm</a>
+<a class="text-[#4A2C2A] dark:text-stone-300 hover:text-[#8B1E14] transition-colors" href="#">Câu Chuyện</a>
+<a class="text-[#4A2C2A] dark:text-stone-300 hover:text-[#8B1E14] transition-colors" href="#">Liên Hệ</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="hover:opacity-80 transition-opacity"><span class="material-symbols-outlined text-[#4A2C2A]">shopping_bag</span></button>
+<button class="hover:opacity-80 transition-opacity"><span class="material-symbols-outlined text-[#4A2C2A]">person</span></button>
+</div>
+</div>
+</header>
+<main class="max-w-3xl mx-auto px-margin-mobile py-section-gap">
+<!-- Back Button -->
+<a class="inline-flex items-center gap-2 mb-stack-lg text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+<span class="font-label-caps text-label-caps">Quay lại</span>
+</a>
+<div class="text-center mb-stack-lg">
+<h1 class="font-display-lg text-display-lg text-on-surface mb-base">Hủy đơn hàng</h1>
+<p class="text-on-surface-variant font-body-lg">Rất tiếc khi biết bạn muốn hủy đơn hàng này. Xin hãy cho chúng tôi biết lý do.</p>
+</div>
+<div class="space-y-stack-lg">
+<!-- Order Summary Card -->
+<section class="bg-surface-container-low rounded-xl p-stack-md border border-outline-variant/30 shadow-sm">
+<div class="flex items-start justify-between mb-stack-md border-b border-outline-variant pb-stack-sm">
+<div>
+<h2 class="font-title-sm text-title-sm text-on-surface">Mã đơn hàng: #HA-99021</h2>
+<p class="text-on-surface-variant text-body-md italic">Ngày đặt: 24/05/2024</p>
+</div>
+<span class="bg-primary/10 text-primary px-stack-md py-base rounded-full text-label-caps">Chờ xác nhận</span>
+</div>
+<div class="flex gap-stack-md items-center">
+<div class="w-16 h-16 bg-surface-container-highest rounded overflow-hidden">
+<img alt="Sản phẩm lụa Hội An" class="w-full h-full object-cover" data-alt="Close-up of high-quality handcrafted Vietnamese silk lantern with vibrant gold and red colors in a boutique setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxFfJ_L3Ks3wqprBq-12r8b9r-lqXFCDj_SJ6taGa8tDNZ7zfBGl_c9TkX6ZsJojyHqf9A0d7lP6lbaYp1XPsezF94yJltoEl0FFwj72g5KRmGOkycHv_BM7m6DUMnC5sNyU26mR2JfqwwwtT4-Wamf6S66QHAPGK06BETsp5u8f8blrWLChTAxrnSyH3kcqNQFem8DK1-eoS3gGJjpNRdt576mZ1SGB5m6zqYs5Q9Sw4skT7kuCtWAIpZmDxKCxYHYDYMLkfp-18"/>
+</div>
+<div class="flex-1">
+<h3 class="font-body-lg font-semibold">Đèn lồng lụa Hội An - Dáng củ tỏi</h3>
+<p class="text-on-surface-variant text-body-md">Số lượng: 02 • Màu sắc: Vàng nghệ</p>
+</div>
+<div class="text-right">
+<span class="font-title-sm text-title-sm text-secondary">850.000₫</span>
+</div>
+</div>
+</section>
+<!-- Cancellation Reasons -->
+<section class="bg-surface-container-lowest rounded-xl p-stack-md border border-outline-variant/30 shadow-sm">
+<h3 class="font-title-sm text-title-sm text-on-surface mb-stack-md">Lý do hủy đơn</h3>
+<div class="space-y-base">
+<!-- Reason 1 -->
+<label class="flex items-center p-stack-md rounded-lg border border-transparent hover:border-outline-variant cursor-pointer transition-all group">
+<input checked="" class="w-5 h-5 border-2 border-outline text-primary focus:ring-primary/20 lantern-radio" name="reason" type="radio"/>
+<span class="ml-stack-md font-body-lg text-on-surface group-hover:text-primary transition-colors">Thay đổi ý định</span>
+</label>
+<!-- Reason 2 -->
+<label class="flex items-center p-stack-md rounded-lg border border-transparent hover:border-outline-variant cursor-pointer transition-all group">
+<input class="w-5 h-5 border-2 border-outline text-primary focus:ring-primary/20 lantern-radio" name="reason" type="radio"/>
+<span class="ml-stack-md font-body-lg text-on-surface group-hover:text-primary transition-colors">Tìm thấy giá rẻ hơn</span>
+</label>
+<!-- Reason 3 -->
+<label class="flex items-center p-stack-md rounded-lg border border-transparent hover:border-outline-variant cursor-pointer transition-all group">
+<input class="w-5 h-5 border-2 border-outline text-primary focus:ring-primary/20 lantern-radio" name="reason" type="radio"/>
+<span class="ml-stack-md font-body-lg text-on-surface group-hover:text-primary transition-colors">Sản phẩm lỗi</span>
+</label>
+<!-- Reason 4 -->
+<label class="flex items-center p-stack-md rounded-lg border border-transparent hover:border-outline-variant cursor-pointer transition-all group">
+<input class="w-5 h-5 border-2 border-outline text-primary focus:ring-primary/20 lantern-radio" name="reason" type="radio"/>
+<span class="ml-stack-md font-body-lg text-on-surface group-hover:text-primary transition-colors">Khác</span>
+</label>
+</div>
+<div class="mt-stack-md">
+<textarea class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-stack-md focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-on-surface-variant/50" placeholder="Hãy chia sẻ thêm chi tiết để chúng tôi cải thiện dịch vụ..." rows="3"></textarea>
+</div>
+</section>
+<!-- Warning and Actions -->
+<div class="flex flex-col items-center gap-stack-md pt-stack-md">
+<p class="text-on-surface-variant text-body-md text-center max-w-md">
+                    Lưu ý: Hành động này không thể hoàn tác. Tiền sẽ được hoàn lại theo phương thức thanh toán ban đầu trong vòng 3-5 ngày làm việc.
+                </p>
+<div class="flex flex-col sm:flex-row gap-stack-md w-full sm:w-auto">
+<button class="bg-secondary text-on-tertiary px-stack-lg py-stack-md rounded font-label-caps text-label-caps tracking-[0.15em] hover:opacity-90 active:scale-95 transition-all shadow-md">
+                        XÁC NHẬN HỦY
+                    </button>
+<button class="bg-transparent border border-tertiary text-tertiary px-stack-lg py-stack-md rounded font-label-caps text-label-caps tracking-[0.15em] hover:bg-tertiary/5 active:scale-95 transition-all">
+                        QUAY LẠI
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="bg-[#4A2C2A] dark:bg-stone-950 border-t border-[#E5A022]/20 py-12 px-4 w-full">
+<div class="flex flex-col items-center gap-6 text-center max-w-7xl mx-auto">
+<div class="text-xl font-serif italic text-[#E5A022]">Hội An Di Sản</div>
+<div class="flex flex-wrap justify-center gap-8 font-serif text-sm uppercase tracking-widest">
+<a class="text-[#FDFCF0]/70 hover:text-[#E5A022] hover:translate-y-[-2px] transition-all" href="#">Chính sách bảo mật</a>
+<a class="text-[#FDFCF0]/70 hover:text-[#E5A022] hover:translate-y-[-2px] transition-all" href="#">Điều khoản dịch vụ</a>
+<a class="text-[#FDFCF0]/70 hover:text-[#E5A022] hover:translate-y-[-2px] transition-all" href="#">Vận chuyển</a>
+<a class="text-[#FDFCF0]/70 hover:text-[#E5A022] hover:translate-y-[-2px] transition-all" href="#">Đổi trả</a>
+</div>
+<div class="text-[#FDFCF0]/50 text-sm font-serif uppercase tracking-[0.2em] mt-stack-md">
+                © 2024 Hội An Di Sản. Tinh hoa thủ công Việt Nam.
+            </div>
+</div>
+</footer>
+</body></html>

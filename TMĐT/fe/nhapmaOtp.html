@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;500;600;700&amp;family=Be+Vietnam+Pro:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface": "#1b1c19",
+                    "inverse-primary": "#ffba47",
+                    "secondary-fixed-dim": "#ffb4ac",
+                    "on-secondary-fixed-variant": "#92030f",
+                    "surface-tint": "#805600",
+                    "tertiary-container": "#cfa3a0",
+                    "surface": "#fbf9f4",
+                    "secondary": "#b52424",
+                    "on-secondary-fixed": "#410003",
+                    "surface-container-high": "#eae8e3",
+                    "primary-fixed-dim": "#ffba47",
+                    "on-primary-fixed": "#281800",
+                    "on-tertiary-fixed-variant": "#5f3e3c",
+                    "tertiary-fixed": "#ffdad7",
+                    "surface-variant": "#e4e2dd",
+                    "on-error-container": "#93000a",
+                    "surface-dim": "#dbdad5",
+                    "secondary-container": "#ff5a52",
+                    "surface-container-low": "#f5f3ee",
+                    "primary-fixed": "#ffddb0",
+                    "secondary-fixed": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "primary": "#805600",
+                    "error": "#ba1a1a",
+                    "outline-variant": "#d6c4ae",
+                    "on-surface-variant": "#514534",
+                    "outline": "#837562",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-container": "#593937",
+                    "inverse-on-surface": "#f2f1ec",
+                    "error-container": "#ffdad6",
+                    "on-background": "#1b1c19",
+                    "tertiary-fixed-dim": "#eabcb8",
+                    "on-secondary-container": "#600006",
+                    "background": "#fbf9f4",
+                    "tertiary": "#795553",
+                    "surface-bright": "#fbf9f4",
+                    "on-tertiary": "#ffffff",
+                    "surface-container": "#f0eee9",
+                    "primary-container": "#e5a022",
+                    "on-primary-container": "#5a3b00",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed": "#2e1413",
+                    "on-primary-fixed-variant": "#614000",
+                    "surface-container-highest": "#e4e2dd",
+                    "inverse-surface": "#30312e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-mobile": "20px",
+                    "stack-sm": "8px",
+                    "stack-md": "16px",
+                    "gutter": "16px",
+                    "stack-lg": "32px",
+                    "section-gap": "48px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "label-caps": ["Be Vietnam Pro"],
+                    "body-md": ["Be Vietnam Pro"],
+                    "title-sm": ["Noto Serif"],
+                    "body-lg": ["Be Vietnam Pro"],
+                    "headline-md": ["Noto Serif"],
+                    "display-lg": ["Noto Serif"]
+            },
+            "fontSize": {
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "title-sm": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                    "display-lg": ["34px", {"lineHeight": "42px", "letterSpacing": "-0.02em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .silk-texture {
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 86c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm76-78c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm-3 91c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zM7 39c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm31-34c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1z' fill='%234a2c2a' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface min-h-screen flex flex-col silk-texture">
+<!-- Top Navigation Anchor -->
+<header class="bg-[#FAF9F6] dark:bg-stone-900 border-b border-[#4A2C2A]/10 dark:border-stone-700 shadow-[0_2px_15px_-3px_rgba(74,44,42,0.08)] sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto font-['Noto_Serif'] antialiased">
+<div class="text-2xl font-serif tracking-tight text-[#4A2C2A] dark:text-[#E5A022]">HoiAn Heritage</div>
+<div class="flex items-center gap-6">
+<button class="text-[#4A2C2A] dark:text-stone-400 hover:text-[#D2312E] transition-colors duration-300">
+<span class="material-symbols-outlined">shopping_bag</span>
+</button>
+<button class="text-[#4A2C2A] dark:text-stone-400 hover:text-[#D2312E] transition-colors duration-300">
+<span class="material-symbols-outlined">person</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex items-center justify-center px-margin-mobile py-section-gap relative overflow-hidden">
+<!-- Atmospheric Background Elements -->
+<div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+<div class="absolute -top-24 -left-24 w-96 h-96 bg-primary-container/10 rounded-full blur-3xl"></div>
+<div class="absolute -bottom-24 -right-24 w-96 h-96 bg-secondary-container/5 rounded-full blur-3xl"></div>
+</div>
+<!-- Authentication Card -->
+<div class="w-full max-w-md relative z-10">
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_8px_30px_rgba(74,44,42,0.06)] border border-outline-variant/30 p-8 md:p-10 text-center">
+<!-- Brand Anchor in Card -->
+<div class="mb-stack-lg flex justify-center">
+<div class="w-16 h-16 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-4xl" data-weight="fill" style="font-variation-settings: 'FILL' 1;">shield_person</span>
+</div>
+</div>
+<h1 class="font-headline-md text-headline-md text-on-surface mb-stack-sm">Xác thực OTP</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mb-stack-lg">Chúng tôi đã gửi mã OTP đến email của bạn</p>
+<form class="space-y-stack-lg">
+<!-- OTP Input Group -->
+<div class="flex justify-between gap-2 max-w-sm mx-auto">
+<input class="w-12 h-14 md:w-14 md:h-16 text-center text-title-sm font-title-sm border-0 border-b-2 border-outline focus:ring-0 focus:border-secondary transition-colors bg-surface-container-low" maxlength="1" type="text"/>
+<input class="w-12 h-14 md:w-14 md:h-16 text-center text-title-sm font-title-sm border-0 border-b-2 border-outline focus:ring-0 focus:border-secondary transition-colors bg-surface-container-low" maxlength="1" type="text"/>
+<input class="w-12 h-14 md:w-14 md:h-16 text-center text-title-sm font-title-sm border-0 border-b-2 border-outline focus:ring-0 focus:border-secondary transition-colors bg-surface-container-low" maxlength="1" type="text"/>
+<input class="w-12 h-14 md:w-14 md:h-16 text-center text-title-sm font-title-sm border-0 border-b-2 border-outline focus:ring-0 focus:border-secondary transition-colors bg-surface-container-low" maxlength="1" type="text"/>
+<input class="w-12 h-14 md:w-14 md:h-16 text-center text-title-sm font-title-sm border-0 border-b-2 border-outline focus:ring-0 focus:border-secondary transition-colors bg-surface-container-low" maxlength="1" type="text"/>
+<input class="w-12 h-14 md:w-14 md:h-16 text-center text-title-sm font-title-sm border-0 border-b-2 border-outline focus:ring-0 focus:border-secondary transition-colors bg-surface-container-low" maxlength="1" type="text"/>
+</div>
+<div class="pt-stack-md">
+<button class="w-full py-4 bg-secondary text-on-secondary font-label-caps text-label-caps rounded-lg hover:bg-on-secondary-fixed-variant transition-all active:scale-[0.98] shadow-md" type="submit">
+                            Xác nhận mã
+                        </button>
+</div>
+</form>
+<div class="mt-stack-lg space-y-stack-md">
+<div class="flex items-center justify-center gap-2">
+<span class="text-body-md text-on-surface-variant">Không nhận được mã?</span>
+<a class="font-label-caps text-label-caps text-secondary hover:underline underline-offset-4 transition-all" href="#">Gửi lại mã</a>
+</div>
+<a class="inline-flex items-center gap-2 text-body-md text-outline hover:text-on-surface transition-colors duration-300" href="#">
+<span class="material-symbols-outlined text-sm">arrow_back</span>
+<span>Quay lại</span>
+</a>
+</div>
+</div>
+<!-- Contextual Decorative Imagery -->
+<div class="mt-stack-lg grid grid-cols-3 gap-4 opacity-40">
+<div class="h-1 rounded-full bg-primary-container"></div>
+<div class="h-1 rounded-full bg-secondary-container"></div>
+<div class="h-1 rounded-full bg-tertiary-container"></div>
+</div>
+</div>
+</main>
+<!-- Footer Content Anchor -->
+<footer class="bg-[#F2EDE4] dark:bg-stone-950 border-t border-[#4A2C2A]/5 mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center px-8 py-12 gap-6 w-full max-w-7xl mx-auto font-['Be_Vietnam_Pro'] text-sm tracking-wide">
+<div class="flex flex-col items-center md:items-start gap-2">
+<span class="font-serif italic text-lg text-[#4A2C2A]">Hoi An Heritage</span>
+<p class="text-[#4A2C2A]/70 dark:text-stone-500">© 2024 Hoi An Heritage. Crafted with Silk &amp; Soul.</p>
+</div>
+<nav class="flex gap-8">
+<a class="text-[#4A2C2A]/70 dark:text-stone-500 hover:text-[#4A2C2A] dark:hover:text-white transition-all" href="#">Sustainability</a>
+<a class="text-[#4A2C2A]/70 dark:text-stone-500 hover:text-[#4A2C2A] dark:hover:text-white transition-all" href="#">Artisans</a>
+<a class="text-[#4A2C2A]/70 dark:text-stone-500 hover:text-[#4A2C2A] dark:hover:text-white transition-all" href="#">Shipping</a>
+<a class="text-[#4A2C2A]/70 dark:text-stone-500 hover:text-[#4A2C2A] dark:hover:text-white transition-all" href="#">Privacy</a>
+</nav>
+<div class="flex gap-4">
+<div class="w-8 h-8 rounded-full border border-outline/20 flex items-center justify-center text-outline hover:border-secondary hover:text-secondary transition-all cursor-pointer">
+<span class="material-symbols-outlined text-lg">language</span>
+</div>
+<div class="w-8 h-8 rounded-full border border-outline/20 flex items-center justify-center text-outline hover:border-secondary hover:text-secondary transition-all cursor-pointer">
+<span class="material-symbols-outlined text-lg">mail</span>
+</div>
+</div>
+</div>
+</footer>
+</body></html>
