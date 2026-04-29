@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;500;600;700&amp;family=Be+Vietnam+Pro:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#92030f",
+                        "outline-variant": "#d6c4ae",
+                        "background": "#fbf9f4",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#ffdad7",
+                        "surface-variant": "#e4e2dd",
+                        "error": "#ba1a1a",
+                        "on-surface": "#1b1c19",
+                        "surface-container-highest": "#e4e2dd",
+                        "secondary-fixed-dim": "#ffb4ac",
+                        "on-primary-container": "#5a3b00",
+                        "tertiary-fixed-dim": "#eabcb8",
+                        "secondary-fixed": "#ffdad6",
+                        "inverse-on-surface": "#f2f1ec",
+                        "on-tertiary-fixed": "#2e1413",
+                        "secondary-container": "#ff5a52",
+                        "on-primary": "#ffffff",
+                        "surface-tint": "#805600",
+                        "secondary": "#b52424",
+                        "surface-container-low": "#f5f3ee",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#281800",
+                        "inverse-primary": "#ffba47",
+                        "on-background": "#1b1c19",
+                        "tertiary-container": "#cfa3a0",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-container": "#593937",
+                        "primary-fixed-dim": "#ffba47",
+                        "on-primary-fixed-variant": "#614000",
+                        "on-secondary-container": "#600006",
+                        "outline": "#837562",
+                        "surface-bright": "#fbf9f4",
+                        "surface-container-high": "#eae8e3",
+                        "surface": "#fbf9f4",
+                        "surface-container-lowest": "#ffffff",
+                        "primary": "#805600",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#f0eee9",
+                        "primary-container": "#e5a022",
+                        "primary-fixed": "#ffddb0",
+                        "on-tertiary-fixed-variant": "#5f3e3c",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#514534",
+                        "surface-dim": "#dbdad5",
+                        "inverse-surface": "#30312e",
+                        "tertiary": "#795553",
+                        "on-secondary-fixed": "#410003"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-lg": "32px",
+                        "base": "4px",
+                        "section-gap": "48px",
+                        "stack-md": "16px",
+                        "gutter": "16px",
+                        "stack-sm": "8px",
+                        "margin-mobile": "20px"
+                    },
+                    "fontFamily": {
+                        "title-sm": ["Noto Serif"],
+                        "body-lg": ["Be Vietnam Pro"],
+                        "display-lg": ["Noto Serif"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "label-caps": ["Be Vietnam Pro"],
+                        "headline-md": ["Noto Serif"]
+                    },
+                    "fontSize": {
+                        "title-sm": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg": ["34px", {"lineHeight": "42px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .lantern-glow {
+            box-shadow: 0 0 15px 2px rgba(229, 160, 34, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<header class="bg-[#FAF9F6] dark:bg-stone-900 shadow-sm dark:shadow-none border-b border-[#4A2C2A]/10 sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-8 py-4 max-w-screen-2xl mx-auto">
+<div class="text-2xl font-serif font-bold text-[#4A2C2A] dark:text-stone-100 uppercase tracking-tighter">
+                Hoi An Heritage
+            </div>
+<nav class="hidden md:flex items-center gap-8 font-serif text-base tracking-wide">
+<a class="text-[#8B0000] dark:text-red-400 border-b-2 border-[#8B0000] pb-1 font-semibold" href="#">Lồng Đèn</a>
+<a class="text-[#4A2C2A] dark:text-stone-400 hover:text-[#8B0000] transition-colors" href="#">Gốm Sứ</a>
+<a class="text-[#4A2C2A] dark:text-stone-400 hover:text-[#8B0000] transition-colors" href="#">Đồ Gỗ</a>
+<a class="text-[#4A2C2A] dark:text-stone-400 hover:text-[#8B0000] transition-colors" href="#">Lụa Tơ Tằm</a>
+<a class="text-[#4A2C2A] dark:text-stone-400 hover:text-[#8B0000] transition-colors" href="#">Bộ Sưu Tập</a>
+</nav>
+<div class="flex items-center gap-6">
+<button class="material-symbols-outlined text-[#4A2C2A] hover:bg-stone-100 p-2 rounded-full transition-all duration-300">shopping_cart</button>
+<button class="material-symbols-outlined text-[#4A2C2A] hover:bg-stone-100 p-2 rounded-full transition-all duration-300">person</button>
+</div>
+</div>
+</header>
+<main class="max-w-screen-2xl mx-auto px-8 py-12">
+<!-- Product Detail Section -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+<!-- Gallery Column -->
+<div class="space-y-6">
+<div class="aspect-[4/5] bg-surface-container overflow-hidden rounded-lg shadow-sm border border-outline-variant/20">
+<img class="w-full h-full object-cover" data-alt="Exquisite handmade silk lantern from Hoi An with intricate floral patterns glowing softly against a dark weathered wooden background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8esnON8T6DCS0-9iMS6W0xj86pm2DZ-wnVktbO1qXIuIFAt0NxQ8RgU0wHLM2FrDyZFrxvAMIGwvbOs_FoGrHe-Yf2aBruzbcGwNNVXNtsnmM3na1aS0CtHoFPLrLNNO9_WPYA6L4WoeyrwFw3oh29RnB5S6mkcxIY1Xj56sIUI8RRtKQO91IoS7W-8sNrzOFGL0wb4ArR72w7kOITvCYwojDtcFslEnRFPgDI-XyJnVG4-qOhtK7N0RIQia6FxWfoGmh17g5c2dk"/>
+</div>
+<div class="grid grid-cols-4 gap-4">
+<div class="aspect-square bg-surface-container rounded-md overflow-hidden cursor-pointer border-2 border-primary">
+<img class="w-full h-full object-cover" data-alt="Close-up of vibrant red silk lantern with gold tassel in traditional Vietnamese style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4v3fX3CGt_d0lvK--hW6yKM1wNm0KZIcRXu0zy2Ir2qQpwlmfuRPxEhECPUt_DepiyO8HzTJCIEuyhZVJXiPCrTCB5_JLQeAdfl9EdqtgGCqmkCqXforsWtZwn-kvMb4SifkOCUakfSi9ePIi8Z6pnEzPdV2l67JvKR2QXfxSjOIzK9zQtVVPXIkJOYFlqQe73L6sWjjKuYmDCTK-EDTGDo3jYaON3bxuIWz-uUARD3ZS_QCJbjsjML493IQTYIiQCqpMlBi9VjOJ"/>
+</div>
+<div class="aspect-square bg-surface-container rounded-md overflow-hidden cursor-pointer border border-transparent hover:border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Yellow glowing silk lanterns hanging in a cluster at dusk in Hoi An ancient town" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD03xien97KTODdX37PDymBUoiCuSmc-xyK7176Ch6ufWA_hMTQZduXgtoEU15YHyonmEWWEU-ttMUzOlGeEzlv7hKk58acN_JDT2t6PiFaH2OUCOR3q6Ipk_rXrYUlHHbcBfEpheiOKs5Lo-hWq9Ui_W9byPU7L04BabxMIW5yDbgD2FnWoEuPddDb9KT3tsZcCLtXp9z6IiT3TpfZZr9LSQMy7YWkQWi-NDsONiqeR9Jcz8AyUBZaXx7qmDuMtCgeeTlBZcXkBEE3"/>
+</div>
+<div class="aspect-square bg-surface-container rounded-md overflow-hidden cursor-pointer border border-transparent hover:border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Artisan hand-painting delicate bamboo frames for silk lanterns in a traditional workshop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8Rf7roWiAfRl8XRy5N4B2dWwZ8TSGMTuwQWj3vo8h6_3y9oaOCOY8nC8FqmfQyXhmWjJ41sChVEyUOMquyZ09m8dtXR_0oNbvZY_seu0jydAqH-VbM43FuGYBi4tb-5GvyCBZq5g39pgMusOSbJIq-iqYMXT9UeZF4MCkvTn2XCUOs3DaU_LB2Aqu9mXip0QXsQv2aiJueQKvZ97OEJGmeKuTgqr2Q6FPk4FXrStbHvG9bkpZMI15LbWrzn2dzHTO6tlOdF5wCskN"/>
+</div>
+<div class="aspect-square bg-surface-container rounded-md overflow-hidden cursor-pointer border border-transparent hover:border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Various shapes of silk lanterns including garlic, globe, and diamond shapes displayed in a boutique" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASAlORGmSSgKjF75z4uyXWuLbr_vMtPPfNwVmGFqNHDPW1o6N-2QH_TApVZ3jwIl__8FZj2KRusoWTAgrecZa0omJ-gw_zVc_8PgT2LbSc5V544vVaGJg6N4hihh4osVa9h8-7ngZa4Q5welkNRIRyxsKDMQX3FnEVhyLB8rEAbYE7_LVCEnstUac30m_dn9vBIVlv8WO5vGNBaRdkpU9hgL--9-u5e6IfUTnoRaB7s6u-hMuo10XKvwQ3vDnoRAWiarYUD_Uh1sW0"/>
+</div>
+</div>
+</div>
+<!-- Information Column -->
+<div class="flex flex-col gap-8">
+<div class="space-y-2">
+<span class="text-primary font-label-caps uppercase tracking-widest bg-primary/10 px-3 py-1 rounded-full">Thủ Công Truyền Thống</span>
+<h1 class="font-display-lg text-display-lg text-on-surface">Đèn Lồng Lụa Hội An Cao Cấp</h1>
+<div class="flex items-center gap-2 text-primary">
+<div class="flex">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="font-body-md text-outline">(128 Đánh giá)</span>
+</div>
+</div>
+<div class="text-3xl font-headline-md text-secondary font-bold">
+                    850.000 VND
+                </div>
+<div class="font-body-lg text-on-surface-variant leading-relaxed border-l-2 border-primary/20 pl-6 italic">
+                    Chế tác từ khung tre già và lụa tơ tằm Hà Đông thượng hạng, mỗi chiếc đèn lồng là một tác phẩm nghệ thuật độc bản mang hơi thở của phố cổ trăm năm.
+                </div>
+<div class="space-y-4">
+<label class="font-label-caps text-outline uppercase tracking-wider">Chọn Màu Sắc</label>
+<div class="flex gap-4">
+<button class="w-10 h-10 rounded-full bg-[#B52424] border-2 border-white ring-2 ring-primary lantern-glow"></button>
+<button class="w-10 h-10 rounded-full bg-[#E5A022] border-2 border-white ring-1 ring-outline-variant"></button>
+<button class="w-10 h-10 rounded-full bg-[#4A2C2A] border-2 border-white ring-1 ring-outline-variant"></button>
+<button class="w-10 h-10 rounded-full bg-[#005F6B] border-2 border-white ring-1 ring-outline-variant"></button>
+<button class="w-10 h-10 rounded-full bg-[#FAF9F6] border-2 border-white ring-1 ring-outline-variant"></button>
+</div>
+</div>
+<div class="flex items-end gap-6">
+<div class="space-y-4 flex-grow max-w-[150px]">
+<label class="font-label-caps text-outline uppercase tracking-wider">Số Lượng</label>
+<div class="flex items-center border border-outline-variant rounded-lg p-1 bg-surface-container-low">
+<button class="w-10 h-10 flex items-center justify-center hover:bg-surface-variant rounded">-</button>
+<input class="w-full text-center bg-transparent border-none focus:ring-0 font-body-md" type="text" value="1"/>
+<button class="w-10 h-10 flex items-center justify-center hover:bg-surface-variant rounded">+</button>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+<button class="bg-secondary text-on-primary py-4 rounded-lg font-label-caps text-sm tracking-widest uppercase hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">shopping_bag</span>
+                        Thêm Vào Giỏ
+                    </button>
+<button class="border-2 border-[#4A2C2A] text-[#4A2C2A] py-4 rounded-lg font-label-caps text-sm tracking-widest uppercase hover:bg-[#4A2C2A] hover:text-white transition-all flex items-center justify-center gap-2">
+                        Mua Ngay
+                    </button>
+</div>
+<div class="flex items-center gap-8 py-6 border-y border-outline-variant/30 text-sm font-body-md text-outline">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">local_shipping</span>
+                        Giao hàng toàn quốc
+                    </div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">verified_user</span>
+                        Bảo hành 12 tháng
+                    </div>
+</div>
+</div>
+</div>
+<!-- Specifications Section -->
+<section class="mt-24">
+<div class="border-b border-outline-variant/30 mb-8">
+<div class="flex gap-12">
+<button class="pb-4 border-b-2 border-primary text-primary font-title-sm">Thông số kỹ thuật</button>
+<button class="pb-4 border-b-2 border-transparent text-outline hover:text-on-surface transition-colors font-title-sm">Câu chuyện nghệ nhân</button>
+<button class="pb-4 border-b-2 border-transparent text-outline hover:text-on-surface transition-colors font-title-sm">Đánh giá khách hàng</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 bg-surface-container-low p-10 rounded-xl">
+<div class="space-y-6">
+<div class="flex justify-between border-b border-outline-variant/20 pb-3">
+<span class="font-label-caps text-outline">Chất liệu khung</span>
+<span class="font-body-md">Tre già đã qua xử lý chống mối mọt</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant/20 pb-3">
+<span class="font-label-caps text-outline">Chất liệu vải</span>
+<span class="font-body-md">Lụa tơ tằm Hà Đông tự nhiên</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant/20 pb-3">
+<span class="font-label-caps text-outline">Kích thước</span>
+<span class="font-body-md">Đường kính 35cm, Cao 45cm</span>
+</div>
+</div>
+<div class="space-y-6">
+<div class="flex justify-between border-b border-outline-variant/20 pb-3">
+<span class="font-label-caps text-outline">Phụ kiện đi kèm</span>
+<span class="font-body-md">Dây treo gỗ trạm khắc, bóng LED 5W</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant/20 pb-3">
+<span class="font-label-caps text-outline">Thời gian chế tác</span>
+<span class="font-body-md">3-5 ngày làm việc</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant/20 pb-3">
+<span class="font-label-caps text-outline">Xuất xứ</span>
+<span class="font-body-md">Làng nghề lồng đèn Hội An</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Related Products Section -->
+<section class="mt-24 mb-12">
+<div class="flex justify-between items-end mb-12">
+<div class="space-y-2">
+<h2 class="font-display-lg text-display-lg">Sản phẩm tương tự</h2>
+<p class="text-outline font-body-md">Khám phá thêm những tuyệt phẩm thủ công khác</p>
+</div>
+<a class="text-primary font-label-caps border-b border-primary pb-1 hover:text-on-primary-container transition-colors" href="#">Xem tất cả</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+<!-- Product Card 1 -->
+<div class="group cursor-pointer">
+<div class="aspect-[3/4] rounded-lg overflow-hidden relative mb-4 bg-surface-container shadow-sm group-hover:shadow-lg transition-all duration-300">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Traditional globe shaped silk lantern in deep amber yellow with dark wood accents" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhjAvvcJL41wSFE9H6UwHECG7Z8Coj54bzAZtDZyDMKy-6CMaCBtNTEEr-t-aXQa-PtHfVWlFEENqiGhSYrYfD85f8H2MTLdDm--olG2Zew4c2rdyHkzR5FeZOFZCBgzHbcQxuKQZNCymdD0E1xJeBu6UJmU_moZxuZ-JcZXAlWZnaPGjCBePP5rWgvLeqDl45KRFRg95MZTrDC6cKoBUGWWyjDoK75jtCNuSSHKc1WKRzcOGMD81I6dU4YMxBWMufoqMV1YoVXq5Z"/>
+<div class="absolute top-4 left-4 bg-primary text-on-primary px-3 py-1 text-xs font-label-caps uppercase">Bán chạy</div>
+</div>
+<h3 class="font-title-sm text-title-sm mb-1 group-hover:text-primary transition-colors">Đèn Lồng Quả Cầu Vàng</h3>
+<p class="font-body-md text-secondary font-bold">720.000 VND</p>
+</div>
+<!-- Product Card 2 -->
+<div class="group cursor-pointer">
+<div class="aspect-[3/4] rounded-lg overflow-hidden relative mb-4 bg-surface-container shadow-sm group-hover:shadow-lg transition-all duration-300">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Tear-drop shaped turquoise silk lantern with hand-painted lotus motif" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6zAHAvaa3Qsx4AxHS8aF2_Hb7aCoMUYPAVh5CN16FgnLV_T0WQrAldbdMp_3Kf4VSvCsFX2PadFFyEy_6ic0EGD5C9VvTVBgZ08NY0Pfduxzf190yjqjasUON8beFusSus65wtQLT_onAmV1wDOCkW9CI-xb-Pxkk3f-2Tm1YgsBTDRoo5I5QzbNE89zAVG0uU9N2gXRzXqPmItRfWjGZ7-z_cFZNohiwj0VcZD0He1jymJU35DoRW2y7iiZ7MHelo5vLMDXGIvSp"/>
+</div>
+<h3 class="font-title-sm text-title-sm mb-1 group-hover:text-primary transition-colors">Đèn Lồng Dáng Củ Tỏi Lam</h3>
+<p class="font-body-md text-secondary font-bold">950.000 VND</p>
+</div>
+<!-- Product Card 3 -->
+<div class="group cursor-pointer">
+<div class="aspect-[3/4] rounded-lg overflow-hidden relative mb-4 bg-surface-container shadow-sm group-hover:shadow-lg transition-all duration-300">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Large rectangular silk lantern with wooden frame and warm internal lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBX9Fk_qGvi2Pt1mVd_ULmChqOBsszhjzdwoLh38LseeSoo9nYDEsrpLSodV73ZfNRFE_hbs1QH8Vq7juj_PhG2hY_pYxKd2_XZCUgDREzI4b4fD6bVYlHMK4QavqemfwbFK11vQWxos12Xw1S27Kp0kFqUsirpaY3UTNcOm3xJrJlpNsiCH5cUJ-okzdWEnuDnlUZ4au4LCmxyc-ioMs4tLiIqZv8ugHKxl-1a1DYFKj96Nzva-Sw4RF3oRjeZjsgSBorQMTRdHP0t"/>
+</div>
+<h3 class="font-title-sm text-title-sm mb-1 group-hover:text-primary transition-colors">Đèn Gỗ Bọc Lụa Vuông</h3>
+<p class="font-body-md text-secondary font-bold">1.200.000 VND</p>
+</div>
+<!-- Product Card 4 -->
+<div class="group cursor-pointer">
+<div class="aspect-[3/4] rounded-lg overflow-hidden relative mb-4 bg-surface-container shadow-sm group-hover:shadow-lg transition-all duration-300">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Cluster of mini silk lanterns in various pastel colors hanging from a decorative branch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0R54h3BGFXNI-57dHJhn0iBqGSrauZhycoJvY3bLgYWiZLgSVheTCV3lre4ylFdmUjIOTA0nMlYZxKLbka_wP628QlHHcEFE3BSWWnqlVf5BjhTLgZhSTHMJV708qZByE9qMIfRnytsV324yR-rK5upZR3QKVw_N9qCJZSKvV1CUb5JCHAzKPfTmxvP3NvB-ws7RYP1YTbj6R0W1N9QhqV_IpLIAbxetxEZb7eqrTqW3GrAgmNk4qQE_074Pr6eqKHsrEqDl2enjd"/>
+</div>
+<h3 class="font-title-sm text-title-sm mb-1 group-hover:text-primary transition-colors">Bộ 3 Đèn Lồng Mini để bàn</h3>
+<p class="font-body-md text-secondary font-bold">580.000 VND</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#F2EDE4] dark:bg-stone-950 py-12 border-t border-[#4A2C2A]/10 mt-24">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 max-w-7xl mx-auto gap-12">
+<div class="flex flex-col gap-4 text-center md:text-left">
+<div class="font-serif italic text-2xl text-[#4A2C2A] dark:text-stone-200">
+                    Hoi An Heritage
+                </div>
+<p class="text-[#4A2C2A]/70 font-serif text-sm max-w-xs leading-relaxed">
+                    Lưu giữ những giá trị văn hóa truyền thống Việt Nam qua từng món đồ thủ công tinh xảo.
+                </p>
+</div>
+<div class="flex flex-wrap justify-center gap-x-12 gap-y-6">
+<a class="text-[#4A2C2A]/70 dark:text-stone-500 hover:text-[#E5A022] transition-colors font-serif text-sm" href="#">Chính Sách Bảo Mật</a>
+<a class="text-[#4A2C2A]/70 dark:text-stone-500 hover:text-[#E5A022] transition-colors font-serif text-sm" href="#">Điều Khoản Dịch Vụ</a>
+<a class="text-[#4A2C2A]/70 dark:text-stone-500 hover:text-[#E5A022] transition-colors font-serif text-sm" href="#">Vận Chuyển &amp; Đổi Trả</a>
+<a class="text-[#4A2C2A]/70 dark:text-stone-500 hover:text-[#E5A022] transition-colors font-serif text-sm" href="#">Liên Hệ</a>
+</div>
+<div class="text-[#4A2C2A] dark:text-stone-300 font-serif text-sm text-center">
+                © 2024 Hoi An Heritage. Tinh hoa thủ công Việt Nam.
+            </div>
+</div>
+</footer>
+</body></html>
