@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý đơn hàng - Admin</title>
+    <!-- File CSS chung -->
+    <link rel="stylesheet" href="../css/admin.css">
+    <!-- File CSS riêng cho đơn hàng -->
+    <link rel="stylesheet" href="../css/orders.css">
+    <!-- Sử dụng Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- SweetAlert2 cho Popup đẹp -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div>
+            <!-- Header User Profile -->
+            <div class="sidebar-header">
+                <div class="admin-avatar">
+                    <i class="ph ph-user"></i>
+                </div>
+                <div class="admin-info">
+                    <h2>Xin chào, Admin</h2>
+                    <p>Quản trị viên</p>
+                </div>
+            </div>
+
+            <ul class="nav-menu">
+                <li>
+                    <a href="admin.html" class="nav-item">
+                        <i class="ph ph-users"></i>
+                        Quản lý người dùng
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-item">
+                        <i class="ph ph-package"></i>
+                        Quản lý sản phẩm
+                    </a>
+                </li>
+                <li>
+                    <a href="categories.html" class="nav-item">
+                        <i class="ph ph-tag"></i>
+                        Quản lý danh mục
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-item">
+                        <i class="ph ph-storefront"></i>
+                        Quản lý nguồn hàng
+                    </a>
+                </li>
+                <li>
+                    <a href="orders.html" class="nav-item active">
+                        <i class="ph ph-shopping-cart"></i>
+                        Quản lý đơn hàng
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-item">
+                        <i class="ph ph-chat-circle-text"></i>
+                        Phản hồi đánh giá
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-item">
+                        <i class="ph ph-arrow-counter-clockwise"></i>
+                        Xác nhận hoàn hàng
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="logout-section">
+            <a href="#" class="nav-item" onclick="confirmLogout()">
+                <i class="ph ph-sign-out"></i>
+                Đăng xuất
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1>Quản lý đơn hàng</h1>
+            <p>Theo dõi và cập nhật trạng thái các đơn hàng</p>
+        </div>
+
+        <div class="summary-cards">
+            <div class="summary-card">
+                <div class="summary-icon icon-orange"><i class="ph ph-shopping-cart"></i></div>
+                <div class="summary-info">
+                    <h3>Tổng đơn hàng</h3>
+                    <p id="totalOrders">0</p>
+                </div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-icon icon-blue"><i class="ph ph-clock"></i></div>
+                <div class="summary-info">
+                    <h3>Đang xử lý</h3>
+                    <p id="processingOrders">0</p>
+                </div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-icon icon-yellow"><i class="ph ph-truck"></i></div>
+                <div class="summary-info">
+                    <h3>Đang giao</h3>
+                    <p id="deliveringOrders">0</p>
+                </div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-icon icon-green"><i class="ph ph-check-circle"></i></div>
+                <div class="summary-info">
+                    <h3>Đã giao</h3>
+                    <p id="deliveredOrders">0</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <div class="controls-bar">
+                <div class="search-bar">
+                    <i class="ph ph-magnifying-glass"></i>
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm theo mã đơn hoặc tên khách hàng...">
+                </div>
+                <select class="filter-select" id="statusFilter">
+                    <option value="all">Tất cả trạng thái</option>
+                    <option value="processing">Đang xử lý</option>
+                    <option value="delivering">Đang giao</option>
+                    <option value="delivered">Đã giao</option>
+                    <option value="cancelled">Đã hủy</option>
+                </select>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 15%">Mã đơn hàng</th>
+                        <th style="width: 15%">Khách hàng</th>
+                        <th style="width: 12%">Sản phẩm</th>
+                        <th style="width: 13%">Tổng tiền</th>
+                        <th style="width: 15%">Trạng thái</th>
+                        <th style="width: 15%">Ngày đặt</th>
+                        <th style="width: 15%">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="orderTableBody">
+                    <!-- Dữ liệu sẽ được render từ JavaScript -->
+                </tbody>
+            </table>
+
+            <div class="pagination-container">
+                <div class="pagination-info">Hiển thị <span id="displayInfo">0 - 0 / 0</span> đơn hàng</div>
+                <div class="pagination-controls" id="paginationControls">
+                    <!-- Nút phân trang sẽ được render từ JS -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- File JS riêng cho đơn hàng -->
+    <script src="../js/orders.js"></script>
+</body>
+
+</html>
