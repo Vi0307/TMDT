@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý sản phẩm - Admin</title>
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/products.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div>
+            <!-- Header User Profile -->
+            <div class="sidebar-header">
+                <div class="admin-avatar">
+                    <i class="ph ph-user"></i>
+                </div>
+                <div class="admin-info">
+                    <h2>Xin chào, Admin</h2>
+                    <p>Quản trị viên</p>
+                </div>
+            </div>
+
+            <ul class="nav-menu">
+                <li>
+                    <a href="admin.html" class="nav-item">
+                        <i class="ph ph-users"></i>
+                        Quản lý người dùng
+                    </a>
+                </li>
+                <li>
+                    <a href="products.html" class="nav-item active">
+                        <i class="ph ph-package"></i>
+                        Quản lý sản phẩm
+                    </a>
+                </li>
+                <li>
+                    <a href="categories.html" class="nav-item">
+                        <i class="ph ph-tag"></i>
+                        Quản lý danh mục
+                    </a>
+                </li>
+                <li>
+                    <a href="suppliers.html" class="nav-item">
+                        <i class="ph ph-storefront"></i>
+                        Quản lý nguồn hàng
+                    </a>
+                </li>
+                <li>
+                    <a href="orders.html" class="nav-item">
+                        <i class="ph ph-shopping-cart"></i>
+                        Quản lý đơn hàng
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-item">
+                        <i class="ph ph-chat-circle-text"></i>
+                        Phản hồi đánh giá
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-item">
+                        <i class="ph ph-arrow-counter-clockwise"></i>
+                        Xác nhận hoàn hàng
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="logout-section">
+            <a href="#" class="nav-item" onclick="confirmLogout()">
+                <i class="ph ph-sign-out"></i>
+                Đăng xuất
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header-flex">
+            <h1>Quản lý sản phẩm</h1>
+            <button class="btn-primary" onclick="addProduct()">
+                <i class="ph ph-plus"></i>
+                Thêm sản phẩm
+            </button>
+        </div>
+
+        <div class="content-card" style="background-color: #FFFFFF; border: 1px solid #EAE3D9; border-radius: 12px; padding: 20px;">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm...">
+            </div>
+
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead style="background-color: #F8F4ED; color: #5C4033; font-weight: 600; font-size: 13px;">
+                    <tr>
+                        <th style="padding: 12px 16px; text-align: left; border-bottom: 1px solid #EAE3D9; border-top: 1px solid #EAE3D9; border-left: 1px solid #EAE3D9; border-top-left-radius: 8px;">Mã SP</th>
+                        <th style="padding: 12px 16px; text-align: left; border-bottom: 1px solid #EAE3D9; border-top: 1px solid #EAE3D9;">Tên SP</th>
+                        <th style="padding: 12px 16px; text-align: left; border-bottom: 1px solid #EAE3D9; border-top: 1px solid #EAE3D9;">Hình ảnh</th>
+                        <th style="padding: 12px 16px; text-align: left; border-bottom: 1px solid #EAE3D9; border-top: 1px solid #EAE3D9;">Giá tiền</th>
+                        <th style="padding: 12px 16px; text-align: left; border-bottom: 1px solid #EAE3D9; border-top: 1px solid #EAE3D9;">Danh mục</th>
+                        <th style="padding: 12px 16px; text-align: left; border-bottom: 1px solid #EAE3D9; border-top: 1px solid #EAE3D9;">Hãng</th>
+                        <th style="padding: 12px 16px; text-align: left; border-bottom: 1px solid #EAE3D9; border-top: 1px solid #EAE3D9;">Khối lượng</th>
+                        <th style="padding: 12px 16px; text-align: left; border-bottom: 1px solid #EAE3D9; border-top: 1px solid #EAE3D9; border-right: 1px solid #EAE3D9; border-top-right-radius: 8px;">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="productTableBody">
+                    <!-- Render từ JS -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="../js/products.js"></script>
+</body>
+
+</html>
