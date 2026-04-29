@@ -1,0 +1,57 @@
+/* Các CSS đặc thù riêng cho trang Quản lý danh mục */
+
+.action-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.search-bar {
+    margin-bottom: 0 !important; /* Ghi đè margin mặc định của admin.css */
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #5C4033 0%, #3E2B22 100%);
+    color: #FFFFFF;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(92, 64, 51, 0.2);
+}
+
+.btn-primary i {
+    font-size: 18px;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(92, 64, 51, 0.3);
+}
+
+.btn-edit {
+    color: #3182CE;
+}
+
+.btn-edit:hover {
+    border-color: #3182CE;
+    background: #EBF8FF;
+}
+
+/* Tùy chỉnh SweetAlert2 Input */
+.swal2-input {
+    border-radius: 8px !important;
+    font-size: 15px !important;
+}
+
+.swal2-input:focus {
+    box-shadow: 0 0 0 3px rgba(92, 64, 51, 0.1) !important;
+    border-color: #5C4033 !important;
+}
