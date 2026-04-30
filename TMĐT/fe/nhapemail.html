@@ -1,172 +1,159 @@
 <!DOCTYPE html>
-
-<html lang="vi"><head>
+<html lang="vi">
+<head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;500;600;700&amp;family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            "colors": {
-                    "on-surface": "#1b1c19",
-                    "inverse-primary": "#ffba47",
-                    "secondary-fixed-dim": "#ffb4ac",
-                    "on-secondary-fixed-variant": "#92030f",
-                    "surface-tint": "#805600",
-                    "tertiary-container": "#cfa3a0",
-                    "surface": "#fbf9f4",
-                    "secondary": "#b52424",
-                    "on-secondary-fixed": "#410003",
-                    "surface-container-high": "#eae8e3",
-                    "primary-fixed-dim": "#ffba47",
-                    "on-primary-fixed": "#281800",
-                    "on-tertiary-fixed-variant": "#5f3e3c",
-                    "tertiary-fixed": "#ffdad7",
-                    "surface-variant": "#e4e2dd",
-                    "on-error-container": "#93000a",
-                    "surface-dim": "#dbdad5",
-                    "secondary-container": "#ff5a52",
-                    "surface-container-low": "#f5f3ee",
-                    "primary-fixed": "#ffddb0",
-                    "secondary-fixed": "#ffdad6",
-                    "on-error": "#ffffff",
-                    "on-secondary": "#ffffff",
-                    "primary": "#805600",
-                    "error": "#ba1a1a",
-                    "outline-variant": "#d6c4ae",
-                    "on-surface-variant": "#514534",
-                    "outline": "#837562",
-                    "surface-container-lowest": "#ffffff",
-                    "on-tertiary-container": "#593937",
-                    "inverse-on-surface": "#f2f1ec",
-                    "error-container": "#ffdad6",
-                    "on-background": "#1b1c19",
-                    "tertiary-fixed-dim": "#eabcb8",
-                    "on-secondary-container": "#600006",
-                    "background": "#fbf9f4",
-                    "tertiary": "#795553",
-                    "surface-bright": "#fbf9f4",
-                    "on-tertiary": "#ffffff",
-                    "surface-container": "#f0eee9",
-                    "primary-container": "#e5a022",
-                    "on-primary-container": "#5a3b00",
-                    "on-primary": "#ffffff",
-                    "on-tertiary-fixed": "#2e1413",
-                    "on-primary-fixed-variant": "#614000",
-                    "surface-container-highest": "#e4e2dd",
-                    "inverse-surface": "#30312e"
-            },
-            "borderRadius": {
-                    "DEFAULT": "0.125rem",
-                    "lg": "0.25rem",
-                    "xl": "0.5rem",
-                    "full": "0.75rem"
-            },
-            "spacing": {
-                    "margin-mobile": "20px",
-                    "stack-sm": "8px",
-                    "stack-md": "16px",
-                    "gutter": "16px",
-                    "stack-lg": "32px",
-                    "section-gap": "48px",
-                    "base": "4px"
-            },
-            "fontFamily": {
-                    "label-caps": ["Be Vietnam Pro"],
-                    "body-md": ["Be Vietnam Pro"],
-                    "title-sm": ["Noto Serif"],
-                    "body-lg": ["Be Vietnam Pro"],
-                    "headline-md": ["Noto Serif"],
-                    "display-lg": ["Noto Serif"]
-            },
-            "fontSize": {
-                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
-                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
-                    "title-sm": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
-                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
-                    "display-lg": ["34px", {"lineHeight": "42px", "letterSpacing": "-0.02em", "fontWeight": "600"}]
-            }
-          }
-        }
-      }
-    </script>
+<title>Quên Mật Khẩu – Hội An Tinh Hoa</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        .silk-pattern {
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 30c0-16.569 13.431-30 30-30M30 30C30 13.431 16.569 0 0 0m30 30c0 16.569-13.431 30-30 30m30-30c0 16.569 13.431 30 30 30' stroke='%234A2C2A' stroke-width='1' fill='none' fill-rule='evenodd' stroke-opacity='0.03'/%3E%3C/svg%3E");
-        }
-    </style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Be Vietnam Pro', sans-serif; min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  background-color: #fbf9f4;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5L35 15L45 15L37 22L40 32L30 26L20 32L23 22L15 15L25 15Z' fill='%23e5a022' fill-opacity='0.05'/%3E%3C/svg%3E");
+  padding: 24px;
+}
+.material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; line-height:1; user-select:none; }
+
+/* GLOW BLOBS */
+.blob1 { position:fixed; top:-80px; left:-80px; width:320px; height:320px; background:rgba(229,160,34,0.08); border-radius:50%; filter:blur(60px); pointer-events:none; }
+.blob2 { position:fixed; bottom:-80px; right:-80px; width:400px; height:400px; background:rgba(181,36,36,0.05); border-radius:50%; filter:blur(80px); pointer-events:none; }
+
+/* CARD */
+.card {
+  width:100%; max-width:400px;
+  background:#fff; border-radius:2px;
+  box-shadow:0 20px 60px rgba(74,44,42,0.12),0 4px 16px rgba(74,44,42,0.07);
+  overflow:hidden;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.card { animation:fadeUp 0.45s ease both; }
+
+/* HEADER */
+.card-header {
+  background:linear-gradient(135deg,#281800 0%,#805600 100%);
+  padding:30px 32px 24px; text-align:center; position:relative; overflow:hidden;
+}
+.card-header::before { content:''; position:absolute; inset:0; background-image:url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 3L23 10L30 10L24.5 14.5L26.5 21.5L20 17L13.5 21.5L15.5 14.5L10 10L17 10Z' fill='%23ffffff' fill-opacity='0.04'/%3E%3C/svg%3E"); }
+.hdr-icon { width:52px; height:52px; background:rgba(229,160,34,0.15); border-radius:50%; display:inline-flex; align-items:center; justify-content:center; margin-bottom:12px; border:1px solid rgba(229,160,34,0.3); position:relative; }
+.card-header h1 { font-family:'Noto Serif',serif; font-size:20px; font-weight:700; color:#fff; position:relative; margin-bottom:4px; }
+.card-header p { font-size:10px; letter-spacing:0.15em; color:rgba(229,160,34,0.85); text-transform:uppercase; position:relative; }
+
+/* STEP INDICATOR */
+.steps { display:flex; align-items:center; justify-content:center; gap:0; padding:16px 32px; background:#faf8f3; border-bottom:1px solid #ede6db; }
+.step { display:flex; flex-direction:column; align-items:center; gap:4px; flex:1; }
+.step-dot { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; border:2px solid #d6c4ae; color:#a89580; background:#fff; transition:all 0.3s; }
+.step-dot.active { border-color:#805600; color:#805600; background:rgba(128,86,0,0.06); }
+.step-dot.done { border-color:#805600; color:#fff; background:#805600; }
+.step-label { font-size:9px; letter-spacing:0.08em; color:#a89580; text-transform:uppercase; white-space:nowrap; }
+.step-label.active { color:#805600; font-weight:600; }
+.step-line { flex:0 0 28px; height:1px; background:#d6c4ae; margin-top:-10px; }
+.step-line.done { background:#805600; }
+
+/* FORM BODY */
+.form-body { padding:28px 32px 24px; }
+.desc { font-size:13px; color:#514534; line-height:1.6; margin-bottom:24px; text-align:center; }
+.desc strong { color:#805600; }
+.field { margin-bottom:18px; }
+.field label { display:block; font-size:10px; font-weight:600; letter-spacing:0.12em; color:#514534; text-transform:uppercase; margin-bottom:6px; }
+.input-box { display:flex; align-items:center; border:1px solid #d6c4ae; border-radius:2px; background:#faf8f3; transition:border-color 0.25s,box-shadow 0.25s,background 0.25s; }
+.input-box:focus-within { border-color:#805600; background:#fff; box-shadow:0 0 0 3px rgba(128,86,0,0.08); }
+.input-box .ico { padding:0 10px 0 12px; color:#9e8872; flex-shrink:0; display:flex; align-items:center; transition:color 0.25s; font-size:20px; }
+.input-box:focus-within .ico { color:#805600; }
+.input-box input { flex:1; border:none; outline:none; background:transparent; padding:12px 12px 12px 0; font-family:'Be Vietnam Pro',sans-serif; font-size:14px; color:#1b1c19; }
+.input-box input::placeholder { color:#a89580; }
+
+/* BUTTON */
+.btn-main { width:100%; padding:14px; background:linear-gradient(135deg,#b52424,#8a1a1a); color:#fff; font-family:'Be Vietnam Pro',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; border:none; border-radius:2px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 16px rgba(181,36,36,0.35); transition:all 0.3s; position:relative; overflow:hidden; }
+.btn-main::before { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent); transition:left 0.5s; }
+.btn-main:hover::before { left:100%; }
+.btn-main:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(181,36,36,0.45); }
+
+/* BACK LINK */
+.back-row { text-align:center; margin-top:18px; }
+.back-link { display:inline-flex; align-items:center; gap:5px; color:#837562; font-size:12px; text-decoration:none; transition:color 0.2s; }
+.back-link:hover { color:#805600; }
+
+/* FOOTER */
+.card-foot { background:#faf8f3; border-top:1px solid #ede6db; padding:14px 32px; text-align:center; }
+.card-foot p { font-family:'Noto Serif',serif; font-style:italic; font-size:12px; color:#837562; }
+</style>
 </head>
-<body class="bg-surface silk-pattern min-h-screen flex flex-col items-center">
-<!-- Header Suppression: Following the Shell Visibility Rule for Transactional Screens -->
-<main class="flex-grow flex items-center justify-center w-full px-margin-mobile">
-<div class="relative w-full max-w-md">
-<!-- Background Decorative Element (Lantern Glow Metaphor) -->
-<div class="absolute -top-12 -left-12 w-48 h-48 bg-primary-container/10 rounded-full blur-3xl"></div>
-<div class="absolute -bottom-12 -right-12 w-64 h-64 bg-secondary-container/5 rounded-full blur-3xl"></div>
-<!-- Main Card -->
-<div class="relative bg-surface-container-lowest border border-outline-variant/30 rounded-lg shadow-[0_8px_30px_rgb(74,44,42,0.06)] p-stack-lg md:p-12 overflow-hidden">
-<!-- Card Header -->
-<div class="text-center mb-stack-lg">
-<div class="inline-flex items-center justify-center mb-stack-md">
-<span class="material-symbols-outlined text-primary text-4xl">key</span>
+<body>
+<div class="blob1"></div>
+<div class="blob2"></div>
+
+<div class="card">
+  <!-- Header -->
+  <div class="card-header">
+    <div class="hdr-icon">
+      <span class="material-symbols-outlined" style="color:#ffba47;font-size:26px;position:relative;">key</span>
+    </div>
+    <h1>Quên Mật Khẩu</h1>
+    <p>Khôi phục tài khoản của bạn</p>
+  </div>
+
+  <!-- Steps -->
+  <div class="steps">
+    <div class="step">
+      <div class="step-dot active">1</div>
+      <span class="step-label active">Email</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step">
+      <div class="step-dot">2</div>
+      <span class="step-label">Mã OTP</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step">
+      <div class="step-dot">3</div>
+      <span class="step-label">Mật khẩu mới</span>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <div class="form-body">
+    <p class="desc">Nhập địa chỉ email đã đăng ký. Chúng tôi sẽ gửi <strong>mã xác thực OTP</strong> đến hộp thư của bạn.</p>
+
+    <form onsubmit="goToOtp(event)">
+      <div class="field">
+        <label for="email">Địa chỉ email</label>
+        <div class="input-box">
+          <span class="ico material-symbols-outlined">mail</span>
+          <input id="email" type="email" placeholder="example@hoian.com" autocomplete="email" required/>
+        </div>
+      </div>
+
+      <button class="btn-main" type="submit">
+        Gửi Mã Xác Thực
+        <span class="material-symbols-outlined" style="font-size:18px;">send</span>
+      </button>
+    </form>
+
+    <div class="back-row">
+      <a class="back-link" href="dangnhap.html">
+        <span class="material-symbols-outlined" style="font-size:16px;">arrow_back</span>
+        Quay lại đăng nhập
+      </a>
+    </div>
+  </div>
+
+  <div class="card-foot">
+    <p>"Mọi cánh cửa đều có chìa khóa của nó."</p>
+  </div>
 </div>
-<h1 class="font-headline-md text-headline-md text-on-surface mb-stack-sm">Quên mật khẩu</h1>
-<p class="font-body-md text-body-md text-on-surface-variant">Nhập email của bạn để nhận mã xác thực</p>
-</div>
-<!-- Form -->
-<form class="space-y-stack-lg">
-<div class="space-y-2">
-<label class="font-label-caps text-label-caps text-on-surface-variant block" for="email">EMAIL CỦA BẠN</label>
-<div class="relative group">
-<input class="w-full bg-surface-container-low border-b-2 border-outline-variant focus:border-primary focus:ring-0 transition-all duration-300 py-3 font-body-lg text-body-lg text-on-surface placeholder:text-outline-variant" id="email" placeholder="example@heritage.vn" type="email"/>
-<span class="absolute right-0 bottom-3 material-symbols-outlined text-outline-variant group-focus-within:text-primary transition-colors">mail</span>
-</div>
-</div>
-<button class="w-full bg-secondary hover:bg-on-secondary-fixed-variant text-on-secondary font-label-caps text-label-caps py-4 rounded-lg tracking-widest shadow-md hover:shadow-lg transition-all active:scale-[0.98]" type="submit">
-                        GỬI MÃ XÁC THỰC
-                    </button>
-</form>
-<!-- Back to Login -->
-<div class="mt-stack-lg text-center">
-<a class="inline-flex items-center gap-2 font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-300 group" href="#">
-<span class="material-symbols-outlined text-[18px] group-hover:-translate-x-1 transition-transform">arrow_back</span>
-                        Quay lại đăng nhập
-                    </a>
-</div>
-<!-- Subtle Texture Detail -->
-<div class="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
-<div class="w-16 h-16 border-t-2 border-r-2 border-primary"></div>
-</div>
-<div class="absolute bottom-0 left-0 p-4 opacity-10 pointer-events-none">
-<div class="w-16 h-16 border-b-2 border-l-2 border-primary"></div>
-</div>
-</div>
-<!-- Footer Small Link (Optional Privacy/Help) -->
-<div class="mt-stack-lg text-center">
-<p class="font-label-caps text-[10px] text-outline uppercase tracking-widest">© 2024 Hoi An Heritage • Silk &amp; Soul</p>
-</div>
-</div>
-</main>
-<!-- Visual Anchor - Atmospheric Image Context -->
-<div class="fixed inset-0 -z-10 opacity-5 pointer-events-none">
-<img alt="Hoi An ancient town textured walls" class="w-full h-full object-cover grayscale" data-alt="Monochrome close-up of weathered yellow lime walls in Hoi An ancient town with subtle cracks and organic textures" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoA7ZUlddeZI2yi4Zt97SJ4OA5bzItOOP5mPFPh2LE9Z-lnuWJrdQRSZcxxztrGxTZvlj8qeMy3ojH_PqkbyIOVMS_J1RihJDmRbYgq9q8etQ4boLaMRDYgVVz_pomY75sISw495HxcZqyahvBxKNACjQSN56P9NljKNfHDkN_R1TZOX6vJx414d34MIl3o2aKnMiUIxjrF5ClTLrYqbgUHyH5Kkpf3aiH_83hg7x_pZW_KaI8DkpAIezOuAp_FUwvP9aVANGfoW8"/>
-</div>
-<!-- Mandatory Footer Section (Reduced for Focus Journey) -->
-<footer class="w-full mt-auto bg-[#F2EDE4] dark:bg-stone-950 flex flex-col md:flex-row justify-between items-center px-8 py-8 gap-4 border-t border-[#4A2C2A]/5">
-<span class="font-serif italic text-lg text-[#4A2C2A] dark:text-stone-300">Hoi An Heritage</span>
-<p class="font-['Be_Vietnam_Pro'] text-sm tracking-wide text-[#4A2C2A]/70 dark:text-stone-500">© 2024 Hoi An Heritage. Crafted with Silk &amp; Soul.</p>
-<div class="flex gap-6">
-<a class="text-[#4A2C2A]/70 dark:text-stone-500 hover:text-[#4A2C2A] text-sm font-['Be_Vietnam_Pro']" href="#">Hỗ trợ</a>
-<a class="text-[#4A2C2A]/70 dark:text-stone-500 hover:text-[#4A2C2A] text-sm font-['Be_Vietnam_Pro']" href="#">Chính sách bảo mật</a>
-</div>
-</footer>
-</body></html>
+
+<script>
+function goToOtp(e) {
+  e.preventDefault();
+  const email = document.getElementById('email').value;
+  if (email) {
+    sessionStorage.setItem('reset_email', email);
+    window.location.href = 'nhapmaOtp.html';
+  }
+}
+</script>
+</body>
+</html>
