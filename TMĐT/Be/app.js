@@ -14,8 +14,11 @@ app.use(express.urlencoded({ extended: true }));
 // Kết nối cơ sở dữ liệu
 connectDB();
 
+// Admin routes
+app.use('/api/admin/users', require('./admin/users'));
+
 // Route mặc định
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
     res.send('Server is running! Database connected.');
 });
 
