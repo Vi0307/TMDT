@@ -16,6 +16,7 @@ connectDB();
 
 // Admin routes
 app.use('/api/admin/users', require('./admin/users'));
+app.use('/api/admin/categories', require('./admin/categories'));
 
 // Route mặc định
 app.get('/', (_req, res) => {
