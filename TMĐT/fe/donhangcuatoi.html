@@ -256,7 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             <!-- Orders List -->
             <div class="space-y-6">
-                <!-- Card 1 (Processing) -->
+<!-- Card 1 (Processing) -->
                 <div
                     class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-surface-variant hover:shadow-md transition-shadow">
                     <div
@@ -397,7 +397,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="font-body-md text-on-surface-variant w-full md:w-auto text-right md:text-left">
                             Tổng cộng: <span class="font-headline-md text-error font-semibold ml-2">1.200.000 ₫</span>
                         </div>
-                        <div class="flex gap-3 w-full md:w-auto">
+                        <div class="flex flex-wrap gap-3 w-full md:w-auto justify-end">
+                            <button
+                                class="flex-1 md:flex-none px-6 py-2 border border-error text-error font-label-caps rounded hover:bg-error-container/20 transition-colors">TRẢ HÀNG / HOÀN TIỀN</button>
                             <button
                                 class="flex-1 md:flex-none px-6 py-2 border border-outline text-on-surface font-label-caps rounded hover:bg-surface-variant transition-colors">ĐÁNH
                                 GIÁ</button>
@@ -407,6 +409,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </div>
                 </div>
+            
             </div>
         </section>
     </main>
