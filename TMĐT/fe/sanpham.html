@@ -187,43 +187,26 @@ document.addEventListener('DOMContentLoaded', () => {
 <div>
 <h3 class="font-title-sm text-title-sm mb-4">Khoảng giá</h3>
 <div class="space-y-4">
-<input class="w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary" max="5000000" min="0" type="range"/>
+<input class="w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary" max="5000000" min="0" step="50000" value="2500000" oninput="document.getElementById('price-value').innerText = new Intl.NumberFormat('vi-VN').format(this.value) + 'đ'" type="range"/>
 <div class="flex justify-between font-label-caps text-label-caps text-on-surface-variant">
 <span>0đ</span>
-<span>5.000.000đ</span>
+<span id="price-value">2.500.000đ</span>
 </div>
 </div>
 </div>
-<!-- Materials -->
-<div>
-<h3 class="font-title-sm text-title-sm mb-4">Chất liệu</h3>
-<div class="flex flex-wrap gap-2">
-<button class="px-4 py-2 bg-on-primary-fixed/5 border border-outline-variant text-body-md rounded-full hover:border-primary transition-colors">Lụa Hà Đông</button>
-<button class="px-4 py-2 bg-primary-fixed text-on-primary-fixed border border-primary text-body-md rounded-full">Gốm nung</button>
-<button class="px-4 py-2 bg-on-primary-fixed/5 border border-outline-variant text-body-md rounded-full hover:border-primary transition-colors">Gỗ Trắc</button>
-<button class="px-4 py-2 bg-on-primary-fixed/5 border border-outline-variant text-body-md rounded-full hover:border-primary transition-colors">Mây tre</button>
-</div>
-</div>
+
 <!-- Featured Badge -->
 <div class="p-6 bg-secondary-container/10 rounded-xl border border-secondary-container/20">
-<span class="material-symbols-outlined text-secondary mb-2">auto_awesome</span>
-<p class="font-title-sm text-on-secondary-container text-sm font-bold">Nghệ nhân ưu tú</p>
-<p class="font-body-md text-xs text-on-secondary-container/80 mt-1">Sản phẩm được chế tác bởi các nghệ nhân làng nghề truyền thống lâu đời.</p>
+<span class="material-symbols-outlined text-secondary mb-2">local_florist</span>
+<p class="font-title-sm text-on-secondary-container text-sm font-bold italic">"Trăm năm hồn cũ..."</p>
+<p class="font-body-md text-xs text-on-secondary-container/80 mt-1 italic">Nét cọ xưa, sợi tơ điểm xuyết.<br>Mang hồn phố cổ vấn vương tơ lòng.</p>
 </div>
 </aside>
 <!-- Product Grid -->
 <section class="flex-1">
 <div class="flex justify-between items-center mb-8">
 <p class="font-body-md text-on-surface-variant">Hiển thị <span class="font-bold text-on-surface">12</span> sản phẩm tinh hoa</p>
-<div class="flex items-center gap-2">
-<span class="font-label-caps text-label-caps">Sắp xếp:</span>
-<select class="bg-transparent border-none text-body-md focus:ring-0 font-medium">
-<option>Mới nhất</option>
-<option>Giá: Thấp đến Cao</option>
-<option>Giá: Cao đến Thấp</option>
-<option>Phổ biến nhất</option>
-</select>
-</div>
+
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-gutter gap-y-section-gap">
 <!-- Product Card 1 -->
@@ -231,9 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <div class="aspect-[3/4] overflow-hidden bg-surface-container rounded-lg relative mb-4">
 <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Close-up of a traditional Hoi An yellow ceramic teapot with intricate hand-painted floral motifs in a soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlQpAtQFAdGoC6wQsMM1qwIIxp_rFgVVrd9uCi-8IpPU9NEaIlwysyHJ4J5rKmtJEogT_djnL0AdXogb-wmVcer7nYGtnUye6sRfAiCII-r1cKAe9G4EbCpyczvBYZ5YcOCg8fuBsPIw5g5zIizlsYxMsBT2LeG2TmElLBvEhzSeAbGpzI-NUZwwVAM1EnXe1tA-4zz4kmsBn2D3rUT48dQh6zYrSQYSaEl156xZzSy-dRKUbMXBiL4LJY4BdA1ifo0Lvz0vQ_ZNpH"/>
 <div class="absolute top-3 left-3 bg-primary text-white font-label-caps text-[10px] px-2 py-1 rounded-sm">HANDMADE</div>
-<button class="absolute bottom-4 right-4 w-10 h-10 bg-surface rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-<span class="material-symbols-outlined text-primary" data-weight="fill">favorite</span>
-</button>
+
 </div>
 <h4 class="font-title-sm text-on-surface mb-1">Bình trà Gốm Thanh Hà</h4>
 <p class="font-body-md text-on-surface-variant text-sm mb-3">Chế tác thủ công từ đất sét sông Thu Bồn.</p>
@@ -250,9 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <div class="aspect-[3/4] overflow-hidden bg-surface-container rounded-lg relative mb-4">
 <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Exquisite red silk lantern hanging in a traditional Vietnamese wooden architecture setting with warm ambient glow" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAswZJYaNGJjVzVbEJ7oAdd0qz3h_kg9F0UI4SYIFN6QgegvYnzT3EESo62-6ex6mgH95qI05FdxVwaHEQuxeq4JflC1jQno-rXCp-GNfhh385Z8va5kdl_vjc7QFpm2FeW4NfY1LuIVvM7UkeexTUvoFJk9URkocycAJuEdqL3BaOhx6F7yM5PuhcQD-hw_z44E24pDJY8F2qGG6twJsKniTyiIH3lCvBtoANGfRK1ihUtMvPr6LQ4RVqQQ5wbKW27vcCP2SDvK5Gk"/>
 <div class="absolute top-3 left-3 bg-secondary text-white font-label-caps text-[10px] px-2 py-1 rounded-sm">BÁN CHẠY</div>
-<button class="absolute bottom-4 right-4 w-10 h-10 bg-surface rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-<span class="material-symbols-outlined text-primary">favorite</span>
-</button>
+
 </div>
 <h4 class="font-title-sm text-on-surface mb-1">Đèn lồng lụa Hội An</h4>
 <p class="font-body-md text-on-surface-variant text-sm mb-3">Lụa tơ tằm dệt tay, khung tre già bền bỉ.</p>
@@ -268,9 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <div class="group">
 <div class="aspect-[3/4] overflow-hidden bg-surface-container rounded-lg relative mb-4">
 <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Delicate silk scarf with traditional Vietnamese patterns draped over a weathered dark wood trunk" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyasMKJ0Gd9BFLocyitP5CVhvzOzJrSPusJ02zsWwtbCf19hRrk73EoCVN6npO_VKH8TopOwK_sh3XC9-nDd2_ss5hnR-8S_Mb3vDJswbd_wGcd98D7akU3Ygc-KMC2OWjXRdIlFTiiRFposBF9novD-bfj4volTgO-O2M_GtPD4tDlHB60cGlbpLdnoN0UlZuoDM5wUFaHKnV45XugCjOxhnI3HI0cBz2dlRpWSwOarnC8NsqBuOJvOXEzDESni8h4_lWIos_cMXn"/>
-<button class="absolute bottom-4 right-4 w-10 h-10 bg-surface rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-<span class="material-symbols-outlined text-primary">favorite</span>
-</button>
+
 </div>
 <h4 class="font-title-sm text-on-surface mb-1">Khăn choàng lụa Vạn Phúc</h4>
 <p class="font-body-md text-on-surface-variant text-sm mb-3">Họa tiết chim hạc thêu tay tinh xảo.</p>
@@ -286,9 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <div class="group">
 <div class="aspect-[3/4] overflow-hidden bg-surface-container rounded-lg relative mb-4">
 <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Hand-carved wooden sculpture of a dragon from Kim Bong woodworking village, dark rich wood texture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7TrJEgVIanYjTLR-V-8s0ZPNJ-lkC56VQOPl7-4EAY91lllgi6kXKKFsY9i5JXgZWqakRD3bUtuXBuQEwZeF5GrSbRhOZVMTxAJzEOB-483JbDSIOO2l0n5_zPoRuLl4vGpUs8N4qGt1bMUbIwjhcbx0MvM2NBiTRdDEeXaeaIKF-9G6NfPkJobQSWsSAeUIrpFs-wvdk-uwsBVf-gQriKmAzxV2fMNQ9OytdepWXYjyWR8UPJwDA6HE16sRFGz8ZrDr25dkNYIfP"/>
-<button class="absolute bottom-4 right-4 w-10 h-10 bg-surface rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-<span class="material-symbols-outlined text-primary">favorite</span>
-</button>
+
 </div>
 <h4 class="font-title-sm text-on-surface mb-1">Tượng gỗ Kim Bồng</h4>
 <p class="font-body-md text-on-surface-variant text-sm mb-3">Gỗ mít lâu năm, chạm khắc sống động.</p>
@@ -304,9 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <div class="group">
 <div class="aspect-[3/4] overflow-hidden bg-surface-container rounded-lg relative mb-4">
 <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Set of minimalist ceramic bowls in earthy sand tones on a rustic wooden table with soft shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCybtDXgdsPx38mms0mukJ-3FXbLL4BowDuysgcL6Ieyq9G5iEVtxVSicgHr7daOsXJ-8djM9qb3ZFxj6cptfUWxnbdu9mxHC3-y8qKwm_qVfbjAr4FimyjJmzEkcu59-Jlg2PkiJmld6Pu1YzHQeJrW2mleS4sCi8w6dscD6G3XbUA-6sFpt-Aaa7eoEp8Y6Yez15TT7a3aLHpJLIQ1qQ4bxdNQrpmaKaMoZ9PkMe-m-qv4xMB6JZ5Y7CsQQMYl89dEF-78h5RbPSn"/>
-<button class="absolute bottom-4 right-4 w-10 h-10 bg-surface rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-<span class="material-symbols-outlined text-primary">favorite</span>
-</button>
+
 </div>
 <h4 class="font-title-sm text-on-surface mb-1">Bộ bát gốm Men Ngọc</h4>
 <p class="font-body-md text-on-surface-variant text-sm mb-3">Lớp men bóng bẩy, phong cách tối giản.</p>
@@ -322,9 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <div class="group">
 <div class="aspect-[3/4] overflow-hidden bg-surface-container rounded-lg relative mb-4">
 <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Traditional Vietnamese conical hats (Non La) hanging in a geometric pattern against a textured yellow wall" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsdYjkqShRFxynb87urwj4FHjkngoOtYmvAQ7JuiIYRfFPwu7v8AUYRE2yhquS9yfKVzgG-zNhOkhzOeP1jw_AKXsj9zraIX2cebkr5VskrnQbzSqZQwrw7NtzL7irYcsQa4W47rQ-XJtZCRPoVvds7HL-IdAdGUyDk2WJvibCGSOIFLHOZGq9l2fx7MQ3Ff3WA58usPNON1ralTK7UGvZrBm_Nl5Ap7xHuoWWNfr9dxQzxSUOaXxjd4woIWtINyGuRHuFN8rdKxUN"/>
-<button class="absolute bottom-4 right-4 w-10 h-10 bg-surface rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-<span class="material-symbols-outlined text-primary">favorite</span>
-</button>
+
 </div>
 <h4 class="font-title-sm text-on-surface mb-1">Nón Lá thêu Bài Thơ</h4>
 <p class="font-body-md text-on-surface-variant text-sm mb-3">Lá cọ chọn lọc, thêu phong cảnh Hội An.</p>
