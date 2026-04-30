@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Thanh toán - Hội An Tranquility</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Be+Vietnam+Pro:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#fbf9f4",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#ffb4ac",
+                        "on-tertiary-container": "#593937",
+                        "surface-container-low": "#f5f3ee",
+                        "secondary-fixed": "#ffdad6",
+                        "on-surface-variant": "#514534",
+                        "tertiary-fixed-dim": "#eabcb8",
+                        "on-primary-fixed-variant": "#614000",
+                        "surface-variant": "#e4e2dd",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#e4e2dd",
+                        "on-tertiary-fixed": "#2e1413",
+                        "on-surface": "#1b1c19",
+                        "surface-dim": "#dbdad5",
+                        "tertiary": "#795553",
+                        "on-primary-container": "#5a3b00",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "inverse-primary": "#ffba47",
+                        "tertiary-fixed": "#ffdad7",
+                        "tertiary-container": "#cfa3a0",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#92030f",
+                        "on-tertiary-fixed-variant": "#5f3e3c",
+                        "inverse-on-surface": "#f2f1ec",
+                        "background": "#fbf9f4",
+                        "surface-tint": "#805600",
+                        "on-primary-fixed": "#281800",
+                        "primary-fixed-dim": "#ffba47",
+                        "surface-bright": "#fbf9f4",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#600006",
+                        "secondary": "#b52424",
+                        "inverse-surface": "#30312e",
+                        "primary-container": "#e5a022",
+                        "secondary-container": "#ff5a52",
+                        "outline-variant": "#d6c4ae",
+                        "surface-container-high": "#eae8e3",
+                        "primary-fixed": "#ffddb0",
+                        "primary": "#805600",
+                        "error-container": "#ffdad6",
+                        "outline": "#837562",
+                        "surface-container": "#f0eee9",
+                        "on-background": "#1b1c19",
+                        "on-secondary-fixed": "#410003"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-md": "16px",
+                        "margin-mobile": "20px",
+                        "gutter": "16px",
+                        "stack-sm": "8px",
+                        "base": "4px",
+                        "section-gap": "48px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "title-sm": ["Noto Serif"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "body-lg": ["Be Vietnam Pro"],
+                        "headline-md": ["Noto Serif"],
+                        "display-lg": ["Noto Serif"],
+                        "label-caps": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "title-sm": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                        "display-lg": ["34px", {"lineHeight": "42px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .silk-texture {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0c15.247 0 24.364 19.345 30 30-5.636 10.655-14.753 30-30 30-15.247 0-24.364-19.345-30-30C5.636 19.345 14.753 0 30 0zm0 10c-11.046 0-18.636 13.345-23.094 20C11.364 36.655 18.954 50 30 50s18.636-13.345 23.094-20C48.636 23.345 41.046 10 30 10z' fill='%234A2C2A' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        input:focus {
+            outline: none;
+            border-color: #E5A022 !important;
+            box-shadow: 0 1px 0 0 #E5A022 !important;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md silk-texture min-h-screen">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center px-8 py-4 w-full sticky top-0 z-50 backdrop-blur-sm bg-[#F9F5F0] border-b border-[#4A2C2A]/10">
+<div class="flex items-center gap-8">
+<a class="font-['Noto_Serif'] text-2xl font-bold text-[#4A2C2A] uppercase tracking-tighter" href="#">Hội An Tranquility</a>
+<nav class="hidden md:flex gap-6">
+<a class="font-['Noto_Serif'] text-base tracking-wide text-[#4A2C2A] dark:text-stone-400 hover:text-[#E5A022] transition-colors" href="#">Trang chủ</a>
+<a class="font-['Noto_Serif'] text-base tracking-wide text-[#4A2C2A] dark:text-stone-400 hover:text-[#E5A022] transition-colors" href="#">Sản phẩm</a>
+<a class="font-['Noto_Serif'] text-base tracking-wide text-[#4A2C2A] dark:text-stone-400 hover:text-[#E5A022] transition-colors" href="#">Câu chuyện</a>
+<a class="font-['Noto_Serif'] text-base tracking-wide text-[#4A2C2A] dark:text-stone-400 hover:text-[#E5A022] transition-colors" href="#">Liên hệ</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:text-[#E5A022] transition-all duration-300">
+<span class="material-symbols-outlined">shopping_bag</span>
+</button>
+<button class="p-2 hover:text-[#E5A022] transition-all duration-300">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-margin-mobile md:px-8 py-section-gap">
+<h1 class="font-display-lg text-display-lg text-primary text-center mb-section-gap">Hoàn tất đơn hàng</h1>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-stack-lg items-start">
+<!-- Left Column: Shipping & Payment -->
+<div class="lg:col-span-7 space-y-section-gap">
+<!-- Shipping Info -->
+<section>
+<div class="flex items-center gap-base mb-stack-md">
+<span class="material-symbols-outlined text-primary">local_shipping</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Thông tin giao hàng</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
+<div class="md:col-span-2">
+<label class="font-label-caps text-label-caps text-outline mb-base block">Họ và tên</label>
+<input class="w-full bg-transparent border-0 border-b border-outline-variant py-2 focus:ring-0 transition-all font-body-lg text-body-lg" placeholder="Nguyễn Văn A" type="text"/>
+</div>
+<div>
+<label class="font-label-caps text-label-caps text-outline mb-base block">Số điện thoại</label>
+<input class="w-full bg-transparent border-0 border-b border-outline-variant py-2 focus:ring-0 transition-all font-body-lg text-body-lg" placeholder="090 123 4567" type="tel"/>
+</div>
+<div>
+<label class="font-label-caps text-label-caps text-outline mb-base block">Email (Tùy chọn)</label>
+<input class="w-full bg-transparent border-0 border-b border-outline-variant py-2 focus:ring-0 transition-all font-body-lg text-body-lg" placeholder="example@gmail.com" type="email"/>
+</div>
+<div class="md:col-span-2">
+<label class="font-label-caps text-label-caps text-outline mb-base block">Địa chỉ nhận hàng</label>
+<input class="w-full bg-transparent border-0 border-b border-outline-variant py-2 focus:ring-0 transition-all font-body-lg text-body-lg" placeholder="Số nhà, tên đường, phường/xã..." type="text"/>
+</div>
+</div>
+</section>
+<!-- Payment Methods -->
+<section class="mb-section-gap">
+<div class="flex items-center gap-base mb-stack-md">
+<span class="material-symbols-outlined text-primary">local_shipping</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Phương thức vận chuyển</h2>
+</div>
+<div class="space-y-stack-sm">
+<!-- Standard Shipping -->
+<label class="flex items-center p-stack-md bg-surface-container border border-outline-variant rounded-lg cursor-pointer hover:border-primary transition-colors group">
+<input checked="" class="w-5 h-5 text-primary border-outline focus:ring-primary" name="shipping" type="radio" value="standard"/>
+<div class="ml-stack-md">
+<span class="font-body-lg text-body-lg font-medium">Giao hàng tiêu chuẩn</span>
+<p class="text-body-md text-outline">Dự kiến nhận hàng sau 3-5 ngày</p>
+</div>
+<span class="material-symbols-outlined ml-auto text-outline group-hover:text-primary">schedule</span>
+</label>
+<!-- Express Shipping -->
+<label class="flex items-center p-stack-md bg-surface-container border border-outline-variant rounded-lg cursor-pointer hover:border-primary transition-colors group">
+<input class="w-5 h-5 text-primary border-outline focus:ring-primary" name="shipping" type="radio" value="express"/>
+<div class="ml-stack-md">
+<span class="font-body-lg text-body-lg font-medium">Giao hàng hỏa tốc</span>
+<p class="text-body-md text-outline">Nhận hàng ngay trong vòng 24h</p>
+</div>
+<span class="material-symbols-outlined ml-auto text-outline group-hover:text-primary">bolt</span>
+</label>
+</div>
+</section><section>
+<div class="flex items-center gap-base mb-stack-md">
+<span class="material-symbols-outlined text-primary">payments</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Phương thức thanh toán</h2>
+</div>
+<div class="space-y-stack-sm">
+<!-- COD -->
+<label class="flex items-center p-stack-md bg-surface-container border border-outline-variant rounded-lg cursor-pointer hover:border-primary transition-colors group">
+<input checked="" class="w-5 h-5 text-primary border-outline focus:ring-primary" name="payment" type="radio" value="cod"/>
+<div class="ml-stack-md">
+<span class="font-body-lg text-body-lg font-medium">Thanh toán khi nhận hàng (COD)</span>
+<p class="text-body-md text-outline">Giao hàng và thu tiền tận nơi</p>
+</div>
+<span class="material-symbols-outlined ml-auto text-outline group-hover:text-primary">handshake</span>
+</label>
+<!-- Bank Transfer -->
+<label class="flex items-center p-stack-md bg-surface-container border border-outline-variant rounded-lg cursor-pointer hover:border-primary transition-colors group">
+<input class="w-5 h-5 text-primary border-outline focus:ring-primary" name="payment" type="radio" value="bank"/>
+<div class="ml-stack-md">
+<span class="font-body-lg text-body-lg font-medium">Chuyển khoản ngân hàng</span>
+<p class="text-body-md text-outline">Vietcombank - 0123456789 - Hội An Tranquility</p>
+</div>
+<span class="material-symbols-outlined ml-auto text-outline group-hover:text-primary">account_balance</span>
+</label>
+<!-- E-wallet -->
+<label class="flex items-center p-stack-md bg-surface-container border border-outline-variant rounded-lg cursor-pointer hover:border-primary transition-colors group">
+<input class="w-5 h-5 text-primary border-outline focus:ring-primary" name="payment" type="radio" value="wallet"/>
+<div class="ml-stack-md">
+<span class="font-body-lg text-body-lg font-medium">Ví điện tử (MoMo, ZaloPay)</span>
+<p class="text-body-md text-outline">Thanh toán nhanh qua ứng dụng</p>
+</div>
+<span class="material-symbols-outlined ml-auto text-outline group-hover:text-primary">account_balance_wallet</span>
+</label>
+</div>
+</section>
+</div>
+<!-- Right Column: Order Summary -->
+<aside class="lg:col-span-5">
+<div class="bg-surface-container-low p-stack-lg rounded-xl border border-outline-variant shadow-sm sticky top-24">
+<h2 class="font-title-sm text-title-sm text-primary mb-stack-md border-b border-outline-variant pb-base">Tóm tắt đơn hàng</h2>
+<!-- Product List -->
+<div class="space-y-stack-md mb-stack-lg">
+<div class="flex gap-stack-md items-center">
+<div class="relative w-20 h-24 bg-surface-container-highest rounded overflow-hidden flex-shrink-0">
+<img alt="Lồng đèn lụa Hội An" class="w-full h-full object-cover" data-alt="authentic handcrafted red silk lantern with wooden frame and golden tassels in a traditional workshop setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvlPYp6QroX8HUVIL2OHh9Woik05P8mXT5yrW0elkM587Da55z-5H1XmFVDpWlcIU-igAn6mnqUudKmvhb1exvJpHvbrGjpv61_KKj-bSTFi6uwIFHyCZg6_CiCh0Phu0qSjq_GKZpd3c_1t-7RcYsd7emKtGFgTA20OYFhD0BPW9ug0eP7pA5YBXSNbYLYRmbAZntYjn4KLw1YOPxttAe7n27C5358XdecZguC8X1dsTVs89OZHHUg1b2ESv3-qZ1xh94DulP5X9S"/>
+<span class="absolute top-0 right-0 bg-primary text-white text-[10px] px-1.5 py-0.5 rounded-bl">x1</span>
+</div>
+<div class="flex-grow">
+<h3 class="font-body-lg text-body-lg font-medium text-on-surface">Lồng Đèn Lụa Thêu Hoa</h3>
+<p class="text-body-md text-outline italic">Màu đỏ ruby, size 30cm</p>
+<span class="text-body-lg font-semibold text-secondary">350.000₫</span>
+</div>
+</div>
+<div class="flex gap-stack-md items-center">
+<div class="relative w-20 h-24 bg-surface-container-highest rounded overflow-hidden flex-shrink-0">
+<img alt="Áo dài lụa tơ tằm" class="w-full h-full object-cover" data-alt="elegant traditional vietnamese ao dai made of premium yellow silk with subtle floral embroidery resting on a vintage wooden chair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOxIOSFSBpeaKT3cTOZdLJfg1-q1tZaTKpI07DIqc3OK4HFO6_ilnb26W-nKoxzraomTvQo1WOseUSQQNiZZARXs_j6r1LR1ixlB2AvbpX1i6SHrn-6bZ3N921OROwAVQ_ceM6Fxuu1EaCjlrSxES3P_MC3MXcI6wreGS3e_XcLm3VsGv_XGtKvxh7iR2L5vVK-NWgX7tz_cU_-rbTN8gx6qu3tYTIReDk-u6tct50uZhe3dnFmuDrZGlVlXR07CkTRHJ5RhM3b6Kz"/>
+<span class="absolute top-0 right-0 bg-primary text-white text-[10px] px-1.5 py-0.5 rounded-bl">x1</span>
+</div>
+<div class="flex-grow">
+<h3 class="font-body-lg text-body-lg font-medium text-on-surface">Khăn Choàng Tơ Tằm</h3>
+<p class="text-body-md text-outline italic">Vàng nghệ, dệt tay</p>
+<span class="text-body-lg font-semibold text-secondary">850.000₫</span>
+</div>
+</div>
+</div>
+<!-- Pricing Details -->
+<div class="space-y-stack-sm border-t border-outline-variant pt-stack-md mb-stack-lg">
+<div class="flex justify-between text-body-md text-on-surface">
+<span>Tạm tính</span>
+<span>1.200.000₫</span>
+</div>
+<div class="flex justify-between text-body-md text-on-surface">
+<span>Phí vận chuyển</span>
+<span>35.000₫</span>
+</div>
+<div class="flex justify-between items-center text-title-sm text-primary font-bold pt-base">
+<span>Tổng cộng</span>
+<span class="text-2xl">1.235.000₫</span>
+</div>
+</div>
+<!-- Discount Code -->
+<!-- Checkout Button -->
+<button class="w-full bg-secondary text-on-secondary py-4 rounded font-headline-md text-headline-md shadow-lg hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-stack-sm">
+<span class="material-symbols-outlined">lock</span>
+                        Đặt hàng ngay
+                    </button>
+<p class="text-center text-[11px] text-outline mt-stack-md leading-relaxed">
+                        Bằng việc đặt hàng, bạn đồng ý với các <a class="underline" href="#">Điều khoản dịch vụ</a> và <a class="underline" href="#">Chính sách bảo mật</a> của chúng tôi.
+                    </p>
+</div>
+</aside>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-[#4A2C2A] text-[#F9F5F0] py-12 px-8 border-t border-[#E5A022]/20">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-7xl mx-auto">
+<div class="md:col-span-1">
+<div class="font-['Noto_Serif'] text-xl text-[#E5A022] italic mb-4">Hội An Tranquility</div>
+<p class="font-['Be_Vietnam_Pro'] text-sm leading-relaxed opacity-80">Gìn giữ nét đẹp thời gian thông qua những sản phẩm thủ công tinh xảo từ làng nghề truyền thống.</p>
+</div>
+<div>
+<h4 class="font-title-sm text-primary-container mb-stack-md">Về chúng tôi</h4>
+<div class="flex flex-col gap-2">
+<a class="text-[#F9F5F0]/80 hover:text-[#E5A022] transition-transform hover:translate-x-1" href="#">Câu chuyện thương hiệu</a>
+<a class="text-[#F9F5F0]/80 hover:text-[#E5A022] transition-transform hover:translate-x-1" href="#">Nghệ nhân địa phương</a>
+<a class="text-[#F9F5F0]/80 hover:text-[#E5A022] transition-transform hover:translate-x-1" href="#">Liên hệ</a>
+</div>
+</div>
+<div>
+<h4 class="font-title-sm text-primary-container mb-stack-md">Hỗ trợ khách hàng</h4>
+<div class="flex flex-col gap-2">
+<a class="text-[#F9F5F0]/80 hover:text-[#E5A022] transition-transform hover:translate-x-1" href="#">Chính sách bảo mật</a>
+<a class="text-[#F9F5F0]/80 hover:text-[#E5A022] transition-transform hover:translate-x-1" href="#">Điều khoản dịch vụ</a>
+<a class="text-[#F9F5F0]/80 hover:text-[#E5A022] transition-transform hover:translate-x-1" href="#">Vận chuyển</a>
+<a class="text-[#F9F5F0]/80 hover:text-[#E5A022] transition-transform hover:translate-x-1" href="#">Câu hỏi thường gặp</a>
+</div>
+</div>
+<div>
+<h4 class="font-title-sm text-primary-container mb-stack-md">Bản tin</h4>
+<p class="text-sm mb-4 opacity-80">Đăng ký để nhận thông tin về sản phẩm mới và văn hóa Hội An.</p>
+<div class="flex">
+<input class="bg-white/10 border-0 text-white p-2 rounded-l w-full text-sm focus:ring-1 focus:ring-[#E5A022]" placeholder="Email của bạn" type="email"/>
+<button class="bg-[#E5A022] text-[#4A2C2A] px-4 rounded-r font-medium">Gửi</button>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-[#E5A022]/10 text-center opacity-60 text-sm">
+            © 2024 Ký Ức Hội An. Gìn giữ giá trị truyền thống.
+        </div>
+</footer>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 w-full flex justify-around py-3 md:hidden bg-[#F9F5F0] border-t border-[#4A2C2A]/10 shadow-[0_-4px_12px_rgba(74,44,42,0.08)] z-50 rounded-t-lg">
+<a class="flex flex-col items-center justify-center text-[#4A2C2A]/60" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-['Be_Vietnam_Pro'] text-[10px] uppercase font-medium tracking-widest">Trang chủ</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#4A2C2A]/60" href="#">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-['Be_Vietnam_Pro'] text-[10px] uppercase font-medium tracking-widest">Khám phá</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#E5A022] relative after:content-[''] after:w-1 after:h-1 after:bg-[#B22222] after:rounded-full after:mt-1" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-['Be_Vietnam_Pro'] text-[10px] uppercase font-medium tracking-widest">Giỏ hàng</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#4A2C2A]/60" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-['Be_Vietnam_Pro'] text-[10px] uppercase font-medium tracking-widest">Tài khoản</span>
+</a>
+</nav>
+</body></html>
