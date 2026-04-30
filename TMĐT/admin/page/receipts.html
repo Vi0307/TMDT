@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản lý danh mục - Admin</title>
+    <title>Quản lý phiếu nhập - Admin</title>
     <!-- File CSS chung -->
     <link rel="stylesheet" href="../css/admin.css">
-    <!-- File CSS riêng cho danh mục -->
-    <link rel="stylesheet" href="../css/categories.css">
+    <!-- File CSS riêng cho phiếu nhập -->
+    <link rel="stylesheet" href="../css/receipts.css">
     <!-- Sử dụng Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <!-- SweetAlert2 cho Popup đẹp -->
@@ -44,13 +44,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="categories.html" class="nav-item active">
+                    <a href="categories.html" class="nav-item">
                         <i class="ph ph-tag"></i>
                         Quản lý danh mục
                     </a>
                 </li>
                 <li>
-                    <a href="receipts.html" class="nav-item">
+                    <a href="receipts.html" class="nav-item active">
                         <i class="ph ph-storefront"></i>
                         Quản lý phiếu nhập
                     </a>
@@ -87,39 +87,39 @@
     <!-- Main Content -->
     <main class="main-content">
         <div class="page-header">
-            <h1>Quản lý danh mục</h1>
+            <h1>Quản lý phiếu nhập</h1>
         </div>
 
         <div class="content-card">
             <div class="action-bar">
                 <div class="search-bar">
                     <i class="ph ph-magnifying-glass"></i>
-                    <input type="text" id="searchInput" placeholder="Tìm kiếm danh mục...">
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm phiếu nhập...">
                 </div>
-                <button class="btn-primary" onclick="addCategory()">
+                <button class="btn-primary" onclick="addReceipt()">
                     <i class="ph ph-plus-circle"></i>
-                    Thêm danh mục mới
+                    Thêm phiếu nhập mới
                 </button>
             </div>
 
             <table>
                 <thead>
                     <tr>
-                        <th style="width: 15%">Mã danh mục</th>
-                        <th style="width: 45%">Tên danh mục</th>
-                        <th style="width: 20%">Số lượng sản phẩm</th>
-                        <th style="width: 20%">Thao tác</th>
+                        <th style="width: 15%">Mã PN</th>
+                        <th style="width: 35%">Mã NCC</th>
+                        <th style="width: 35%">Ngày nhập</th>
+                        <th style="width: 15%">Thao tác</th>
                     </tr>
                 </thead>
-                <tbody id="categoryTableBody">
+                <tbody id="receiptTableBody">
                     <!-- Dữ liệu sẽ được render từ JavaScript -->
                 </tbody>
             </table>
         </div>
     </main>
 
-    <!-- File JS riêng cho danh mục -->
-    <script src="../js/categories.js"></script>
+    <!-- File JS riêng cho phiếu nhập -->
+    <script src="../js/receipts.js"></script>
 </body>
 
 </html>

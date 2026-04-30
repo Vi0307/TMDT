@@ -5,9 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý sản phẩm - Admin</title>
+    <!-- File CSS chung -->
     <link rel="stylesheet" href="../css/admin.css">
+    <!-- File CSS riêng cho sản phẩm -->
     <link rel="stylesheet" href="../css/products.css">
+    <!-- Sử dụng Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- SweetAlert2 cho Popup đẹp -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
@@ -46,9 +50,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="suppliers.html" class="nav-item">
+                    <a href="receipts.html" class="nav-item">
                         <i class="ph ph-storefront"></i>
-                        Quản lý nguồn hàng
+                        Quản lý phiếu nhập
                     </a>
                 </li>
                 <li>
@@ -58,13 +62,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-item">
+                    <a href="reviews.html" class="nav-item">
                         <i class="ph ph-chat-circle-text"></i>
                         Phản hồi đánh giá
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-item">
+                    <a href="returns.html" class="nav-item">
                         <i class="ph ph-arrow-counter-clockwise"></i>
                         Xác nhận hoàn hàng
                     </a>
@@ -82,39 +86,41 @@
 
     <!-- Main Content -->
     <main class="main-content">
-        <div class="page-header-flex">
+        <div class="page-header">
             <h1>Quản lý sản phẩm</h1>
-            <button class="btn-primary" onclick="addProduct()">
-                <i class="ph ph-plus"></i>
-                Thêm sản phẩm
-            </button>
         </div>
 
-        <div class="content-card" style="background-color: #FFFFFF; border: 1px solid #EAE3D9; border-radius: 12px; padding: 20px;">
-            <div class="search-bar">
-                <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm...">
+        <div class="content-card">
+            <div class="action-bar">
+                <div class="search-bar">
+                    <i class="ph ph-magnifying-glass"></i>
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm...">
+                </div>
+                <button class="btn-primary" onclick="addProduct()">
+                    <i class="ph ph-plus-circle"></i>
+                    Thêm sản phẩm mới
+                </button>
             </div>
 
-            <table style="width: 100%; border-collapse: collapse;">
-                <thead style="background-color: #F8F4ED; color: #5C4033; font-weight: 600; font-size: 13px;">
+            <table>
+                <thead>
                     <tr>
-                        <th style="padding: 12px 16px; text-align: left; border-bottom: 1px solid #EAE3D9; border-top: 1px solid #EAE3D9; border-left: 1px solid #EAE3D9; border-top-left-radius: 8px;">Mã SP</th>
-                        <th style="padding: 12px 16px; text-align: left; border-bottom: 1px solid #EAE3D9; border-top: 1px solid #EAE3D9;">Tên SP</th>
-                        <th style="padding: 12px 16px; text-align: left; border-bottom: 1px solid #EAE3D9; border-top: 1px solid #EAE3D9;">Hình ảnh</th>
-                        <th style="padding: 12px 16px; text-align: left; border-bottom: 1px solid #EAE3D9; border-top: 1px solid #EAE3D9;">Giá tiền</th>
-                        <th style="padding: 12px 16px; text-align: left; border-bottom: 1px solid #EAE3D9; border-top: 1px solid #EAE3D9;">Danh mục</th>
-                        <th style="padding: 12px 16px; text-align: left; border-bottom: 1px solid #EAE3D9; border-top: 1px solid #EAE3D9;">Hãng</th>
-                        <th style="padding: 12px 16px; text-align: left; border-bottom: 1px solid #EAE3D9; border-top: 1px solid #EAE3D9;">Khối lượng</th>
-                        <th style="padding: 12px 16px; text-align: left; border-bottom: 1px solid #EAE3D9; border-top: 1px solid #EAE3D9; border-right: 1px solid #EAE3D9; border-top-right-radius: 8px;">Thao tác</th>
+                        <th style="width: 10%">Mã SP</th>
+                        <th style="width: 15%">Hình ảnh</th>
+                        <th style="width: 30%">Tên sản phẩm</th>
+                        <th style="width: 15%">Giá tiền</th>
+                        <th style="width: 15%">Danh mục</th>
+                        <th style="width: 15%">Thao tác</th>
                     </tr>
                 </thead>
                 <tbody id="productTableBody">
-                    <!-- Render từ JS -->
+                    <!-- Dữ liệu sẽ được render từ JavaScript -->
                 </tbody>
             </table>
         </div>
     </main>
 
+    <!-- File JS riêng cho sản phẩm -->
     <script src="../js/products.js"></script>
 </body>
 

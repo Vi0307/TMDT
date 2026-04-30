@@ -1,31 +1,28 @@
 // Dữ liệu mẫu (Mock data)
 let products = [
     { 
-        id: "LUM92841", 
-        name: "Strawberry Shortcake", 
+        id: "SP001", 
+        name: "Đèn lồng Hội An", 
         image: "https://placehold.co/60x60/F8F4ED/5C4033?text=SP", 
-        price: "850.000đ", 
-        category: "Nến thơm", 
-        brand: "Scandleted", 
-        weight: "200g" 
+        price: "120.000đ", 
+        category: "Thủ công mỹ nghệ", 
+        desc: "Làm thủ công truyền thống" 
     },
     { 
-        id: "LUM85501", 
-        name: "Black Cedarwood", 
+        id: "SP002", 
+        name: "Tượng gỗ Kim Bồng", 
         image: "https://placehold.co/60x60/F8F4ED/5C4033?text=SP", 
-        price: "540.000đ", 
-        category: "Nến thơm", 
-        brand: "Scandleted", 
-        weight: "150g" 
+        price: "350.000đ", 
+        category: "Thủ công mỹ nghệ", 
+        desc: "Chạm khắc tinh xảo" 
     },
     { 
-        id: "LUM81722", 
-        name: "Jo Malone Peony", 
+        id: "SP003", 
+        name: "Cao lầu Hội An", 
         image: "https://placehold.co/60x60/F8F4ED/5C4033?text=SP", 
-        price: "1.250.000đ", 
-        category: "Nến cao cấp", 
-        brand: "Jo Malone", 
-        weight: "300g" 
+        price: "50.000đ", 
+        category: "Đặc sản địa phương", 
+        desc: "Đặc sản nổi tiếng" 
     }
 ];
 
@@ -37,23 +34,25 @@ function renderTable(data) {
     productTableBody.innerHTML = '';
     
     if (data.length === 0) {
-        productTableBody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding: 40px; color:#A0AEC0; font-size: 14px;">Không tìm thấy sản phẩm nào.</td></tr>`;
+        productTableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 40px; color:#A0AEC0; font-size: 15px;">Không tìm thấy sản phẩm nào.</td></tr>`;
         return;
     }
 
     data.forEach(product => {
         const tr = document.createElement('tr');
-        tr.style.borderBottom = "1px solid #EAE3D9";
         
         tr.innerHTML = `
-            <td style="padding: 16px; font-size: 13px; color: #555;">${product.id}</td>
-            <td style="padding: 16px; font-size: 13px; color: #555;">${product.name}</td>
-            <td style="padding: 16px;"><img src="${product.image}" class="product-img" alt="Ảnh SP"></td>
-            <td style="padding: 16px; font-size: 13px; color: #555;">${product.price}</td>
-            <td style="padding: 16px; font-size: 13px; color: #555;">${product.category}</td>
-            <td style="padding: 16px; font-size: 13px; color: #555;">${product.brand}</td>
-            <td style="padding: 16px; font-size: 13px; color: #555;">${product.weight}</td>
-            <td style="padding: 16px;">
+            <td><strong>${product.id}</strong></td>
+            <td><img src="${product.image}" class="product-img" alt="Ảnh SP"></td>
+            <td>
+                <div class="product-info">
+                    <strong>${product.name}</strong>
+                    <span class="product-desc" title="${product.desc}">${product.desc}</span>
+                </div>
+            </td>
+            <td>${product.price}</td>
+            <td>${product.category}</td>
+            <td class="actions">
                 <button class="btn-action btn-edit" onclick="editProduct('${product.id}')" title="Sửa sản phẩm">
                     <i class="ph ph-pencil-simple"></i>
                 </button>
@@ -72,28 +71,26 @@ function getProductFormHtml(product = {}) {
     return `
         <div style="text-align: left; padding: 10px 0;">
             <div style="margin-bottom: 16px;">
-                <label style="display: block; font-size: 14px; font-weight: 600; color: #2D3748; margin-bottom: 8px;">Tên sản phẩm <span style="color:#E53E3E">*</span></label>
-                <input id="swal-prod-name" class="swal2-input" style="width: 100%; margin: 0; font-size: 14px; border-radius: 8px;" placeholder="Ví dụ: Nến thơm Jo Malone" value="${product.name || ''}">
+                <label style="display: block; font-size: 15px; font-weight: 600; color: #2D3748; margin-bottom: 8px;">Tên sản phẩm <span style="color:#E53E3E">*</span></label>
+                <input id="swal-prod-name" class="swal2-input" style="width: 100%; margin: 0; box-sizing: border-box; font-size: 15px; border-radius: 10px;" placeholder="Ví dụ: Đèn lồng Hội An" value="${product.name || ''}">
             </div>
             <div style="display: flex; gap: 16px; margin-bottom: 16px;">
                 <div style="flex: 1;">
-                    <label style="display: block; font-size: 14px; font-weight: 600; color: #2D3748; margin-bottom: 8px;">Giá tiền <span style="color:#E53E3E">*</span></label>
-                    <input id="swal-prod-price" type="text" class="swal2-input" style="width: 100%; margin: 0; font-size: 14px; border-radius: 8px;" placeholder="Vd: 850.000đ" value="${product.price || ''}">
+                    <label style="display: block; font-size: 15px; font-weight: 600; color: #2D3748; margin-bottom: 8px;">Giá tiền <span style="color:#E53E3E">*</span></label>
+                    <input id="swal-prod-price" type="text" class="swal2-input" style="width: 100%; margin: 0; box-sizing: border-box; font-size: 15px; border-radius: 10px;" placeholder="Vd: 120.000đ" value="${product.price || ''}">
                 </div>
                 <div style="flex: 1;">
-                    <label style="display: block; font-size: 14px; font-weight: 600; color: #2D3748; margin-bottom: 8px;">Danh mục</label>
-                    <input id="swal-prod-category" type="text" class="swal2-input" style="width: 100%; margin: 0; font-size: 14px; border-radius: 8px;" placeholder="Vd: Nến thơm" value="${product.category || ''}">
+                    <label style="display: block; font-size: 15px; font-weight: 600; color: #2D3748; margin-bottom: 8px;">Danh mục <span style="color:#E53E3E">*</span></label>
+                    <input id="swal-prod-category" type="text" class="swal2-input" style="width: 100%; margin: 0; box-sizing: border-box; font-size: 15px; border-radius: 10px;" placeholder="Vd: Thủ công mỹ nghệ" value="${product.category || ''}">
                 </div>
             </div>
-            <div style="display: flex; gap: 16px; margin-bottom: 16px;">
-                <div style="flex: 1;">
-                    <label style="display: block; font-size: 14px; font-weight: 600; color: #2D3748; margin-bottom: 8px;">Hãng</label>
-                    <input id="swal-prod-brand" type="text" class="swal2-input" style="width: 100%; margin: 0; font-size: 14px; border-radius: 8px;" placeholder="Vd: Jo Malone" value="${product.brand || ''}">
-                </div>
-                <div style="flex: 1;">
-                    <label style="display: block; font-size: 14px; font-weight: 600; color: #2D3748; margin-bottom: 8px;">Khối lượng</label>
-                    <input id="swal-prod-weight" type="text" class="swal2-input" style="width: 100%; margin: 0; font-size: 14px; border-radius: 8px;" placeholder="Vd: 200g" value="${product.weight || ''}">
-                </div>
+            <div style="margin-bottom: 16px;">
+                <label style="display: block; font-size: 15px; font-weight: 600; color: #2D3748; margin-bottom: 8px;">Mô tả sản phẩm</label>
+                <input id="swal-prod-desc" type="text" class="swal2-input" style="width: 100%; margin: 0; box-sizing: border-box; font-size: 15px; border-radius: 10px;" placeholder="Vd: Làm thủ công truyền thống" value="${product.desc || ''}">
+            </div>
+            <div style="margin-bottom: 8px;">
+                <label style="display: block; font-size: 15px; font-weight: 600; color: #2D3748; margin-bottom: 8px;">Link hình ảnh</label>
+                <input id="swal-prod-image" type="text" class="swal2-input" style="width: 100%; margin: 0; box-sizing: border-box; font-size: 15px; border-radius: 10px;" placeholder="URL hình ảnh" value="${product.image || 'https://placehold.co/60x60/F8F4ED/5C4033?text=SP'}">
             </div>
         </div>
     `;
@@ -104,19 +101,20 @@ function validateProductForm() {
     const name = document.getElementById('swal-prod-name').value.trim();
     const price = document.getElementById('swal-prod-price').value.trim();
     const category = document.getElementById('swal-prod-category').value.trim();
-    const brand = document.getElementById('swal-prod-brand').value.trim();
-    const weight = document.getElementById('swal-prod-weight').value.trim();
+    const desc = document.getElementById('swal-prod-desc').value.trim();
+    const image = document.getElementById('swal-prod-image').value.trim();
     
     if (!name) return Swal.showValidationMessage('Vui lòng nhập tên sản phẩm!');
     if (!price) return Swal.showValidationMessage('Vui lòng nhập giá tiền!');
+    if (!category) return Swal.showValidationMessage('Vui lòng nhập danh mục!');
     
-    return { name, price, category, brand, weight };
+    return { name, price, category, desc, image };
 }
 
 // Hàm thêm sản phẩm mới
 async function addProduct() {
     const { value: formValues } = await Swal.fire({
-        title: 'Thêm sản phẩm',
+        title: 'Thêm sản phẩm mới',
         width: 600,
         html: getProductFormHtml(),
         focusConfirm: false,
@@ -129,22 +127,21 @@ async function addProduct() {
     });
 
     if (formValues) {
-        const newId = 'LUM' + Math.floor(Math.random() * 90000 + 10000);
+        const newId = 'SP' + String(products.length + 1).padStart(3, '0');
         products.unshift({
             id: newId,
             name: formValues.name,
-            image: "https://placehold.co/60x60/F8F4ED/5C4033?text=Mới", // Ảnh mặc định
+            image: formValues.image || "https://placehold.co/60x60/F8F4ED/5C4033?text=Mới",
             price: formValues.price,
             category: formValues.category,
-            brand: formValues.brand,
-            weight: formValues.weight
+            desc: formValues.desc
         });
         
         renderTable(products);
         
         Swal.fire({
             title: 'Thành công!',
-            text: `Đã thêm sản phẩm "${formValues.name}"`,
+            text: `Đã thêm sản phẩm mới thành công.`,
             icon: 'success',
             timer: 1500,
             showConfirmButton: false
@@ -175,8 +172,8 @@ async function editProduct(productId) {
             products[index].name = formValues.name;
             products[index].price = formValues.price;
             products[index].category = formValues.category;
-            products[index].brand = formValues.brand;
-            products[index].weight = formValues.weight;
+            products[index].desc = formValues.desc;
+            products[index].image = formValues.image;
             
             renderTable(products);
             
@@ -197,7 +194,7 @@ function deleteProduct(productId) {
     
     Swal.fire({
         title: 'Xóa sản phẩm?',
-        text: `Bạn có chắc muốn xóa "${product.name}"? Dữ liệu này không thể khôi phục!`,
+        text: `Bạn có chắc muốn xóa sản phẩm này? Dữ liệu này không thể khôi phục!`,
         icon: 'error',
         showCancelButton: true,
         confirmButtonColor: '#E53E3E',
@@ -250,8 +247,8 @@ searchInput.addEventListener('input', function() {
     const filteredProducts = products.filter(p => 
         p.name.toLowerCase().includes(keyword) || 
         p.id.toLowerCase().includes(keyword) ||
-        p.brand.toLowerCase().includes(keyword) ||
-        p.category.toLowerCase().includes(keyword)
+        p.category.toLowerCase().includes(keyword) ||
+        p.desc.toLowerCase().includes(keyword)
     );
     renderTable(filteredProducts);
 });

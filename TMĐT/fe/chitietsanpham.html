@@ -107,23 +107,44 @@
 </head>
 <body class="bg-background text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container">
 <!-- TopNavBar -->
-<header class="bg-[#FAF9F6] dark:bg-stone-900 shadow-sm dark:shadow-none border-b border-[#4A2C2A]/10 sticky top-0 z-50">
-<div class="flex justify-between items-center w-full px-8 py-4 max-w-screen-2xl mx-auto">
-<div class="text-2xl font-bold text-[#4A2C2A] dark:text-stone-100 uppercase tracking-tighter" style="font-family:'Noto Serif',serif;">
-                Hoi An Heritage
-            </div>
-<nav class="hidden md:flex items-center gap-8 text-base tracking-wide" style="font-family:'Noto Serif',serif;">
-<a class="text-[#8B0000] dark:text-red-400 border-b-2 border-[#8B0000] pb-1 font-semibold" href="#">Lồng Đèn</a>
-<a class="text-[#4A2C2A] dark:text-stone-400 hover:text-[#8B0000] transition-colors" href="#">Gốm Sứ</a>
-<a class="text-[#4A2C2A] dark:text-stone-400 hover:text-[#8B0000] transition-colors" href="#">Đồ Gỗ</a>
-<a class="text-[#4A2C2A] dark:text-stone-400 hover:text-[#8B0000] transition-colors" href="#">Lụa Tơ Tằm</a>
-<a class="text-[#4A2C2A] dark:text-stone-400 hover:text-[#8B0000] transition-colors" href="#">Bộ Sưu Tập</a>
 </nav>
-<div class="flex items-center gap-6">
-<button class="material-symbols-outlined text-[#4A2C2A] hover:bg-stone-100 p-2 rounded-full transition-all duration-300">shopping_cart</button>
-<button class="material-symbols-outlined text-[#4A2C2A] hover:bg-stone-100 p-2 rounded-full transition-all duration-300">person</button>
+<div class="flex items-center space-x-4">
+<button class="text-stone-600 hover:bg-stone-100/50 p-2 rounded-full transition-all">
+<span class="material-symbols-outlined">shopping_cart</span>
+</button>
+<div class="relative group">
+<button class="text-stone-600 hover:bg-stone-100/50 p-2 rounded-full transition-all flex items-center">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+<div class="absolute right-0 top-full pt-2 w-48 hidden group-hover:block z-50">
+<div class="bg-white dark:bg-stone-900 rounded-md shadow-lg py-1 border border-stone-200 dark:border-stone-800">
+<div id="guest-menu">
+<a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="dangnhap.html">Đăng nhập</a>
+<a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="dangky.html">Đăng ký</a>
+</div>
+<div class="hidden" id="user-menu">
+<a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="taikhoan.html">Thông tin tài khoản</a>
+<a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="#">Đăng xuất</a>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const currentPath = window.location.pathname.split('/').pop();
+    const navLinks = document.querySelectorAll('#main-nav .nav-link');
+    navLinks.forEach(link => {
+        const linkPath = link.getAttribute('href');
+        if (linkPath === currentPath || (currentPath === '' && linkPath === 'trangchu.html')) {
+            link.className = 'nav-link text-red-800 dark:text-red-400 font-bold border-b-2 border-red-800 dark:border-red-400 pb-1';
+        } else {
+            link.className = 'nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300';
+        }
+    });
+});
+</script>
 </header>
 <main class="max-w-screen-2xl mx-auto px-8 py-12">
 <!-- Product Detail Section -->

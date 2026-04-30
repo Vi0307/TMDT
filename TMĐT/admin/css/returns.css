@@ -1,0 +1,82 @@
+/* Các CSS đặc thù riêng cho trang Xác nhận hoàn hàng */
+
+.action-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.search-bar {
+    margin-bottom: 0 !important;
+}
+
+.status-filter {
+    padding: 12px 16px;
+    border: 2px solid #EDF2F7;
+    border-radius: 12px;
+    font-size: 14px;
+    color: #4A5568;
+    outline: none;
+    background-color: #F7FAFC;
+    cursor: pointer;
+    font-family: 'Outfit', sans-serif;
+    min-width: 180px;
+    transition: all 0.3s ease;
+}
+
+.status-filter:focus {
+    border-color: #5C4033;
+    background-color: #FFFFFF;
+}
+
+/* Custom Alert Styling for Return Request Detail */
+.return-detail-box {
+    background: #F7FAFC;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #EDF2F7;
+    text-align: left;
+}
+
+.return-detail-box p {
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.return-detail-box p strong {
+    color: #2D3748;
+}
+
+.proof-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #EDF2F7;
+    margin-top: 10px;
+}
+
+.btn-approve {
+    color: #38A169;
+}
+.btn-approve:hover {
+    border-color: #38A169;
+    background: #F0FFF4;
+}
+
+.btn-reject {
+    color: #E53E3E;
+}
+.btn-reject:hover {
+    border-color: #E53E3E;
+    background: #FFF5F5;
+}
+
+.btn-view {
+    color: #3182CE;
+}
+.btn-view:hover {
+    border-color: #3182CE;
+    background: #EBF8FF;
+}
