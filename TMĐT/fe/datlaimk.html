@@ -1,198 +1,271 @@
 <!DOCTYPE html>
-
-<html class="light" lang="vi"><head>
+<html lang="vi">
+<head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;500;600;700&amp;family=Be+Vietnam+Pro:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<title>Đặt Lại Mật Khẩu – Hội An Tinh Hoa</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        .silk-texture {
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M54.627 0l.83.828-1.415 1.415L51.8 0h2.827zM5.373 0l-.83.828L5.96 2.243 8.2 0H5.374zM48.97 0l3.657 3.657-1.414 1.414L46.143 0h2.828zM11.03 0L7.372 3.657 8.787 5.07 13.857 0H11.03zm32.284 0L49.858 6.544 48.444 7.96 40.485 0h2.829zM16.686 0L10.142 6.544 11.556 7.96 19.515 0h-2.83zM37.657 0l8.284 8.284-1.414 1.414L34.828 0h2.83zM22.343 0l-8.284 8.284 1.414 1.414L25.172 0h-2.83zM32 0l10 10-1.414 1.414L29.172 0H32zM28 0l-10 10 1.414 1.414L30.828 0H28z' fill='%234A2C2A' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
-        }
-    </style>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-surface": "#1b1c19",
-                        "inverse-primary": "#ffba47",
-                        "secondary-fixed-dim": "#ffb4ac",
-                        "on-secondary-fixed-variant": "#92030f",
-                        "surface-tint": "#805600",
-                        "tertiary-container": "#cfa3a0",
-                        "surface": "#fbf9f4",
-                        "secondary": "#b52424",
-                        "on-secondary-fixed": "#410003",
-                        "surface-container-high": "#eae8e3",
-                        "primary-fixed-dim": "#ffba47",
-                        "on-primary-fixed": "#281800",
-                        "on-tertiary-fixed-variant": "#5f3e3c",
-                        "tertiary-fixed": "#ffdad7",
-                        "surface-variant": "#e4e2dd",
-                        "on-error-container": "#93000a",
-                        "surface-dim": "#dbdad5",
-                        "secondary-container": "#ff5a52",
-                        "surface-container-low": "#f5f3ee",
-                        "primary-fixed": "#ffddb0",
-                        "secondary-fixed": "#ffdad6",
-                        "on-error": "#ffffff",
-                        "on-secondary": "#ffffff",
-                        "primary": "#805600",
-                        "error": "#ba1a1a",
-                        "outline-variant": "#d6c4ae",
-                        "on-surface-variant": "#514534",
-                        "outline": "#837562",
-                        "surface-container-lowest": "#ffffff",
-                        "on-tertiary-container": "#593937",
-                        "inverse-on-surface": "#f2f1ec",
-                        "error-container": "#ffdad6",
-                        "on-background": "#1b1c19",
-                        "tertiary-fixed-dim": "#eabcb8",
-                        "on-secondary-container": "#600006",
-                        "background": "#fbf9f4",
-                        "tertiary": "#795553",
-                        "surface-bright": "#fbf9f4",
-                        "on-tertiary": "#ffffff",
-                        "surface-container": "#f0eee9",
-                        "primary-container": "#e5a022",
-                        "on-primary-container": "#5a3b00",
-                        "on-primary": "#ffffff",
-                        "on-tertiary-fixed": "#2e1413",
-                        "on-primary-fixed-variant": "#614000",
-                        "surface-container-highest": "#e4e2dd",
-                        "inverse-surface": "#30312e"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.125rem",
-                        "lg": "0.25rem",
-                        "xl": "0.5rem",
-                        "full": "0.75rem"
-                    },
-                    "spacing": {
-                        "margin-mobile": "20px",
-                        "stack-sm": "8px",
-                        "stack-md": "16px",
-                        "gutter": "16px",
-                        "stack-lg": "32px",
-                        "section-gap": "48px",
-                        "base": "4px"
-                    },
-                    "fontFamily": {
-                        "label-caps": ["Be Vietnam Pro"],
-                        "body-md": ["Be Vietnam Pro"],
-                        "title-sm": ["Noto Serif"],
-                        "body-lg": ["Be Vietnam Pro"],
-                        "headline-md": ["Noto Serif"],
-                        "display-lg": ["Noto Serif"]
-                    },
-                    "fontSize": {
-                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
-                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
-                        "title-sm": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
-                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
-                        "display-lg": ["34px", {"lineHeight": "42px", "letterSpacing": "-0.02em", "fontWeight": "600"}]
-                    }
-                },
-            },
-        }
-    </script>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Be Vietnam Pro', sans-serif; min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  background-color: #fbf9f4;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5L35 15L45 15L37 22L40 32L30 26L20 32L23 22L15 15L25 15Z' fill='%23e5a022' fill-opacity='0.05'/%3E%3C/svg%3E");
+  padding: 24px;
+}
+.material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; line-height:1; user-select:none; }
+
+.blob1 { position:fixed; top:-80px; left:-80px; width:320px; height:320px; background:rgba(229,160,34,0.08); border-radius:50%; filter:blur(60px); pointer-events:none; }
+.blob2 { position:fixed; bottom:-80px; right:-80px; width:400px; height:400px; background:rgba(181,36,36,0.05); border-radius:50%; filter:blur(80px); pointer-events:none; }
+
+.card { width:100%; max-width:400px; background:#fff; border-radius:2px; box-shadow:0 20px 60px rgba(74,44,42,0.12),0 4px 16px rgba(74,44,42,0.07); overflow:hidden; }
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.card { animation:fadeUp 0.45s ease both; }
+
+/* HEADER */
+.card-header { background:linear-gradient(135deg,#281800 0%,#805600 100%); padding:30px 32px 24px; text-align:center; position:relative; overflow:hidden; }
+.card-header::before { content:''; position:absolute; inset:0; background-image:url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 3L23 10L30 10L24.5 14.5L26.5 21.5L20 17L13.5 21.5L15.5 14.5L10 10L17 10Z' fill='%23ffffff' fill-opacity='0.04'/%3E%3C/svg%3E"); }
+.hdr-icon { width:52px; height:52px; background:rgba(229,160,34,0.15); border-radius:50%; display:inline-flex; align-items:center; justify-content:center; margin-bottom:12px; border:1px solid rgba(229,160,34,0.3); position:relative; }
+.card-header h1 { font-family:'Noto Serif',serif; font-size:20px; font-weight:700; color:#fff; position:relative; margin-bottom:4px; }
+.card-header p { font-size:10px; letter-spacing:0.15em; color:rgba(229,160,34,0.85); text-transform:uppercase; position:relative; }
+
+/* STEPS */
+.steps { display:flex; align-items:center; justify-content:center; gap:0; padding:16px 32px; background:#faf8f3; border-bottom:1px solid #ede6db; }
+.step { display:flex; flex-direction:column; align-items:center; gap:4px; flex:1; }
+.step-dot { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; border:2px solid #d6c4ae; color:#a89580; background:#fff; }
+.step-dot.active { border-color:#805600; color:#805600; background:rgba(128,86,0,0.06); }
+.step-dot.done { border-color:#805600; color:#fff; background:#805600; }
+.step-label { font-size:9px; letter-spacing:0.08em; color:#a89580; text-transform:uppercase; white-space:nowrap; }
+.step-label.active { color:#805600; font-weight:600; }
+.step-line { flex:0 0 28px; height:1px; background:#d6c4ae; margin-top:-10px; }
+.step-line.done { background:#805600; }
+
+/* FORM */
+.form-body { padding:28px 32px 24px; }
+.desc { font-size:13px; color:#514534; line-height:1.6; margin-bottom:24px; text-align:center; }
+.field { margin-bottom:16px; }
+.field label { display:block; font-size:10px; font-weight:600; letter-spacing:0.12em; color:#514534; text-transform:uppercase; margin-bottom:6px; }
+.input-box { display:flex; align-items:center; border:1px solid #d6c4ae; border-radius:2px; background:#faf8f3; transition:border-color 0.25s,box-shadow 0.25s,background 0.25s; }
+.input-box:focus-within { border-color:#805600; background:#fff; box-shadow:0 0 0 3px rgba(128,86,0,0.08); }
+.input-box .ico { padding:0 10px 0 12px; color:#9e8872; flex-shrink:0; display:flex; align-items:center; transition:color 0.25s; font-size:20px; }
+.input-box:focus-within .ico { color:#805600; }
+.input-box input { flex:1; border:none; outline:none; background:transparent; padding:12px 10px 12px 0; font-family:'Be Vietnam Pro',sans-serif; font-size:14px; color:#1b1c19; }
+.input-box input::placeholder { color:#a89580; }
+.input-box .tog-btn { padding:0 12px 0 6px; background:none; border:none; cursor:pointer; color:#9e8872; display:flex; align-items:center; transition:color 0.2s; flex-shrink:0; }
+.input-box .tog-btn:hover { color:#805600; }
+
+/* STRENGTH */
+.strength-bar { display:flex; gap:4px; margin-top:6px; }
+.bar-seg { flex:1; height:3px; border-radius:2px; background:#e8e0d4; transition:background 0.3s; }
+.bar-seg.weak { background:#ba1a1a; }
+.bar-seg.fair { background:#e5a022; }
+.bar-seg.good { background:#3d8c40; }
+.strength-label { font-size:10px; color:#837562; margin-top:3px; }
+
+/* MATCH HINT */
+.match-hint { font-size:11px; margin-top:5px; display:flex; align-items:center; gap:4px; }
+.match-hint.ok { color:#3d8c40; }
+.match-hint.err { color:#ba1a1a; }
+
+/* RULES */
+.rules { background:#faf8f3; border:1px solid #ede6db; border-radius:2px; padding:12px 14px; margin-bottom:18px; }
+.rules p { font-size:10px; font-weight:600; letter-spacing:0.08em; color:#514534; text-transform:uppercase; margin-bottom:8px; }
+.rule { display:flex; align-items:center; gap:7px; font-size:12px; color:#837562; margin-bottom:4px; }
+.rule .material-symbols-outlined { font-size:14px; color:#d6c4ae; }
+.rule.ok .material-symbols-outlined { color:#3d8c40; }
+.rule.ok { color:#514534; }
+
+/* BUTTON */
+.btn-main { width:100%; padding:14px; background:linear-gradient(135deg,#b52424,#8a1a1a); color:#fff; font-family:'Be Vietnam Pro',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; border:none; border-radius:2px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 16px rgba(181,36,36,0.35); transition:all 0.3s; position:relative; overflow:hidden; }
+.btn-main::before { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent); transition:left 0.5s; }
+.btn-main:hover::before { left:100%; }
+.btn-main:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(181,36,36,0.45); }
+
+/* SUCCESS OVERLAY */
+.success-overlay { display:none; position:fixed; inset:0; background:rgba(251,249,244,0.97); z-index:100; align-items:center; justify-content:center; flex-direction:column; gap:16px; text-align:center; padding:24px; }
+.success-overlay.show { display:flex; }
+.success-circle { width:72px; height:72px; border-radius:50%; background:linear-gradient(135deg,#3d8c40,#2d6b30); display:flex; align-items:center; justify-content:center; box-shadow:0 8px 24px rgba(61,140,64,0.35); animation:popIn 0.5s cubic-bezier(0.175,0.885,0.32,1.275) both; }
+@keyframes popIn { from{transform:scale(0);opacity:0;} to{transform:scale(1);opacity:1;} }
+.success-title { font-family:'Noto Serif',serif; font-size:22px; font-weight:700; color:#1b1c19; }
+.success-sub { font-size:13px; color:#514534; line-height:1.6; max-width:280px; }
+.btn-login { display:inline-flex; align-items:center; gap:8px; padding:13px 28px; background:linear-gradient(135deg,#b52424,#8a1a1a); color:#fff; font-family:'Be Vietnam Pro',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; border:none; border-radius:2px; cursor:pointer; text-decoration:none; box-shadow:0 4px 16px rgba(181,36,36,0.35); transition:all 0.3s; margin-top:8px; }
+.btn-login:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(181,36,36,0.45); }
+
+.back-row { text-align:center; margin-top:16px; }
+.back-link { display:inline-flex; align-items:center; gap:5px; color:#837562; font-size:12px; text-decoration:none; transition:color 0.2s; }
+.back-link:hover { color:#805600; }
+.card-foot { background:#faf8f3; border-top:1px solid #ede6db; padding:14px 32px; text-align:center; }
+.card-foot p { font-family:'Noto Serif',serif; font-style:italic; font-size:12px; color:#837562; }
+</style>
 </head>
-<body class="bg-surface font-body-md text-on-surface silk-texture min-h-screen flex flex-col">
-<!-- TopAppBar -->
-<header class="bg-[#FAF9F6] dark:bg-stone-900 border-b border-[#4A2C2A]/10 dark:border-stone-700 shadow-[0_2px_15px_-3px_rgba(74,44,42,0.08)] sticky top-0 z-50">
-<div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
-<div class="font-['Noto_Serif'] antialiased text-2xl font-serif tracking-tight text-[#4A2C2A] dark:text-[#E5A022]">
-                HoiAn Heritage
-            </div>
-<div class="flex gap-4">
-<button class="text-[#4A2C2A] dark:text-[#E5A022] hover:text-[#D2312E] transition-colors duration-300">
-<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
-</button>
-<button class="text-[#4A2C2A] dark:text-[#E5A022] hover:text-[#D2312E] transition-colors duration-300">
-<span class="material-symbols-outlined" data-icon="person">person</span>
-</button>
+<body>
+<div class="blob1"></div>
+<div class="blob2"></div>
+
+<!-- SUCCESS OVERLAY -->
+<div class="success-overlay" id="success">
+  <div class="success-circle">
+    <span class="material-symbols-outlined" style="color:#fff;font-size:36px;font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+  </div>
+  <div class="success-title">Đặt lại thành công!</div>
+  <p class="success-sub">Mật khẩu của bạn đã được cập nhật. Hãy đăng nhập để tiếp tục hành trình.</p>
+  <a class="btn-login" href="dangnhap.html">
+    <span class="material-symbols-outlined" style="font-size:18px;">login</span>
+    Đăng Nhập Ngay
+  </a>
 </div>
+
+<div class="card">
+  <div class="card-header">
+    <div class="hdr-icon">
+      <span class="material-symbols-outlined" style="color:#ffba47;font-size:26px;position:relative;">lock_reset</span>
+    </div>
+    <h1>Mật Khẩu Mới</h1>
+    <p>Đặt lại mật khẩu tài khoản</p>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-dot done">
+        <span class="material-symbols-outlined" style="font-size:14px;color:#fff;">check</span>
+      </div>
+      <span class="step-label">Email</span>
+    </div>
+    <div class="step-line done"></div>
+    <div class="step">
+      <div class="step-dot done">
+        <span class="material-symbols-outlined" style="font-size:14px;color:#fff;">check</span>
+      </div>
+      <span class="step-label">Mã OTP</span>
+    </div>
+    <div class="step-line done"></div>
+    <div class="step">
+      <div class="step-dot active">3</div>
+      <span class="step-label active">Mật khẩu mới</span>
+    </div>
+  </div>
+
+  <div class="form-body">
+    <p class="desc">Tạo mật khẩu mới mạnh mẽ để bảo vệ tài khoản của bạn.</p>
+
+    <!-- Rules -->
+    <div class="rules">
+      <p>Yêu cầu mật khẩu</p>
+      <div class="rule" id="r-len"><span class="material-symbols-outlined">radio_button_unchecked</span>Ít nhất 8 ký tự</div>
+      <div class="rule" id="r-up"><span class="material-symbols-outlined">radio_button_unchecked</span>Có chữ hoa (A–Z)</div>
+      <div class="rule" id="r-num"><span class="material-symbols-outlined">radio_button_unchecked</span>Có chữ số (0–9)</div>
+      <div class="rule" id="r-sym"><span class="material-symbols-outlined">radio_button_unchecked</span>Có ký tự đặc biệt (!@#...)</div>
+    </div>
+
+    <form onsubmit="doReset(event)">
+      <!-- New Password -->
+      <div class="field">
+        <label for="pw">Mật khẩu mới</label>
+        <div class="input-box">
+          <span class="ico material-symbols-outlined">lock</span>
+          <input id="pw" type="password" placeholder="Tối thiểu 8 ký tự" oninput="checkPw(this.value)" autocomplete="new-password"/>
+          <button class="tog-btn" type="button" onclick="togglePw('pw',this)">
+            <span class="material-symbols-outlined" style="font-size:20px;">visibility</span>
+          </button>
+        </div>
+        <div class="strength-bar">
+          <div class="bar-seg" id="s1"></div>
+          <div class="bar-seg" id="s2"></div>
+          <div class="bar-seg" id="s3"></div>
+          <div class="bar-seg" id="s4"></div>
+        </div>
+        <div class="strength-label" id="sl"></div>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="field">
+        <label for="pw2">Xác nhận mật khẩu</label>
+        <div class="input-box">
+          <span class="ico material-symbols-outlined">lock_reset</span>
+          <input id="pw2" type="password" placeholder="Nhập lại mật khẩu" oninput="checkMatch()" autocomplete="new-password"/>
+          <button class="tog-btn" type="button" onclick="togglePw('pw2',this)">
+            <span class="material-symbols-outlined" style="font-size:20px;">visibility</span>
+          </button>
+        </div>
+        <div class="match-hint" id="match-hint"></div>
+      </div>
+
+      <button class="btn-main" type="submit">
+        Cập Nhật Mật Khẩu
+        <span class="material-symbols-outlined" style="font-size:18px;">check</span>
+      </button>
+    </form>
+
+    <div class="back-row">
+      <a class="back-link" href="dangnhap.html">
+        <span class="material-symbols-outlined" style="font-size:16px;">arrow_back</span>
+        Quay lại đăng nhập
+      </a>
+    </div>
+  </div>
+
+  <div class="card-foot">
+    <p>"Sức mạnh thật sự bắt đầu từ sự bảo vệ vững chắc."</p>
+  </div>
 </div>
-</header>
-<main class="flex-grow flex items-center justify-center px-margin-mobile py-section-gap">
-<div class="w-full max-w-md">
-<!-- Reset Password Card -->
-<div class="bg-surface-container-lowest rounded-lg shadow-[0_2px_15px_-3px_rgba(74,44,42,0.08)] overflow-hidden relative border border-outline-variant/30">
-<!-- Decorative Lantern Pattern Header -->
-<div class="h-2 bg-secondary"></div>
-<div class="p-stack-lg flex flex-col gap-stack-lg">
-<div class="text-center">
-<h1 class="font-headline-md text-headline-md text-on-surface mb-stack-sm">Đặt lại mật khẩu</h1>
-<p class="font-body-md text-body-md text-on-surface-variant">Vui lòng nhập mật khẩu mới cho tài khoản của bạn</p>
-</div>
-<form class="flex flex-col gap-stack-md">
-<div class="flex flex-col gap-base">
-<label class="font-label-caps text-label-caps text-on-surface-variant uppercase" for="new_password">Mật khẩu mới</label>
-<div class="relative">
-<input class="w-full bg-transparent border-b border-outline py-stack-sm focus:border-secondary focus:ring-0 transition-colors font-body-lg text-body-lg outline-none placeholder:text-outline-variant" id="new_password" name="new_password" placeholder="••••••••" type="password"/>
-<button class="absolute right-0 bottom-stack-sm text-outline hover:text-secondary transition-colors" type="button">
-<span class="material-symbols-outlined text-[20px]" data-icon="visibility">visibility</span>
-</button>
-</div>
-</div>
-<div class="flex flex-col gap-base">
-<label class="font-label-caps text-label-caps text-on-surface-variant uppercase" for="confirm_password">Xác nhận mật khẩu mới</label>
-<div class="relative">
-<input class="w-full bg-transparent border-b border-outline py-stack-sm focus:border-secondary focus:ring-0 transition-colors font-body-lg text-body-lg outline-none placeholder:text-outline-variant" id="confirm_password" name="confirm_password" placeholder="••••••••" type="password"/>
-<button class="absolute right-0 bottom-stack-sm text-outline hover:text-secondary transition-colors" type="button">
-<span class="material-symbols-outlined text-[20px]" data-icon="visibility">visibility</span>
-</button>
-</div>
-</div>
-<div class="mt-stack-md">
-<button class="w-full bg-secondary text-on-secondary py-4 px-6 rounded-lg font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 active:scale-[0.98] transition-all shadow-md" type="submit">
-                                Cập nhật mật khẩu
-                            </button>
-</div>
-</form>
-<div class="text-center">
-<a class="font-body-md text-body-md text-primary hover:text-secondary underline underline-offset-4 decoration-primary/30 transition-colors" href="#">
-                            Quay lại đăng nhập
-                        </a>
-</div>
-</div>
-<!-- Subtle Decorative Element -->
-<div class="absolute -bottom-8 -right-8 opacity-5">
-<span class="material-symbols-outlined text-[120px]" data-icon="temp_preferences_custom">temp_preferences_custom</span>
-</div>
-</div>
-<!-- Brand Illustration Card -->
-<div class="mt-stack-lg rounded-lg overflow-hidden h-48 relative group">
-<img alt="Hoi An Ancient Town" class="w-full h-full object-cover grayscale-[20%] group-hover:scale-105 transition-transform duration-700" data-alt="Dreamy sunset view of Hoi An ancient town river with colorful lanterns reflecting in the water and traditional wooden boats" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDr0DtLJWuDwJnJXEtEKK0pZcnDqCkxCVgNqITg4R0VonSWGVMv6ozxKVcvQA6mjuoX3vXotQaSUi5oIECZUIVEPeYKRMHA6DxYKv0sr2_qsJ-4im4x2UEdow1xcnBfhVqArDK-_TMdOZCRvk5UKtxMicmMYpCBfub9yar6B2H5spXch9Yl5PrrgvvylRrw8TwI3Q__Fh2a7BKlYy0MI1nt7Cp2c88jvhXztU6HU95p3PoSZIc91cu2dMwH4Zf6n3tDM6XFr9PEik0"/>
-<div class="absolute inset-0 bg-gradient-to-t from-on-surface/60 to-transparent flex items-end p-stack-md">
-<p class="font-title-sm text-surface italic opacity-90">"Lưu giữ vẻ đẹp thời gian trong từng nếp lụa."</p>
-</div>
-</div>
-</div>
-</main>
-<!-- Footer -->
-<footer class="bg-[#F2EDE4] dark:bg-stone-950 border-t border-[#4A2C2A]/5 mt-auto">
-<div class="flex flex-col md:flex-row justify-between items-center px-8 py-12 gap-6 w-full max-w-7xl mx-auto font-['Be_Vietnam_Pro'] text-sm tracking-wide text-[#4A2C2A] dark:text-stone-300">
-<div class="font-serif italic text-lg text-[#4A2C2A] dark:text-[#E5A022]">
-                Hoi An Heritage
-            </div>
-<div class="flex gap-8">
-<a class="text-[#4A2C2A]/70 dark:text-stone-500 hover:text-[#4A2C2A] dark:hover:text-white transition-all" href="#">Sustainability</a>
-<a class="text-[#4A2C2A]/70 dark:text-stone-500 hover:text-[#4A2C2A] dark:hover:text-white transition-all" href="#">Artisans</a>
-<a class="text-[#4A2C2A]/70 dark:text-stone-500 hover:text-[#4A2C2A] dark:hover:text-white transition-all" href="#">Shipping</a>
-<a class="text-[#4A2C2A]/70 dark:text-stone-500 hover:text-[#4A2C2A] dark:hover:text-white transition-all" href="#">Privacy</a>
-</div>
-<div class="text-[#4A2C2A]/60 dark:text-stone-500">
-                © 2024 Hoi An Heritage. Crafted with Silk &amp; Soul.
-            </div>
-</div>
-</footer>
-</body></html>
+
+<script>
+function togglePw(id, btn) {
+  const inp = document.getElementById(id);
+  const ic = btn.querySelector('.material-symbols-outlined');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+  ic.textContent = inp.type === 'password' ? 'visibility' : 'visibility_off';
+}
+
+function setRule(id, ok) {
+  const el = document.getElementById(id);
+  const ico = el.querySelector('.material-symbols-outlined');
+  if (ok) { el.classList.add('ok'); ico.textContent = 'check_circle'; }
+  else { el.classList.remove('ok'); ico.textContent = 'radio_button_unchecked'; }
+}
+
+function checkPw(val) {
+  const rLen = val.length >= 8;
+  const rUp = /[A-Z]/.test(val);
+  const rNum = /[0-9]/.test(val);
+  const rSym = /[^A-Za-z0-9]/.test(val);
+  setRule('r-len', rLen); setRule('r-up', rUp); setRule('r-num', rNum); setRule('r-sym', rSym);
+  let score = [rLen, rUp, rNum, rSym].filter(Boolean).length;
+  const segs = ['s1','s2','s3','s4'].map(i => document.getElementById(i));
+  segs.forEach(s => { s.className = 'bar-seg'; });
+  const cls = score <= 1 ? 'weak' : score === 2 ? 'fair' : 'good';
+  const lbl = ['','Yếu','Trung bình','Khá','Mạnh'][score] || '';
+  for (let i = 0; i < score; i++) segs[i].classList.add(cls);
+  const sl = document.getElementById('sl');
+  sl.textContent = lbl;
+  sl.style.color = cls === 'weak' ? '#ba1a1a' : cls === 'fair' ? '#805600' : '#3d8c40';
+  checkMatch();
+}
+
+function checkMatch() {
+  const pw = document.getElementById('pw').value;
+  const pw2 = document.getElementById('pw2').value;
+  const hint = document.getElementById('match-hint');
+  if (!pw2) { hint.textContent=''; hint.className='match-hint'; return; }
+  if (pw === pw2) {
+    hint.innerHTML = '<span class="material-symbols-outlined" style="font-size:14px;">check_circle</span> Mật khẩu khớp nhau';
+    hint.className = 'match-hint ok';
+  } else {
+    hint.innerHTML = '<span class="material-symbols-outlined" style="font-size:14px;">cancel</span> Mật khẩu chưa khớp';
+    hint.className = 'match-hint err';
+  }
+}
+
+function doReset(e) {
+  e.preventDefault();
+  const pw = document.getElementById('pw').value;
+  const pw2 = document.getElementById('pw2').value;
+  if (pw.length < 8) return;
+  if (pw !== pw2) return;
+  document.getElementById('success').classList.add('show');
+}
+</script>
+</body>
+</html>

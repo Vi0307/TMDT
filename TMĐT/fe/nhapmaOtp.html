@@ -1,199 +1,220 @@
 <!DOCTYPE html>
-
-<html class="light" lang="vi"><head>
+<html lang="vi">
+<head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;500;600;700&amp;family=Be+Vietnam+Pro:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            "colors": {
-                    "on-surface": "#1b1c19",
-                    "inverse-primary": "#ffba47",
-                    "secondary-fixed-dim": "#ffb4ac",
-                    "on-secondary-fixed-variant": "#92030f",
-                    "surface-tint": "#805600",
-                    "tertiary-container": "#cfa3a0",
-                    "surface": "#fbf9f4",
-                    "secondary": "#b52424",
-                    "on-secondary-fixed": "#410003",
-                    "surface-container-high": "#eae8e3",
-                    "primary-fixed-dim": "#ffba47",
-                    "on-primary-fixed": "#281800",
-                    "on-tertiary-fixed-variant": "#5f3e3c",
-                    "tertiary-fixed": "#ffdad7",
-                    "surface-variant": "#e4e2dd",
-                    "on-error-container": "#93000a",
-                    "surface-dim": "#dbdad5",
-                    "secondary-container": "#ff5a52",
-                    "surface-container-low": "#f5f3ee",
-                    "primary-fixed": "#ffddb0",
-                    "secondary-fixed": "#ffdad6",
-                    "on-error": "#ffffff",
-                    "on-secondary": "#ffffff",
-                    "primary": "#805600",
-                    "error": "#ba1a1a",
-                    "outline-variant": "#d6c4ae",
-                    "on-surface-variant": "#514534",
-                    "outline": "#837562",
-                    "surface-container-lowest": "#ffffff",
-                    "on-tertiary-container": "#593937",
-                    "inverse-on-surface": "#f2f1ec",
-                    "error-container": "#ffdad6",
-                    "on-background": "#1b1c19",
-                    "tertiary-fixed-dim": "#eabcb8",
-                    "on-secondary-container": "#600006",
-                    "background": "#fbf9f4",
-                    "tertiary": "#795553",
-                    "surface-bright": "#fbf9f4",
-                    "on-tertiary": "#ffffff",
-                    "surface-container": "#f0eee9",
-                    "primary-container": "#e5a022",
-                    "on-primary-container": "#5a3b00",
-                    "on-primary": "#ffffff",
-                    "on-tertiary-fixed": "#2e1413",
-                    "on-primary-fixed-variant": "#614000",
-                    "surface-container-highest": "#e4e2dd",
-                    "inverse-surface": "#30312e"
-            },
-            "borderRadius": {
-                    "DEFAULT": "0.125rem",
-                    "lg": "0.25rem",
-                    "xl": "0.5rem",
-                    "full": "0.75rem"
-            },
-            "spacing": {
-                    "margin-mobile": "20px",
-                    "stack-sm": "8px",
-                    "stack-md": "16px",
-                    "gutter": "16px",
-                    "stack-lg": "32px",
-                    "section-gap": "48px",
-                    "base": "4px"
-            },
-            "fontFamily": {
-                    "label-caps": ["Be Vietnam Pro"],
-                    "body-md": ["Be Vietnam Pro"],
-                    "title-sm": ["Noto Serif"],
-                    "body-lg": ["Be Vietnam Pro"],
-                    "headline-md": ["Noto Serif"],
-                    "display-lg": ["Noto Serif"]
-            },
-            "fontSize": {
-                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
-                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
-                    "title-sm": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
-                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
-                    "display-lg": ["34px", {"lineHeight": "42px", "letterSpacing": "-0.02em", "fontWeight": "600"}]
-            }
-          },
-        },
-      }
-    </script>
+<title>Xác Thực OTP – Hội An Tinh Hoa</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        .silk-texture {
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 86c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm76-78c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm-3 91c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zM7 39c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm31-34c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1z' fill='%234a2c2a' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
-        }
-    </style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Be Vietnam Pro', sans-serif; min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  background-color: #fbf9f4;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5L35 15L45 15L37 22L40 32L30 26L20 32L23 22L15 15L25 15Z' fill='%23e5a022' fill-opacity='0.05'/%3E%3C/svg%3E");
+  padding: 24px;
+}
+.material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; line-height:1; user-select:none; }
+
+.blob1 { position:fixed; top:-80px; left:-80px; width:320px; height:320px; background:rgba(229,160,34,0.08); border-radius:50%; filter:blur(60px); pointer-events:none; }
+.blob2 { position:fixed; bottom:-80px; right:-80px; width:400px; height:400px; background:rgba(181,36,36,0.05); border-radius:50%; filter:blur(80px); pointer-events:none; }
+
+.card { width:100%; max-width:400px; background:#fff; border-radius:2px; box-shadow:0 20px 60px rgba(74,44,42,0.12),0 4px 16px rgba(74,44,42,0.07); overflow:hidden; }
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.card { animation:fadeUp 0.45s ease both; }
+
+/* HEADER */
+.card-header { background:linear-gradient(135deg,#281800 0%,#805600 100%); padding:30px 32px 24px; text-align:center; position:relative; overflow:hidden; }
+.card-header::before { content:''; position:absolute; inset:0; background-image:url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 3L23 10L30 10L24.5 14.5L26.5 21.5L20 17L13.5 21.5L15.5 14.5L10 10L17 10Z' fill='%23ffffff' fill-opacity='0.04'/%3E%3C/svg%3E"); }
+.hdr-icon { width:52px; height:52px; background:rgba(229,160,34,0.15); border-radius:50%; display:inline-flex; align-items:center; justify-content:center; margin-bottom:12px; border:1px solid rgba(229,160,34,0.3); position:relative; }
+.card-header h1 { font-family:'Noto Serif',serif; font-size:20px; font-weight:700; color:#fff; position:relative; margin-bottom:4px; }
+.card-header p { font-size:10px; letter-spacing:0.15em; color:rgba(229,160,34,0.85); text-transform:uppercase; position:relative; }
+
+/* STEPS */
+.steps { display:flex; align-items:center; justify-content:center; gap:0; padding:16px 32px; background:#faf8f3; border-bottom:1px solid #ede6db; }
+.step { display:flex; flex-direction:column; align-items:center; gap:4px; flex:1; }
+.step-dot { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; border:2px solid #d6c4ae; color:#a89580; background:#fff; transition:all 0.3s; }
+.step-dot.active { border-color:#805600; color:#805600; background:rgba(128,86,0,0.06); }
+.step-dot.done { border-color:#805600; color:#fff; background:#805600; }
+.step-label { font-size:9px; letter-spacing:0.08em; color:#a89580; text-transform:uppercase; white-space:nowrap; }
+.step-label.active { color:#805600; font-weight:600; }
+.step-line { flex:0 0 28px; height:1px; background:#d6c4ae; margin-top:-10px; }
+.step-line.done { background:#805600; }
+
+/* FORM BODY */
+.form-body { padding:28px 32px 24px; text-align:center; }
+.desc { font-size:13px; color:#514534; line-height:1.6; margin-bottom:6px; }
+.email-badge { display:inline-block; background:#faf8f3; border:1px solid #d6c4ae; border-radius:2px; padding:6px 14px; font-size:13px; font-weight:600; color:#805600; margin-bottom:24px; }
+
+/* OTP INPUTS */
+.otp-row { display:flex; justify-content:center; gap:10px; margin-bottom:8px; }
+.otp-input {
+  width:48px; height:56px;
+  text-align:center; font-size:22px; font-weight:600;
+  font-family:'Noto Serif',serif; color:#1b1c19;
+  border:2px solid #d6c4ae; border-radius:2px; background:#faf8f3;
+  outline:none; transition:all 0.2s;
+  caret-color:#805600;
+}
+.otp-input:focus { border-color:#805600; background:#fff; box-shadow:0 0 0 3px rgba(128,86,0,0.08); }
+.otp-input.filled { border-color:#805600; background:#fff; }
+
+/* TIMER */
+.timer-row { display:flex; align-items:center; justify-content:center; gap:6px; margin-bottom:22px; font-size:12px; color:#837562; }
+.timer-num { font-weight:700; color:#805600; min-width:28px; text-align:center; }
+.resend-btn { background:none; border:none; cursor:pointer; font-family:'Be Vietnam Pro',sans-serif; font-size:12px; color:#b52424; font-weight:600; text-decoration:underline; display:none; }
+.resend-btn.visible { display:inline; }
+
+/* BUTTON */
+.btn-main { width:100%; padding:14px; background:linear-gradient(135deg,#b52424,#8a1a1a); color:#fff; font-family:'Be Vietnam Pro',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; border:none; border-radius:2px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 16px rgba(181,36,36,0.35); transition:all 0.3s; position:relative; overflow:hidden; }
+.btn-main::before { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent); transition:left 0.5s; }
+.btn-main:hover::before { left:100%; }
+.btn-main:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(181,36,36,0.45); }
+
+.back-row { text-align:center; margin-top:18px; }
+.back-link { display:inline-flex; align-items:center; gap:5px; color:#837562; font-size:12px; text-decoration:none; transition:color 0.2s; }
+.back-link:hover { color:#805600; }
+
+.card-foot { background:#faf8f3; border-top:1px solid #ede6db; padding:14px 32px; text-align:center; }
+.card-foot p { font-family:'Noto Serif',serif; font-style:italic; font-size:12px; color:#837562; }
+</style>
 </head>
-<body class="bg-surface font-body-md text-on-surface min-h-screen flex flex-col silk-texture">
-<!-- Top Navigation Anchor -->
-<header class="bg-[#FAF9F6] dark:bg-stone-900 border-b border-[#4A2C2A]/10 dark:border-stone-700 shadow-[0_2px_15px_-3px_rgba(74,44,42,0.08)] sticky top-0 z-50">
-<div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto font-['Noto_Serif'] antialiased">
-<div class="text-2xl font-serif tracking-tight text-[#4A2C2A] dark:text-[#E5A022]">HoiAn Heritage</div>
-<div class="flex items-center gap-6">
-<button class="text-[#4A2C2A] dark:text-stone-400 hover:text-[#D2312E] transition-colors duration-300">
-<span class="material-symbols-outlined">shopping_bag</span>
-</button>
-<button class="text-[#4A2C2A] dark:text-stone-400 hover:text-[#D2312E] transition-colors duration-300">
-<span class="material-symbols-outlined">person</span>
-</button>
+<body>
+<div class="blob1"></div>
+<div class="blob2"></div>
+
+<div class="card">
+  <div class="card-header">
+    <div class="hdr-icon">
+      <span class="material-symbols-outlined" style="color:#ffba47;font-size:26px;position:relative;">verified_user</span>
+    </div>
+    <h1>Xác Thực OTP</h1>
+    <p>Nhập mã 6 chữ số</p>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-dot done">
+        <span class="material-symbols-outlined" style="font-size:14px;color:#fff;">check</span>
+      </div>
+      <span class="step-label">Email</span>
+    </div>
+    <div class="step-line done"></div>
+    <div class="step">
+      <div class="step-dot active">2</div>
+      <span class="step-label active">Mã OTP</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step">
+      <div class="step-dot">3</div>
+      <span class="step-label">Mật khẩu mới</span>
+    </div>
+  </div>
+
+  <div class="form-body">
+    <p class="desc">Mã xác thực đã được gửi đến</p>
+    <div class="email-badge" id="email-display">example@hoian.com</div>
+
+    <form onsubmit="goToReset(event)">
+      <div class="otp-row">
+        <input class="otp-input" type="text" inputmode="numeric" maxlength="1" id="o1"/>
+        <input class="otp-input" type="text" inputmode="numeric" maxlength="1" id="o2"/>
+        <input class="otp-input" type="text" inputmode="numeric" maxlength="1" id="o3"/>
+        <input class="otp-input" type="text" inputmode="numeric" maxlength="1" id="o4"/>
+        <input class="otp-input" type="text" inputmode="numeric" maxlength="1" id="o5"/>
+        <input class="otp-input" type="text" inputmode="numeric" maxlength="1" id="o6"/>
+      </div>
+
+      <!-- Timer -->
+      <div class="timer-row">
+        <span class="material-symbols-outlined" style="font-size:16px;color:#837562;">schedule</span>
+        Mã hết hạn sau <span class="timer-num" id="timer">02:00</span>
+        <button class="resend-btn" id="resend-btn" type="button" onclick="resendOtp()">Gửi lại</button>
+      </div>
+
+      <button class="btn-main" type="submit">
+        Xác Nhận Mã
+        <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span>
+      </button>
+    </form>
+
+    <div class="back-row">
+      <a class="back-link" href="nhapemail.html">
+        <span class="material-symbols-outlined" style="font-size:16px;">arrow_back</span>
+        Quay lại nhập email
+      </a>
+    </div>
+  </div>
+
+  <div class="card-foot">
+    <p>"Kiên nhẫn là chìa khóa của mọi thành công."</p>
+  </div>
 </div>
-</div>
-</header>
-<!-- Main Content Canvas -->
-<main class="flex-grow flex items-center justify-center px-margin-mobile py-section-gap relative overflow-hidden">
-<!-- Atmospheric Background Elements -->
-<div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-<div class="absolute -top-24 -left-24 w-96 h-96 bg-primary-container/10 rounded-full blur-3xl"></div>
-<div class="absolute -bottom-24 -right-24 w-96 h-96 bg-secondary-container/5 rounded-full blur-3xl"></div>
-</div>
-<!-- Authentication Card -->
-<div class="w-full max-w-md relative z-10">
-<div class="bg-surface-container-lowest rounded-xl shadow-[0_8px_30px_rgba(74,44,42,0.06)] border border-outline-variant/30 p-8 md:p-10 text-center">
-<!-- Brand Anchor in Card -->
-<div class="mb-stack-lg flex justify-center">
-<div class="w-16 h-16 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
-<span class="material-symbols-outlined text-4xl" data-weight="fill" style="font-variation-settings: 'FILL' 1;">shield_person</span>
-</div>
-</div>
-<h1 class="font-headline-md text-headline-md text-on-surface mb-stack-sm">Xác thực OTP</h1>
-<p class="font-body-md text-body-md text-on-surface-variant mb-stack-lg">Chúng tôi đã gửi mã OTP đến email của bạn</p>
-<form class="space-y-stack-lg">
-<!-- OTP Input Group -->
-<div class="flex justify-between gap-2 max-w-sm mx-auto">
-<input class="w-12 h-14 md:w-14 md:h-16 text-center text-title-sm font-title-sm border-0 border-b-2 border-outline focus:ring-0 focus:border-secondary transition-colors bg-surface-container-low" maxlength="1" type="text"/>
-<input class="w-12 h-14 md:w-14 md:h-16 text-center text-title-sm font-title-sm border-0 border-b-2 border-outline focus:ring-0 focus:border-secondary transition-colors bg-surface-container-low" maxlength="1" type="text"/>
-<input class="w-12 h-14 md:w-14 md:h-16 text-center text-title-sm font-title-sm border-0 border-b-2 border-outline focus:ring-0 focus:border-secondary transition-colors bg-surface-container-low" maxlength="1" type="text"/>
-<input class="w-12 h-14 md:w-14 md:h-16 text-center text-title-sm font-title-sm border-0 border-b-2 border-outline focus:ring-0 focus:border-secondary transition-colors bg-surface-container-low" maxlength="1" type="text"/>
-<input class="w-12 h-14 md:w-14 md:h-16 text-center text-title-sm font-title-sm border-0 border-b-2 border-outline focus:ring-0 focus:border-secondary transition-colors bg-surface-container-low" maxlength="1" type="text"/>
-<input class="w-12 h-14 md:w-14 md:h-16 text-center text-title-sm font-title-sm border-0 border-b-2 border-outline focus:ring-0 focus:border-secondary transition-colors bg-surface-container-low" maxlength="1" type="text"/>
-</div>
-<div class="pt-stack-md">
-<button class="w-full py-4 bg-secondary text-on-secondary font-label-caps text-label-caps rounded-lg hover:bg-on-secondary-fixed-variant transition-all active:scale-[0.98] shadow-md" type="submit">
-                            Xác nhận mã
-                        </button>
-</div>
-</form>
-<div class="mt-stack-lg space-y-stack-md">
-<div class="flex items-center justify-center gap-2">
-<span class="text-body-md text-on-surface-variant">Không nhận được mã?</span>
-<a class="font-label-caps text-label-caps text-secondary hover:underline underline-offset-4 transition-all" href="#">Gửi lại mã</a>
-</div>
-<a class="inline-flex items-center gap-2 text-body-md text-outline hover:text-on-surface transition-colors duration-300" href="#">
-<span class="material-symbols-outlined text-sm">arrow_back</span>
-<span>Quay lại</span>
-</a>
-</div>
-</div>
-<!-- Contextual Decorative Imagery -->
-<div class="mt-stack-lg grid grid-cols-3 gap-4 opacity-40">
-<div class="h-1 rounded-full bg-primary-container"></div>
-<div class="h-1 rounded-full bg-secondary-container"></div>
-<div class="h-1 rounded-full bg-tertiary-container"></div>
-</div>
-</div>
-</main>
-<!-- Footer Content Anchor -->
-<footer class="bg-[#F2EDE4] dark:bg-stone-950 border-t border-[#4A2C2A]/5 mt-auto">
-<div class="flex flex-col md:flex-row justify-between items-center px-8 py-12 gap-6 w-full max-w-7xl mx-auto font-['Be_Vietnam_Pro'] text-sm tracking-wide">
-<div class="flex flex-col items-center md:items-start gap-2">
-<span class="font-serif italic text-lg text-[#4A2C2A]">Hoi An Heritage</span>
-<p class="text-[#4A2C2A]/70 dark:text-stone-500">© 2024 Hoi An Heritage. Crafted with Silk &amp; Soul.</p>
-</div>
-<nav class="flex gap-8">
-<a class="text-[#4A2C2A]/70 dark:text-stone-500 hover:text-[#4A2C2A] dark:hover:text-white transition-all" href="#">Sustainability</a>
-<a class="text-[#4A2C2A]/70 dark:text-stone-500 hover:text-[#4A2C2A] dark:hover:text-white transition-all" href="#">Artisans</a>
-<a class="text-[#4A2C2A]/70 dark:text-stone-500 hover:text-[#4A2C2A] dark:hover:text-white transition-all" href="#">Shipping</a>
-<a class="text-[#4A2C2A]/70 dark:text-stone-500 hover:text-[#4A2C2A] dark:hover:text-white transition-all" href="#">Privacy</a>
-</nav>
-<div class="flex gap-4">
-<div class="w-8 h-8 rounded-full border border-outline/20 flex items-center justify-center text-outline hover:border-secondary hover:text-secondary transition-all cursor-pointer">
-<span class="material-symbols-outlined text-lg">language</span>
-</div>
-<div class="w-8 h-8 rounded-full border border-outline/20 flex items-center justify-center text-outline hover:border-secondary hover:text-secondary transition-all cursor-pointer">
-<span class="material-symbols-outlined text-lg">mail</span>
-</div>
-</div>
-</div>
-</footer>
-</body></html>
+
+<script>
+// Show email
+const email = sessionStorage.getItem('reset_email') || 'example@hoian.com';
+document.getElementById('email-display').textContent = email;
+
+// OTP auto-focus
+const inputs = document.querySelectorAll('.otp-input');
+inputs.forEach((inp, i) => {
+  inp.addEventListener('input', () => {
+    inp.value = inp.value.replace(/\D/g, '');
+    if (inp.value) {
+      inp.classList.add('filled');
+      if (i < inputs.length - 1) inputs[i+1].focus();
+    } else {
+      inp.classList.remove('filled');
+    }
+  });
+  inp.addEventListener('keydown', e => {
+    if (e.key === 'Backspace' && !inp.value && i > 0) inputs[i-1].focus();
+  });
+  inp.addEventListener('paste', e => {
+    const data = e.clipboardData.getData('text').replace(/\D/g,'').slice(0,6);
+    data.split('').forEach((c, j) => {
+      if (inputs[j]) { inputs[j].value = c; inputs[j].classList.add('filled'); }
+    });
+    e.preventDefault();
+  });
+});
+
+// Timer
+let secs = 120;
+const timerEl = document.getElementById('timer');
+const resendBtn = document.getElementById('resend-btn');
+const tick = setInterval(() => {
+  secs--;
+  const m = String(Math.floor(secs/60)).padStart(2,'0');
+  const s = String(secs%60).padStart(2,'0');
+  timerEl.textContent = m + ':' + s;
+  if (secs <= 0) {
+    clearInterval(tick);
+    timerEl.textContent = '00:00';
+    timerEl.style.color = '#b52424';
+    resendBtn.classList.add('visible');
+  }
+}, 1000);
+
+function resendOtp() {
+  secs = 120; timerEl.style.color = '#805600';
+  resendBtn.classList.remove('visible');
+  const tick2 = setInterval(() => {
+    secs--;
+    const m = String(Math.floor(secs/60)).padStart(2,'0');
+    const s = String(secs%60).padStart(2,'0');
+    timerEl.textContent = m + ':' + s;
+    if (secs <= 0) { clearInterval(tick2); timerEl.textContent='00:00'; timerEl.style.color='#b52424'; resendBtn.classList.add('visible'); }
+  }, 1000);
+}
+
+function goToReset(e) {
+  e.preventDefault();
+  const otp = [...inputs].map(i => i.value).join('');
+  if (otp.length === 6) window.location.href = 'datlaimk.html';
+}
+</script>
+</body>
+</html>
