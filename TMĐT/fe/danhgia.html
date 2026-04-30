@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;500;600;700&amp;family=Be+Vietnam+Pro:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-container": "#cfa3a0",
+                      "primary-fixed-dim": "#ffba47",
+                      "on-tertiary-fixed-variant": "#5f3e3c",
+                      "surface": "#fbf9f4",
+                      "on-error": "#ffffff",
+                      "primary-container": "#e5a022",
+                      "on-background": "#1b1c19",
+                      "on-tertiary-container": "#593937",
+                      "surface-container-high": "#eae8e3",
+                      "on-secondary-fixed-variant": "#92030f",
+                      "tertiary": "#795553",
+                      "surface-container": "#f0eee9",
+                      "secondary-fixed": "#ffdad6",
+                      "background": "#fbf9f4",
+                      "secondary": "#b52424",
+                      "on-secondary-fixed": "#410003",
+                      "inverse-primary": "#ffba47",
+                      "surface-bright": "#fbf9f4",
+                      "outline-variant": "#d6c4ae",
+                      "on-secondary-container": "#600006",
+                      "on-primary-container": "#5a3b00",
+                      "tertiary-fixed-dim": "#eabcb8",
+                      "surface-variant": "#e4e2dd",
+                      "outline": "#837562",
+                      "on-primary": "#ffffff",
+                      "on-primary-fixed-variant": "#614000",
+                      "inverse-surface": "#30312e",
+                      "tertiary-fixed": "#ffdad7",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "on-surface-variant": "#514534",
+                      "primary-fixed": "#ffddb0",
+                      "inverse-on-surface": "#f2f1ec",
+                      "surface-tint": "#805600",
+                      "surface-container-highest": "#e4e2dd",
+                      "secondary-fixed-dim": "#ffb4ac",
+                      "on-error-container": "#93000a",
+                      "on-surface": "#1b1c19",
+                      "on-primary-fixed": "#281800",
+                      "surface-dim": "#dbdad5",
+                      "primary": "#805600",
+                      "surface-container-low": "#f5f3ee",
+                      "error": "#ba1a1a",
+                      "on-secondary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "secondary-container": "#ff5a52",
+                      "on-tertiary-fixed": "#2e1413"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "base": "4px",
+                      "section-gap": "48px",
+                      "gutter": "16px",
+                      "stack-lg": "32px",
+                      "margin-mobile": "20px",
+                      "stack-sm": "8px",
+                      "stack-md": "16px"
+              },
+              "fontFamily": {
+                      "label-caps": ["Be Vietnam Pro"],
+                      "headline-md": ["Noto Serif"],
+                      "display-lg": ["Noto Serif"],
+                      "body-lg": ["Be Vietnam Pro"],
+                      "body-md": ["Be Vietnam Pro"],
+                      "title-sm": ["Noto Serif"]
+              },
+              "fontSize": {
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                      "display-lg": ["34px", {"lineHeight": "42px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "title-sm": ["20px", {"lineHeight": "28px", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .silk-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0c16.569 0 30 13.431 30 30s-13.431 30-30 30S0 46.569 0 30 13.431 0 30 0zm0 10C18.954 10 10 18.954 10 30s8.954 20 20 20 20-8.954 20-20S41.046 10 30 10z' fill='%234A2C2A' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen">
+<!-- TopNavBar (Shared Component) -->
+<header class="bg-[#F9F5F0] dark:bg-[#1A1614] docked full-width top-0 border-b border-[#4A2C2A]/10 sticky z-50">
+<nav class="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
+<div class="font-serif text-2xl font-bold text-[#4A2C2A] dark:text-[#E5A022]">Hoi An Heritage</div>
+<div class="hidden md:flex items-center space-x-8 font-serif text-base tracking-wide">
+<a class="text-[#4A2C2A] dark:text-[#F9F5F0] hover:text-[#D32F2F] transition-colors" href="#">Collections</a>
+<a class="text-[#4A2C2A] dark:text-[#F9F5F0] hover:text-[#D32F2F] transition-colors" href="#">Artisans</a>
+<a class="text-[#4A2C2A] dark:text-[#F9F5F0] hover:text-[#D32F2F] transition-colors" href="#">Our Story</a>
+<a class="text-[#4A2C2A] dark:text-[#F9F5F0] hover:text-[#D32F2F] transition-colors" href="#">Heritage Map</a>
+</div>
+<div class="flex items-center space-x-6">
+<button class="material-symbols-outlined text-[#4A2C2A] dark:text-[#E5A022] hover:bg-[#4A2C2A]/5 p-2 rounded-full transition-all">shopping_bag</button>
+<button class="material-symbols-outlined text-[#4A2C2A] dark:text-[#E5A022] hover:bg-[#4A2C2A]/5 p-2 rounded-full transition-all">account_circle</button>
+</div>
+</nav>
+</header>
+<main class="max-w-4xl mx-auto px-margin-mobile py-section-gap silk-pattern">
+<!-- Page Title & Navigation Context -->
+<div class="text-center mb-stack-lg">
+<span class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-base block">Chia sẻ trải nghiệm</span>
+<h1 class="font-display-lg text-display-lg text-on-surface mb-stack-md">Đánh giá sản phẩm</h1>
+<p class="font-body-lg text-body-lg text-outline max-w-lg mx-auto">Cảm ơn bạn đã tin tưởng tay nghề của các nghệ nhân Hội An. Ý kiến của bạn giúp chúng tôi gìn giữ giá trị truyền thống.</p>
+</div>
+<section class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Product Identity Card -->
+<div class="md:col-span-4">
+<div class="bg-surface-container-low p-stack-md rounded shadow-sm sticky top-24">
+<div class="aspect-square w-full mb-stack-md overflow-hidden rounded-sm">
+<img class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" data-alt="Close-up of a handcrafted Hoi An silk lantern with intricate floral patterns, warm golden glow, soft shadows on textured paper background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcMQnBTg0lHE_GVO2otWGe7dwhWWqCLTCu94coAs6kXqBPebl-RQ56EefJuHwsOvadveUbgGbofZTf9pxpeaMLX6U3H_YH3CMXtL2HfCxxZDedhBmu2RsuI7J2eOa810vMDX6hC01A92Q8BabNqDdJYjaW8Ho8AU8HdIZbEShc3VazpnaFMc31aqI2oKpmhEWuuQP8Soz6rqFLumTCHFh-voN63oZMN16a-wFopgo1JVcIxhMVvKZptRFDyNQyGYPO-XKOcZt3FrOn"/>
+</div>
+<h2 class="font-title-sm text-title-sm text-on-surface mb-base">Đèn Lồng Lụa Hà Đông</h2>
+<p class="font-body-md text-body-md text-outline mb-stack-md">Phân loại: Vàng Hoàng Kim - Cỡ Lớn</p>
+<div class="flex items-center space-x-2 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-caps text-[10px]">Đã mua tại cửa hàng</span>
+</div>
+</div>
+</div>
+<!-- Review Form Canvas -->
+<div class="md:col-span-8">
+<form class="bg-surface-container-lowest p-stack-lg rounded-lg shadow-sm border border-outline-variant/30 space-y-stack-lg">
+<!-- Star Rating Section -->
+<div class="space-y-stack-sm">
+<label class="font-label-caps text-label-caps text-on-surface-variant block">Chất lượng sản phẩm</label>
+<div class="flex items-center space-x-2">
+<button class="group transition-transform hover:scale-110" type="button">
+<span class="material-symbols-outlined text-outline-variant text-4xl">star</span>
+</button>
+<button class="group transition-transform hover:scale-110" type="button">
+<span class="material-symbols-outlined text-outline-variant text-4xl">star</span>
+</button>
+<button class="group transition-transform hover:scale-110" type="button">
+<span class="material-symbols-outlined text-outline-variant text-4xl">star</span>
+</button>
+<button class="group transition-transform hover:scale-110" type="button">
+<span class="material-symbols-outlined text-outline-variant text-4xl">star</span>
+</button>
+<button class="group transition-transform hover:scale-110" type="button">
+<span class="material-symbols-outlined text-outline-variant text-4xl">star</span>
+</button>
+<span class="font-body-md text-primary ml-base"></span>
+</div>
+</div>
+<!-- Written Review Section -->
+<div class="space-y-stack-sm">
+<label class="font-label-caps text-label-caps text-on-surface-variant block">Nhận xét chi tiết</label>
+<textarea class="w-full bg-transparent border-t-0 border-l-0 border-r-0 border-b border-outline focus:border-primary focus:ring-0 font-body-md text-on-surface placeholder:text-outline-variant py-stack-sm transition-all resize-none" placeholder="Hãy chia sẻ cảm nhận của bạn về chất liệu lụa, độ hoàn thiện và cách đóng gói..." rows="5"></textarea>
+</div>
+<!-- Media Upload Section -->
+<div class="space-y-stack-sm">
+<label class="font-label-caps text-label-caps text-on-surface-variant block">Hình ảnh &amp; Video thực tế</label>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-gutter">
+<!-- Upload Trigger -->
+<label class="cursor-pointer border-2 border-dashed border-outline-variant rounded hover:border-primary hover:bg-primary/5 transition-all aspect-square flex flex-col items-center justify-center group">
+<input class="hidden" multiple="" type="file"/>
+<span class="material-symbols-outlined text-outline group-hover:text-primary mb-base">add_a_photo</span>
+<span class="font-label-caps text-[10px] text-outline group-hover:text-primary text-center px-base">Tải ảnh/video</span>
+</label>
+<!-- Placeholder Preview -->
+</div>
+<p class="font-label-caps text-[10px] text-outline mt-base">Tối đa 5 ảnh và 1 video. Định dạng: JPG, PNG, MP4.</p>
+</div>
+<!-- Action Section -->
+<div class="pt-stack-md flex flex-col sm:flex-row items-center justify-between gap-stack-md">
+<div class="flex items-center space-x-2">
+<input class="rounded-sm border-outline text-secondary focus:ring-secondary" id="anonymous" type="checkbox"/>
+<label class="font-body-md text-on-surface-variant cursor-pointer" for="anonymous">Đánh giá ẩn danh</label>
+</div>
+<button class="bg-secondary text-on-primary px-12 py-3 rounded shadow-lg hover:bg-on-secondary-container hover:scale-[1.02] active:scale-95 transition-all font-headline-md text-body-lg" type="submit">
+                            Gửi đánh giá
+                        </button>
+</div>
+</form>
+</div>
+</section>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="bg-[#4A2C2A] dark:bg-[#0F0D0C] border-t border-[#E5A022]/20 full-width py-12 px-8 mt-section-gap">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-7xl mx-auto w-full">
+<div class="col-span-1 md:col-span-1">
+<div class="font-serif text-xl text-[#E5A022] mb-4">Hoi An Heritage</div>
+<p class="font-serif text-sm font-light text-[#F9F5F0]/70 mb-6">Trân trọng giá trị truyền thống, kết nối tâm hồn nghệ nhân Việt với thế giới.</p>
+<div class="flex space-x-4">
+<span class="material-symbols-outlined text-[#E5A022]">social_leaderboard</span>
+<span class="material-symbols-outlined text-[#E5A022]">retweet</span>
+</div>
+</div>
+<div>
+<h4 class="font-serif text-[#E5A022] font-bold mb-4 uppercase tracking-widest text-xs">Dịch vụ</h4>
+<ul class="space-y-2">
+<li><a class="font-serif text-sm font-light text-[#F9F5F0]/70 hover:text-[#E5A022] transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="font-serif text-sm font-light text-[#F9F5F0]/70 hover:text-[#E5A022] transition-colors" href="#">Terms of Service</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-serif text-[#E5A022] font-bold mb-4 uppercase tracking-widest text-xs">Hỗ trợ</h4>
+<ul class="space-y-2">
+<li><a class="font-serif text-sm font-light text-[#F9F5F0]/70 hover:text-[#E5A022] transition-colors" href="#">Shipping &amp; Returns</a></li>
+<li><a class="font-serif text-sm font-light text-[#F9F5F0]/70 hover:text-[#E5A022] transition-colors" href="#">Contact Us</a></li>
+</ul>
+</div>
+<div class="bg-[#E5A022]/5 p-6 border border-[#E5A022]/10">
+<h4 class="font-serif text-[#E5A022] font-bold mb-4 uppercase tracking-widest text-xs">Bản tin di sản</h4>
+<div class="flex">
+<input class="bg-transparent border-b border-[#E5A022]/40 text-[#F9F5F0] focus:border-[#E5A022] focus:ring-0 w-full text-sm py-2" placeholder="Email của bạn" type="email"/>
+<button class="material-symbols-outlined text-[#E5A022] ml-2">arrow_forward</button>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto w-full pt-12 text-center">
+<p class="font-serif text-sm font-light text-[#F9F5F0]/50">© 2024 Hoi An Heritage. Preserving Timeless Craftsmanship.</p>
+</div>
+</footer>
+</body></html>

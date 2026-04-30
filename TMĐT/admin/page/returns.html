@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản lý nguồn hàng - Admin</title>
+    <title>Xác nhận hoàn hàng - Admin</title>
     <!-- File CSS chung -->
     <link rel="stylesheet" href="../css/admin.css">
-    <!-- File CSS riêng cho nhà cung cấp -->
-    <link rel="stylesheet" href="../css/suppliers.css">
+    <!-- File CSS riêng cho trang hoàn hàng -->
+    <link rel="stylesheet" href="../css/returns.css">
     <!-- Sử dụng Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <!-- SweetAlert2 cho Popup đẹp -->
@@ -38,7 +38,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-item">
+                    <a href="products.html" class="nav-item">
                         <i class="ph ph-package"></i>
                         Quản lý sản phẩm
                     </a>
@@ -50,9 +50,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="suppliers.html" class="nav-item active">
+                    <a href="receipts.html" class="nav-item">
                         <i class="ph ph-storefront"></i>
-                        Quản lý nguồn hàng
+                        Quản lý phiếu nhập
                     </a>
                 </li>
                 <li>
@@ -62,13 +62,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-item">
+                    <a href="reviews.html" class="nav-item">
                         <i class="ph ph-chat-circle-text"></i>
                         Phản hồi đánh giá
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-item">
+                    <a href="returns.html" class="nav-item active">
                         <i class="ph ph-arrow-counter-clockwise"></i>
                         Xác nhận hoàn hàng
                     </a>
@@ -87,39 +87,42 @@
     <!-- Main Content -->
     <main class="main-content">
         <div class="page-header">
-            <h1>Quản lý nguồn hàng</h1>
+            <h1>Xác nhận hoàn hàng</h1>
         </div>
 
         <div class="content-card">
             <div class="action-bar">
                 <div class="search-bar">
                     <i class="ph ph-magnifying-glass"></i>
-                    <input type="text" id="searchInput" placeholder="Tìm kiếm nhà cung cấp...">
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm yêu cầu hoàn hàng...">
                 </div>
-                <button class="btn-primary" onclick="addSupplier()">
-                    <i class="ph ph-plus-circle"></i>
-                    Thêm nhà cung cấp mới
-                </button>
+                <select id="statusFilter" class="status-filter">
+                    <option value="all">Tất cả trạng thái</option>
+                    <option value="Chờ xác nhận">Chờ xác nhận</option>
+                    <option value="Đã hoàn">Đã hoàn hàng</option>
+                    <option value="Từ chối">Đã từ chối</option>
+                </select>
             </div>
 
             <table>
                 <thead>
                     <tr>
-                        <th style="width: 15%">Mã NCC</th>
-                        <th style="width: 35%">Tên nhà cung cấp</th>
-                        <th style="width: 35%">Thông tin liên hệ</th>
-                        <th style="width: 15%">Thao tác</th>
+                        <th style="width: 15%">Mã Đơn Hàng</th>
+                        <th style="width: 20%">Khách Hàng</th>
+                        <th style="width: 20%">Lý Do</th>
+                        <th style="width: 20%">Trạng Thái</th>
+                        <th style="width: 25%">Thao Tác</th>
                     </tr>
                 </thead>
-                <tbody id="supplierTableBody">
+                <tbody id="returnTableBody">
                     <!-- Dữ liệu sẽ được render từ JavaScript -->
                 </tbody>
             </table>
         </div>
     </main>
 
-    <!-- File JS riêng cho nhà cung cấp -->
-    <script src="../js/suppliers.js"></script>
+    <!-- File JS riêng cho trang hoàn hàng -->
+    <script src="../js/returns.js"></script>
 </body>
 
 </html>
