@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Đăng Ký – Hội An Tinh Hoa</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Be Vietnam Pro', sans-serif; min-height: 100vh; }
+.material-symbols-outlined { font-variation-settings: 'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; font-size: 20px; line-height: 1; user-select: none; }
+
+.wrap { display: flex; min-height: 100vh; }
+.left { width: 44%; position: relative; overflow: hidden; flex-shrink: 0; }
+.right {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  justify-content: center; padding: 40px 24px; overflow-y: auto;
+  background-color: #fbf9f4;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5L35 15L45 15L37 22L40 32L30 26L20 32L23 22L15 15L25 15Z' fill='%23e5a022' fill-opacity='0.05'/%3E%3C/svg%3E");
+}
+
+/* LEFT */
+.left img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 10s ease; }
+.left:hover img { transform:scale(1.05); }
+.left-overlay { position:absolute; inset:0; background:linear-gradient(170deg, rgba(128,86,0,0.72) 0%, rgba(40,24,0,0.82) 100%); }
+.left-content { position:absolute; inset:0; z-index:2; display:flex; flex-direction:column; justify-content:space-between; padding:40px; }
+
+/* LANTERNS */
+.lanterns { display:flex; gap:36px; justify-content:center; padding-top:16px; position:relative; }
+.lanterns::before { content:''; position:absolute; top:0; left:4px; right:4px; height:1.5px; background:linear-gradient(90deg,transparent,rgba(229,160,34,0.8),transparent); }
+.lantern { width:22px; height:34px; background:linear-gradient(180deg,#e5a022,#ffba47 50%,#e5a022); border-radius:50% 50% 60% 60%; box-shadow:0 0 18px rgba(229,160,34,0.9),0 0 35px rgba(229,160,34,0.4); position:relative; flex-shrink:0; }
+.lantern::before { content:''; position:absolute; top:-8px; left:50%; transform:translateX(-50%); width:2px; height:9px; background:#805600; }
+.lantern::after { content:''; position:absolute; bottom:-9px; left:50%; transform:translateX(-50%); width:1px; height:10px; background:rgba(229,160,34,0.7); }
+.lantern:nth-child(1){animation:sway 3.0s ease-in-out infinite;}
+.lantern:nth-child(2){width:16px;height:26px;animation:sway 3.5s ease-in-out 0.4s infinite;}
+.lantern:nth-child(3){animation:sway 2.8s ease-in-out 0.8s infinite;}
+.lantern:nth-child(4){width:16px;height:26px;animation:sway 3.2s ease-in-out 0.2s infinite;}
+.lantern:nth-child(5){animation:sway 3.0s ease-in-out 0.6s infinite;}
+@keyframes sway{0%,100%{transform:rotate(-5deg);}50%{transform:rotate(5deg);}}
+
+/* FEATURE */
+.feature-item { display:flex; align-items:center; gap:12px; color:rgba(255,255,255,0.9); margin-bottom:13px; }
+.feature-dot { width:28px; height:28px; border-radius:50%; background:rgba(229,160,34,0.18); border:1px solid rgba(229,160,34,0.4); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+
+/* CARD */
+.card { width:100%; max-width:430px; background:#fff; border-radius:2px; box-shadow:0 20px 60px rgba(74,44,42,0.13),0 4px 16px rgba(74,44,42,0.07); overflow:hidden; }
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+.card { animation:fadeUp 0.5s ease both; }
+
+/* CARD HEADER */
+.card-header { background:linear-gradient(135deg,#281800 0%,#805600 100%); padding:26px 32px 20px; text-align:center; position:relative; overflow:hidden; border-radius:2px 2px 0 0; }
+.card-header::before { content:''; position:absolute; inset:0; background-image:url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 3L23 10L30 10L24.5 14.5L26.5 21.5L20 17L13.5 21.5L15.5 14.5L10 10L17 10Z' fill='%23ffffff' fill-opacity='0.04'/%3E%3C/svg%3E"); }
+.hdr-icon { width:48px; height:48px; background:rgba(229,160,34,0.15); border-radius:50%; display:inline-flex; align-items:center; justify-content:center; margin-bottom:9px; border:1px solid rgba(229,160,34,0.3); position:relative; }
+.card-header h1 { font-family:'Noto Serif',serif; font-size:20px; font-weight:700; color:#fff; position:relative; margin-bottom:3px; }
+.card-header p { font-size:10px; letter-spacing:0.15em; color:rgba(229,160,34,0.85); text-transform:uppercase; position:relative; }
+
+/* TABS */
+.tabs { display:flex; border-bottom:1px solid #ede6db; background:#faf8f3; }
+.tab { flex:1; padding:12px; font-size:11px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; border:none; background:transparent; cursor:pointer; border-bottom:2px solid transparent; color:#837562; transition:all 0.25s; font-family:'Be Vietnam Pro',sans-serif; }
+.tab.active { color:#805600; border-bottom-color:#805600; }
+
+/* FORM */
+.form-body { padding:20px 22px 16px; }
+.field { margin-bottom:13px; }
+.field label { display:block; font-size:10px; font-weight:600; letter-spacing:0.12em; color:#514534; text-transform:uppercase; margin-bottom:5px; }
+
+/* INPUT BOX — flexbox, no absolute icons */
+.input-box {
+  display:flex; align-items:center;
+  border:1px solid #d6c4ae; border-radius:2px; background:#faf8f3;
+  transition:border-color 0.25s, box-shadow 0.25s, background 0.25s;
+}
+.input-box:focus-within { border-color:#805600; background:#fff; box-shadow:0 0 0 3px rgba(128,86,0,0.08); }
+.input-box .ico { padding:0 10px 0 12px; color:#9e8872; flex-shrink:0; display:flex; align-items:center; transition:color 0.25s; }
+.input-box:focus-within .ico { color:#805600; }
+.input-box input { flex:1; border:none; outline:none; background:transparent; padding:11px 10px 11px 0; font-family:'Be Vietnam Pro',sans-serif; font-size:14px; color:#1b1c19; }
+.input-box input::placeholder { color:#a89580; }
+.input-box .tog-btn { padding:0 12px 0 6px; background:none; border:none; cursor:pointer; color:#9e8872; display:flex; align-items:center; transition:color 0.2s; flex-shrink:0; }
+.input-box .tog-btn:hover { color:#805600; }
+
+/* 2-col grid */
+.row2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.row2 > .field { min-width: 0; } /* Prevent CSS Grid blowout */
+.input-box { width: 100%; min-width: 0; }
+
+/* STRENGTH */
+.strength-bar { display:flex; gap:4px; margin-top:5px; }
+.bar-seg { flex:1; height:3px; border-radius:2px; background:#e8e0d4; transition:background 0.3s; }
+.bar-seg.weak { background:#ba1a1a; }
+.bar-seg.fair { background:#e5a022; }
+.bar-seg.good { background:#3d8c40; }
+.strength-label { font-size:10px; color:#837562; margin-top:3px; }
+
+/* TERMS */
+.terms-row { display:flex; align-items:flex-start; gap:8px; margin:14px 0; }
+.terms-row input[type=checkbox] { width:15px; height:15px; accent-color:#805600; margin-top:2px; flex-shrink:0; cursor:pointer; }
+.terms-row span { font-size:12px; color:#514534; line-height:1.5; }
+.terms-row a { color:#805600; text-decoration:none; font-weight:500; }
+
+/* BUTTON */
+.btn-main { width:100%; padding:13px; background:linear-gradient(135deg,#b52424,#8a1a1a); color:#fff; font-family:'Be Vietnam Pro',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; border:none; border-radius:2px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 16px rgba(181,36,36,0.35); transition:all 0.3s; position:relative; overflow:hidden; }
+.btn-main::before { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent); transition:left 0.5s; }
+.btn-main:hover::before { left:100%; }
+.btn-main:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(181,36,36,0.45); }
+
+/* DIVIDER */
+.div-or { display:flex; align-items:center; gap:10px; margin:15px 0; color:#a89580; font-size:10px; letter-spacing:0.08em; }
+.div-or::before,.div-or::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,transparent,#d6c4ae,transparent); }
+
+/* SOCIAL */
+.soc-row { display:flex; gap:10px; }
+.soc-btn { flex:1; padding:10px; border:1px solid #d6c4ae; background:#faf8f3; border-radius:2px; cursor:pointer; font-family:'Be Vietnam Pro',sans-serif; font-size:12px; font-weight:500; color:#514534; display:flex; align-items:center; justify-content:center; gap:7px; transition:all 0.25s; }
+.soc-btn:hover { background:#f5f3ee; border-color:#805600; color:#805600; }
+
+/* CARD FOOTER */
+.card-foot { background:#faf8f3; border-top:1px solid #ede6db; padding:13px 26px; text-align:center; }
+.card-foot p { font-family:'Noto Serif',serif; font-style:italic; font-size:12px; color:#837562; margin-bottom:6px; }
+.card-foot span { font-size:12px; color:#514534; }
+.card-foot a { color:#b52424; font-weight:600; text-decoration:none; margin-left:4px; }
+.card-foot a:hover { text-decoration:underline; }
+
+/* BACK */
+.back-link { position:fixed; top:20px; left:20px; display:flex; align-items:center; gap:5px; color:#805600; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; text-decoration:none; font-weight:600; z-index:10; transition:gap 0.2s; }
+.back-link:hover { gap:9px; }
+
+@media(max-width:768px){ .left{display:none;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- LEFT -->
+  <div class="left">
+    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEzBAcgRCnWjp2gEgo1tzxnIqcB59NC-5E9XOZ3wkU2OlcXkGxxXcn9lHS7pEQOAU5BCngWuGur3S0e_Ua_zCLA8mK23bF83DX2i8bqnMQ4YzTPQW_YCPJKkYxKNjX98sYXAsOG-JoEq7Mhg1GntSLOEqEAXEYkVA_GUsAfErgFV6kFyBs6MIGY8RZsGxntEJCptfPsUB1SScMGWF8OjEmG8M85uY9uvW4aeIeCdtumVFAwe1bjKiRUkeU8r7l8VaFZPG2sUBqTv-0" alt="Đèn lồng Hội An"/>
+    <div class="left-overlay"></div>
+    <div class="left-content">
+      <div class="lanterns">
+        <div class="lantern"></div>
+        <div class="lantern"></div>
+        <div class="lantern"></div>
+        <div class="lantern"></div>
+        <div class="lantern"></div>
+      </div>
+      <div>
+        <div style="margin-bottom:22px;">
+          <span style="font-size:10px;letter-spacing:0.2em;color:rgba(229,160,34,0.85);text-transform:uppercase;font-weight:600;">Tham gia cộng đồng</span>
+          <h2 style="font-family:'Noto Serif',serif;font-size:24px;font-weight:700;color:#fff;margin-top:6px;line-height:1.35;">Khám Phá Tinh Hoa<br/>Phố Cổ Hội An</h2>
+        </div>
+        <div class="feature-item">
+          <div class="feature-dot"><span class="material-symbols-outlined" style="font-size:14px;color:#ffba47;">star</span></div>
+          <span style="font-size:13px;">Bộ sưu tập độc quyền từ nghệ nhân địa phương</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-dot"><span class="material-symbols-outlined" style="font-size:14px;color:#ffba47;">local_shipping</span></div>
+          <span style="font-size:13px;">Miễn phí vận chuyển cho đơn từ 500.000đ</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-dot"><span class="material-symbols-outlined" style="font-size:14px;color:#ffba47;">history_edu</span></div>
+          <span style="font-size:13px;">Nhận câu chuyện di sản và ưu đãi thành viên</span>
+        </div>
+      </div>
+      <div style="border-left:3px solid rgba(229,160,34,0.6);padding-left:14px;">
+        <p style="font-family:'Noto Serif',serif;font-style:italic;color:rgba(255,255,255,0.85);font-size:13px;line-height:1.6;margin-bottom:5px;">"Mỗi sản phẩm là một mảnh ký ức được gửi gắm từ phố cổ đến bàn tay bạn."</p>
+        <span style="font-size:10px;letter-spacing:0.15em;color:rgba(229,160,34,0.8);text-transform:uppercase;">— Hội An Tinh Hoa</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right">
+    <a class="back-link" href="trangchu.html">
+      <span class="material-symbols-outlined" style="font-size:17px;">arrow_back</span>
+      Trang chủ
+    </a>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="hdr-icon">
+          <span class="material-symbols-outlined" style="color:#ffba47;font-size:24px;position:relative;">person_add</span>
+        </div>
+        <h1>Hội An Tinh Hoa</h1>
+        <p>Tạo tài khoản mới</p>
+      </div>
+
+      <div class="tabs">
+        <button class="tab" onclick="window.location.href='dangnhap.html'">Đăng Nhập</button>
+        <button class="tab active">Đăng Ký</button>
+      </div>
+
+      <div class="form-body">
+        <form onsubmit="return false;">
+          <!-- Họ & Tên -->
+          <div class="row2">
+            <div class="field">
+              <label for="ho">Họ</label>
+              <div class="input-box">
+                <span class="ico material-symbols-outlined">person</span>
+                <input id="ho" type="text" placeholder="Nguyễn"/>
+              </div>
+            </div>
+            <div class="field">
+              <label for="ten">Tên</label>
+              <div class="input-box">
+                <span class="ico material-symbols-outlined">badge</span>
+                <input id="ten" type="text" placeholder="Văn A"/>
+              </div>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="field">
+            <label for="email">Địa chỉ email</label>
+            <div class="input-box">
+              <span class="ico material-symbols-outlined">mail</span>
+              <input id="email" type="email" placeholder="example@hoian.com" autocomplete="email"/>
+            </div>
+          </div>
+
+          <!-- Phone -->
+          <div class="field">
+            <label for="phone">Số điện thoại</label>
+            <div class="input-box">
+              <span class="ico material-symbols-outlined">phone</span>
+              <input id="phone" type="tel" placeholder="0912 345 678"/>
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="field">
+            <label for="pw">Mật khẩu</label>
+            <div class="input-box">
+              <span class="ico material-symbols-outlined">lock</span>
+              <input id="pw" type="password" placeholder="Tối thiểu 8 ký tự" oninput="checkStrength(this.value)" autocomplete="new-password"/>
+              <button class="tog-btn" type="button" onclick="togglePw('pw',this)">
+                <span class="material-symbols-outlined" style="font-size:20px;">visibility</span>
+              </button>
+            </div>
+            <div class="strength-bar" id="sb">
+              <div class="bar-seg" id="s1"></div>
+              <div class="bar-seg" id="s2"></div>
+              <div class="bar-seg" id="s3"></div>
+              <div class="bar-seg" id="s4"></div>
+            </div>
+            <div class="strength-label" id="sl"></div>
+          </div>
+
+          <!-- Confirm Password -->
+          <div class="field">
+            <label for="pw2">Xác nhận mật khẩu</label>
+            <div class="input-box">
+              <span class="ico material-symbols-outlined">lock_reset</span>
+              <input id="pw2" type="password" placeholder="Nhập lại mật khẩu" autocomplete="new-password"/>
+              <button class="tog-btn" type="button" onclick="togglePw('pw2',this)">
+                <span class="material-symbols-outlined" style="font-size:20px;">visibility</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Terms -->
+          <div class="terms-row">
+            <input type="checkbox" id="terms"/>
+            <span>Tôi đồng ý với <a href="#">Điều khoản dịch vụ</a> và <a href="#">Chính sách bảo mật</a> của Hội An Tinh Hoa</span>
+          </div>
+
+          <button class="btn-main" type="submit">
+            Bắt Đầu Hành Trình
+            <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span>
+          </button>
+        </form>
+
+        <div class="div-or">hoặc đăng ký với</div>
+
+        <div class="soc-row">
+          <button class="soc-btn">
+            <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#EA4335" d="M5.26 9.77A7.24 7.24 0 0 1 12 4.75c1.74 0 3.3.62 4.53 1.63l3.37-3.37A11.97 11.97 0 0 0 12 .75C7.5.75 3.63 3.7 2 7.82l3.26 1.95Z"/><path fill="#34A853" d="M16.04 18.35A7.24 7.24 0 0 1 12 19.25c-3.04 0-5.64-1.88-6.74-4.57L1.95 16.6A11.97 11.97 0 0 0 12 23.25c3.27 0 6.13-1.23 8.29-3.24l-4.25-1.66Z"/><path fill="#FBBC05" d="M19.25 12c0-.65-.07-1.28-.18-1.88H12v3.76h4.07a3.53 3.53 0 0 1-1.5 2.3l4.25 1.66A11.94 11.94 0 0 0 19.25 12Z"/><path fill="#4285F4" d="M5.26 14.23A7.3 7.3 0 0 1 4.75 12c0-.77.13-1.52.37-2.23L1.86 7.82A11.96 11.96 0 0 0 .75 12c0 1.47.27 2.87.76 4.18l3.75-1.95Z"/></svg>
+            Google
+          </button>
+          <button class="soc-btn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.313 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+            Facebook
+          </button>
+        </div>
+      </div>
+
+      <div class="card-foot">
+        <p>"Mỗi hành trình đều bắt đầu bằng một quyết định."</p>
+        <span>Đã có tài khoản? <a href="dangnhap.html">Đăng nhập →</a></span>
+      </div>
+    </div>
+
+    <p style="margin-top:20px;font-size:11px;color:#a89580;text-align:center;">© 2024 Hội An Tinh Hoa · Gìn giữ tinh hoa truyền thống</p>
+  </div>
+</div>
+
+<script>
+function togglePw(id, btn) {
+  const inp = document.getElementById(id);
+  const ic = btn.querySelector('.material-symbols-outlined');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+  ic.textContent = inp.type === 'password' ? 'visibility' : 'visibility_off';
+}
+function checkStrength(val) {
+  const segs = ['s1','s2','s3','s4'].map(i => document.getElementById(i));
+  const label = document.getElementById('sl');
+  segs.forEach(s => { s.className = 'bar-seg'; });
+  if (!val) { label.textContent = ''; return; }
+  let score = 0;
+  if (val.length >= 8) score++;
+  if (/[A-Z]/.test(val)) score++;
+  if (/[0-9]/.test(val)) score++;
+  if (/[^A-Za-z0-9]/.test(val)) score++;
+  const cls = score <= 1 ? 'weak' : score === 2 ? 'fair' : 'good';
+  const lbl = ['','Yếu','Trung bình','Khá','Mạnh'][score];
+  for (let i = 0; i < score; i++) segs[i].classList.add(cls);
+  label.textContent = lbl;
+  label.style.color = cls === 'weak' ? '#ba1a1a' : cls === 'fair' ? '#805600' : '#3d8c40';
+}
+</script>
+</body>
+</html>
