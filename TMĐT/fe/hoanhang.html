@@ -107,25 +107,51 @@
 </head>
 <body class="bg-surface text-on-surface font-body-md antialiased">
 <!-- TopNavBar -->
-<header class="bg-stone-50 dark:bg-stone-950 docked full-width top-0 z-50 border-b border-stone-200 dark:border-stone-800 shadow-sm dark:shadow-none">
-<div class="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
-<div class="font-serif text-2xl font-bold text-amber-700 dark:text-amber-500">Thủ Công Hội An</div>
-<nav class="hidden md:flex items-center gap-8">
-<a class="text-stone-600 dark:text-stone-400 hover:text-amber-600 transition-colors font-serif tracking-tight" href="#">Trang chủ</a>
-<a class="text-amber-700 dark:text-amber-500 font-bold border-b-2 border-amber-700 pb-1 font-serif tracking-tight" href="#">Đơn hàng</a>
-<a class="text-stone-600 dark:text-stone-400 hover:text-amber-600 transition-colors font-serif tracking-tight" href="#">Sản phẩm</a>
-<a class="text-stone-600 dark:text-stone-400 hover:text-amber-600 transition-colors font-serif tracking-tight" href="#">Báo cáo</a>
-<a class="text-stone-600 dark:text-stone-400 hover:text-amber-600 transition-colors font-serif tracking-tight" href="#">Cửa hàng</a>
+<header class="bg-[#FAF9F6] dark:bg-stone-950 border-b border-stone-200 dark:border-stone-800 shadow-sm shadow-stone-900/5 sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+<div class="text-2xl font-serif font-bold text-stone-900 dark:text-amber-500">Hội An Tinh Hoa</div>
+<nav id="main-nav" class="hidden md:flex space-x-8 font-serif tracking-wide text-stone-800 dark:text-stone-200">
+<a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="trangchu.html">Trang chủ</a>
+<a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="sanpham.html">Sản phẩm</a>
+<a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="#">Câu chuyện</a>
 </nav>
-<div class="flex items-center gap-4">
-<button class="p-2 hover:bg-stone-100 dark:hover:bg-stone-900 rounded-full transition-all">
-<span class="material-symbols-outlined text-stone-800 dark:text-stone-200" data-icon="notifications">notifications</span>
+<div class="flex items-center space-x-4">
+<button class="text-stone-600 hover:bg-stone-100/50 p-2 rounded-full transition-all">
+<span class="material-symbols-outlined">shopping_cart</span>
 </button>
-<button class="p-2 hover:bg-stone-100 dark:hover:bg-stone-900 rounded-full transition-all">
-<span class="material-symbols-outlined text-stone-800 dark:text-stone-200" data-icon="account_circle">account_circle</span>
+<div class="relative group">
+<button class="text-stone-600 hover:bg-stone-100/50 p-2 rounded-full transition-all flex items-center">
+<span class="material-symbols-outlined">account_circle</span>
 </button>
+<div class="absolute right-0 top-full pt-2 w-48 hidden group-hover:block z-50">
+<div class="bg-white dark:bg-stone-900 rounded-md shadow-lg py-1 border border-stone-200 dark:border-stone-800">
+<div id="guest-menu">
+<a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="dangnhap.html">Đăng nhập</a>
+<a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="dangky.html">Đăng ký</a>
+</div>
+<div class="hidden" id="user-menu">
+<a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="taikhoan.html">Thông tin tài khoản</a>
+<a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="#">Đăng xuất</a>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const currentPath = window.location.pathname.split('/').pop();
+    const navLinks = document.querySelectorAll('#main-nav .nav-link');
+    navLinks.forEach(link => {
+        const linkPath = link.getAttribute('href');
+        if (linkPath === currentPath || (currentPath === '' && linkPath === 'trangchu.html')) {
+            link.className = 'nav-link text-red-800 dark:text-red-400 font-bold border-b-2 border-red-800 dark:border-red-400 pb-1';
+        } else {
+            link.className = 'nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300';
+        }
+    });
+});
+</script>
 </header>
 <main class="max-w-4xl mx-auto px-margin-mobile py-section-gap">
 <!-- Header Section -->
