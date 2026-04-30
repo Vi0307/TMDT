@@ -1,0 +1,19 @@
+{
+  "name": "be",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+  "dev": "node app.js",
+  "start": "node app.js"
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mssql": "^12.5.0"
+  }
+}
