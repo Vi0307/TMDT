@@ -1,83 +1,65 @@
 <!DOCTYPE html>
-<html class="light" lang="vi">
-<head>
+
+<html class="light" lang="vi"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;500;600;700&amp;family=Be+Vietnam+Pro:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Be+Vietnam+Pro:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        body {
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-        .lantern-glow:focus-within {
-            box-shadow: inset 0 0 10px rgba(229, 160, 34, 0.3);
-        }
-        .hide-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .hide-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-    </style>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
       tailwind.config = {
         darkMode: "class",
         theme: {
           extend: {
             "colors": {
-                    "tertiary-container": "#cfa3a0",
-                    "primary-fixed-dim": "#ffba47",
-                    "on-tertiary-fixed-variant": "#5f3e3c",
-                    "surface": "#fbf9f4",
-                    "on-error": "#ffffff",
-                    "primary-container": "#e5a022",
-                    "on-background": "#1b1c19",
-                    "on-tertiary-container": "#593937",
-                    "surface-container-high": "#eae8e3",
-                    "on-secondary-fixed-variant": "#92030f",
-                    "tertiary": "#795553",
-                    "surface-container": "#f0eee9",
                     "secondary-fixed": "#ffdad6",
-                    "background": "#fbf9f4",
-                    "secondary": "#b52424",
-                    "on-secondary-fixed": "#410003",
-                    "inverse-primary": "#ffba47",
-                    "surface-bright": "#fbf9f4",
-                    "outline-variant": "#d6c4ae",
-                    "on-secondary-container": "#600006",
-                    "on-primary-container": "#5a3b00",
-                    "tertiary-fixed-dim": "#eabcb8",
-                    "surface-variant": "#e4e2dd",
-                    "outline": "#837562",
-                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed": "#2e1413",
                     "on-primary-fixed-variant": "#614000",
-                    "inverse-surface": "#30312e",
-                    "tertiary-fixed": "#ffdad7",
-                    "surface-container-lowest": "#ffffff",
-                    "on-tertiary": "#ffffff",
-                    "on-surface-variant": "#514534",
-                    "primary-fixed": "#ffddb0",
-                    "inverse-on-surface": "#f2f1ec",
-                    "surface-tint": "#805600",
-                    "surface-container-highest": "#e4e2dd",
-                    "secondary-fixed-dim": "#ffb4ac",
-                    "on-error-container": "#93000a",
-                    "on-surface": "#1b1c19",
-                    "on-primary-fixed": "#281800",
-                    "surface-dim": "#dbdad5",
-                    "primary": "#805600",
-                    "surface-container-low": "#f5f3ee",
-                    "error": "#ba1a1a",
-                    "on-secondary": "#ffffff",
-                    "error-container": "#ffdad6",
                     "secondary-container": "#ff5a52",
-                    "on-tertiary-fixed": "#2e1413"
+                    "on-primary-container": "#5a3b00",
+                    "on-secondary": "#ffffff",
+                    "tertiary-container": "#cfa3a0",
+                    "error-container": "#ffdad6",
+                    "primary-fixed": "#ffddb0",
+                    "outline-variant": "#d6c4ae",
+                    "on-background": "#1b1c19",
+                    "on-surface": "#1b1c19",
+                    "primary": "#805600",
+                    "on-tertiary-container": "#593937",
+                    "on-secondary-fixed": "#410003",
+                    "on-primary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "inverse-on-surface": "#f2f1ec",
+                    "inverse-surface": "#30312e",
+                    "tertiary-fixed-dim": "#eabcb8",
+                    "surface-dim": "#dbdad5",
+                    "surface-container": "#f0eee9",
+                    "primary-container": "#e5a022",
+                    "secondary": "#b52424",
+                    "primary-fixed-dim": "#ffba47",
+                    "tertiary": "#795553",
+                    "tertiary-fixed": "#ffdad7",
+                    "surface-variant": "#e4e2dd",
+                    "background": "#fbf9f4",
+                    "surface-container-high": "#eae8e3",
+                    "surface-bright": "#fbf9f4",
+                    "on-tertiary-fixed-variant": "#5f3e3c",
+                    "surface-container-low": "#f5f3ee",
+                    "secondary-fixed-dim": "#ffb4ac",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#fbf9f4",
+                    "on-secondary-container": "#600006",
+                    "on-secondary-fixed-variant": "#92030f",
+                    "surface-container-highest": "#e4e2dd",
+                    "surface-tint": "#805600",
+                    "error": "#ba1a1a",
+                    "outline": "#837562",
+                    "on-primary-fixed": "#281800",
+                    "on-error-container": "#93000a",
+                    "on-surface-variant": "#514534",
+                    "inverse-primary": "#ffba47"
             },
             "borderRadius": {
                     "DEFAULT": "0.125rem",
@@ -86,190 +68,204 @@
                     "full": "0.75rem"
             },
             "spacing": {
-                    "base": "4px",
-                    "section-gap": "48px",
-                    "gutter": "16px",
                     "stack-lg": "32px",
-                    "margin-mobile": "20px",
                     "stack-sm": "8px",
-                    "stack-md": "16px"
+                    "gutter": "16px",
+                    "stack-md": "16px",
+                    "section-gap": "48px",
+                    "margin-mobile": "20px",
+                    "base": "4px"
             },
             "fontFamily": {
-                    "label-caps": ["Be Vietnam Pro"],
-                    "headline-md": ["Noto Serif"],
                     "display-lg": ["Noto Serif"],
+                    "title-sm": ["Noto Serif"],
+                    "headline-md": ["Noto Serif"],
                     "body-lg": ["Be Vietnam Pro"],
                     "body-md": ["Be Vietnam Pro"],
-                    "title-sm": ["Noto Serif"]
-            },
-            "fontSize": {
-                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
-                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
-                    "display-lg": ["34px", {"lineHeight": "42px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
-                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
-                    "title-sm": ["20px", {"lineHeight": "28px", "fontWeight": "500"}]
+                    "label-caps": ["Be Vietnam Pro"]
             }
-          },
-        },
+          }
+        }
       }
     </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .silk-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0c16.569 0 30 13.431 30 30s-13.431 30-30 30S0 46.569 0 30 13.431 0 30 0zm0 4c-14.359 0-26 11.641-26 26s11.641 26 26 26 26-11.641 26-26S44.359 4 30 4zm0 4c11.046 0 20 8.954 20 20s-8.954 20-20 20-20-8.954-20-20 8.954-20 20-20zm0 4c-8.837 0-16 7.163-16 16s7.163 16 16 16 16-7.163 16-16-7.163-16-16-16z' fill='%234a2c2a' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+    </style>
 </head>
-<body class="bg-surface text-on-surface min-h-screen">
-<!-- Top Navigation Bar -->
-<header class="bg-[#F9F5F0] dark:bg-[#1A1614] border-b border-[#4A2C2A]/10 sticky top-0 z-50">
-<div class="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
-<div class="font-serif text-2xl font-bold text-[#4A2C2A] dark:text-[#E5A022]">Hoi An Heritage</div>
-<nav class="hidden md:flex items-center space-x-8 font-serif text-base tracking-wide">
-<a class="text-[#4A2C2A] dark:text-[#F9F5F0] hover:text-[#D32F2F] transition-colors" href="#">Collections</a>
-<a class="text-[#4A2C2A] dark:text-[#F9F5F0] hover:text-[#D32F2F] transition-colors" href="#">Artisans</a>
-<a class="text-[#4A2C2A] dark:text-[#F9F5F0] hover:text-[#D32F2F] transition-colors" href="#">Our Story</a>
-<a class="text-[#4A2C2A] dark:text-[#F9F5F0] hover:text-[#D32F2F] transition-colors" href="#">Heritage Map</a>
+<body class="bg-background font-body-md text-on-surface silk-pattern">
+<!-- Shared SideNavBar -->
+<aside class="fixed left-0 top-0 h-screen w-64 flex flex-col z-40 bg-[#FAF9F6] dark:bg-stone-950 rounded-none border-r border-stone-200 dark:border-stone-800 shadow-none font-['Noto_Serif'] text-stone-800 dark:text-stone-200">
+<div class="px-8 py-10">
+<h1 class="text-2xl italic font-bold text-stone-900 dark:text-stone-50">Hội An Heritage</h1>
+<p class="text-xs uppercase tracking-widest text-stone-500 mt-1">Hệ thống Quản trị</p>
+</div>
+<nav class="flex-1 px-4 space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 rounded-none transition-all duration-300 ease-out hover:bg-[#F2F0EA] dark:hover:bg-stone-900 text-stone-500 dark:text-stone-400" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-medium">Tổng quan</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-none transition-all duration-300 ease-out text-[#B22222] dark:text-red-400 font-bold border-r-2 border-[#B22222]" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-medium">Đơn hàng</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-none transition-all duration-300 ease-out hover:bg-[#F2F0EA] dark:hover:bg-stone-900 text-stone-500 dark:text-stone-400" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-medium">Khách hàng</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-none transition-all duration-300 ease-out hover:bg-[#F2F0EA] dark:hover:bg-stone-900 text-stone-500 dark:text-stone-400" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-medium">Sản phẩm</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-none transition-all duration-300 ease-out hover:bg-[#F2F0EA] dark:hover:bg-stone-900 text-stone-500 dark:text-stone-400" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-medium">Cài đặt</span>
+</a>
 </nav>
-<div class="flex items-center space-x-6">
-<button class="material-symbols-outlined text-[#4A2C2A] dark:text-[#E5A022] hover:bg-[#4A2C2A]/5 p-2 rounded-full transition-all">shopping_bag</button>
-<button class="material-symbols-outlined text-[#D32F2F] font-bold border-b-2 border-[#D32F2F] p-2 transition-all" data-weight="fill">account_circle</button>
+<div class="p-8 border-t border-stone-200 dark:border-stone-800">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-fixed overflow-hidden border border-primary/20">
+<img alt="Admin Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbWX7pzgwZhvHJLbke3Lxv_ARqecl28uWcQ3VGJt-Ckcu0tgnLzndZr7fQEln1rX6XJOL2YC61a1fp9QVz0iZslqXqQh1sNtVrr2KT8yqncR6ng5-MeBM3oC4MrAzuSttnavzgPSEGnlGDDn2eo114TuoTjlU2nD-EDtjRQui28M7jYqqL6dAmQJVSCwVuW0wBCihm39fYLVKu_Eq3n8M1nqYzypWQXmP3LGj1JcSXOc6r9GFEhQ72-x8wtzRfTpHf_bI82KTtvf12"/>
 </div>
+<div>
+<p class="text-sm font-bold">Admin Hội An</p>
+<p class="text-[10px] text-stone-500">Quản trị viên</p>
 </div>
-</header>
-<main class="max-w-7xl mx-auto px-8 py-12 flex flex-col md:flex-row gap-12">
-<!-- Sidebar Navigation -->
-<aside class="w-full md:w-1/4 space-y-8">
-<div class="bg-surface-container-low p-6 rounded-lg">
-<div class="flex flex-col items-center mb-8">
-<div class="relative group">
-<div class="w-24 h-24 rounded-full border-2 border-primary overflow-hidden shadow-md">
-<img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBe18Kc438f1yCQLDtooH5aBass9NYezi32WHD9yYeWYDbRxaqrdYszIDDYhHkRIhGAmMDpesvr03_JbzRggw4yi8ZeamdZGg6eR2kADMKyfqDXAWoeOtNvSmyeFra5wsaLx8gziG4G1KUrCSOgrZNPitq4HIVlOVoq6JT60_FPZNE7xRidbPAfLDcaGwarbAGH2LypLaQBmfj0hnA5cdhrcEp1K1cDH3OGrm8oprOR4caVvHmR2f9OZkgNkFe15sYomT0sqZ1loCyG"/>
-</div>
-<button class="absolute bottom-0 right-0 bg-secondary text-on-secondary p-1.5 rounded-full shadow-lg hover:scale-105 transition-transform">
-<span class="material-symbols-outlined text-sm">photo_camera</span>
-</button>
-</div>
-<h2 class="mt-4 font-headline-md text-headline-md text-on-surface">Nguyễn Minh Trí</h2>
-<p class="font-body-md text-on-surface-variant">Thành viên từ 2023</p>
-</div>
-<nav class="space-y-1">
-<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/50 rounded transition-all" href="taikhoan.html">
-<span class="material-symbols-outlined">person</span>
-<span class="font-body-md">Thông tin tài khoản</span>
-</a>
-<a class="flex items-center gap-3 px-4 py-3 bg-primary-container/10 text-primary font-medium rounded transition-all" href="donhangcuatoi.html">
-<span class="material-symbols-outlined" data-weight="fill">shopping_cart</span>
-<span class="font-body-md">Đơn hàng của tôi</span>
-</a>
-<div class="pt-4 mt-4 border-t border-outline-variant">
-<a class="flex items-center gap-3 px-4 py-3 text-error hover:bg-error-container/10 rounded transition-all" href="#">
-<span class="material-symbols-outlined">logout</span>
-<span class="font-body-md">Đăng xuất</span>
-</a>
-</div>
-</nav>
-</div>
-<!-- Promotion Card -->
-<div class="relative bg-[#4A2C2A] text-[#E5A022] p-6 rounded-lg overflow-hidden group">
-<div class="relative z-10">
-<p class="font-label-caps mb-2">HỘI VIÊN HERITAGE</p>
-<p class="font-title-sm mb-4">Giảm 15% cho đơn hàng tiếp theo</p>
-<button class="px-4 py-2 bg-[#E5A022] text-[#4A2C2A] font-label-caps text-[10px] rounded hover:opacity-90 transition-opacity">KHÁM PHÁ NGAY</button>
-</div>
-<div class="absolute -right-4 -bottom-4 opacity-10 group-hover:rotate-12 transition-transform duration-500">
-<span class="material-symbols-outlined text-8xl" style="font-variation-settings: 'FILL' 1;">vaping_rooms</span>
 </div>
 </div>
 </aside>
-
-<!-- Main Content Area -->
-<section class="w-full md:w-3/4">
-<header class="mb-8">
-<h1 class="font-display-lg text-display-lg text-on-surface mb-2">Đơn hàng của tôi</h1>
-<p class="font-body-lg text-on-surface-variant">Quản lý và theo dõi trạng thái đơn hàng của bạn.</p>
+<!-- TopAppBar -->
+<header class="sticky top-0 right-0 w-[calc(100%-16rem)] ml-64 flex justify-between items-center px-8 py-4 z-30 bg-white/80 dark:bg-stone-950/80 backdrop-blur-md rounded-none border-b border-stone-200 dark:border-stone-800 shadow-sm dark:shadow-none font-['Noto_Serif']">
+<div>
+<h2 class="text-xl font-bold text-stone-900 dark:text-stone-50">Quản lý Đơn hàng</h2>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative">
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-none text-sm w-64 focus:ring-1 focus:ring-primary" placeholder="Tìm kiếm đơn hàng..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 text-lg" data-icon="search">search</span>
+</div>
+<div class="flex items-center gap-4 text-stone-600 dark:text-stone-400">
+<button class="scale-95 active:scale-90 transition-transform hover:text-[#B22222]">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="scale-95 active:scale-90 transition-transform hover:text-[#B22222]">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
 </header>
-
-<!-- Tabs Navigation -->
-<div class="flex overflow-x-auto border-b border-outline-variant mb-8 hide-scrollbar">
-<a href="donhangcuatoi.html" class="whitespace-nowrap px-6 py-3 font-body-lg text-on-surface-variant hover:text-primary transition-colors">Tất cả</a>
-<a href="dangxulydh.html" class="whitespace-nowrap px-6 py-3 font-body-lg font-medium text-primary border-b-2 border-primary transition-colors">Đang xử lý</a>
-<a href="danggiaodh.html" class="whitespace-nowrap px-6 py-3 font-body-lg text-on-surface-variant hover:text-primary transition-colors">Đang giao</a>
-<a href="dagiaodh.html" class="whitespace-nowrap px-6 py-3 font-body-lg text-on-surface-variant hover:text-primary transition-colors">Đã giao</a>
-<a href="hoanvahuy.html" class="whitespace-nowrap px-6 py-3 font-body-lg text-on-surface-variant hover:text-primary transition-colors">Hoàn và hủy</a>
+<!-- Main Content Area -->
+<main class="ml-64 p-8 min-h-screen">
+<!-- Status Filter Tabs -->
+<div class="mb-12 border-b border-stone-200 flex gap-12 overflow-x-auto no-scrollbar">
+<button class="pb-4 text-sm font-medium text-stone-500 border-b-2 border-transparent hover:text-primary transition-colors whitespace-nowrap">Tất cả đơn</button>
+<button class="pb-4 text-sm font-bold text-secondary border-b-2 border-secondary whitespace-nowrap">Chờ xác nhận</button>
+<button class="pb-4 text-sm font-medium text-stone-500 border-b-2 border-transparent hover:text-primary transition-colors whitespace-nowrap">Đang xử lý</button>
+<button class="pb-4 text-sm font-medium text-stone-500 border-b-2 border-transparent hover:text-primary transition-colors whitespace-nowrap">Đang giao</button>
+<button class="pb-4 text-sm font-medium text-stone-500 border-b-2 border-transparent hover:text-primary transition-colors whitespace-nowrap">Đã hoàn thành</button>
+<button class="pb-4 text-sm font-medium text-stone-500 border-b-2 border-transparent hover:text-primary transition-colors whitespace-nowrap">Đã hủy</button>
 </div>
-
-<!-- Orders List -->
-<div class="space-y-6">
-    <!-- Card 1 (Processing) -->
-    <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-surface-variant hover:shadow-md transition-shadow">
-        <div class="flex flex-col md:flex-row justify-between md:items-center border-b border-outline-variant pb-4 mb-4 gap-4">
-            <div>
-                <a href="chitietdonhang.html?id=HAH-10305" class="font-label-caps text-outline hover:text-primary underline transition-colors cursor-pointer">MÃ ĐƠN: #HAH-10305</a>
-                <span class="text-on-surface-variant font-body-md md:ml-4 block md:inline mt-1 md:mt-0">Ngày đặt: 02/11/2023</span>
-            </div>
-            <div class="px-3 py-1 bg-surface-variant text-on-surface font-label-caps rounded-full text-[10px] self-start md:self-auto text-center">
-                ĐANG XỬ LÝ
-            </div>
-        </div>
-        <div class="space-y-4">
-            <div class="flex gap-4 items-center">
-                <div class="w-20 h-20 bg-surface-container rounded-lg overflow-hidden flex-shrink-0 border border-outline-variant">
-                    <img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Product" class="w-full h-full object-cover">
-                </div>
-                <div class="flex-grow">
-                    <h4 class="font-title-sm text-on-surface">Gốm Thanh Hà tráng men</h4>
-                    <p class="font-body-md text-on-surface-variant mt-1">Phân loại: Bình cắm hoa, Men xanh lam</p>
-                    <div class="font-body-md text-on-surface mt-2 flex justify-between">
-                        <span>x1</span>
-                        <span class="font-medium">350.000 ₫</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="border-t border-outline-variant pt-4 mt-4 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="font-body-md text-on-surface-variant w-full md:w-auto text-right md:text-left">
-                Tổng cộng: <span class="font-headline-md text-error font-semibold ml-2">350.000 ₫</span>
-            </div>
-            <div class="flex gap-3 w-full md:w-auto">
-                <button class="flex-1 md:flex-none px-6 py-2 border border-outline text-on-surface font-label-caps rounded hover:bg-surface-variant transition-colors">HỦY ĐƠN HÀNG</button>
-                <a href="chitietdonhang.html?id=HAH-10305" class="text-center flex-1 md:flex-none px-6 py-2 bg-secondary text-on-secondary font-label-caps rounded shadow hover:opacity-90 transition-opacity block">CHI TIẾT</a>
-            </div>
-        </div>
-    </div>
+<!-- Order List - Boutique Card Layout -->
+<div class="grid grid-cols-1 gap-8 max-w-5xl mx-auto">
+<!-- Order Card 1 -->
+<div class="bg-surface-container-lowest p-6 flex flex-col md:flex-row gap-6 border-l-4 border-primary-container shadow-sm hover:shadow-md transition-shadow">
+<div class="w-full md:w-32 h-32 flex-shrink-0 bg-surface-container-low rounded-none overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A close-up of a handcrafted Hoi An silk lantern with intricate floral patterns, glowing warmly from within. The ambient lighting is soft and golden, reflecting off a textured wooden surface. The composition captures the artisanal craftsmanship and timeless elegance of traditional Vietnamese decor in a high-key, sophisticated light-mode setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAupDikIp94YoiW2TjezkdGNjiEKMoC6oFVg5IMkvt5bOnASCjbQ35zkwU0b_L6lTm9IrnaTovzKWf67Ywdm8mpRvCsIg3zyR_6PSHHR5-eRMFUIbiT-1KYHRlXDfx4xv3u7jAOvDUueq5_7dwNRWEvDGdSNl7kWSnsYaAy1OfYfMTCGy9hjCKXHXnVzepNDvIvwOcNYsmHURFCsP39YzdYv30AFWMwZQjBqKVWZzVjNqyApiKTVJk6NgZgr4MYMflN8dqePu_lcNVq"/>
 </div>
-</section>
+<div class="flex-1 flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-label-caps text-stone-500 mb-1">MÃ ĐƠN: #HA-98234</p>
+<h3 class="font-title-sm text-on-surface">Lồng đèn lụa Hội An - Dáng Tỏi</h3>
+<p class="text-body-md text-stone-500 mt-1">Số lượng: 02 • Ngày đặt: 24/05/2024</p>
+</div>
+<div class="text-right">
+<span class="bg-primary/10 text-primary text-[10px] font-bold px-3 py-1 rounded-none uppercase tracking-widest border border-primary/20">Chờ xác nhận</span>
+<p class="mt-2 font-display-lg text-secondary text-xl">1.250.000đ</p>
+</div>
+</div>
+<div class="mt-6 flex justify-end gap-4 border-t border-stone-100 pt-4">
+<button class="px-6 py-2 text-xs font-bold border border-stone-300 text-stone-600 hover:bg-stone-50 transition-colors">Xem chi tiết</button>
+<button class="px-6 py-2 text-xs font-bold bg-secondary text-on-secondary hover:opacity-90 transition-opacity">Hủy đơn</button>
+</div>
+</div>
+</div>
+<!-- Order Card 2 -->
+<div class="bg-surface-container-lowest p-6 flex flex-col md:flex-row gap-6 border-l-4 border-primary-container shadow-sm hover:shadow-md transition-shadow">
+<div class="w-full md:w-32 h-32 flex-shrink-0 bg-surface-container-low rounded-none overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Exquisite handmade ceramic tea sets displayed in an elegant gallery setting. The lighting is warm and natural, emphasizing the organic textures and subtle glazes of the pottery. The scene is serene and nostalgic, featuring a palette of soft sand, off-white, and deep wood brown, characteristic of traditional Hoi An aesthetics." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYHtdC9ipEln1K9QHmINabiA-PK639ME6aTzwdh1-jD93E-9mxh2s86ijoWwKX3hOP2VN7Acdjk5FBvVXag8WMl3rLqAQ65YjM1ZDHQK44bm5jmRJnmhe1b3VCYNEDXHXeFWNLMDF-xAm-OW_zjqckBAYPerHYPCsRfve1wmFSxLbJLjGAVAbOEW1O-Yyr8e0WYV8j0fkPvPxvU_HDcTWwe89lnlAbrhXveXZwLTXkBCbDC2jf7ezsiHkRty1FUBQ7xk_r6TIKvpqe"/>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-label-caps text-stone-500 mb-1">MÃ ĐƠN: #HA-98211</p>
+<h3 class="font-title-sm text-on-surface">Bộ trà Gốm Thanh Hà - Men Ngọc</h3>
+<p class="text-body-md text-stone-500 mt-1">Số lượng: 01 • Ngày đặt: 23/05/2024</p>
+</div>
+<div class="text-right">
+<span class="bg-primary/10 text-primary text-[10px] font-bold px-3 py-1 rounded-none uppercase tracking-widest border border-primary/20">Chờ xác nhận</span>
+<p class="mt-2 font-display-lg text-secondary text-xl">850.000đ</p>
+</div>
+</div>
+<div class="mt-6 flex justify-end gap-4 border-t border-stone-100 pt-4">
+<button class="px-6 py-2 text-xs font-bold border border-stone-300 text-stone-600 hover:bg-stone-50 transition-colors">Xem chi tiết</button>
+<button class="px-6 py-2 text-xs font-bold bg-secondary text-on-secondary hover:opacity-90 transition-opacity">Hủy đơn</button>
+</div>
+</div>
+</div>
+<!-- Order Card 3 -->
+<div class="bg-surface-container-lowest p-6 flex flex-col md:flex-row gap-6 border-l-4 border-primary-container shadow-sm hover:shadow-md transition-shadow">
+<div class="w-full md:w-32 h-32 flex-shrink-0 bg-surface-container-low rounded-none overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Traditional Vietnamese silk scarves in vibrant red and earthy ochre tones, folded neatly on a weathered dark timber table. The texture of the raw silk is visible under soft side-lighting, creating a tactile and luxurious feeling. The overall mood is peaceful and culturally rich, using a high-quality editorial photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_UJ4eIwj4IlI-REbsba68X1zNNQYXFm_MqK0CUvvy2X4dGVNZn9lfrkNdi4g6e6Fr3jvQLAonzumFImtvPkRn8YXXrG3-0vHnS6v5P75Le-3IS_h9u0TT635FDfWUPmOQyf-ptIBWzRsrVLZK5YYlWB_mGMgGE4NsbU0jpfRHznwxJmBM-3rdH_XopLqJdFSPvjN4-vHt6VErGmDo0AUhUXAWbcxcu4oML7VCim84E-lpQWHLSA3SI7r_L1Cr8bcsOP_1kuEdSLS1"/>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-label-caps text-stone-500 mb-1">MÃ ĐƠN: #HA-98199</p>
+<h3 class="font-title-sm text-on-surface">Khăn lụa tơ tằm thêu tay hoa sen</h3>
+<p class="text-body-md text-stone-500 mt-1">Số lượng: 03 • Ngày đặt: 22/05/2024</p>
+</div>
+<div class="text-right">
+<span class="bg-primary/10 text-primary text-[10px] font-bold px-3 py-1 rounded-none uppercase tracking-widest border border-primary/20">Chờ xác nhận</span>
+<p class="mt-2 font-display-lg text-secondary text-xl">2.400.000đ</p>
+</div>
+</div>
+<div class="mt-6 flex justify-end gap-4 border-t border-stone-100 pt-4">
+<button class="px-6 py-2 text-xs font-bold border border-stone-300 text-stone-600 hover:bg-stone-50 transition-colors">Xem chi tiết</button>
+<button class="px-6 py-2 text-xs font-bold bg-secondary text-on-secondary hover:opacity-90 transition-opacity">Hủy đơn</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Empty State Hint (Hidden by default but for UI design complete) -->
+<div class="hidden mt-20 text-center flex flex-col items-center">
+<span class="material-symbols-outlined text-stone-300 text-6xl mb-4" data-icon="inbox">inbox</span>
+<p class="font-headline-md text-stone-400">Không có đơn hàng nào chờ xác nhận</p>
+<button class="mt-6 px-8 py-3 bg-primary text-on-primary font-bold">Tiếp tục mua sắm</button>
+</div>
 </main>
-<!-- Decorative Element -->
-<div class="fixed bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary-container via-secondary to-primary-container opacity-30"></div>
-<!-- Footer -->
-<footer class="bg-[#4A2C2A] dark:bg-[#0F0D0C] border-t border-[#E5A022]/20 mt-section-gap">
-<div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-7xl mx-auto w-full px-8 py-12">
-<div class="md:col-span-1">
-<div class="font-serif text-xl text-[#E5A022] mb-4">Hoi An Heritage</div>
-<p class="font-serif text-sm font-light text-[#F9F5F0]/70 leading-relaxed">Kết nối tâm hồn nghệ nhân với những người yêu giá trị truyền thống qua từng sản phẩm thủ công tinh xảo.</p>
+<!-- Bottom Action Hint for Mobile (Mockup context) -->
+<div class="md:hidden fixed bottom-0 left-0 right-0 bg-white shadow-lg p-4 z-50 flex justify-around items-center border-t border-stone-100">
+<button class="flex flex-col items-center text-stone-400">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-[10px]">Trang chủ</span>
+</button>
+<button class="flex flex-col items-center text-secondary">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+<span class="text-[10px]">Đơn hàng</span>
+<span class="w-1 h-1 bg-secondary rounded-full mt-0.5"></span>
+</button>
+<button class="flex flex-col items-center text-stone-400">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+<span class="text-[10px]">Yêu thích</span>
+</button>
+<button class="flex flex-col items-center text-stone-400">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[10px]">Cá nhân</span>
+</button>
 </div>
-<div class="md:col-span-1">
-<h4 class="font-serif text-[#E5A022] font-bold mb-4">Khám phá</h4>
-<ul class="space-y-2">
-<li><a class="font-serif text-sm font-light text-[#F9F5F0]/70 hover:text-[#E5A022] transition-colors" href="#">Bộ sưu tập Silk</a></li>
-<li><a class="font-serif text-sm font-light text-[#F9F5F0]/70 hover:text-[#E5A022] transition-colors" href="#">Đồ gốm thủ công</a></li>
-<li><a class="font-serif text-sm font-light text-[#F9F5F0]/70 hover:text-[#E5A022] transition-colors" href="#">Đèn lồng Hội An</a></li>
-</ul>
-</div>
-<div class="md:col-span-1">
-<h4 class="font-serif text-[#E5A022] font-bold mb-4">Hỗ trợ</h4>
-<ul class="space-y-2">
-<li><a class="font-serif text-sm font-light text-[#F9F5F0]/70 hover:text-[#E5A022] transition-colors" href="#">Privacy Policy</a></li>
-<li><a class="font-serif text-sm font-light text-[#F9F5F0]/70 hover:text-[#E5A022] transition-colors" href="#">Shipping &amp; Returns</a></li>
-<li><a class="font-serif text-sm font-light text-[#F9F5F0]/70 hover:text-[#E5A022] transition-colors" href="#">Contact Us</a></li>
-</ul>
-</div>
-<div class="md:col-span-1">
-<h4 class="font-serif text-[#E5A022] font-bold mb-4">Theo dõi chúng tôi</h4>
-<div class="flex gap-4">
-<span class="material-symbols-outlined text-[#F9F5F0]/70 hover:text-[#E5A022] cursor-pointer">social_leaderboard</span>
-<span class="material-symbols-outlined text-[#F9F5F0]/70 hover:text-[#E5A022] cursor-pointer">camera_enhance</span>
-<span class="material-symbols-outlined text-[#F9F5F0]/70 hover:text-[#E5A022] cursor-pointer">mail</span>
-</div>
-<p class="font-serif text-sm font-light text-[#F9F5F0]/70 mt-6">© 2024 Hoi An Heritage. Preserving Timeless Craftsmanship.</p>
-</div>
-</div>
-</footer>
-</body>
-</html>
+</body></html>
