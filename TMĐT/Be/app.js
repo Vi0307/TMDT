@@ -20,6 +20,7 @@ app.use('/api/admin/categories', require('./admin/categories'));
 app.use('/api/admin/receipts', require('./admin/receipts'));
 app.use('/api/admin/orders', require('./admin/orders'));
 app.use('/api/admin/reviews', require('./admin/reviews'));
+app.use('/api/admin/returns', require('./admin/returns'));
 
 // Route mặc định
 app.get('/', (_req, res) => {
