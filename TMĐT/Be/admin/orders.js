@@ -28,6 +28,7 @@ router.get('/', async (req, res) => {
                 dh.maDonHang,
                 nd.ten AS tenKhachHang,
                 dh.tongTien,
+                dh.ngayDat,
                 tt.tenTrangThai,
                 COUNT(ctdh.maSanPham) AS soLuongSanPham
             FROM DonHang dh
@@ -50,7 +51,7 @@ router.get('/', async (req, res) => {
             }
         }
 
-        query += ` GROUP BY dh.maDonHang, nd.ten, dh.tongTien, tt.tenTrangThai ORDER BY dh.maDonHang DESC`;
+        query += ` GROUP BY dh.maDonHang, nd.ten, dh.tongTien, dh.ngayDat, tt.tenTrangThai ORDER BY dh.maDonHang DESC`;
 
         const result = await request.query(query);
 
@@ -59,13 +60,15 @@ router.get('/', async (req, res) => {
             tenKhachHang: row.tenKhachHang,
             soLuongSanPham: row.soLuongSanPham,
             tongTien: row.tongTien,
+            ngayDat: row.ngayDat,
             tenTrangThai: row.tenTrangThai,
             status: STATUS_MAP[row.tenTrangThai] || 'processing'
         }));
 
         res.json({ success: true, data });
     } catch (err) {
-        res.status(500).json({ success: false, message: err.message });
+        console.error('GET /orders error:', err);
+        res.status(500).json({ success: false, message: err.message, stack: err.stack });
     }
 });
 
