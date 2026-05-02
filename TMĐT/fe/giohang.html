@@ -114,7 +114,7 @@
 <nav id="main-nav" class="hidden md:flex space-x-8 font-serif tracking-wide text-stone-800 dark:text-stone-200">
 <a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="trangchu.html">Trang chủ</a>
 <a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="sanpham.html">Sản phẩm</a>
-<a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="sanpham.html">Câu chuyện</a>
+<a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="gioithieu.html">Câu chuyện</a>
 </nav>
 <div class="flex items-center space-x-4">
 <a href="giohang.html" class="text-stone-600 hover:bg-stone-100/50 p-2 rounded-full transition-all block">
@@ -295,26 +295,47 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 </main>
 <!-- Footer Section -->
-<footer class="bg-[#F2EDE4] dark:bg-stone-950 py-12 border-t border-[#4A2C2A]/10 mt-section-gap">
-<div class="flex flex-col md:flex-row justify-between items-center px-12 max-w-7xl mx-auto gap-6">
-<div class="text-left">
-<div class="font-serif italic text-lg text-[#4A2C2A] dark:text-stone-200 mb-2">Hoi An Heritage</div>
-<p class="font-serif text-sm leading-relaxed text-[#4A2C2A]/70 dark:text-stone-500 max-w-xs">© 2024 Hoi An Heritage. Tinh hoa thủ công Việt Nam.</p>
-</div>
-<div class="flex flex-wrap justify-center gap-8 font-serif text-sm">
-<a class="text-[#4A2C2A]/70 dark:text-stone-500 hover:text-[#E5A022] transition-colors" href="#">Chính Sách Bảo Mật</a>
-<a class="text-[#4A2C2A]/70 dark:text-stone-500 hover:text-[#E5A022] transition-colors" href="#">Điều Khoản Dịch Vụ</a>
-<a class="text-[#4A2C2A]/70 dark:text-stone-500 hover:text-[#E5A022] transition-colors" href="#">Vận Chuyển &amp; Đổi Trả</a>
-<a class="text-[#4A2C2A]/70 dark:text-stone-500 hover:text-[#E5A022] transition-colors" href="#">Liên Hệ</a>
-</div>
-<div class="flex gap-4">
-<button class="w-10 h-10 rounded-full border border-[#4A2C2A]/20 flex items-center justify-center hover:bg-white transition-all group">
-<span class="material-symbols-outlined text-[#4A2C2A] group-hover:text-primary">language</span>
-</button>
-<button class="w-10 h-10 rounded-full border border-[#4A2C2A]/20 flex items-center justify-center hover:bg-white transition-all group">
-<span class="material-symbols-outlined text-[#4A2C2A] group-hover:text-primary">share</span>
-</button>
-</div>
-</div>
+<!-- Footer -->
+<footer class="bg-stone-100 dark:bg-stone-900 border-t border-stone-200 dark:border-stone-800 w-full mt-12 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 px-6 max-w-7xl mx-auto">
+        <div class="space-y-4">
+            <div class="font-serif italic text-xl text-stone-900 dark:text-amber-500">Hội An Tinh Hoa</div>
+            <p class="font-serif text-sm leading-relaxed text-stone-600 dark:text-stone-400">Gói trọn linh hồn làng nghề Việt vào từng sản phẩm thủ công tinh xảo, mang nét đẹp di sản đến mọi gian nhà.</p>
+            <div class="flex space-x-4">
+                <span class="material-symbols-outlined text-stone-600 cursor-pointer hover:text-secondary">social_leaderboard</span>
+                <span class="material-symbols-outlined text-stone-600 cursor-pointer hover:text-secondary">photo_camera</span>
+                <span class="material-symbols-outlined text-stone-600 cursor-pointer hover:text-secondary">mail</span>
+            </div>
+        </div>
+        <div class="space-y-4">
+            <h4 class="font-title-sm text-sm font-bold uppercase tracking-widest text-stone-800 dark:text-stone-200">Khám phá</h4>
+            <ul class="space-y-2 font-serif text-sm text-stone-600 dark:text-stone-400">
+                <li><a class="hover:text-amber-600 transition-colors" href="sanpham.html">Đèn lồng truyền thống</a></li>
+                <li><a class="hover:text-amber-600 transition-colors" href="sanpham.html">Gốm sứ Thanh Hà</a></li>
+                <li><a class="hover:text-amber-600 transition-colors" href="sanpham.html">Lụa Hà Đông cao cấp</a></li>
+                <li><a class="hover:text-amber-600 transition-colors" href="sanpham.html">Quà tặng mỹ nghệ</a></li>
+            </ul>
+        </div>
+        <div class="space-y-4">
+            <h4 class="font-title-sm text-sm font-bold uppercase tracking-widest text-stone-800 dark:text-stone-200">Hỗ trợ</h4>
+            <ul class="space-y-2 font-serif text-sm text-stone-600 dark:text-stone-400">
+                <li><a class="hover:text-amber-600 transition-colors" href="#">Chính sách bảo mật</a></li>
+                <li><a class="hover:text-amber-600 transition-colors" href="#">Chính sách vận chuyển</a></li>
+                <li><a class="hover:text-amber-600 transition-colors" href="#">Điều khoản dịch vụ</a></li>
+                <li><a class="hover:text-amber-600 transition-colors" href="#">Liên hệ hỗ trợ</a></li>
+            </ul>
+        </div>
+        <div class="space-y-4">
+            <h4 class="font-title-sm text-sm font-bold uppercase tracking-widest text-stone-800 dark:text-stone-200">Bản tin di sản</h4>
+            <p class="font-serif text-xs text-stone-500 dark:text-stone-400 leading-relaxed">Đăng ký để nhận thông tin về các bộ sưu tập giới hạn từ các nghệ nhân.</p>
+            <div class="flex flex-col gap-2">
+                <input class="bg-surface border border-outline-variant px-4 py-2 text-xs focus:ring-1 focus:ring-primary outline-none" placeholder="Email của bạn..." type="email"/>
+                <button class="bg-primary text-white px-4 py-2 text-xs font-label-caps hover:bg-on-primary-fixed-variant transition-colors">ĐĂNG KÝ</button>
+            </div>
+        </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-stone-200 dark:border-stone-800 text-center">
+        <p class="font-serif text-sm text-stone-500 dark:text-stone-400">© 2024 Hội An Tinh Hoa. Gìn giữ giá trị nghệ thuật truyền thống.</p>
+    </div>
 </footer>
 </body></html>
