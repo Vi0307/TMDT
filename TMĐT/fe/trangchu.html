@@ -117,12 +117,12 @@
 <nav id="main-nav" class="hidden md:flex space-x-8 font-serif tracking-wide text-stone-800 dark:text-stone-200">
 <a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="trangchu.html">Trang chủ</a>
 <a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="sanpham.html">Sản phẩm</a>
-<a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="#">Câu chuyện</a>
+<a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="gioithieu.html">Câu chuyện</a>
 </nav>
 <div class="flex items-center space-x-4">
-<button class="text-stone-600 hover:bg-stone-100/50 p-2 rounded-full transition-all">
+<a href="giohang.html" class="text-stone-600 hover:bg-stone-100/50 p-2 rounded-full transition-all block">
 <span class="material-symbols-outlined">shopping_cart</span>
-</button>
+</a>
 <div class="relative group">
 <button class="text-stone-600 hover:bg-stone-100/50 p-2 rounded-full transition-all flex items-center">
 <span class="material-symbols-outlined">account_circle</span>
@@ -135,7 +135,8 @@
 </div>
 <div class="hidden" id="user-menu">
 <a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="taikhoan.html">Thông tin tài khoản</a>
-<a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="#">Đăng xuất</a>
+<a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="donhangcuatoi.html">Đơn hàng của tôi</a>
+<a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="trangchu.html">Đăng xuất</a>
 </div>
 </div>
 </div>
@@ -340,19 +341,19 @@ document.addEventListener('DOMContentLoaded', () => {
 </footer>
 <!-- Bottom Navigation Bar (Mobile) -->
 <nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 bg-[#FAF9F6] dark:bg-stone-950 border-t border-stone-200 dark:border-stone-800 shadow-[0_-4px_12px_rgba(74,44,42,0.08)] z-50 md:hidden">
-<a class="flex flex-col items-center justify-center text-red-800 dark:text-red-400 relative after:content-[''] after:w-1 after:h-1 after:bg-red-800 after:rounded-full after:mt-1 active:scale-95 transition-transform duration-200" href="#">
+<a class="flex flex-col items-center justify-center text-red-800 dark:text-red-400 relative after:content-[''] after:w-1 after:h-1 after:bg-red-800 after:rounded-full after:mt-1 active:scale-95 transition-transform duration-200" href="trangchu.html">
 <span class="material-symbols-outlined">home</span>
 <span class="font-serif text-[10px] font-medium">Trang chủ</span>
 </a>
-<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 active:scale-95 transition-transform duration-200" href="#">
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 active:scale-95 transition-transform duration-200" href="sanpham.html">
 <span class="material-symbols-outlined">grid_view</span>
 <span class="font-serif text-[10px] font-medium">Sản phẩm</span>
 </a>
-<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 active:scale-95 transition-transform duration-200" href="#">
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 active:scale-95 transition-transform duration-200" href="giohang.html">
 <span class="material-symbols-outlined">shopping_bag</span>
 <span class="font-serif text-[10px] font-medium">Giỏ hàng</span>
 </a>
-<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 active:scale-95 transition-transform duration-200" href="#">
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 active:scale-95 transition-transform duration-200" href="taikhoan.html">
 <span class="material-symbols-outlined">person</span>
 <span class="font-serif text-[10px] font-medium">Tài khoản</span>
 </a>
