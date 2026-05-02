@@ -53,6 +53,16 @@ function renderTable() {
         const statusInfo = getStatusDisplay(order.status);
         const tongTienFmt = Number(order.tongTien).toLocaleString('vi-VN') + ' đ';
 
+        // Format ngày đặt
+        let ngayDatFmt = '—';
+        if (order.ngayDat) {
+            const d = new Date(order.ngayDat);
+            const day = String(d.getDate()).padStart(2, '0');
+            const month = String(d.getMonth() + 1).padStart(2, '0');
+            const year = d.getFullYear();
+            ngayDatFmt = `${day}/${month}/${year}`;
+        }
+
         let actionHtml = '';
         if (order.status !== 'cancelled' && order.status !== 'delivered') {
             actionHtml += `<button class="btn-outline" onclick="updateOrderStatus(${order.maDonHang}, '${order.status}')">Cập nhật</button>`;
@@ -72,7 +82,7 @@ function renderTable() {
                     <i class="ph ${statusInfo.icon}"></i> ${statusInfo.label}
                 </span>
             </td>
-            <td>—</td>
+            <td>${ngayDatFmt}</td>
             <td><div class="table-actions">${actionHtml}</div></td>
         `;
         orderTableBody.appendChild(tr);
