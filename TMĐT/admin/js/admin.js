@@ -1,186 +1,99 @@
-// Dữ liệu mẫu (Mock data)
-let users = [
-    {
-        id: "U001",
-        name: "Nguyễn Văn A",
-        email: "nguyenvana@gmail.com",
-        phone: "0901234567",
-        status: "active",
-        createdAt: "12/03/2024"
-    },
-    {
-        id: "U002",
-        name: "Trần Thị B",
-        email: "tranthib@gmail.com",
-        phone: "0912345678",
-        status: "active",
-        createdAt: "15/03/2024"
-    },
-    {
-        id: "U003",
-        name: "Lê Văn C",
-        email: "levanc@gmail.com",
-        phone: "0923456789",
-        status: "locked",
-        createdAt: "20/03/2024"
-    },
-    {
-        id: "U004",
-        name: "Phạm Thị D",
-        email: "phamthid@gmail.com",
-        phone: "0934567890",
-        status: "active",
-        createdAt: "22/03/2024"
-    }
-];
+const API_URL = 'http://localhost:3000/api/admin/users';
 
 const userTableBody = document.getElementById('userTableBody');
 const searchInput = document.getElementById('searchInput');
 
-// Hàm render bảng dữ liệu
+// Lấy danh sách người dùng
+async function loadUsers(search = '') {
+    userTableBody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:40px;color:#A0AEC0;">Đang tải...</td></tr>`;
+    try {
+        const url = search ? `${API_URL}?search=${encodeURIComponent(search)}` : API_URL;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const json = await res.json();
+        if (json.success) {
+            renderTable(json.data);
+        } else {
+            userTableBody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:red;padding:40px;">Lỗi: ${json.message}</td></tr>`;
+        }
+    } catch (err) {
+        console.error('loadUsers error:', err);
+        userTableBody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:red;padding:40px;">Không thể kết nối server. (${err.message})</td></tr>`;
+    }
+}
+
+// Render bảng
 function renderTable(data) {
     userTableBody.innerHTML = '';
-    
+
     if (data.length === 0) {
-        userTableBody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding: 40px; color:#A0AEC0; font-size: 15px;">Không tìm thấy người dùng nào.</td></tr>`;
+        userTableBody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:40px;color:#A0AEC0;">Không tìm thấy người dùng nào.</td></tr>`;
         return;
     }
 
     data.forEach(user => {
-        const tr = document.createElement('tr');
-        
-        // Cột trạng thái
-        let statusHtml = '';
-        if (user.status === 'active') {
-            statusHtml = `<span class="status-badge status-active">Hoạt động</span>`;
-        } else {
-            statusHtml = `<span class="status-badge status-locked">Đã khóa</span>`;
-        }
-        
-        // Cột thao tác
-        let actionHtml = '';
-        if (user.status === 'active') {
-            actionHtml += `<button class="btn-action btn-lock" onclick="toggleStatus('${user.id}')" title="Khóa tài khoản"><i class="ph ph-lock-key"></i></button>`;
-        } else {
-            actionHtml += `<button class="btn-action btn-unlock" onclick="toggleStatus('${user.id}')" title="Mở khóa tài khoản"><i class="ph ph-lock-key-open"></i></button>`;
-        }
-        actionHtml += `<button class="btn-action btn-delete" onclick="deleteUser('${user.id}')" title="Xóa tài khoản"><i class="ph ph-trash"></i></button>`;
+        const isActive = user.trangThai === 'Hoạt động';
+        const statusHtml = isActive
+            ? `<span class="status-badge status-active">Hoạt động</span>`
+            : `<span class="status-badge status-locked">Đã khóa</span>`;
 
+        const actionHtml = isActive
+            ? `<button class="btn-action btn-lock" onclick="toggleStatus(${user.maNguoiDung}, true)" title="Khóa tài khoản"><i class="ph ph-lock-key"></i></button>`
+            : `<button class="btn-action btn-unlock" onclick="toggleStatus(${user.maNguoiDung}, false)" title="Mở khóa"><i class="ph ph-lock-key-open"></i></button>`;
+
+        const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td><strong>${user.id}</strong></td>
-            <td>${user.name}</td>
+            <td><strong>${user.maNguoiDung}</strong></td>
+            <td>${user.ten}</td>
             <td>${user.email}</td>
-            <td>${user.phone}</td>
+            <td>${user.soDienThoai || ''}</td>
             <td>${statusHtml}</td>
-            <td>${user.createdAt}</td>
+            <td>${user.diaChi || ''}</td>
             <td class="actions">${actionHtml}</td>
         `;
-        
         userTableBody.appendChild(tr);
     });
 }
 
-// Hàm đổi trạng thái có Popup (SweetAlert2)
-function toggleStatus(userId) {
-    const userIndex = users.findIndex(u => u.id === userId);
-    if (userIndex !== -1) {
-        const isCurrentlyActive = users[userIndex].status === 'active';
-        const actionText = isCurrentlyActive ? 'Khóa' : 'Mở khóa';
-        const confirmColor = isCurrentlyActive ? '#DD6B20' : '#38A169';
+// Khóa / Mở khóa tài khoản
+async function toggleStatus(userId, isCurrentlyActive) {
+    const actionText = isCurrentlyActive ? 'Khóa' : 'Mở khóa';
+    const newStatus = isCurrentlyActive ? 'Đã khóa' : 'Hoạt động';
 
-        Swal.fire({
-            title: `Xác nhận ${actionText}?`,
-            text: `Bạn có chắc chắn muốn ${actionText.toLowerCase()} tài khoản ${userId} không?`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: confirmColor,
-            cancelButtonColor: '#A0AEC0',
-            confirmButtonText: `Đồng ý`,
-            cancelButtonText: 'Hủy'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                users[userIndex].status = isCurrentlyActive ? 'locked' : 'active';
-                renderTable(users);
-                
-                Swal.fire({
-                    title: 'Thành công!',
-                    text: `Tài khoản ${userId} đã được ${actionText.toLowerCase()}.`,
-                    icon: 'success',
-                    timer: 1500,
-                    showConfirmButton: false
-                });
-            }
+    const result = await Swal.fire({
+        title: `Xác nhận ${actionText}?`,
+        text: `Bạn có chắc muốn ${actionText.toLowerCase()} tài khoản này không?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: isCurrentlyActive ? '#DD6B20' : '#38A169',
+        cancelButtonColor: '#A0AEC0',
+        confirmButtonText: 'Đồng ý',
+        cancelButtonText: 'Hủy'
+    });
+
+    if (!result.isConfirmed) return;
+
+    try {
+        const res = await fetch(`${API_URL}/${userId}/status`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ trangThai: newStatus })
         });
+        const json = await res.json();
+        if (json.success) {
+            Swal.fire({ title: 'Thành công!', icon: 'success', timer: 1500, showConfirmButton: false });
+            loadUsers(searchInput.value);
+        }
+    } catch {
+        Swal.fire({ title: 'Lỗi!', text: 'Không thể cập nhật.', icon: 'error' });
     }
 }
 
-// Hàm xóa người dùng có Popup (SweetAlert2)
-function deleteUser(userId) {
-    Swal.fire({
-        title: 'Bạn có chắc chắn?',
-        text: `Tài khoản ${userId} sẽ bị xóa vĩnh viễn!`,
-        icon: 'error',
-        showCancelButton: true,
-        confirmButtonColor: '#E53E3E',
-        cancelButtonColor: '#A0AEC0',
-        confirmButtonText: 'Đồng ý xóa',
-        cancelButtonText: 'Hủy bỏ'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            users = users.filter(u => u.id !== userId);
-            renderTable(users);
-            
-            Swal.fire({
-                title: 'Đã xóa!',
-                text: `Tài khoản ${userId} đã được xóa khỏi hệ thống.`,
-                icon: 'success',
-                timer: 1500,
-                showConfirmButton: false
-            });
-        }
-    });
-}
-
-// Hàm đăng xuất
-function confirmLogout() {
-    Swal.fire({
-        title: 'Đăng xuất?',
-        text: "Bạn có muốn đăng xuất khỏi phiên làm việc này?",
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#5C4033',
-        cancelButtonColor: '#A0AEC0',
-        confirmButtonText: 'Đăng xuất',
-        cancelButtonText: 'Hủy'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            Swal.fire({
-                title: 'Thành công',
-                text: 'Đã đăng xuất.',
-                icon: 'success',
-                timer: 1500,
-                showConfirmButton: false
-            }).then(() => {
-                // Tích hợp logic chuyển hướng sau
-                console.log("Logged out");
-            });
-        }
-    });
-}
-
-// Hàm tìm kiếm
-searchInput.addEventListener('input', function() {
-    const keyword = this.value.toLowerCase();
-    const filteredUsers = users.filter(user => 
-        user.name.toLowerCase().includes(keyword) || 
-        user.email.toLowerCase().includes(keyword) ||
-        user.phone.includes(keyword) ||
-        user.id.toLowerCase().includes(keyword)
-    );
-    renderTable(filteredUsers);
+// Tìm kiếm debounce
+let searchTimeout;
+searchInput.addEventListener('input', function () {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => loadUsers(this.value), 300);
 });
 
-// Render dữ liệu ban đầu
-document.addEventListener('DOMContentLoaded', () => {
-    renderTable(users);
-});
+document.addEventListener('DOMContentLoaded', () => loadUsers());
