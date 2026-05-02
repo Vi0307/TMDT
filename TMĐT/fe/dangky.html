@@ -11,8 +11,9 @@
 body { font-family: 'Be Vietnam Pro', sans-serif; min-height: 100vh; }
 .material-symbols-outlined { font-variation-settings: 'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; font-size: 20px; line-height: 1; user-select: none; }
 
+/* LAYOUT */
 .wrap { display: flex; min-height: 100vh; }
-.left { width: 44%; position: relative; overflow: hidden; flex-shrink: 0; }
+.left { width: 45%; position: relative; overflow: hidden; flex-shrink: 0; }
 .right {
   flex: 1; display: flex; flex-direction: column; align-items: center;
   justify-content: center; padding: 40px 24px; overflow-y: auto;
@@ -20,7 +21,7 @@ body { font-family: 'Be Vietnam Pro', sans-serif; min-height: 100vh; }
   background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5L35 15L45 15L37 22L40 32L30 26L20 32L23 22L15 15L25 15Z' fill='%23e5a022' fill-opacity='0.05'/%3E%3C/svg%3E");
 }
 
-/* LEFT */
+/* LEFT PANEL */
 .left img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 10s ease; }
 .left:hover img { transform:scale(1.05); }
 .left-overlay { position:absolute; inset:0; background:linear-gradient(170deg, rgba(128,86,0,0.72) 0%, rgba(40,24,0,0.82) 100%); }
@@ -44,15 +45,15 @@ body { font-family: 'Be Vietnam Pro', sans-serif; min-height: 100vh; }
 .feature-dot { width:28px; height:28px; border-radius:50%; background:rgba(229,160,34,0.18); border:1px solid rgba(229,160,34,0.4); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
 
 /* CARD */
-.card { width:100%; max-width:430px; background:#fff; border-radius:2px; box-shadow:0 20px 60px rgba(74,44,42,0.13),0 4px 16px rgba(74,44,42,0.07); overflow:hidden; }
+.card { width:100%; max-width:420px; background:#fff; border-radius:2px; box-shadow:0 20px 60px rgba(74,44,42,0.13),0 4px 16px rgba(74,44,42,0.07); overflow:hidden; }
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
 .card { animation:fadeUp 0.5s ease both; }
 
 /* CARD HEADER */
-.card-header { background:linear-gradient(135deg,#281800 0%,#805600 100%); padding:26px 32px 20px; text-align:center; position:relative; overflow:hidden; border-radius:2px 2px 0 0; }
+.card-header { background:linear-gradient(135deg,#281800 0%,#805600 100%); padding:28px 32px 22px; text-align:center; position:relative; overflow:hidden; }
 .card-header::before { content:''; position:absolute; inset:0; background-image:url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 3L23 10L30 10L24.5 14.5L26.5 21.5L20 17L13.5 21.5L15.5 14.5L10 10L17 10Z' fill='%23ffffff' fill-opacity='0.04'/%3E%3C/svg%3E"); }
-.hdr-icon { width:48px; height:48px; background:rgba(229,160,34,0.15); border-radius:50%; display:inline-flex; align-items:center; justify-content:center; margin-bottom:9px; border:1px solid rgba(229,160,34,0.3); position:relative; }
-.card-header h1 { font-family:'Noto Serif',serif; font-size:20px; font-weight:700; color:#fff; position:relative; margin-bottom:3px; }
+.card-header-icon { width:50px; height:50px; background:rgba(229,160,34,0.15); border-radius:50%; display:inline-flex; align-items:center; justify-content:center; margin-bottom:10px; border:1px solid rgba(229,160,34,0.3); position:relative; }
+.card-header h1 { font-family:'Noto Serif',serif; font-size:21px; font-weight:700; color:#fff; position:relative; margin-bottom:3px; }
 .card-header p { font-size:10px; letter-spacing:0.15em; color:rgba(229,160,34,0.85); text-transform:uppercase; position:relative; }
 
 /* TABS */
@@ -61,11 +62,11 @@ body { font-family: 'Be Vietnam Pro', sans-serif; min-height: 100vh; }
 .tab.active { color:#805600; border-bottom-color:#805600; }
 
 /* FORM */
-.form-body { padding:20px 22px 16px; }
-.field { margin-bottom:13px; }
-.field label { display:block; font-size:10px; font-weight:600; letter-spacing:0.12em; color:#514534; text-transform:uppercase; margin-bottom:5px; }
+.form-body { padding:24px 28px 20px; }
+.field { margin-bottom:14px; }
+.field label { display:block; font-size:10px; font-weight:600; letter-spacing:0.12em; color:#514534; text-transform:uppercase; margin-bottom:6px; }
 
-/* INPUT BOX — flexbox, no absolute icons */
+/* INPUT BOX */
 .input-box {
   display:flex; align-items:center;
   border:1px solid #d6c4ae; border-radius:2px; background:#faf8f3;
@@ -74,14 +75,14 @@ body { font-family: 'Be Vietnam Pro', sans-serif; min-height: 100vh; }
 .input-box:focus-within { border-color:#805600; background:#fff; box-shadow:0 0 0 3px rgba(128,86,0,0.08); }
 .input-box .ico { padding:0 10px 0 12px; color:#9e8872; flex-shrink:0; display:flex; align-items:center; transition:color 0.25s; }
 .input-box:focus-within .ico { color:#805600; }
-.input-box input { flex:1; border:none; outline:none; background:transparent; padding:11px 10px 11px 0; font-family:'Be Vietnam Pro',sans-serif; font-size:14px; color:#1b1c19; }
+.input-box input { flex:1; border:none; outline:none; background:transparent; padding:11px 12px 11px 0; font-family:'Be Vietnam Pro',sans-serif; font-size:14px; color:#1b1c19; }
 .input-box input::placeholder { color:#a89580; }
-.input-box .tog-btn { padding:0 12px 0 6px; background:none; border:none; cursor:pointer; color:#9e8872; display:flex; align-items:center; transition:color 0.2s; flex-shrink:0; }
+.input-box .tog-btn { padding:0 12px 0 8px; background:none; border:none; cursor:pointer; color:#9e8872; display:flex; align-items:center; transition:color 0.2s; flex-shrink:0; }
 .input-box .tog-btn:hover { color:#805600; }
 
 /* 2-col grid */
-.row2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-.row2 > .field { min-width: 0; } /* Prevent CSS Grid blowout */
+.row2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.row2 > .field { min-width: 0; }
 .input-box { width: 100%; min-width: 0; }
 
 /* STRENGTH */
@@ -104,18 +105,9 @@ body { font-family: 'Be Vietnam Pro', sans-serif; min-height: 100vh; }
 .btn-main:hover::before { left:100%; }
 .btn-main:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(181,36,36,0.45); }
 
-/* DIVIDER */
-.div-or { display:flex; align-items:center; gap:10px; margin:15px 0; color:#a89580; font-size:10px; letter-spacing:0.08em; }
-.div-or::before,.div-or::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,transparent,#d6c4ae,transparent); }
-
-/* SOCIAL */
-.soc-row { display:flex; gap:10px; }
-.soc-btn { flex:1; padding:10px; border:1px solid #d6c4ae; background:#faf8f3; border-radius:2px; cursor:pointer; font-family:'Be Vietnam Pro',sans-serif; font-size:12px; font-weight:500; color:#514534; display:flex; align-items:center; justify-content:center; gap:7px; transition:all 0.25s; }
-.soc-btn:hover { background:#f5f3ee; border-color:#805600; color:#805600; }
-
 /* CARD FOOTER */
-.card-foot { background:#faf8f3; border-top:1px solid #ede6db; padding:13px 26px; text-align:center; }
-.card-foot p { font-family:'Noto Serif',serif; font-style:italic; font-size:12px; color:#837562; margin-bottom:6px; }
+.card-foot { background:#faf8f3; border-top:1px solid #ede6db; padding:14px 28px; text-align:center; }
+.card-foot p { font-family:'Noto Serif',serif; font-style:italic; font-size:12px; color:#837562; margin-bottom:7px; }
 .card-foot span { font-size:12px; color:#514534; }
 .card-foot a { color:#b52424; font-weight:600; text-decoration:none; margin-left:4px; }
 .card-foot a:hover { text-decoration:underline; }
@@ -176,7 +168,7 @@ body { font-family: 'Be Vietnam Pro', sans-serif; min-height: 100vh; }
 
     <div class="card">
       <div class="card-header">
-        <div class="hdr-icon">
+        <div class="card-header-icon">
           <span class="material-symbols-outlined" style="color:#ffba47;font-size:24px;position:relative;">person_add</span>
         </div>
         <h1>Hội An Tinh Hoa</h1>
@@ -268,19 +260,6 @@ body { font-family: 'Be Vietnam Pro', sans-serif; min-height: 100vh; }
             <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span>
           </button>
         </form>
-
-        <div class="div-or">hoặc đăng ký với</div>
-
-        <div class="soc-row">
-          <button class="soc-btn">
-            <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#EA4335" d="M5.26 9.77A7.24 7.24 0 0 1 12 4.75c1.74 0 3.3.62 4.53 1.63l3.37-3.37A11.97 11.97 0 0 0 12 .75C7.5.75 3.63 3.7 2 7.82l3.26 1.95Z"/><path fill="#34A853" d="M16.04 18.35A7.24 7.24 0 0 1 12 19.25c-3.04 0-5.64-1.88-6.74-4.57L1.95 16.6A11.97 11.97 0 0 0 12 23.25c3.27 0 6.13-1.23 8.29-3.24l-4.25-1.66Z"/><path fill="#FBBC05" d="M19.25 12c0-.65-.07-1.28-.18-1.88H12v3.76h4.07a3.53 3.53 0 0 1-1.5 2.3l4.25 1.66A11.94 11.94 0 0 0 19.25 12Z"/><path fill="#4285F4" d="M5.26 14.23A7.3 7.3 0 0 1 4.75 12c0-.77.13-1.52.37-2.23L1.86 7.82A11.96 11.96 0 0 0 .75 12c0 1.47.27 2.87.76 4.18l3.75-1.95Z"/></svg>
-            Google
-          </button>
-          <button class="soc-btn">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.313 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
-            Facebook
-          </button>
-        </div>
       </div>
 
       <div class="card-foot">
