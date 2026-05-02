@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý phiếu nhập - Admin</title>
+    <!-- File CSS chung -->
+    <link rel="stylesheet" href="../css/admin.css">
+    <!-- File CSS riêng cho phiếu nhập -->
+    <link rel="stylesheet" href="../css/receipts.css">
+    <!-- Sử dụng Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- SweetAlert2 cho Popup đẹp -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div>
+            <!-- Header User Profile -->
+            <div class="sidebar-header">
+                <div class="admin-avatar">
+                    <i class="ph ph-user"></i>
+                </div>
+                <div class="admin-info">
+                    <h2>Xin chào, Admin</h2>
+                    <p>Quản trị viên</p>
+                </div>
+            </div>
+
+            <ul class="nav-menu">
+                <li>
+                    <a href="admin.html" class="nav-item">
+                        <i class="ph ph-users"></i>
+                        Quản lý người dùng
+                    </a>
+                </li>
+                <li>
+                    <a href="products.html" class="nav-item">
+                        <i class="ph ph-package"></i>
+                        Quản lý sản phẩm
+                    </a>
+                </li>
+                <li>
+                    <a href="categories.html" class="nav-item">
+                        <i class="ph ph-tag"></i>
+                        Quản lý danh mục
+                    </a>
+                </li>
+                <li>
+                    <a href="receipts.html" class="nav-item active">
+                        <i class="ph ph-storefront"></i>
+                        Quản lý phiếu nhập
+                    </a>
+                </li>
+                <li>
+                    <a href="orders.html" class="nav-item">
+                        <i class="ph ph-shopping-cart"></i>
+                        Quản lý đơn hàng
+                    </a>
+                </li>
+                <li>
+                    <a href="reviews.html" class="nav-item">
+                        <i class="ph ph-chat-circle-text"></i>
+                        Phản hồi đánh giá
+                    </a>
+                </li>
+                <li>
+                    <a href="returns.html" class="nav-item">
+                        <i class="ph ph-arrow-counter-clockwise"></i>
+                        Xác nhận hoàn hàng
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="logout-section">
+            <a href="#" class="nav-item" onclick="confirmLogout()">
+                <i class="ph ph-sign-out"></i>
+                Đăng xuất
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1>Quản lý phiếu nhập</h1>
+        </div>
+
+        <div class="content-card">
+            <div class="action-bar">
+                <div class="search-bar">
+                    <i class="ph ph-magnifying-glass"></i>
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm phiếu nhập...">
+                </div>
+                <button class="btn-primary" onclick="addReceipt()">
+                    <i class="ph ph-plus-circle"></i>
+                    Thêm phiếu nhập mới
+                </button>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 15%">Mã PN</th>
+                        <th style="width: 35%">Mã NCC</th>
+                        <th style="width: 35%">Ngày nhập</th>
+                        <th style="width: 15%">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="receiptTableBody">
+                    <!-- Dữ liệu sẽ được render từ JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- File JS riêng cho phiếu nhập -->
+    <script src="../js/receipts.js"></script>
+</body>
+
+</html>

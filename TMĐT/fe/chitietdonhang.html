@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;500;600;700&amp;family=Be+Vietnam+Pro:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .lantern-glow {
+            box-shadow: 0 0 15px rgba(229, 160, 34, 0.4);
+        }
+        .lantern-glow:focus-within {
+            box-shadow: inset 0 0 10px rgba(229, 160, 34, 0.3);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#cfa3a0",
+                    "primary-fixed-dim": "#ffba47",
+                    "on-tertiary-fixed-variant": "#5f3e3c",
+                    "surface": "#fbf9f4",
+                    "on-error": "#ffffff",
+                    "primary-container": "#e5a022",
+                    "on-background": "#1b1c19",
+                    "on-tertiary-container": "#593937",
+                    "surface-container-high": "#eae8e3",
+                    "on-secondary-fixed-variant": "#92030f",
+                    "tertiary": "#795553",
+                    "surface-container": "#f0eee9",
+                    "secondary-fixed": "#ffdad6",
+                    "background": "#fbf9f4",
+                    "secondary": "#b52424",
+                    "on-secondary-fixed": "#410003",
+                    "inverse-primary": "#ffba47",
+                    "surface-bright": "#fbf9f4",
+                    "outline-variant": "#d6c4ae",
+                    "on-secondary-container": "#600006",
+                    "on-primary-container": "#5a3b00",
+                    "tertiary-fixed-dim": "#eabcb8",
+                    "surface-variant": "#e4e2dd",
+                    "outline": "#837562",
+                    "on-primary": "#ffffff",
+                    "on-primary-fixed-variant": "#614000",
+                    "inverse-surface": "#30312e",
+                    "tertiary-fixed": "#ffdad7",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "on-surface-variant": "#514534",
+                    "primary-fixed": "#ffddb0",
+                    "inverse-on-surface": "#f2f1ec",
+                    "surface-tint": "#805600",
+                    "surface-container-highest": "#e4e2dd",
+                    "secondary-fixed-dim": "#ffb4ac",
+                    "on-error-container": "#93000a",
+                    "on-surface": "#1b1c19",
+                    "on-primary-fixed": "#281800",
+                    "surface-dim": "#dbdad5",
+                    "primary": "#805600",
+                    "surface-container-low": "#f5f3ee",
+                    "error": "#ba1a1a",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "secondary-container": "#ff5a52",
+                    "on-tertiary-fixed": "#2e1413"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "base": "4px",
+                    "section-gap": "48px",
+                    "gutter": "16px",
+                    "stack-lg": "32px",
+                    "margin-mobile": "20px",
+                    "stack-sm": "8px",
+                    "stack-md": "16px"
+            },
+            "fontFamily": {
+                    "label-caps": ["Be Vietnam Pro"],
+                    "headline-md": ["Noto Serif"],
+                    "display-lg": ["Noto Serif"],
+                    "body-lg": ["Be Vietnam Pro"],
+                    "body-md": ["Be Vietnam Pro"],
+                    "title-sm": ["Noto Serif"]
+            },
+            "fontSize": {
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                    "display-lg": ["34px", {"lineHeight": "42px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "title-sm": ["20px", {"lineHeight": "28px", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="bg-[#FAF9F6] dark:bg-stone-950 border-b border-stone-200 dark:border-stone-800 shadow-sm shadow-stone-900/5 sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+<div class="text-2xl font-serif font-bold text-stone-900 dark:text-amber-500">Hội An Tinh Hoa</div>
+<nav id="main-nav" class="hidden md:flex space-x-8 font-serif tracking-wide text-stone-800 dark:text-stone-200">
+<a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="trangchu.html">Trang chủ</a>
+<a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="sanpham.html">Sản phẩm</a>
+<a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="sanpham.html">Câu chuyện</a>
+</nav>
+<div class="flex items-center space-x-4">
+<a href="giohang.html" class="text-stone-600 hover:bg-stone-100/50 p-2 rounded-full transition-all block">
+<span class="material-symbols-outlined">shopping_cart</span>
+</a>
+<div class="relative group">
+<button class="text-stone-600 hover:bg-stone-100/50 p-2 rounded-full transition-all flex items-center">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+<div class="absolute right-0 top-full pt-2 w-48 hidden group-hover:block z-50">
+<div class="bg-white dark:bg-stone-900 rounded-md shadow-lg py-1 border border-stone-200 dark:border-stone-800">
+<div id="guest-menu">
+<a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="dangnhap.html">Đăng nhập</a>
+<a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="dangky.html">Đăng ký</a>
+</div>
+<div class="hidden" id="user-menu">
+<a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="taikhoan.html">Thông tin tài khoản</a>
+<a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="donhangcuatoi.html">Đơn hàng của tôi</a>
+<a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="trangchu.html">Đăng xuất</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const currentPath = window.location.pathname.split('/').pop();
+    const navLinks = document.querySelectorAll('#main-nav .nav-link');
+    navLinks.forEach(link => {
+        const linkPath = link.getAttribute('href');
+        if (linkPath === currentPath || (currentPath === '' && linkPath === 'trangchu.html')) {
+            link.className = 'nav-link text-red-800 dark:text-red-400 font-bold border-b-2 border-red-800 dark:border-red-400 pb-1';
+        } else {
+            link.className = 'nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300';
+        }
+    });
+});
+</script>
+</header>
+<main class="max-w-7xl mx-auto px-8 py-12 flex flex-col md:flex-row gap-12">
+<!-- Sidebar Navigation -->
+<aside class="w-full md:w-1/4 space-y-8">
+<div class="bg-surface-container-low p-6 rounded-lg">
+<div class="flex flex-col items-center mb-8">
+<div class="relative group">
+<div class="w-24 h-24 rounded-full border-2 border-primary overflow-hidden shadow-md">
+<img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBe18Kc438f1yCQLDtooH5aBass9NYezi32WHD9yYeWYDbRxaqrdYszIDDYhHkRIhGAmMDpesvr03_JbzRggw4yi8ZeamdZGg6eR2kADMKyfqDXAWoeOtNvSmyeFra5wsaLx8gziG4G1KUrCSOgrZNPitq4HIVlOVoq6JT60_FPZNE7xRidbPAfLDcaGwarbAGH2LypLaQBmfj0hnA5cdhrcEp1K1cDH3OGrm8oprOR4caVvHmR2f9OZkgNkFe15sYomT0sqZ1loCyG"/>
+</div>
+<button class="absolute bottom-0 right-0 bg-secondary text-on-secondary p-1.5 rounded-full shadow-lg hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-sm">photo_camera</span>
+</button>
+</div>
+<h2 class="mt-4 font-headline-md text-headline-md text-on-surface">Nguyễn Minh Trí</h2>
+<p class="font-body-md text-on-surface-variant">Thành viên từ 2023</p>
+</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/50 rounded transition-all" href="taikhoan.html">
+<span class="material-symbols-outlined">person</span>
+<span class="font-body-md">Thông tin tài khoản</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container/10 text-primary font-medium rounded transition-all" href="donhangcuatoi.html">
+<span class="material-symbols-outlined" data-weight="fill">shopping_cart</span>
+<span class="font-body-md">Đơn hàng của tôi</span>
+</a>
+<div class="pt-4 mt-4 border-t border-outline-variant">
+<a class="flex items-center gap-3 px-4 py-3 text-error hover:bg-error-container/10 rounded transition-all" href="trangchu.html">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-body-md">Đăng xuất</span>
+</a>
+</div>
+</nav>
+</div>
+<!-- Promotion Card -->
+<div class="relative bg-[#4A2C2A] text-[#E5A022] p-6 rounded-lg overflow-hidden group">
+<div class="relative z-10">
+<p class="font-label-caps mb-2">HỘI VIÊN HERITAGE</p>
+<p class="font-title-sm mb-4">Giảm 15% cho đơn hàng tiếp theo</p>
+<button onclick="window.location.href='sanpham.html'" class="px-4 py-2 bg-[#E5A022] text-[#4A2C2A] font-label-caps text-[10px] rounded hover:opacity-90 transition-opacity">KHÁM PHÁ NGAY</button>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-10 group-hover:rotate-12 transition-transform duration-500">
+<span class="material-symbols-outlined text-8xl" style="font-variation-settings: 'FILL' 1;">vaping_rooms</span>
+</div>
+</div>
+</aside>
+
+<!-- Main Content Area -->
+<section class="w-full md:w-3/4 space-y-8">
+    <header class="mb-4">
+        <nav class="flex items-center gap-2 text-on-surface-variant text-sm mb-4">
+            <a class="hover:text-primary transition-colors font-body-md" href="donhangcuatoi.html">Đơn hàng của tôi</a>
+            <span class="material-symbols-outlined text-xs">chevron_right</span>
+            <span id="breadcrumb-id" class="text-on-surface font-body-md">Chi tiết #HAH-10305</span>
+        </nav>
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+                <h1 id="page-title-id" class="font-display-lg text-display-lg text-on-surface mb-2">Chi tiết đơn hàng</h1>
+                <p id="page-date-id" class="font-body-md text-on-surface-variant">Ngày đặt: 02/11/2023 • 14:35</p>
+            </div>
+            <div class="flex gap-4">
+                <a href="donhangcuatoi.html" class="px-6 py-2 border border-outline text-on-surface font-label-caps rounded hover:bg-surface-variant transition-colors flex items-center gap-2">
+                    <span class="material-symbols-outlined text-sm">arrow_back</span>
+                    QUAY LẠI
+                </a>
+                <button onclick="window.location.href='huydon.html'" class="px-6 py-2 bg-secondary text-on-secondary font-label-caps rounded shadow hover:opacity-90 transition-opacity flex items-center gap-2">
+                    <span class="material-symbols-outlined text-sm">cancel</span>
+                    HỦY ĐƠN
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Status Timeline -->
+    <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-variant overflow-x-auto hide-scrollbar">
+        <div id="timeline-container" class="flex justify-between items-start md:items-center relative min-w-[500px]">
+            <div class="absolute top-5 left-10 right-10 h-0.5 bg-outline-variant"></div>
+            <!-- Steps -->
+            <!-- Step 1: Placed -->
+            <div class="relative z-10 flex flex-col items-center text-center w-1/4">
+                <div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center lantern-glow mb-3 border-4 border-surface-container-lowest">
+                    <span class="material-symbols-outlined text-sm" data-weight="fill">check</span>
+                </div>
+                <p class="font-title-sm text-sm text-on-surface">Đã đặt hàng</p>
+                <p class="font-body-md text-xs text-on-surface-variant mt-1">02/11/2023 14:35</p>
+            </div>
+            <!-- Step 2: Confirmed -->
+            <div class="relative z-10 flex flex-col items-center text-center w-1/4">
+                <div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center lantern-glow mb-3 border-4 border-surface-container-lowest">
+                    <span class="material-symbols-outlined text-sm" data-weight="fill">check</span>
+                </div>
+                <p class="font-title-sm text-sm text-on-surface">Đã xác nhận</p>
+                <p class="font-body-md text-xs text-on-surface-variant mt-1">02/11/2023 15:00</p>
+            </div>
+            <!-- Step 3: Shipping -->
+            <div class="relative z-10 flex flex-col items-center text-center w-1/4">
+                <div class="w-10 h-10 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center mb-3 border-4 border-surface-container-lowest">
+                    <span class="material-symbols-outlined text-sm">local_shipping</span>
+                </div>
+                <p class="font-title-sm text-sm text-on-surface-variant">Đang giao hàng</p>
+                <p class="font-body-md text-xs text-on-surface-variant mt-1">Dự kiến 05/11/2023</p>
+            </div>
+            <!-- Step 4: Completed -->
+            <div class="relative z-10 flex flex-col items-center text-center w-1/4">
+                <div class="w-10 h-10 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center mb-3 border-4 border-surface-container-lowest">
+                    <span class="material-symbols-outlined text-sm">inventory_2</span>
+                </div>
+                <p class="font-title-sm text-sm text-on-surface-variant">Hoàn tất</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        <!-- Left Column: Products & Info -->
+        <div class="lg:col-span-2 space-y-8">
+            <!-- Customer Info -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-surface-variant">
+                    <h3 class="font-title-sm text-primary mb-4 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-lg">person</span>
+                        Thông tin người nhận
+                    </h3>
+                    <p class="font-headline-md text-on-surface text-lg">Nguyễn Minh Trí</p>
+                    <p class="font-body-md text-on-surface-variant mt-2">+84 905 123 456</p>
+                    <p class="font-body-md text-on-surface-variant">minhtri.heritage@gmail.com</p>
+                </div>
+                <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-surface-variant">
+                    <h3 class="font-title-sm text-primary mb-4 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-lg">location_on</span>
+                        Địa chỉ giao hàng
+                    </h3>
+                    <p class="font-body-md text-on-surface leading-relaxed">
+                        123 Trần Phú, Phường Minh An,<br/>
+                        TP. Hội An, Quảng Nam,<br/>
+                        Việt Nam
+                    </p>
+                </div>
+            </div>
+
+            <!-- Product List -->
+            <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-variant overflow-hidden">
+                <div class="p-6 border-b border-surface-variant bg-surface-container-low">
+                    <h3 class="font-title-sm text-on-surface">Danh sách sản phẩm</h3>
+                </div>
+                <div id="product-list-container" class="divide-y divide-surface-variant">
+                    <!-- Product Item 1 -->
+                    <div class="p-6 flex gap-6">
+                        <div class="w-20 h-20 bg-surface-container rounded-lg overflow-hidden flex-shrink-0 border border-outline-variant">
+                            <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" />
+                        </div>
+                        <div class="flex-grow flex flex-col md:flex-row justify-between gap-4">
+                            <div>
+                                <h4 class="font-title-sm text-on-surface">Gốm Thanh Hà tráng men</h4>
+                                <p class="font-body-md text-on-surface-variant mt-1">Phân loại: Bình cắm hoa, Men xanh lam</p>
+                                <p class="font-body-md text-on-surface mt-2">Số lượng: 1</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-headline-md text-primary text-lg font-semibold">350.000 ₫</p>
+                                <p class="font-body-md text-on-surface-variant mt-1">Thành tiền: 350.000 ₫</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Summary & Payment -->
+        <aside class="space-y-8">
+            <!-- Payment Summary -->
+            <div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant shadow-sm relative overflow-hidden">
+                <!-- Decorative elements -->
+                <div class="absolute -top-6 -right-6 opacity-10">
+                    <span class="material-symbols-outlined text-8xl" style="font-variation-settings: 'FILL' 1;">receipt_long</span>
+                </div>
+                <h3 class="font-title-sm text-on-surface mb-6 border-b border-outline-variant pb-4 relative z-10">Thanh toán</h3>
+                <div class="space-y-4 font-body-md relative z-10">
+                    <div class="flex justify-between text-on-surface-variant">
+                        <span>Tạm tính</span>
+                        <span id="summary-subtotal">350.000 ₫</span>
+                    </div>
+                    <div class="flex justify-between text-on-surface-variant">
+                        <span>Phí vận chuyển</span>
+                        <span id="summary-shipping">30.000 ₫</span>
+                    </div>
+                    <div class="flex justify-between text-on-surface-variant text-primary">
+                        <span>Hội viên Heritage</span>
+                        <span id="summary-discount">-52.500 ₫</span>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-dashed border-outline-variant">
+                        <div class="flex justify-between items-end">
+                            <span class="font-title-sm text-on-surface">Tổng cộng</span>
+                            <div class="text-right">
+                                <span id="summary-total" class="font-display-lg text-error block leading-none font-semibold">327.500 ₫</span>
+                                <span class="font-label-caps text-on-surface-variant text-[10px] mt-2 block">ĐÃ BAO GỒM VAT</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Method -->
+            <div class="bg-surface-container-lowest p-6 rounded-xl border border-surface-variant shadow-sm">
+                <h3 class="font-title-sm text-on-surface mb-4">Phương thức thanh toán</h3>
+                <div class="flex items-center gap-4 p-3 border border-outline-variant rounded-lg bg-surface-container-low">
+                    <span class="material-symbols-outlined text-primary text-3xl">account_balance_wallet</span>
+                    <div>
+                        <p class="font-body-lg font-medium text-on-surface">Chuyển khoản</p>
+                        <p class="font-body-md text-on-surface-variant">Đã thanh toán</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shipping Partner -->
+            <div class="bg-surface-container-lowest p-6 rounded-xl border border-surface-variant shadow-sm">
+                <h3 class="font-title-sm text-on-surface mb-4">Đơn vị vận chuyển</h3>
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
+                        <span class="material-symbols-outlined">local_shipping</span>
+                    </div>
+                    <div>
+                        <p class="font-body-lg font-medium text-on-surface">Giao Hàng Nhanh</p>
+                        <p class="font-body-md text-on-surface-variant">GHN88273645VN</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+</section>
+</main>
+<!-- Decorative Element -->
+<div class="fixed bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary-container via-secondary to-primary-container opacity-30"></div>
+<!-- Footer -->
+<footer class="bg-[#4A2C2A] dark:bg-[#0F0D0C] border-t border-[#E5A022]/20 mt-section-gap">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-7xl mx-auto w-full px-8 py-12">
+<div class="md:col-span-1">
+<div class="font-serif text-xl text-[#E5A022] mb-4">Hoi An Heritage</div>
+<p class="font-serif text-sm font-light text-[#F9F5F0]/70 leading-relaxed">Kết nối tâm hồn nghệ nhân với những người yêu giá trị truyền thống qua từng sản phẩm thủ công tinh xảo.</p>
+</div>
+<div class="md:col-span-1">
+<h4 class="font-serif text-[#E5A022] font-bold mb-4">Khám phá</h4>
+<ul class="space-y-2">
+<li><a class="font-serif text-sm font-light text-[#F9F5F0]/70 hover:text-[#E5A022] transition-colors" href="#">Bộ sưu tập Silk</a></li>
+<li><a class="font-serif text-sm font-light text-[#F9F5F0]/70 hover:text-[#E5A022] transition-colors" href="#">Đồ gốm thủ công</a></li>
+<li><a class="font-serif text-sm font-light text-[#F9F5F0]/70 hover:text-[#E5A022] transition-colors" href="#">Đèn lồng Hội An</a></li>
+</ul>
+</div>
+<div class="md:col-span-1">
+<h4 class="font-serif text-[#E5A022] font-bold mb-4">Hỗ trợ</h4>
+<ul class="space-y-2">
+<li><a class="font-serif text-sm font-light text-[#F9F5F0]/70 hover:text-[#E5A022] transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="font-serif text-sm font-light text-[#F9F5F0]/70 hover:text-[#E5A022] transition-colors" href="#">Shipping &amp; Returns</a></li>
+<li><a class="font-serif text-sm font-light text-[#F9F5F0]/70 hover:text-[#E5A022] transition-colors" href="#">Contact Us</a></li>
+</ul>
+</div>
+<div class="md:col-span-1">
+<h4 class="font-serif text-[#E5A022] font-bold mb-4">Theo dõi chúng tôi</h4>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-[#F9F5F0]/70 hover:text-[#E5A022] cursor-pointer">social_leaderboard</span>
+<span class="material-symbols-outlined text-[#F9F5F0]/70 hover:text-[#E5A022] cursor-pointer">camera_enhance</span>
+<span class="material-symbols-outlined text-[#F9F5F0]/70 hover:text-[#E5A022] cursor-pointer">mail</span>
+</div>
+<p class="font-serif text-sm font-light text-[#F9F5F0]/70 mt-6">© 2024 Hoi An Heritage. Preserving Timeless Craftsmanship.</p>
+</div>
+</div>
+</footer>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    let orderId = null;
+    const url = window.location.href;
+    if (url.includes('?id=')) {
+        orderId = url.split('?id=')[1].split('&')[0];
+    }
+    
+    if (!orderId) {
+        console.log("No orderId found in URL");
+        return;
+    }
+    console.log("Found orderId:", orderId);
+
+    const orders = {
+        'HAH-10305': {
+            date: 'Ngày đặt: 02/11/2023 • 14:35',
+            productsHtml: `
+                <div class="p-6 flex gap-6">
+                    <div class="w-20 h-20 bg-surface-container rounded-lg overflow-hidden flex-shrink-0 border border-outline-variant">
+                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" />
+                    </div>
+                    <div class="flex-grow flex flex-col md:flex-row justify-between gap-4">
+                        <div>
+                            <h4 class="font-title-sm text-on-surface">Gốm Thanh Hà tráng men</h4>
+                            <p class="font-body-md text-on-surface-variant mt-1">Phân loại: Bình cắm hoa, Men xanh lam</p>
+                            <p class="font-body-md text-on-surface mt-2">Số lượng: 1</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-headline-md text-primary text-lg font-semibold">350.000 ₫</p>
+                            <p class="font-body-md text-on-surface-variant mt-1">Thành tiền: 350.000 ₫</p>
+                        </div>
+                    </div>
+                </div>
+            `,
+            subtotal: '350.000 ₫',
+            shipping: '30.000 ₫',
+            discount: '-52.500 ₫',
+            total: '327.500 ₫',
+            step: 0
+        },
+        'HAH-10293': {
+            date: 'Ngày đặt: 25/10/2023 • 09:15',
+            productsHtml: `
+                <div class="p-6 flex gap-6">
+                    <div class="w-20 h-20 bg-surface-container rounded-lg overflow-hidden flex-shrink-0 border border-outline-variant">
+                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1606170033648-5d55a3edf314?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" />
+                    </div>
+                    <div class="flex-grow flex flex-col md:flex-row justify-between gap-4">
+                        <div>
+                            <h4 class="font-title-sm text-on-surface">Đèn lồng lụa Hội An truyền thống</h4>
+                            <p class="font-body-md text-on-surface-variant mt-1">Phân loại: Lụa tơ tằm, Đỏ đô</p>
+                            <p class="font-body-md text-on-surface mt-2">Số lượng: 2</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-headline-md text-primary text-lg font-semibold">450.000 ₫</p>
+                            <p class="font-body-md text-on-surface-variant mt-1">Thành tiền: 900.000 ₫</p>
+                        </div>
+                    </div>
+                </div>
+            `,
+            subtotal: '900.000 ₫',
+            shipping: '30.000 ₫',
+            discount: '-135.000 ₫',
+            total: '795.000 ₫',
+            step: 2
+        },
+        'HAH-10152': {
+            date: 'Ngày đặt: 10/09/2023 • 11:20',
+            productsHtml: `
+                <div class="p-6 flex gap-6">
+                    <div class="w-20 h-20 bg-surface-container rounded-lg overflow-hidden flex-shrink-0 border border-outline-variant">
+                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1584589167171-541ce45f1eea?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" />
+                    </div>
+                    <div class="flex-grow flex flex-col md:flex-row justify-between gap-4">
+                        <div>
+                            <h4 class="font-title-sm text-on-surface">Khăn lụa thêu tay nghệ nhân</h4>
+                            <p class="font-body-md text-on-surface-variant mt-1">Phân loại: Lụa Mã Châu, Thêu hoa sen</p>
+                            <p class="font-body-md text-on-surface mt-2">Số lượng: 1</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-headline-md text-primary text-lg font-semibold">1.200.000 ₫</p>
+                            <p class="font-body-md text-on-surface-variant mt-1">Thành tiền: 1.200.000 ₫</p>
+                        </div>
+                    </div>
+                </div>
+            `,
+            subtotal: '1.200.000 ₫',
+            shipping: '0 ₫',
+            discount: '-180.000 ₫',
+            total: '1.020.000 ₫',
+            step: 3
+        },
+        'HAH-09941': {
+            date: 'Ngày đặt: 05/08/2023 • 16:40',
+            productsHtml: `
+                <div class="p-6 flex gap-6 opacity-70">
+                    <div class="w-20 h-20 bg-surface-container rounded-lg overflow-hidden flex-shrink-0 border border-outline-variant grayscale">
+                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1582736181745-f0e75a59f518?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" />
+                    </div>
+                    <div class="flex-grow flex flex-col md:flex-row justify-between gap-4">
+                        <div>
+                            <h4 class="font-title-sm text-on-surface">Tượng gỗ chạm khắc thủ công</h4>
+                            <p class="font-body-md text-on-surface-variant mt-1">Phân loại: Gỗ mít, Cao 20cm</p>
+                            <p class="font-body-md text-on-surface mt-2">Số lượng: 1</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-headline-md text-primary text-lg font-semibold">850.000 ₫</p>
+                            <p class="font-body-md text-on-surface-variant mt-1">Thành tiền: 850.000 ₫</p>
+                        </div>
+                    </div>
+                </div>
+            `,
+            subtotal: '850.000 ₫',
+            shipping: '30.000 ₫',
+            discount: '-127.500 ₫',
+            total: '752.500 ₫',
+            step: -1
+        }
+    };
+
+    const data = orders[orderId];
+    if (data) {
+        document.getElementById('breadcrumb-id').textContent = `Chi tiết #${orderId}`;
+        document.getElementById('page-title-id').textContent = `Chi tiết đơn hàng #${orderId}`;
+        document.getElementById('page-date-id').textContent = data.date;
+        document.getElementById('product-list-container').innerHTML = data.productsHtml;
+        document.getElementById('summary-subtotal').textContent = data.subtotal;
+        document.getElementById('summary-shipping').textContent = data.shipping;
+        document.getElementById('summary-discount').textContent = data.discount;
+        document.getElementById('summary-total').textContent = data.total;
+
+        const timelineContainer = document.getElementById('timeline-container');
+        if (data.step === -1) {
+            timelineContainer.innerHTML = `
+                <div class="absolute top-5 left-10 right-10 h-0.5 bg-outline-variant"></div>
+                <div class="relative z-10 flex flex-col items-center text-center w-1/2">
+                    <div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center lantern-glow mb-3 border-4 border-surface-container-lowest">
+                        <span class="material-symbols-outlined text-sm" data-weight="fill">check</span>
+                    </div>
+                    <p class="font-title-sm text-sm text-on-surface">Đã đặt hàng</p>
+                </div>
+                <div class="relative z-10 flex flex-col items-center text-center w-1/2">
+                    <div class="w-10 h-10 rounded-full bg-error-container text-error flex items-center justify-center mb-3 border-4 border-surface-container-lowest">
+                        <span class="material-symbols-outlined text-sm">cancel</span>
+                    </div>
+                    <p class="font-title-sm text-sm text-error">Đã hủy</p>
+                </div>
+            `;
+        } else {
+            const steps = timelineContainer.querySelectorAll('.relative.z-10');
+            steps.forEach((step, idx) => {
+                const iconDiv = step.querySelector('div.w-10');
+                if (idx <= data.step) {
+                    iconDiv.className = 'w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center lantern-glow mb-3 border-4 border-surface-container-lowest';
+                    iconDiv.innerHTML = '<span class="material-symbols-outlined text-sm" data-weight="fill">check</span>';
+                } else {
+                    iconDiv.className = 'w-10 h-10 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center mb-3 border-4 border-surface-container-lowest';
+                    // restore icons for inactive states if needed, simple logic keeps the original icons or just generic dots
+                }
+            });
+        }
+    }
+});
+</script>
+</body>
+</html>

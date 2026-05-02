@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phản hồi đánh giá - Admin</title>
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/reviews.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div>
+            <div class="sidebar-header">
+                <div class="admin-avatar">
+                    <i class="ph ph-user"></i>
+                </div>
+                <div class="admin-info">
+                    <h2>Xin chào, Admin</h2>
+                    <p>Quản trị viên</p>
+                </div>
+            </div>
+
+            <ul class="nav-menu">
+                <li>
+                    <a href="admin.html" class="nav-item">
+                        <i class="ph ph-users"></i>
+                        Quản lý người dùng
+                    </a>
+                </li>
+                <li>
+                    <a href="products.html" class="nav-item">
+                        <i class="ph ph-package"></i>
+                        Quản lý sản phẩm
+                    </a>
+                </li>
+                <li>
+                    <a href="categories.html" class="nav-item">
+                        <i class="ph ph-tag"></i>
+                        Quản lý danh mục
+                    </a>
+                </li>
+                <li>
+                    <a href="receipts.html" class="nav-item">
+                        <i class="ph ph-storefront"></i>
+                        Quản lý phiếu nhập
+                    </a>
+                </li>
+                <li>
+                    <a href="orders.html" class="nav-item">
+                        <i class="ph ph-shopping-cart"></i>
+                        Quản lý đơn hàng
+                    </a>
+                </li>
+                <li>
+                    <a href="reviews.html" class="nav-item active">
+                        <i class="ph ph-chat-circle-text"></i>
+                        Phản hồi đánh giá
+                    </a>
+                </li>
+                <li>
+                    <a href="returns.html" class="nav-item">
+                        <i class="ph ph-arrow-counter-clockwise"></i>
+                        Xác nhận hoàn hàng
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="logout-section">
+            <a href="#" class="nav-item" onclick="confirmLogout()">
+                <i class="ph ph-sign-out"></i>
+                Đăng xuất
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1>Phản hồi đánh giá</h1>
+        </div>
+
+        <div class="content-card">
+            <div class="action-bar">
+                <div class="search-bar">
+                    <i class="ph ph-magnifying-glass"></i>
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm đánh giá...">
+                </div>
+                <select id="statusFilter" class="status-filter">
+                    <option value="all">Tất cả trạng thái</option>
+                    <option value="Chưa phản hồi">Chưa phản hồi</option>
+                    <option value="Đã phản hồi">Đã phản hồi</option>
+                </select>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 10%">Mã ĐG</th>
+                        <th style="width: 15%">Khách hàng</th>
+                        <th style="width: 20%">Sản phẩm</th>
+                        <th style="width: 10%">Số sao</th>
+                        <th style="width: 25%">Bình luận</th>
+                        <th style="width: 10%">Trạng thái</th>
+                        <th style="width: 10%">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="reviewTableBody">
+                    <!-- Dữ liệu sẽ được render từ JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="../js/reviews.js"></script>
+</body>
+
+</html>

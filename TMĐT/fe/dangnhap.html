@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Đăng Nhập – Hội An Tinh Hoa</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Be Vietnam Pro', sans-serif; min-height: 100vh; }
+.material-symbols-outlined { font-variation-settings: 'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; font-size: 20px; line-height: 1; user-select: none; }
+
+/* LAYOUT */
+.wrap { display: flex; min-height: 100vh; }
+.left { width: 46%; position: relative; overflow: hidden; flex-shrink: 0; }
+.right {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  justify-content: center; padding: 40px 24px; overflow-y: auto;
+  background-color: #fbf9f4;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5L35 15L45 15L37 22L40 32L30 26L20 32L23 22L15 15L25 15Z' fill='%23e5a022' fill-opacity='0.05'/%3E%3C/svg%3E");
+}
+
+/* LEFT PANEL */
+.left img { width: 100%; height: 100%; object-fit: cover; transition: transform 10s ease; display: block; }
+.left:hover img { transform: scale(1.05); }
+.left-overlay { position: absolute; inset: 0; background: linear-gradient(160deg, rgba(40,24,0,0.78) 0%, rgba(128,86,0,0.6) 60%, rgba(181,36,36,0.4) 100%); }
+.left-content { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; justify-content: space-between; padding: 40px; }
+
+/* LANTERNS */
+.lanterns { display: flex; gap: 36px; justify-content: center; padding-top: 16px; position: relative; }
+.lanterns::before { content: ''; position: absolute; top: 0; left: 4px; right: 4px; height: 1.5px; background: linear-gradient(90deg, transparent, rgba(229,160,34,0.8), transparent); }
+.lantern { width: 22px; height: 34px; background: linear-gradient(180deg, #e5a022, #ffba47 50%, #e5a022); border-radius: 50% 50% 60% 60%; box-shadow: 0 0 18px rgba(229,160,34,0.9), 0 0 35px rgba(229,160,34,0.4); position: relative; flex-shrink: 0; }
+.lantern::before { content: ''; position: absolute; top: -8px; left: 50%; transform: translateX(-50%); width: 2px; height: 9px; background: #805600; }
+.lantern::after { content: ''; position: absolute; bottom: -9px; left: 50%; transform: translateX(-50%); width: 1px; height: 10px; background: rgba(229,160,34,0.7); }
+.lantern:nth-child(1) { animation: sway 3.0s ease-in-out infinite; }
+.lantern:nth-child(2) { width:16px;height:26px; animation: sway 3.5s ease-in-out 0.4s infinite; }
+.lantern:nth-child(3) { animation: sway 2.8s ease-in-out 0.8s infinite; }
+.lantern:nth-child(4) { width:16px;height:26px; animation: sway 3.2s ease-in-out 0.2s infinite; }
+.lantern:nth-child(5) { animation: sway 3.0s ease-in-out 0.6s infinite; }
+@keyframes sway { 0%,100%{transform:rotate(-5deg);} 50%{transform:rotate(5deg);} }
+
+/* CARD */
+.card { width: 100%; max-width: 400px; background: #fff; border-radius: 2px; box-shadow: 0 20px 60px rgba(74,44,42,0.13), 0 4px 16px rgba(74,44,42,0.07); overflow: hidden; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(18px);} to{opacity:1;transform:translateY(0);} }
+.card { animation: fadeUp 0.5s ease both; }
+
+/* CARD HEADER */
+.card-header { background: linear-gradient(135deg, #281800 0%, #805600 100%); padding: 28px 32px 22px; text-align: center; position: relative; overflow: hidden; }
+.card-header::before { content: ''; position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 3L23 10L30 10L24.5 14.5L26.5 21.5L20 17L13.5 21.5L15.5 14.5L10 10L17 10Z' fill='%23ffffff' fill-opacity='0.04'/%3E%3C/svg%3E"); }
+.card-header-icon { width: 50px; height: 50px; background: rgba(229,160,34,0.15); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 10px; border: 1px solid rgba(229,160,34,0.3); position: relative; }
+.card-header h1 { font-family: 'Noto Serif',serif; font-size: 21px; font-weight: 700; color: #fff; position: relative; margin-bottom: 3px; }
+.card-header p { font-size: 10px; letter-spacing: 0.15em; color: rgba(229,160,34,0.85); text-transform: uppercase; position: relative; }
+
+/* TABS */
+.tabs { display: flex; border-bottom: 1px solid #ede6db; background: #faf8f3; }
+.tab { flex: 1; padding: 12px; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; border: none; background: transparent; cursor: pointer; border-bottom: 2px solid transparent; color: #837562; transition: all 0.25s; font-family: 'Be Vietnam Pro', sans-serif; }
+.tab.active { color: #805600; border-bottom-color: #805600; }
+
+/* FORM */
+.form-body { padding: 24px 28px 20px; }
+.field { margin-bottom: 15px; }
+.field label { display: block; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; color: #514534; text-transform: uppercase; margin-bottom: 6px; }
+
+/* INPUT WRAPPER — flexbox approach, no absolute positioning */
+.input-box {
+  display: flex; align-items: center;
+  border: 1px solid #d6c4ae; border-radius: 2px;
+  background: #faf8f3;
+  transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
+}
+.input-box:focus-within {
+  border-color: #805600; background: #fff;
+  box-shadow: 0 0 0 3px rgba(128,86,0,0.08);
+}
+.input-box .ico {
+  padding: 0 10px 0 12px;
+  color: #9e8872; flex-shrink: 0;
+  transition: color 0.25s;
+  display: flex; align-items: center;
+}
+.input-box:focus-within .ico { color: #805600; }
+.input-box input {
+  flex: 1; border: none; outline: none; background: transparent;
+  padding: 11px 12px 11px 0;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 14px; color: #1b1c19;
+}
+.input-box input::placeholder { color: #a89580; }
+.input-box .tog-btn {
+  padding: 0 12px 0 8px; background: none; border: none; cursor: pointer;
+  color: #9e8872; display: flex; align-items: center;
+  transition: color 0.2s; flex-shrink: 0;
+}
+.input-box .tog-btn:hover { color: #805600; }
+
+/* CHECKBOX */
+.check-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; margin-top: 10px; }
+.check-label { display: flex; align-items: center; gap: 7px; cursor: pointer; font-size: 12px; color: #514534; }
+.check-label input[type=checkbox] { width: 15px; height: 15px; accent-color: #805600; cursor: pointer; }
+
+/* PRIMARY BUTTON */
+.btn-main {
+  width: 100%; padding: 13px;
+  background: linear-gradient(135deg, #b52424, #8a1a1a);
+  color: #fff; font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  border: none; border-radius: 2px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  box-shadow: 0 4px 16px rgba(181,36,36,0.35);
+  transition: all 0.3s; position: relative; overflow: hidden;
+}
+.btn-main::before { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent); transition:left 0.5s; }
+.btn-main:hover::before { left:100%; }
+.btn-main:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(181,36,36,0.45); }
+.btn-main:active { transform: translateY(0); }
+
+/* DIVIDER */
+.div-or { display: flex; align-items: center; gap: 10px; margin: 16px 0; color: #a89580; font-size: 10px; letter-spacing: 0.08em; }
+.div-or::before,.div-or::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,transparent,#d6c4ae,transparent); }
+
+/* SOCIAL */
+.soc-row { display: flex; gap: 10px; }
+.soc-btn { flex:1; padding:10px; border:1px solid #d6c4ae; background:#faf8f3; border-radius:2px; cursor:pointer; font-family:'Be Vietnam Pro',sans-serif; font-size:12px; font-weight:500; color:#514534; display:flex; align-items:center; justify-content:center; gap:7px; transition:all 0.25s; }
+.soc-btn:hover { background:#f5f3ee; border-color:#805600; color:#805600; }
+
+/* CARD FOOTER */
+.card-foot { background:#faf8f3; border-top:1px solid #ede6db; padding:14px 28px; text-align:center; }
+.card-foot p { font-family:'Noto Serif',serif; font-style:italic; font-size:12px; color:#837562; margin-bottom:7px; }
+.card-foot span { font-size:12px; color:#514534; }
+.card-foot a { color:#b52424; font-weight:600; text-decoration:none; margin-left:4px; }
+.card-foot a:hover { text-decoration:underline; }
+
+/* BACK LINK */
+.back-link { position:fixed; top:20px; left:20px; display:flex; align-items:center; gap:5px; color:#805600; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; text-decoration:none; font-weight:600; z-index:10; transition:gap 0.2s; }
+.back-link:hover { gap:9px; }
+
+@media(max-width:768px){ .left{display:none;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- LEFT PANEL -->
+  <div class="left">
+    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDCPaJKQjZR0aLZWHhjORzDByK8oLhIdapu9BpNcKgfea0ywqlLbZDw95SSbVJVDxGdA0Zzk1jQtgxUVJNq-AYheTW1kOXkvqiEG8IOM7AK7cudurb6LW6MsCN_oIN1gz5yNJYqB0Bzkvz6deZC1vzfN84RCnw_LVLDSEYE3sIBhIO64mwaMgBlfADDUxSsHzx0lPAY_z3APaW6rKmuZ49jXntEkhf974VJmVSMS3LumYIVtPuYyK6nLzgxR2V2alnbz4mL4kLFVo-" alt="Hội An về đêm"/>
+    <div class="left-overlay"></div>
+    <div class="left-content">
+      <div class="lanterns">
+        <div class="lantern"></div>
+        <div class="lantern"></div>
+        <div class="lantern"></div>
+        <div class="lantern"></div>
+        <div class="lantern"></div>
+      </div>
+      <div>
+        <div style="border-left:3px solid rgba(229,160,34,0.7);padding-left:18px;margin-bottom:24px;">
+          <p style="font-family:'Noto Serif',serif;font-style:italic;color:rgba(255,255,255,0.9);font-size:16px;line-height:1.7;margin:0 0 8px;">
+            "Mỗi bước chân trên phố cổ là một cuộc hành trình trở về với linh hồn của đất nước."
+          </p>
+          <span style="font-size:10px;letter-spacing:0.15em;color:rgba(229,160,34,0.85);text-transform:uppercase;">— Hội An Tinh Hoa</span>
+        </div>
+        <div style="font-family:'Noto Serif',serif;font-size:26px;font-weight:700;color:#fff;margin-bottom:4px;text-shadow:0 2px 8px rgba(0,0,0,0.3);">Hội An Tinh Hoa</div>
+        <div style="font-size:10px;letter-spacing:0.2em;color:rgba(229,160,34,0.85);text-transform:uppercase;">Di Sản Nghệ Thuật Truyền Thống</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right">
+    <a class="back-link" href="trangchu.html">
+      <span class="material-symbols-outlined" style="font-size:17px;">arrow_back</span>
+      Trang chủ
+    </a>
+
+    <div class="card">
+      <!-- Header -->
+      <div class="card-header">
+        <div class="card-header-icon">
+          <span class="material-symbols-outlined" style="color:#ffba47;font-size:24px;position:relative;">local_fire_department</span>
+        </div>
+        <h1>Hội An Tinh Hoa</h1>
+        <p>Chào mừng trở lại</p>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab active">Đăng Nhập</button>
+        <button class="tab" onclick="window.location.href='dangky.html'">Đăng Ký</button>
+      </div>
+
+      <!-- Form -->
+      <div class="form-body">
+        <form onsubmit="return false;">
+          <!-- Email -->
+          <div class="field">
+            <label for="email">Địa chỉ email</label>
+            <div class="input-box">
+              <span class="ico material-symbols-outlined">mail</span>
+              <input id="email" type="email" placeholder="example@hoian.com" autocomplete="email"/>
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="field">
+            <label for="password">Mật khẩu</label>
+            <div class="input-box">
+              <span class="ico material-symbols-outlined">lock</span>
+              <input id="password" type="password" placeholder="••••••••" autocomplete="current-password"/>
+              <button class="tog-btn" type="button" onclick="togglePw('password',this)">
+                <span class="material-symbols-outlined" style="font-size:20px;">visibility</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Remember + Forgot -->
+          <div class="check-row">
+            <label class="check-label">
+              <input type="checkbox" id="remember"/>
+              Ghi nhớ đăng nhập
+            </label>
+            <a href="nhapemail.html" style="font-size:11px;color:#805600;text-decoration:none;font-weight:500;" onmouseover="this.style.color='#b52424'" onmouseout="this.style.color='#805600'">Quên mật khẩu?</a>
+          </div>
+
+          <button class="btn-main" type="submit">
+            Tiếp Tục Hành Trình
+            <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span>
+          </button>
+        </form>
+
+        <div class="div-or">hoặc đăng nhập với</div>
+
+        <div class="soc-row">
+          <button class="soc-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#EA4335" d="M5.26 9.77A7.24 7.24 0 0 1 12 4.75c1.74 0 3.3.62 4.53 1.63l3.37-3.37A11.97 11.97 0 0 0 12 .75C7.5.75 3.63 3.7 2 7.82l3.26 1.95Z"/><path fill="#34A853" d="M16.04 18.35A7.24 7.24 0 0 1 12 19.25c-3.04 0-5.64-1.88-6.74-4.57L1.95 16.6A11.97 11.97 0 0 0 12 23.25c3.27 0 6.13-1.23 8.29-3.24l-4.25-1.66Z"/><path fill="#FBBC05" d="M19.25 12c0-.65-.07-1.28-.18-1.88H12v3.76h4.07a3.53 3.53 0 0 1-1.5 2.3l4.25 1.66A11.94 11.94 0 0 0 19.25 12Z"/><path fill="#4285F4" d="M5.26 14.23A7.3 7.3 0 0 1 4.75 12c0-.77.13-1.52.37-2.23L1.86 7.82A11.96 11.96 0 0 0 .75 12c0 1.47.27 2.87.76 4.18l3.75-1.95Z"/></svg>
+            Google
+          </button>
+          <button class="soc-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.313 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+            Facebook
+          </button>
+        </div>
+      </div>
+
+      <div class="card-foot">
+        <p>"Hành trình vạn dặm bắt đầu từ một bước chân."</p>
+        <span>Chưa có tài khoản? <a href="dangky.html">Đăng ký ngay →</a></span>
+      </div>
+    </div>
+
+    <p style="margin-top:20px;font-size:11px;color:#a89580;text-align:center;">© 2024 Hội An Tinh Hoa · Gìn giữ tinh hoa truyền thống</p>
+  </div>
+</div>
+
+<script>
+function togglePw(id, btn) {
+  const inp = document.getElementById(id);
+  const ic = btn.querySelector('.material-symbols-outlined');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+  ic.textContent = inp.type === 'password' ? 'visibility' : 'visibility_off';
+}
+</script>
+</body>
+</html>

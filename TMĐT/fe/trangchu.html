@@ -114,21 +114,49 @@
 <header class="bg-[#FAF9F6] dark:bg-stone-950 border-b border-stone-200 dark:border-stone-800 shadow-sm shadow-stone-900/5 sticky top-0 z-50">
 <div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
 <div class="text-2xl font-serif font-bold text-stone-900 dark:text-amber-500">Hội An Tinh Hoa</div>
-<nav class="hidden md:flex space-x-8 font-serif tracking-wide text-stone-800 dark:text-stone-200">
-<a class="text-red-800 dark:text-red-400 font-bold border-b-2 border-red-800 dark:border-red-400 pb-1" href="#">Trang chủ</a>
-<a class="text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="#">Sản phẩm</a>
-<a class="text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="#">Câu chuyện</a>
-<a class="text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="#">Liên hệ</a>
+<nav id="main-nav" class="hidden md:flex space-x-8 font-serif tracking-wide text-stone-800 dark:text-stone-200">
+<a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="trangchu.html">Trang chủ</a>
+<a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="sanpham.html">Sản phẩm</a>
+<a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="gioithieu.html">Câu chuyện</a>
 </nav>
 <div class="flex items-center space-x-4">
-<button class="text-stone-600 hover:bg-stone-100/50 p-2 rounded-full transition-all">
+<a href="giohang.html" class="text-stone-600 hover:bg-stone-100/50 p-2 rounded-full transition-all block">
 <span class="material-symbols-outlined">shopping_cart</span>
-</button>
-<button class="text-stone-600 hover:bg-stone-100/50 p-2 rounded-full transition-all">
+</a>
+<div class="relative group">
+<button class="text-stone-600 hover:bg-stone-100/50 p-2 rounded-full transition-all flex items-center">
 <span class="material-symbols-outlined">account_circle</span>
 </button>
+<div class="absolute right-0 top-full pt-2 w-48 hidden group-hover:block z-50">
+<div class="bg-white dark:bg-stone-900 rounded-md shadow-lg py-1 border border-stone-200 dark:border-stone-800">
+<div id="guest-menu">
+<a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="dangnhap.html">Đăng nhập</a>
+<a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="dangky.html">Đăng ký</a>
+</div>
+<div class="hidden" id="user-menu">
+<a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="taikhoan.html">Thông tin tài khoản</a>
+<a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="donhangcuatoi.html">Đơn hàng của tôi</a>
+<a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="trangchu.html">Đăng xuất</a>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const currentPath = window.location.pathname.split('/').pop();
+    const navLinks = document.querySelectorAll('#main-nav .nav-link');
+    navLinks.forEach(link => {
+        const linkPath = link.getAttribute('href');
+        if (linkPath === currentPath || (currentPath === '' && linkPath === 'trangchu.html')) {
+            link.className = 'nav-link text-red-800 dark:text-red-400 font-bold border-b-2 border-red-800 dark:border-red-400 pb-1';
+        } else {
+            link.className = 'nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300';
+        }
+    });
+});
+</script>
 </header>
 <main>
 <!-- Hero Section -->
@@ -137,9 +165,9 @@
 <img class="w-full h-full object-cover" data-alt="cinematic shot of Hoi An ancient town at dusk with glowing yellow lanterns reflected in the Hoai river, warm nostalgic atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDCPaJKQjZR0aLZWHhjORzDByK8oLhIdapu9BpNcKgfea0ywqlLbZDw95SSbVJVDxGdA0Zzk1jQtgxUVJNq-AYheTW1kOXkvqiEG8IOM7AK7cudurb6LW6MsCN_oIN1gz5yNJYqB0Bzkvz6deZC1vzfN84RCnw_LVLDSEYE3sIBhIO64mwaMgBlfADDUxSsHzx0lPAY_z3APaW6rKmuZ49jXntEkhf974VJmVSMS3LumYIVtPuYyK6nLzgxR2V2alnbz4mL4kLFVo-"/>
 <div class="absolute inset-0 bg-black/40"></div>
 </div>
-<div class="relative z-10 text-center px-6 max-w-3xl">
+<div class="relative z-10 text-center px-6 max-w-5xl">
 <span class="font-label-caps text-label-caps text-primary-fixed mb-base block uppercase tracking-[0.3em]">Hơi Thở Di Sản</span>
-<h1 class="font-display-lg text-[48px] md:text-[64px] text-white leading-tight mb-stack-md">Gói Trọn Tinh Hoa Phố Cổ</h1>
+<h1 class="font-display-lg text-[48px] md:text-[64px] text-white leading-tight mb-stack-md whitespace-nowrap">Gói Trọn Tinh Hoa Phố Cổ</h1>
 <p class="font-body-lg text-white/90 mb-stack-lg italic">Khám phá vẻ đẹp thủ công truyền thống được chế tác bởi những nghệ nhân bậc thầy từ lòng Hội An.</p>
 <div class="flex flex-col sm:flex-row gap-gutter justify-center">
 <button class="bg-secondary text-on-secondary px-8 py-4 rounded font-label-caps text-label-caps hover:bg-secondary-container transition-colors shadow-lg">KHÁM PHÁ NGAY</button>
@@ -313,19 +341,19 @@
 </footer>
 <!-- Bottom Navigation Bar (Mobile) -->
 <nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 bg-[#FAF9F6] dark:bg-stone-950 border-t border-stone-200 dark:border-stone-800 shadow-[0_-4px_12px_rgba(74,44,42,0.08)] z-50 md:hidden">
-<a class="flex flex-col items-center justify-center text-red-800 dark:text-red-400 relative after:content-[''] after:w-1 after:h-1 after:bg-red-800 after:rounded-full after:mt-1 active:scale-95 transition-transform duration-200" href="#">
+<a class="flex flex-col items-center justify-center text-red-800 dark:text-red-400 relative after:content-[''] after:w-1 after:h-1 after:bg-red-800 after:rounded-full after:mt-1 active:scale-95 transition-transform duration-200" href="trangchu.html">
 <span class="material-symbols-outlined">home</span>
 <span class="font-serif text-[10px] font-medium">Trang chủ</span>
 </a>
-<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 active:scale-95 transition-transform duration-200" href="#">
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 active:scale-95 transition-transform duration-200" href="sanpham.html">
 <span class="material-symbols-outlined">grid_view</span>
 <span class="font-serif text-[10px] font-medium">Sản phẩm</span>
 </a>
-<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 active:scale-95 transition-transform duration-200" href="#">
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 active:scale-95 transition-transform duration-200" href="giohang.html">
 <span class="material-symbols-outlined">shopping_bag</span>
 <span class="font-serif text-[10px] font-medium">Giỏ hàng</span>
 </a>
-<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 active:scale-95 transition-transform duration-200" href="#">
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 active:scale-95 transition-transform duration-200" href="taikhoan.html">
 <span class="material-symbols-outlined">person</span>
 <span class="font-serif text-[10px] font-medium">Tài khoản</span>
 </a>

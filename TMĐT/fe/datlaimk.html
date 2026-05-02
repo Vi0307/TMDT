@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Đặt Lại Mật Khẩu – Hội An Tinh Hoa</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Be Vietnam Pro', sans-serif; min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  background-color: #fbf9f4;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5L35 15L45 15L37 22L40 32L30 26L20 32L23 22L15 15L25 15Z' fill='%23e5a022' fill-opacity='0.05'/%3E%3C/svg%3E");
+  padding: 24px;
+}
+.material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; line-height:1; user-select:none; }
+
+.blob1 { position:fixed; top:-80px; left:-80px; width:320px; height:320px; background:rgba(229,160,34,0.08); border-radius:50%; filter:blur(60px); pointer-events:none; }
+.blob2 { position:fixed; bottom:-80px; right:-80px; width:400px; height:400px; background:rgba(181,36,36,0.05); border-radius:50%; filter:blur(80px); pointer-events:none; }
+
+.card { width:100%; max-width:400px; background:#fff; border-radius:2px; box-shadow:0 20px 60px rgba(74,44,42,0.12),0 4px 16px rgba(74,44,42,0.07); overflow:hidden; }
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.card { animation:fadeUp 0.45s ease both; }
+
+/* HEADER */
+.card-header { background:linear-gradient(135deg,#281800 0%,#805600 100%); padding:30px 32px 24px; text-align:center; position:relative; overflow:hidden; }
+.card-header::before { content:''; position:absolute; inset:0; background-image:url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 3L23 10L30 10L24.5 14.5L26.5 21.5L20 17L13.5 21.5L15.5 14.5L10 10L17 10Z' fill='%23ffffff' fill-opacity='0.04'/%3E%3C/svg%3E"); }
+.hdr-icon { width:52px; height:52px; background:rgba(229,160,34,0.15); border-radius:50%; display:inline-flex; align-items:center; justify-content:center; margin-bottom:12px; border:1px solid rgba(229,160,34,0.3); position:relative; }
+.card-header h1 { font-family:'Noto Serif',serif; font-size:20px; font-weight:700; color:#fff; position:relative; margin-bottom:4px; }
+.card-header p { font-size:10px; letter-spacing:0.15em; color:rgba(229,160,34,0.85); text-transform:uppercase; position:relative; }
+
+/* STEPS */
+.steps { display:flex; align-items:center; justify-content:center; gap:0; padding:16px 32px; background:#faf8f3; border-bottom:1px solid #ede6db; }
+.step { display:flex; flex-direction:column; align-items:center; gap:4px; flex:1; }
+.step-dot { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; border:2px solid #d6c4ae; color:#a89580; background:#fff; }
+.step-dot.active { border-color:#805600; color:#805600; background:rgba(128,86,0,0.06); }
+.step-dot.done { border-color:#805600; color:#fff; background:#805600; }
+.step-label { font-size:9px; letter-spacing:0.08em; color:#a89580; text-transform:uppercase; white-space:nowrap; }
+.step-label.active { color:#805600; font-weight:600; }
+.step-line { flex:0 0 28px; height:1px; background:#d6c4ae; margin-top:-10px; }
+.step-line.done { background:#805600; }
+
+/* FORM */
+.form-body { padding:28px 32px 24px; }
+.desc { font-size:13px; color:#514534; line-height:1.6; margin-bottom:24px; text-align:center; }
+.field { margin-bottom:16px; }
+.field label { display:block; font-size:10px; font-weight:600; letter-spacing:0.12em; color:#514534; text-transform:uppercase; margin-bottom:6px; }
+.input-box { display:flex; align-items:center; border:1px solid #d6c4ae; border-radius:2px; background:#faf8f3; transition:border-color 0.25s,box-shadow 0.25s,background 0.25s; }
+.input-box:focus-within { border-color:#805600; background:#fff; box-shadow:0 0 0 3px rgba(128,86,0,0.08); }
+.input-box .ico { padding:0 10px 0 12px; color:#9e8872; flex-shrink:0; display:flex; align-items:center; transition:color 0.25s; font-size:20px; }
+.input-box:focus-within .ico { color:#805600; }
+.input-box input { flex:1; border:none; outline:none; background:transparent; padding:12px 10px 12px 0; font-family:'Be Vietnam Pro',sans-serif; font-size:14px; color:#1b1c19; }
+.input-box input::placeholder { color:#a89580; }
+.input-box .tog-btn { padding:0 12px 0 6px; background:none; border:none; cursor:pointer; color:#9e8872; display:flex; align-items:center; transition:color 0.2s; flex-shrink:0; }
+.input-box .tog-btn:hover { color:#805600; }
+
+/* STRENGTH */
+.strength-bar { display:flex; gap:4px; margin-top:6px; }
+.bar-seg { flex:1; height:3px; border-radius:2px; background:#e8e0d4; transition:background 0.3s; }
+.bar-seg.weak { background:#ba1a1a; }
+.bar-seg.fair { background:#e5a022; }
+.bar-seg.good { background:#3d8c40; }
+.strength-label { font-size:10px; color:#837562; margin-top:3px; }
+
+/* MATCH HINT */
+.match-hint { font-size:11px; margin-top:5px; display:flex; align-items:center; gap:4px; }
+.match-hint.ok { color:#3d8c40; }
+.match-hint.err { color:#ba1a1a; }
+
+/* RULES */
+.rules { background:#faf8f3; border:1px solid #ede6db; border-radius:2px; padding:12px 14px; margin-bottom:18px; }
+.rules p { font-size:10px; font-weight:600; letter-spacing:0.08em; color:#514534; text-transform:uppercase; margin-bottom:8px; }
+.rule { display:flex; align-items:center; gap:7px; font-size:12px; color:#837562; margin-bottom:4px; }
+.rule .material-symbols-outlined { font-size:14px; color:#d6c4ae; }
+.rule.ok .material-symbols-outlined { color:#3d8c40; }
+.rule.ok { color:#514534; }
+
+/* BUTTON */
+.btn-main { width:100%; padding:14px; background:linear-gradient(135deg,#b52424,#8a1a1a); color:#fff; font-family:'Be Vietnam Pro',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; border:none; border-radius:2px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 16px rgba(181,36,36,0.35); transition:all 0.3s; position:relative; overflow:hidden; }
+.btn-main::before { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent); transition:left 0.5s; }
+.btn-main:hover::before { left:100%; }
+.btn-main:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(181,36,36,0.45); }
+
+/* SUCCESS OVERLAY */
+.success-overlay { display:none; position:fixed; inset:0; background:rgba(251,249,244,0.97); z-index:100; align-items:center; justify-content:center; flex-direction:column; gap:16px; text-align:center; padding:24px; }
+.success-overlay.show { display:flex; }
+.success-circle { width:72px; height:72px; border-radius:50%; background:linear-gradient(135deg,#3d8c40,#2d6b30); display:flex; align-items:center; justify-content:center; box-shadow:0 8px 24px rgba(61,140,64,0.35); animation:popIn 0.5s cubic-bezier(0.175,0.885,0.32,1.275) both; }
+@keyframes popIn { from{transform:scale(0);opacity:0;} to{transform:scale(1);opacity:1;} }
+.success-title { font-family:'Noto Serif',serif; font-size:22px; font-weight:700; color:#1b1c19; }
+.success-sub { font-size:13px; color:#514534; line-height:1.6; max-width:280px; }
+.btn-login { display:inline-flex; align-items:center; gap:8px; padding:13px 28px; background:linear-gradient(135deg,#b52424,#8a1a1a); color:#fff; font-family:'Be Vietnam Pro',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; border:none; border-radius:2px; cursor:pointer; text-decoration:none; box-shadow:0 4px 16px rgba(181,36,36,0.35); transition:all 0.3s; margin-top:8px; }
+.btn-login:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(181,36,36,0.45); }
+
+.back-row { text-align:center; margin-top:16px; }
+.back-link { display:inline-flex; align-items:center; gap:5px; color:#837562; font-size:12px; text-decoration:none; transition:color 0.2s; }
+.back-link:hover { color:#805600; }
+.card-foot { background:#faf8f3; border-top:1px solid #ede6db; padding:14px 32px; text-align:center; }
+.card-foot p { font-family:'Noto Serif',serif; font-style:italic; font-size:12px; color:#837562; }
+</style>
+</head>
+<body>
+<div class="blob1"></div>
+<div class="blob2"></div>
+
+<!-- SUCCESS OVERLAY -->
+<div class="success-overlay" id="success">
+  <div class="success-circle">
+    <span class="material-symbols-outlined" style="color:#fff;font-size:36px;font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+  </div>
+  <div class="success-title">Đặt lại thành công!</div>
+  <p class="success-sub">Mật khẩu của bạn đã được cập nhật. Hãy đăng nhập để tiếp tục hành trình.</p>
+  <a class="btn-login" href="dangnhap.html">
+    <span class="material-symbols-outlined" style="font-size:18px;">login</span>
+    Đăng Nhập Ngay
+  </a>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <div class="hdr-icon">
+      <span class="material-symbols-outlined" style="color:#ffba47;font-size:26px;position:relative;">lock_reset</span>
+    </div>
+    <h1>Mật Khẩu Mới</h1>
+    <p>Đặt lại mật khẩu tài khoản</p>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-dot done">
+        <span class="material-symbols-outlined" style="font-size:14px;color:#fff;">check</span>
+      </div>
+      <span class="step-label">Email</span>
+    </div>
+    <div class="step-line done"></div>
+    <div class="step">
+      <div class="step-dot done">
+        <span class="material-symbols-outlined" style="font-size:14px;color:#fff;">check</span>
+      </div>
+      <span class="step-label">Mã OTP</span>
+    </div>
+    <div class="step-line done"></div>
+    <div class="step">
+      <div class="step-dot active">3</div>
+      <span class="step-label active">Mật khẩu mới</span>
+    </div>
+  </div>
+
+  <div class="form-body">
+    <p class="desc">Tạo mật khẩu mới mạnh mẽ để bảo vệ tài khoản của bạn.</p>
+
+    <!-- Rules -->
+    <div class="rules">
+      <p>Yêu cầu mật khẩu</p>
+      <div class="rule" id="r-len"><span class="material-symbols-outlined">radio_button_unchecked</span>Ít nhất 8 ký tự</div>
+      <div class="rule" id="r-up"><span class="material-symbols-outlined">radio_button_unchecked</span>Có chữ hoa (A–Z)</div>
+      <div class="rule" id="r-num"><span class="material-symbols-outlined">radio_button_unchecked</span>Có chữ số (0–9)</div>
+      <div class="rule" id="r-sym"><span class="material-symbols-outlined">radio_button_unchecked</span>Có ký tự đặc biệt (!@#...)</div>
+    </div>
+
+    <form onsubmit="doReset(event)">
+      <!-- New Password -->
+      <div class="field">
+        <label for="pw">Mật khẩu mới</label>
+        <div class="input-box">
+          <span class="ico material-symbols-outlined">lock</span>
+          <input id="pw" type="password" placeholder="Tối thiểu 8 ký tự" oninput="checkPw(this.value)" autocomplete="new-password"/>
+          <button class="tog-btn" type="button" onclick="togglePw('pw',this)">
+            <span class="material-symbols-outlined" style="font-size:20px;">visibility</span>
+          </button>
+        </div>
+        <div class="strength-bar">
+          <div class="bar-seg" id="s1"></div>
+          <div class="bar-seg" id="s2"></div>
+          <div class="bar-seg" id="s3"></div>
+          <div class="bar-seg" id="s4"></div>
+        </div>
+        <div class="strength-label" id="sl"></div>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="field">
+        <label for="pw2">Xác nhận mật khẩu</label>
+        <div class="input-box">
+          <span class="ico material-symbols-outlined">lock_reset</span>
+          <input id="pw2" type="password" placeholder="Nhập lại mật khẩu" oninput="checkMatch()" autocomplete="new-password"/>
+          <button class="tog-btn" type="button" onclick="togglePw('pw2',this)">
+            <span class="material-symbols-outlined" style="font-size:20px;">visibility</span>
+          </button>
+        </div>
+        <div class="match-hint" id="match-hint"></div>
+      </div>
+
+      <button class="btn-main" type="submit">
+        Cập Nhật Mật Khẩu
+        <span class="material-symbols-outlined" style="font-size:18px;">check</span>
+      </button>
+    </form>
+
+    <div class="back-row">
+      <a class="back-link" href="dangnhap.html">
+        <span class="material-symbols-outlined" style="font-size:16px;">arrow_back</span>
+        Quay lại đăng nhập
+      </a>
+    </div>
+  </div>
+
+  <div class="card-foot">
+    <p>"Sức mạnh thật sự bắt đầu từ sự bảo vệ vững chắc."</p>
+  </div>
+</div>
+
+<script>
+function togglePw(id, btn) {
+  const inp = document.getElementById(id);
+  const ic = btn.querySelector('.material-symbols-outlined');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+  ic.textContent = inp.type === 'password' ? 'visibility' : 'visibility_off';
+}
+
+function setRule(id, ok) {
+  const el = document.getElementById(id);
+  const ico = el.querySelector('.material-symbols-outlined');
+  if (ok) { el.classList.add('ok'); ico.textContent = 'check_circle'; }
+  else { el.classList.remove('ok'); ico.textContent = 'radio_button_unchecked'; }
+}
+
+function checkPw(val) {
+  const rLen = val.length >= 8;
+  const rUp = /[A-Z]/.test(val);
+  const rNum = /[0-9]/.test(val);
+  const rSym = /[^A-Za-z0-9]/.test(val);
+  setRule('r-len', rLen); setRule('r-up', rUp); setRule('r-num', rNum); setRule('r-sym', rSym);
+  let score = [rLen, rUp, rNum, rSym].filter(Boolean).length;
+  const segs = ['s1','s2','s3','s4'].map(i => document.getElementById(i));
+  segs.forEach(s => { s.className = 'bar-seg'; });
+  const cls = score <= 1 ? 'weak' : score === 2 ? 'fair' : 'good';
+  const lbl = ['','Yếu','Trung bình','Khá','Mạnh'][score] || '';
+  for (let i = 0; i < score; i++) segs[i].classList.add(cls);
+  const sl = document.getElementById('sl');
+  sl.textContent = lbl;
+  sl.style.color = cls === 'weak' ? '#ba1a1a' : cls === 'fair' ? '#805600' : '#3d8c40';
+  checkMatch();
+}
+
+function checkMatch() {
+  const pw = document.getElementById('pw').value;
+  const pw2 = document.getElementById('pw2').value;
+  const hint = document.getElementById('match-hint');
+  if (!pw2) { hint.textContent=''; hint.className='match-hint'; return; }
+  if (pw === pw2) {
+    hint.innerHTML = '<span class="material-symbols-outlined" style="font-size:14px;">check_circle</span> Mật khẩu khớp nhau';
+    hint.className = 'match-hint ok';
+  } else {
+    hint.innerHTML = '<span class="material-symbols-outlined" style="font-size:14px;">cancel</span> Mật khẩu chưa khớp';
+    hint.className = 'match-hint err';
+  }
+}
+
+function doReset(e) {
+  e.preventDefault();
+  const pw = document.getElementById('pw').value;
+  const pw2 = document.getElementById('pw2').value;
+  if (pw.length < 8) return;
+  if (pw !== pw2) return;
+  document.getElementById('success').classList.add('show');
+}
+</script>
+</body>
+</html>
