@@ -113,17 +113,15 @@
   <div class="text-2xl font-bold text-[#4A2C2A] dark:text-amber-500 uppercase tracking-tighter" style="font-family:'Noto Serif',serif;">Hội An Tinh Hoa</div>
   <!-- Nav danh mục -->
   <nav id="main-nav" class="hidden md:flex items-center gap-8 text-base tracking-wide" style="font-family:'Noto Serif',serif;">
-    <a class="nav-link text-[#8B0000] dark:text-red-400 border-b-2 border-[#8B0000] pb-1 font-semibold" href="#">Lồng Đèn</a>
-    <a class="nav-link text-[#4A2C2A] dark:text-stone-400 hover:text-[#8B0000] transition-colors" href="#">Gốm Sứ</a>
-    <a class="nav-link text-[#4A2C2A] dark:text-stone-400 hover:text-[#8B0000] transition-colors" href="#">Đồ Gỗ</a>
-    <a class="nav-link text-[#4A2C2A] dark:text-stone-400 hover:text-[#8B0000] transition-colors" href="#">Lụa Tơ Tằm</a>
-    <a class="nav-link text-[#4A2C2A] dark:text-stone-400 hover:text-[#8B0000] transition-colors" href="#">Bộ Sưu Tập</a>
+    <a class="nav-link text-stone-600 dark:text-stone-400 hover:text-[#8B0000] transition-colors" href="trangchu.html" style="font-family:'Noto Serif',serif;">Trang chủ</a>
+<a class="nav-link text-[#8B0000] dark:text-red-400 border-b-2 border-[#8B0000] pb-1 font-semibold" href="sanpham.html" style="font-family:'Noto Serif',serif;">Sản phẩm</a>
+<a class="nav-link text-stone-600 dark:text-stone-400 hover:text-[#8B0000] transition-colors" href="sanpham.html" style="font-family:'Noto Serif',serif;">Câu chuyện</a>
   </nav>
   <!-- Icons -->
   <div class="flex items-center gap-4">
-    <button class="text-[#4A2C2A] hover:bg-stone-100 p-2 rounded-full transition-all">
-      <span class="material-symbols-outlined">shopping_cart</span>
-    </button>
+    <a href="giohang.html" class="text-[#4A2C2A] hover:bg-stone-100 p-2 rounded-full transition-all block">
+<span class="material-symbols-outlined">shopping_cart</span>
+</a>
     <div class="relative group">
       <button class="text-[#4A2C2A] hover:bg-stone-100 p-2 rounded-full transition-all flex items-center">
         <span class="material-symbols-outlined">account_circle</span>
@@ -136,7 +134,8 @@
           </div>
           <div class="hidden" id="user-menu">
             <a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="taikhoan.html" style="font-family:'Noto Serif',serif;">Thông tin tài khoản</a>
-            <a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="#" style="font-family:'Noto Serif',serif;">Đăng xuất</a>
+<a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="donhangcuatoi.html" style="font-family:'Noto Serif',serif;">Đơn hàng của tôi</a>
+<a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="trangchu.html" style="font-family:'Noto Serif',serif;">Đăng xuất</a>
           </div>
         </div>
       </div>
@@ -210,11 +209,11 @@
 </div>
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
-<button class="bg-secondary text-on-primary py-4 rounded-lg font-label-caps text-sm tracking-widest uppercase hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+<button onclick="window.location.href='giohang.html'" class="bg-secondary text-on-primary py-4 rounded-lg font-label-caps text-sm tracking-widest uppercase hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
 <span class="material-symbols-outlined">shopping_bag</span>
                         Thêm Vào Giỏ
                     </button>
-<button class="border-2 border-[#4A2C2A] text-[#4A2C2A] py-4 rounded-lg font-label-caps text-sm tracking-widest uppercase hover:bg-[#4A2C2A] hover:text-white transition-all flex items-center justify-center gap-2">
+<button onclick="window.location.href='thanhtoan.html'" class="border-2 border-[#4A2C2A] text-[#4A2C2A] py-4 rounded-lg font-label-caps text-sm tracking-widest uppercase hover:bg-[#4A2C2A] hover:text-white transition-all flex items-center justify-center gap-2">
                         Mua Ngay
                     </button>
 </div>
@@ -277,7 +276,7 @@
 <h2 class="font-display-lg text-display-lg">Sản phẩm tương tự</h2>
 <p class="text-outline font-body-md">Khám phá thêm những tuyệt phẩm thủ công khác</p>
 </div>
-<a class="text-primary font-label-caps border-b border-primary pb-1 hover:text-on-primary-container transition-colors" href="#">Xem tất cả</a>
+<a class="text-primary font-label-caps border-b border-primary pb-1 hover:text-on-primary-container transition-colors" href="sanpham.html">Xem tất cả</a>
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
 <!-- Product Card 1 -->

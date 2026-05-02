@@ -113,12 +113,12 @@
 <nav id="main-nav" class="hidden md:flex space-x-8 font-serif tracking-wide text-stone-800 dark:text-stone-200">
 <a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="trangchu.html">Trang chủ</a>
 <a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="sanpham.html">Sản phẩm</a>
-<a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="#">Câu chuyện</a>
+<a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="sanpham.html">Câu chuyện</a>
 </nav>
 <div class="flex items-center space-x-4">
-<button class="text-stone-600 hover:bg-stone-100/50 p-2 rounded-full transition-all">
+<a href="giohang.html" class="text-stone-600 hover:bg-stone-100/50 p-2 rounded-full transition-all block">
 <span class="material-symbols-outlined">shopping_cart</span>
-</button>
+</a>
 <div class="relative group">
 <button class="text-stone-600 hover:bg-stone-100/50 p-2 rounded-full transition-all flex items-center">
 <span class="material-symbols-outlined">account_circle</span>
@@ -131,7 +131,8 @@
 </div>
 <div class="hidden" id="user-menu">
 <a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="taikhoan.html">Thông tin tài khoản</a>
-<a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="#">Đăng xuất</a>
+<a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="donhangcuatoi.html">Đơn hàng của tôi</a>
+<a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="trangchu.html">Đăng xuất</a>
 </div>
 </div>
 </div>
@@ -242,10 +243,10 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 <!-- Action Buttons -->
 <div class="flex flex-col md:flex-row items-center justify-end gap-gutter pt-stack-lg">
-<button class="w-full md:w-auto px-10 py-4 border border-tertiary text-tertiary font-semibold rounded hover:bg-tertiary/5 transition-all">
+<button onclick="window.location.href='donhangcuatoi.html'" class="w-full md:w-auto px-10 py-4 border border-tertiary text-tertiary font-semibold rounded hover:bg-tertiary/5 transition-all">
                         Quay lại
                     </button>
-<button class="w-full md:w-auto px-12 py-4 bg-secondary text-on-secondary font-semibold rounded shadow-md hover:brightness-90 transition-all active:scale-95">Xác nhận yêu cầu hoàn trả</button>
+<button onclick="window.location.href='donhangcuatoi.html'" class="w-full md:w-auto px-12 py-4 bg-secondary text-on-secondary font-semibold rounded shadow-md hover:brightness-90 transition-all active:scale-95">Xác nhận yêu cầu hoàn trả</button>
 </div>
 </section>
 </div>

@@ -132,17 +132,14 @@
     <div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
       <div class="text-2xl font-serif font-bold text-stone-900 dark:text-amber-500">Hội An Tinh Hoa</div>
       <nav id="main-nav" class="hidden md:flex space-x-8 font-serif tracking-wide text-stone-800 dark:text-stone-200">
-        <a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300"
-          href="trangchu.html">Trang chủ</a>
-        <a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300"
-          href="sanpham.html">Sản phẩm</a>
-        <a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300"
-          href="#">Câu chuyện</a>
+        <a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="trangchu.html">Trang chủ</a>
+        <a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="sanpham.html">Sản phẩm</a>
+        <a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="sanpham.html">Câu chuyện</a>
       </nav>
       <div class="flex items-center space-x-4">
-        <button class="text-stone-600 hover:bg-stone-100/50 p-2 rounded-full transition-all">
+        <a href="giohang.html" class="text-stone-600 hover:bg-stone-100/50 p-2 rounded-full transition-all block">
           <span class="material-symbols-outlined">shopping_cart</span>
-        </button>
+        </a>
         <div class="relative group">
           <button class="text-stone-600 hover:bg-stone-100/50 p-2 rounded-full transition-all flex items-center">
             <span class="material-symbols-outlined">account_circle</span>
@@ -157,10 +154,9 @@
                   href="dangky.html">Đăng ký</a>
               </div>
               <div class="hidden" id="user-menu">
-                <a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800"
-                  href="taikhoan.html">Thông tin tài khoản</a>
-                <a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800"
-                  href="#">Đăng xuất</a>
+                <a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="taikhoan.html">Thông tin tài khoản</a>
+                <a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="donhangcuatoi.html">Đơn hàng của tôi</a>
+                <a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="trangchu.html">Đăng xuất</a>
               </div>
             </div>
           </div>
@@ -212,8 +208,7 @@
             <span class="font-body-md">Đơn hàng của tôi</span>
           </a>
           <div class="pt-4 mt-4 border-t border-outline-variant">
-            <a class="flex items-center gap-3 px-4 py-3 text-error hover:bg-error-container/10 rounded transition-all"
-              href="#">
+            <a class="flex items-center gap-3 px-4 py-3 text-error hover:bg-error-container/10 rounded transition-all" href="trangchu.html">
               <span class="material-symbols-outlined">logout</span>
               <span class="font-body-md">Đăng xuất</span>
             </a>
@@ -225,9 +220,7 @@
         <div class="relative z-10">
           <p class="font-label-caps mb-2">HỘI VIÊN HERITAGE</p>
           <p class="font-title-sm mb-4">Giảm 15% cho đơn hàng tiếp theo</p>
-          <button
-            class="px-4 py-2 bg-[#E5A022] text-[#4A2C2A] font-label-caps text-[10px] rounded hover:opacity-90 transition-opacity">KHÁM
-            PHÁ NGAY</button>
+          <button onclick="window.location.href='sanpham.html'" class="px-4 py-2 bg-[#E5A022] text-[#4A2C2A] font-label-caps text-[10px] rounded hover:opacity-90 transition-opacity">KHÁM PHÁ NGAY</button>
         </div>
         <div class="absolute -right-4 -bottom-4 opacity-10 group-hover:rotate-12 transition-transform duration-500">
           <span class="material-symbols-outlined text-8xl"
