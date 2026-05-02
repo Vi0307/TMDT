@@ -104,9 +104,29 @@
             background-color: #805600;
             box-shadow: 0 0 8px rgba(229, 160, 34, 0.6);
         }
+        /* Notification Toast */
+        #notification-toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            transform: translateX(120%);
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        #notification-toast.show {
+            transform: translateX(0);
+        }
     </style>
 </head>
 <body class="bg-background text-on-background font-body-md">
+<!-- Notification Toast -->
+<div id="notification-toast" class="bg-white dark:bg-stone-900 border-l-4 border-secondary p-4 rounded shadow-2xl flex items-center gap-3 min-w-[300px]">
+    <span id="notif-icon" class="material-symbols-outlined text-secondary">check_circle</span>
+    <div>
+        <p id="notif-title" class="font-bold text-sm text-stone-900 dark:text-stone-100">Thông báo</p>
+        <p id="notif-message" class="text-xs text-stone-600 dark:text-stone-400">Hủy đơn hàng thành công.</p>
+    </div>
+</div>
 <!-- Top Navigation Bar (Shared Component) -->
 <header class="bg-[#FAF9F6] dark:bg-stone-950 border-b border-stone-200 dark:border-stone-800 shadow-sm shadow-stone-900/5 sticky top-0 z-50">
 <div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
@@ -114,12 +134,12 @@
 <nav id="main-nav" class="hidden md:flex space-x-8 font-serif tracking-wide text-stone-800 dark:text-stone-200">
 <a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="trangchu.html">Trang chủ</a>
 <a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="sanpham.html">Sản phẩm</a>
-<a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="#">Câu chuyện</a>
+<a class="nav-link text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-all duration-300" href="sanpham.html">Câu chuyện</a>
 </nav>
 <div class="flex items-center space-x-4">
-<button class="text-stone-600 hover:bg-stone-100/50 p-2 rounded-full transition-all">
+<a href="giohang.html" class="text-stone-600 hover:bg-stone-100/50 p-2 rounded-full transition-all block">
 <span class="material-symbols-outlined">shopping_cart</span>
-</button>
+</a>
 <div class="relative group">
 <button class="text-stone-600 hover:bg-stone-100/50 p-2 rounded-full transition-all flex items-center">
 <span class="material-symbols-outlined">account_circle</span>
@@ -132,7 +152,8 @@
 </div>
 <div class="hidden" id="user-menu">
 <a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="taikhoan.html">Thông tin tài khoản</a>
-<a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="#">Đăng xuất</a>
+<a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="donhangcuatoi.html">Đơn hàng của tôi</a>
+<a class="block px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800" href="trangchu.html">Đăng xuất</a>
 </div>
 </div>
 </div>
@@ -156,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </header>
 <main class="max-w-3xl mx-auto px-margin-mobile py-section-gap">
 <!-- Back Button -->
-<a class="inline-flex items-center gap-2 mb-stack-lg text-on-surface-variant hover:text-primary transition-colors" href="#">
+<a class="inline-flex items-center gap-2 mb-stack-lg text-on-surface-variant hover:text-primary transition-colors" href="donhangcuatoi.html">
 <span class="material-symbols-outlined text-[18px]">arrow_back</span>
 <span class="font-label-caps text-label-caps">Quay lại</span>
 </a>
@@ -222,13 +243,39 @@ document.addEventListener('DOMContentLoaded', () => {
                     Lưu ý: Hành động này không thể hoàn tác. Tiền sẽ được hoàn lại theo phương thức thanh toán ban đầu trong vòng 3-5 ngày làm việc.
                 </p>
 <div class="flex flex-col sm:flex-row gap-stack-md w-full sm:w-auto">
-<button class="bg-secondary text-on-tertiary px-stack-lg py-stack-md rounded font-label-caps text-label-caps tracking-[0.15em] hover:opacity-90 active:scale-95 transition-all shadow-md">
+<button onclick="handleCancelConfirm()" class="bg-secondary text-on-tertiary px-stack-lg py-stack-md rounded font-label-caps text-label-caps tracking-[0.15em] hover:opacity-90 active:scale-95 transition-all shadow-md">
                         XÁC NHẬN HỦY
                     </button>
-<button class="bg-transparent border border-tertiary text-tertiary px-stack-lg py-stack-md rounded font-label-caps text-label-caps tracking-[0.15em] hover:bg-tertiary/5 active:scale-95 transition-all">
+<button onclick="window.location.href='donhangcuatoi.html'" class="bg-transparent border border-tertiary text-tertiary px-stack-lg py-stack-md rounded font-label-caps text-label-caps tracking-[0.15em] hover:bg-tertiary/5 active:scale-95 transition-all">
                         QUAY LẠI
                     </button>
 </div>
+
+<script>
+    function showNotification(title, message, type = 'success') {
+        const toast = document.getElementById('notification-toast');
+        const icon = document.getElementById('notif-icon');
+        const titleEl = document.getElementById('notif-title');
+        const msgEl = document.getElementById('notif-message');
+
+        titleEl.textContent = title;
+        msgEl.textContent = message;
+        
+        toast.style.borderLeftColor = '#b52424';
+        icon.textContent = 'check_circle';
+        icon.style.color = '#b52424';
+
+        toast.classList.add('show');
+    }
+
+    function handleCancelConfirm() {
+        showNotification('Hủy đơn hàng thành công', 'Đơn hàng của bạn đã được hủy. Tiền sẽ được hoàn lại (nếu có) trong vòng 3-5 ngày.');
+        
+        setTimeout(() => {
+            window.location.href = 'donhangcuatoi.html';
+        }, 2000);
+    }
+</script>
 </div>
 </div>
 </main>

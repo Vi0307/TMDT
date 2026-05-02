@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Be+Vietnam+Pro:wght@400;500;600&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#fbf9f4",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#ffb4ac",
+                        "on-tertiary-container": "#593937",
+                        "surface-container-low": "#f5f3ee",
+                        "secondary-fixed": "#ffdad6",
+                        "on-surface-variant": "#514534",
+                        "tertiary-fixed-dim": "#eabcb8",
+                        "on-primary-fixed-variant": "#614000",
+                        "surface-variant": "#e4e2dd",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#e4e2dd",
+                        "on-tertiary-fixed": "#2e1413",
+                        "on-surface": "#1b1c19",
+                        "surface-dim": "#dbdad5",
+                        "tertiary": "#795553",
+                        "on-primary-container": "#5a3b00",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "inverse-primary": "#ffba47",
+                        "tertiary-fixed": "#ffdad7",
+                        "tertiary-container": "#cfa3a0",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#92030f",
+                        "on-tertiary-fixed-variant": "#5f3e3c",
+                        "inverse-on-surface": "#f2f1ec",
+                        "background": "#fbf9f4",
+                        "surface-tint": "#805600",
+                        "on-primary-fixed": "#281800",
+                        "primary-fixed-dim": "#ffba47",
+                        "surface-bright": "#fbf9f4",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#600006",
+                        "secondary": "#b52424",
+                        "inverse-surface": "#30312e",
+                        "primary-container": "#e5a022",
+                        "secondary-container": "#ff5a52",
+                        "outline-variant": "#d6c4ae",
+                        "surface-container-high": "#eae8e3",
+                        "primary-fixed": "#ffddb0",
+                        "primary": "#805600",
+                        "error-container": "#ffdad6",
+                        "outline": "#837562",
+                        "surface-container": "#f0eee9",
+                        "on-background": "#1b1c19",
+                        "on-secondary-fixed": "#410003"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-md": "16px",
+                        "margin-mobile": "20px",
+                        "gutter": "16px",
+                        "stack-sm": "8px",
+                        "base": "4px",
+                        "section-gap": "48px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "title-sm": ["Noto Serif"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "body-lg": ["Be Vietnam Pro"],
+                        "headline-md": ["Noto Serif"],
+                        "display-lg": ["Noto Serif"],
+                        "label-caps": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "title-sm": ["20px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "500" }],
+                        "display-lg": ["34px", { "lineHeight": "42px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .silk-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l30 30-30 30L0 30z' fill='%234A2C2A' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+    <!-- TopAppBar -->
+    <header
+        class="flex justify-between items-center px-8 py-4 w-full sticky top-0 z-50 backdrop-blur-sm bg-[#F9F5F0] dark:bg-stone-950 border-b-[1px] border-[#4A2C2A]/5">
+        <div class="flex items-center gap-8">
+            <h1
+                class="font-['Noto_Serif'] text-2xl font-bold text-[#4A2C2A] dark:text-[#E5A022] uppercase tracking-tighter">
+                Hội An Tranquility</h1>
+            <nav class="hidden md:flex gap-6">
+                <a class="font-['Noto_Serif'] text-base tracking-wide text-[#4A2C2A] dark:text-stone-400 hover:text-[#E5A022] transition-colors"
+                    href="#">Trang chủ</a>
+                <a class="font-['Noto_Serif'] text-base tracking-wide text-[#4A2C2A] dark:text-stone-400 hover:text-[#E5A022] transition-colors"
+                    href="#">Sản phẩm</a>
+                <a class="font-['Noto_Serif'] text-base tracking-wide text-[#E5A022] border-b-2 border-[#E5A022] pb-1"
+                    href="#">Câu chuyện</a>
+                <a class="font-['Noto_Serif'] text-base tracking-wide text-[#4A2C2A] dark:text-stone-400 hover:text-[#E5A022] transition-colors"
+                    href="#">Liên hệ</a>
+            </nav>
+        </div>
+        <div class="flex items-center gap-4">
+            <span class="material-symbols-outlined text-[#4A2C2A] cursor-pointer hover:text-[#E5A022] transition-all"
+                data-icon="shopping_bag">shopping_bag</span>
+            <span class="material-symbols-outlined text-[#4A2C2A] cursor-pointer hover:text-[#E5A022] transition-all"
+                data-icon="account_circle">account_circle</span>
+        </div>
+    </header>
+    <main class="silk-pattern">
+        <!-- Hero Section -->
+        <section class="relative h-[819px] flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <img alt="Ancient town at dusk" class="w-full h-full object-cover opacity-90 scale-105"
+                    data-alt="Atmospheric wide shot of Hoi An ancient town at dusk with glowing yellow lanterns reflected in the quiet river water"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNgMVITSgC8ehLVkh8sBXIuiUDC75pscLgFKBUkeTffXbtAXsEMXFFoPv5fzfLBIoBmWHTDNHC3AP_tHvari9yFz_tUWQ2ty--9w5QJ0YkW7vGSHSk4L6lMHa8m1m-bJQx4OshhtmarZwv-3lYcCOs0qVWC3e-Zw-2rA8Y1j1xfElGO0D2421SOnPjgZvCWtU5NTO8gYziU0UY4Gi5qWjb3_vPoywmjEHmE9pvxQ4-fMfXQ87oLoeEMCpfR0Zt7yE_aURB8-LSB4Y0" />
+                <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#4A2C2A]/20 to-[#F9F5F0]"></div>
+            </div>
+            <div class="relative z-10 text-center px-4 max-w-4xl">
+                <span class="font-label-caps text-label-caps text-primary tracking-[0.3em] uppercase block mb-4">Di Sản
+                    &amp; Tâm Huyết</span>
+                <h2 class="font-display-lg text-[48px] md:text-[64px] leading-tight text-[#4A2C2A] mb-6">Nơi Thời Gian
+                    Ngưng Đọng</h2>
+                <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto italic">"Hội An không chỉ
+                    là một điểm đến, đó là một kho tàng ký ức được gìn giữ qua từng sợi tơ, lớp đất sét và ánh đèn lồng
+                    rực rỡ."</p>
+            </div>
+        </section>
+        <!-- The Artisan Story: Lanterns -->
+        <section class="py-section-gap px-margin-mobile max-w-7xl mx-auto overflow-hidden">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-stack-lg items-center">
+                <div class="space-y-stack-md" data-aos="fade-right">
+                    <div class="w-12 h-px bg-primary mb-4"></div>
+                    <h3 class="font-headline-md text-headline-md text-[#4A2C2A]">Ánh Sáng Từ Đôi Tay Nghệ Nhân</h3>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                        Mỗi chiếc đèn lồng Hội An là một tác phẩm điêu khắc nhỏ. Nghệ nhân bắt đầu với những thanh tre
+                        già, được ngâm kỹ và vót mỏng, tạo nên bộ khung thanh thoát. Phía sau mỗi ánh sáng ấm áp là hàng
+                        giờ tỉ mẩn dán lụa tơ tằm, đảm bảo từng nếp gấp phải thật phẳng, thật đều.
+                    </p>
+                    <p class="font-body-md text-body-md text-on-surface-variant/80">
+                        Chúng tôi hợp tác trực tiếp với các xưởng thủ công gia đình tại phường Minh An, nơi kỹ thuật làm
+                        đèn lồng đã được truyền thừa qua bốn thế hệ, để mang đến những sản phẩm mang đậm hơi thở di sản.
+                    </p>
+                    <button
+                        class="bg-[#B22222] text-[#F9F5F0] px-8 py-3 rounded-lg font-label-caps text-label-caps tracking-widest hover:bg-[#8B0000] transition-colors mt-6">KHÁM
+                        PHÁ BỘ SƯU TẬP</button>
+                </div>
+                <div class="relative group">
+                    <div
+                        class="absolute -inset-4 bg-primary-fixed/20 rounded-full blur-3xl group-hover:bg-primary-fixed/30 transition-all duration-700">
+                    </div>
+                    <img alt="Artisan making lanterns"
+                        class="relative rounded-xl shadow-xl w-full aspect-[4/5] object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500"
+                        data-alt="Close-up of an elderly Vietnamese artisan's hands meticulously stretching colorful silk fabric over a bamboo lantern frame in a sunlit workshop"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSo-rJD2WmAbC9bBfzg1wB2toUsZWkUTf9nGPfC5-ZAzkQLNF9lL6d5Uelf-Cpr0c_y95UOHZXjXUc2geC8f4T82xxh-1lNkciZDKUvADda7fweExVsakylPqJyOYCFd_89jB3KEwXE375nwpzq_BbEnutT7fX6XYGCR9NBfsVqANGhDkRbtPR2t_oVWjcIkFN3bFeWXh71BPwJ7aaf25Kn_0OogP7dU9VgoDl7xl13vFpSWwP3agvrFlbegqT1HNhKX-DjZTC-6ny" />
+                </div>
+            </div>
+        </section>
+        <!-- Pottery Heritage: Asymmetric Layout -->
+        <section class="bg-surface-container-low py-section-gap">
+            <div class="max-w-7xl mx-auto px-margin-mobile">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
+                    <div class="md:col-span-7">
+                        <img alt="Thanh Ha Pottery" class="w-full h-full object-cover rounded-xl shadow-lg"
+                            data-alt="Soft focused image of red clay pottery drying in the sun at Thanh Ha village, with earthy tones and natural textures"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHZrE9yAjbvQbLJnaOf1KYjgNKin9Df_Sq7DiDbpI_Gw3DbNgZtHNqS7WcGbfscgzhU8q2mp9D-GbHictUCdKDM0wq_QnSRpMBLuZauPJqoo8Kfxgn2RUxErrcSrUB6uYZebXGOHsSsvHlaYK2nYbtKtpAnMjYel9Ubp1HYtrVB2oK9NKaw3eZJFgP0yBVNB5bz-RVLbYoqMiYXln4lJYFifvgtyLacF3MshfjtQW-4FCuem-TD2v1h8yRIxFtyKtlHNXnsYuN-h5r" />
+                    </div>
+                    <div
+                        class="md:col-span-5 flex flex-col justify-center p-8 bg-surface rounded-xl shadow-sm border border-outline-variant/30">
+                        <h3 class="font-headline-md text-headline-md text-[#4A2C2A] mb-6">Gốm Thanh Hà: Hồn Đất &amp;
+                            Lửa</h3>
+                        <p class="font-body-lg text-body-lg text-on-surface-variant mb-4">
+                            Dòng sông Thu Bồn không chỉ mang phù sa bồi đắp ruộng đồng mà còn tặng cho người dân Thanh
+                            Hà loại đất sét mịn đặc trưng.
+                        </p>
+                        <blockquote class="border-l-4 border-primary pl-4 italic text-primary/80 font-body-md mb-4">
+                            "Bàn xoay quay nhanh, đôi tay khéo léo biến những khối đất vô tri thành những bình, những
+                            chén mang hơi thở của đất mẹ."
+                        </blockquote>
+                        <p class="font-body-md text-body-md text-on-surface-variant/70 leading-relaxed">
+                            Quy trình nung củi truyền thống tạo nên những biến chuyển màu sắc tự nhiên trên bề mặt gốm,
+                            từ màu cam hồng rực rỡ đến nâu đậm trầm mặc, không sản phẩm nào giống hệt sản phẩm nào.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Values Grid -->
+        <section class="py-section-gap px-margin-mobile max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h3 class="font-headline-md text-headline-md text-[#4A2C2A] mb-2">Giá Trị Cốt Lõi</h3>
+                <div class="w-16 h-1 bg-[#E5A022] mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="text-center group">
+                    <div
+                        class="w-16 h-16 bg-primary-fixed rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-sm">
+                        <span class="material-symbols-outlined text-primary text-3xl"
+                            data-icon="volunteer_activism">volunteer_activism</span>
+                    </div>
+                    <h4 class="font-title-sm text-title-sm text-[#4A2C2A] mb-3">Bảo Tồn Di Sản</h4>
+                    <p class="font-body-md text-body-md text-on-surface-variant/80 px-4">Giữ gìn những kỹ thuật thủ công
+                        cổ truyền đang dần mai một theo thời gian.</p>
+                </div>
+                <div class="text-center group">
+                    <div
+                        class="w-16 h-16 bg-primary-fixed rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-sm">
+                        <span class="material-symbols-outlined text-primary text-3xl"
+                            data-icon="auto_awesome">auto_awesome</span>
+                    </div>
+                    <h4 class="font-title-sm text-title-sm text-[#4A2C2A] mb-3">Nghệ Thuật Thủ Công</h4>
+                    <p class="font-body-md text-body-md text-on-surface-variant/80 px-4">Tôn vinh sự tinh xảo và độc bản
+                        trong từng sản phẩm được làm từ đôi bàn tay.</p>
+                </div>
+                <div class="text-center group">
+                    <div
+                        class="w-16 h-16 bg-primary-fixed rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-sm">
+                        <span class="material-symbols-outlined text-primary text-3xl" data-icon="public">public</span>
+                    </div>
+                    <h4 class="font-title-sm text-title-sm text-[#4A2C2A] mb-3">Phát Triển Bền Vững</h4>
+                    <p class="font-body-md text-body-md text-on-surface-variant/80 px-4">Sử dụng nguyên liệu tự nhiên và
+                        hỗ trợ cộng đồng nghệ nhân địa phương.</p>
+                </div>
+            </div>
+        </section>
+        <!-- Quote Banner -->
+        <section class="relative py-24 bg-[#4A2C2A] overflow-hidden">
+            <div class="absolute inset-0 opacity-10 flex items-center justify-center pointer-events-none">
+                <span class="material-symbols-outlined text-[300px] text-white"
+                    data-icon="history_edu">history_edu</span>
+            </div>
+            <div class="relative z-10 max-w-4xl mx-auto px-8 text-center text-[#F9F5F0]">
+                <p class="font-headline-md text-headline-md italic mb-8 leading-relaxed">
+                    "Chúng tôi không bán hàng hóa, chúng tôi chia sẻ một phần tâm hồn của Hội An. Mỗi đơn hàng của bạn
+                    là một sự đóng góp trực tiếp cho sự tồn tại của các làng nghề truyền thống."
+                </p>
+                <div class="w-24 h-px bg-[#E5A022] mx-auto mb-4"></div>
+                <span class="font-label-caps text-label-caps tracking-widest text-[#E5A022]">BAN QUẢN TRỊ
+                    TRANQUILITY</span>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer
+        class="bg-[#4A2C2A] dark:bg-stone-950 text-[#F9F5F0] dark:text-stone-400 py-12 px-8 border-t border-[#E5A022]/20">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-7xl mx-auto">
+            <div class="col-span-1 md:col-span-1">
+                <div class="font-['Noto_Serif'] text-xl text-[#E5A022] italic mb-4">Ký Ức Hội An</div>
+                <p class="font-['Be_Vietnam_Pro'] text-sm leading-relaxed opacity-80">Gìn giữ giá trị truyền thống qua
+                    từng sản phẩm thủ công tinh xảo nhất từ các làng nghề nổi tiếng.</p>
+            </div>
+            <div class="col-span-1">
+                <h5 class="font-label-caps text-label-caps text-[#E5A022] mb-6">Liên kết</h5>
+                <ul class="space-y-3 font-['Be_Vietnam_Pro'] text-sm">
+                    <li><a class="text-[#F9F5F0]/80 hover:text-[#E5A022] hover:translate-x-1 transition-all inline-block"
+                            href="#">Chính sách bảo mật</a></li>
+                    <li><a class="text-[#F9F5F0]/80 hover:text-[#E5A022] hover:translate-x-1 transition-all inline-block"
+                            href="#">Điều khoản dịch vụ</a></li>
+                    <li><a class="text-[#F9F5F0]/80 hover:text-[#E5A022] hover:translate-x-1 transition-all inline-block"
+                            href="#">Vận chuyển</a></li>
+                    <li><a class="text-[#F9F5F0]/80 hover:text-[#E5A022] hover:translate-x-1 transition-all inline-block"
+                            href="#">Câu hỏi thường gặp</a></li>
+                </ul>
+            </div>
+            <div class="col-span-1">
+                <h5 class="font-label-caps text-label-caps text-[#E5A022] mb-6">Thông tin</h5>
+                <ul class="space-y-3 font-['Be_Vietnam_Pro'] text-sm opacity-80">
+                    <li class="flex items-center gap-2"><span
+                            class="material-symbols-outlined text-xs">location_on</span> Phường Minh An, TP. Hội An</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-xs">call</span> +84
+                        235 123 456</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-xs">mail</span>
+                        hello@hoiantranquility.vn</li>
+                </ul>
+            </div>
+            <div class="col-span-1">
+                <h5 class="font-label-caps text-label-caps text-[#E5A022] mb-6">Bản tin</h5>
+                <div class="flex flex-col gap-4">
+                    <input
+                        class="bg-[#F9F5F0]/10 border border-[#E5A022]/30 rounded px-4 py-2 text-sm focus:ring-1 focus:ring-[#E5A022] outline-none"
+                        placeholder="Email của bạn" type="email" />
+                    <button
+                        class="bg-[#E5A022] text-[#4A2C2A] py-2 rounded font-label-caps text-label-caps hover:bg-[#ffba47] transition-colors">ĐĂNG
+                        KÝ</button>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-[#F9F5F0]/10 text-center text-[12px] opacity-60">
+            © 2024 Ký Ức Hội An. Gìn giữ giá trị truyền thống.
+        </div>
+    </footer>
+    <!-- BottomNavBar (Mobile Only) -->
+    <nav
+        class="fixed bottom-0 w-full flex justify-around py-3 md:hidden bg-[#F9F5F0] dark:bg-stone-900 border-t border-[#4A2C2A]/10 shadow-[0_-4px_12px_rgba(74,44,42,0.08)] z-50 rounded-t-lg">
+        <a class="flex flex-col items-center justify-center text-[#4A2C2A]/60 dark:text-stone-500 font-['Be_Vietnam_Pro'] text-[10px] uppercase font-medium tracking-widest"
+            href="#">
+            <span class="material-symbols-outlined mb-1" data-icon="home">home</span>
+            Trang chủ
+        </a>
+        <a class="flex flex-col items-center justify-center text-[#E5A022] font-['Be_Vietnam_Pro'] text-[10px] uppercase font-medium tracking-widest relative after:content-[''] after:w-1 after:h-1 after:bg-[#B22222] after:rounded-full after:mt-1"
+            href="#">
+            <span class="material-symbols-outlined mb-1" data-icon="explore">explore</span>
+            Khám phá
+        </a>
+        <a class="flex flex-col items-center justify-center text-[#4A2C2A]/60 dark:text-stone-500 font-['Be_Vietnam_Pro'] text-[10px] uppercase font-medium tracking-widest"
+            href="#">
+            <span class="material-symbols-outlined mb-1" data-icon="shopping_cart">shopping_cart</span>
+            Giỏ hàng
+        </a>
+        <a class="flex flex-col items-center justify-center text-[#4A2C2A]/60 dark:text-stone-500 font-['Be_Vietnam_Pro'] text-[10px] uppercase font-medium tracking-widest"
+            href="#">
+            <span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+            Tài khoản
+        </a>
+    </nav>
+</body>
+
+</html>
