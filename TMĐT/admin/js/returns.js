@@ -17,8 +17,8 @@ function renderTable(data) {
 
     data.forEach(req => {
         let statusClass = '';
-        if (req.trangThai === 'Đã hoàn') statusClass = 'status-active';
-        else if (req.trangThai === 'Từ chối') statusClass = 'status-locked';
+        if (req.tenTrangThai === 'Đã duyệt hoàn') statusClass = 'status-active';
+        else if (req.tenTrangThai === 'Từ chối hoàn') statusClass = 'status-locked';
         else statusClass = 'status-pending';
 
         let actionsHtml = `
@@ -27,7 +27,7 @@ function renderTable(data) {
             </button>
         `;
 
-        if (req.trangThai === 'Chờ xác nhận') {
+        if (req.tenTrangThai === 'Chờ duyệt hoàn') {
             actionsHtml += `
                 <button class="btn-action btn-approve" onclick="approveReturn(${req.maYeuCau})" title="Xác nhận hoàn">
                     <i class="ph ph-check-circle"></i>
@@ -43,7 +43,7 @@ function renderTable(data) {
             <td><strong>#${req.maDonHang}</strong></td>
             <td>${req.tenKhachHang || ''}</td>
             <td>${req.lyDo || ''}</td>
-            <td><span class="status-badge ${statusClass}">${req.trangThai}</span></td>
+            <td><span class="status-badge ${statusClass}">${req.tenTrangThai}</span></td>
             <td class="actions">${actionsHtml}</td>
         `;
         returnTableBody.appendChild(tr);
@@ -55,7 +55,6 @@ async function loadReturns() {
     returnTableBody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:40px;color:#A0AEC0;">Đang tải...</td></tr>`;
     try {
         const res = await fetch(API_URL);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const json = await res.json();
         if (json.success) {
             allReturns = json.data;
@@ -65,7 +64,7 @@ async function loadReturns() {
         }
     } catch (err) {
         console.error('loadReturns error:', err);
-        returnTableBody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:red;padding:40px;">Không thể kết nối server. (${err.message})</td></tr>`;
+        returnTableBody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:red;padding:40px;">Lỗi: ${err.message}</td></tr>`;
     }
 }
 
@@ -74,20 +73,18 @@ function viewReturn(maYeuCau) {
     const req = allReturns.find(r => r.maYeuCau === maYeuCau);
     if (!req) return;
 
-    const proofHtml = req.hinhAnh
-        ? `<p><strong>Bằng chứng:</strong><br><img src="${req.hinhAnh}" class="proof-image" alt="Bằng chứng hoàn hàng" style="max-width:100%;border-radius:8px;margin-top:8px;" /></p>`
-        : `<p><strong>Bằng chứng:</strong> Không có hình ảnh đính kèm.</p>`;
+    const ngay = req.ngayYeuCau ? new Date(req.ngayYeuCau).toLocaleDateString('vi-VN') : '—';
 
     Swal.fire({
         title: 'Chi tiết yêu cầu hoàn hàng',
         html: `
-            <div class="return-detail-box" style="text-align:left;background:#F7FAFC;border-radius:10px;padding:16px;font-size:14px;color:#4A5568;">
+            <div style="text-align:left;background:#F7FAFC;border-radius:10px;padding:16px;font-size:14px;color:#4A5568;">
                 <p><strong>Mã Đơn:</strong> #${req.maDonHang}</p>
                 <p><strong>Khách hàng:</strong> ${req.tenKhachHang || ''}</p>
                 <p><strong>Lý do:</strong> ${req.lyDo || ''}</p>
-                <p><strong>Chi tiết:</strong> ${req.chiTiet || ''}</p>
-                ${proofHtml}
-                <p><strong>Trạng thái:</strong> ${req.trangThai}</p>
+                <p><strong>Ghi chú:</strong> ${req.ghiChu || 'Không có'}</p>
+                <p><strong>Ngày yêu cầu:</strong> ${ngay}</p>
+                <p><strong>Trạng thái:</strong> ${req.tenTrangThai}</p>
             </div>
         `,
         confirmButtonColor: '#5C4033',
@@ -100,7 +97,7 @@ function viewReturn(maYeuCau) {
 function approveReturn(maYeuCau) {
     Swal.fire({
         title: 'Xác nhận hoàn hàng?',
-        text: `Bạn có chắc chắn muốn XÁC NHẬN yêu cầu hoàn hàng này?`,
+        text: 'Bạn có chắc chắn muốn XÁC NHẬN yêu cầu hoàn hàng này?',
         icon: 'question',
         showCancelButton: true,
         confirmButtonColor: '#38A169',
@@ -128,7 +125,7 @@ function approveReturn(maYeuCau) {
 function rejectReturn(maYeuCau) {
     Swal.fire({
         title: 'Từ chối hoàn hàng?',
-        text: `Bạn có chắc chắn muốn TỪ CHỐI yêu cầu hoàn hàng này?`,
+        text: 'Bạn có chắc chắn muốn TỪ CHỐI yêu cầu hoàn hàng này?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#E53E3E',
@@ -170,18 +167,24 @@ function confirmLogout() {
     });
 }
 
-// Lọc & tìm kiếm
+// Lọc & tìm kiếm — map option HTML sang tên DB
+const STATUS_FILTER_MAP = {
+    'Chờ xác nhận': 'Chờ duyệt hoàn',
+    'Đã hoàn': 'Đã duyệt hoàn',
+    'Từ chối': 'Từ chối hoàn'
+};
+
 function filterAndRender() {
     const keyword = searchInput.value.toLowerCase();
-    const status = statusFilter.value;
+    const rawStatus = statusFilter.value;
+    const status = STATUS_FILTER_MAP[rawStatus] || rawStatus; // map hoặc giữ nguyên 'all'
 
     const filtered = allReturns.filter(r => {
         const matchKeyword =
             (r.tenKhachHang || '').toLowerCase().includes(keyword) ||
             String(r.maDonHang).includes(keyword) ||
-            (r.lyDo || '').toLowerCase().includes(keyword) ||
-            (r.chiTiet || '').toLowerCase().includes(keyword);
-        const matchStatus = status === 'all' || r.trangThai === status;
+            (r.lyDo || '').toLowerCase().includes(keyword);
+        const matchStatus = status === 'all' || r.tenTrangThai === status;
         return matchKeyword && matchStatus;
     });
 

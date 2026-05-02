@@ -14,13 +14,13 @@ router.get('/', async (req, res) => {
                 yc.maDonHang,
                 nd.ten AS tenKhachHang,
                 yc.lyDo,
-                yc.chiTiet,
-                yc.hinhAnh,
-                yc.trangThai,
-                yc.ngayTao
+                yc.ghiChu,
+                yc.ngayYeuCau,
+                tt.tenTrangThai
             FROM YeuCauHoanHang yc
+            INNER JOIN TrangThai tt ON yc.maTrangThai = tt.maTrangThai AND tt.loai = 'RETURN'
             LEFT JOIN DonHang dh ON yc.maDonHang = dh.maDonHang
-            LEFT JOIN NguoiDung nd ON dh.maNguoiDung = nd.maNguoiDung
+            LEFT JOIN NguoiDung nd ON yc.maNguoiDung = nd.maNguoiDung
             WHERE 1=1
         `;
 
@@ -30,11 +30,11 @@ router.get('/', async (req, res) => {
         }
 
         if (status && status !== 'all') {
-            query += ` AND yc.trangThai = @trangThai`;
+            query += ` AND tt.tenTrangThai = @trangThai`;
             request.input('trangThai', sql.NVarChar, status);
         }
 
-        query += ` ORDER BY yc.ngayTao DESC`;
+        query += ` ORDER BY yc.ngayYeuCau DESC`;
 
         const result = await request.query(query);
         res.json({ success: true, data: result.recordset });
@@ -49,15 +49,11 @@ router.put('/:id/approve', async (req, res) => {
         const request = new sql.Request();
         request.input('id', sql.Int, req.params.id);
 
-        // Cập nhật trạng thái yêu cầu
-        await request.query(`UPDATE YeuCauHoanHang SET trangThai = N'Đã hoàn' WHERE maYeuCau = @id`);
-
-        // Cập nhật trạng thái đơn hàng sang 'Đã hoàn'
         await request.query(`
-            UPDATE DonHang SET maTrangThai = (
-                SELECT maTrangThai FROM TrangThai WHERE tenTrangThai = N'Đã hoàn' AND loai = 'ORDER'
-            )
-            WHERE maDonHang = (SELECT maDonHang FROM YeuCauHoanHang WHERE maYeuCau = @id)
+            UPDATE YeuCauHoanHang 
+            SET maTrangThai = (SELECT maTrangThai FROM TrangThai WHERE tenTrangThai = N'Đã duyệt hoàn' AND loai = 'RETURN'),
+                ngayXuLy = GETDATE()
+            WHERE maYeuCau = @id
         `);
 
         res.json({ success: true, message: 'Đã xác nhận hoàn hàng' });
@@ -72,7 +68,12 @@ router.put('/:id/reject', async (req, res) => {
         const request = new sql.Request();
         request.input('id', sql.Int, req.params.id);
 
-        await request.query(`UPDATE YeuCauHoanHang SET trangThai = N'Từ chối' WHERE maYeuCau = @id`);
+        await request.query(`
+            UPDATE YeuCauHoanHang 
+            SET maTrangThai = (SELECT maTrangThai FROM TrangThai WHERE tenTrangThai = N'Từ chối hoàn' AND loai = 'RETURN'),
+                ngayXuLy = GETDATE()
+            WHERE maYeuCau = @id
+        `);
 
         res.json({ success: true, message: 'Đã từ chối yêu cầu hoàn hàng' });
     } catch (err) {
