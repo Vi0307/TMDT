@@ -1,227 +1,283 @@
-// Dữ liệu mẫu (Mock data)
-let products = [
-    { 
-        id: "SP001", 
-        name: "Đèn lồng Hội An", 
-        image: "https://placehold.co/60x60/F8F4ED/5C4033?text=SP", 
-        price: "120.000đ", 
-        category: "Thủ công mỹ nghệ", 
-        desc: "Làm thủ công truyền thống" 
-    },
-    { 
-        id: "SP002", 
-        name: "Tượng gỗ Kim Bồng", 
-        image: "https://placehold.co/60x60/F8F4ED/5C4033?text=SP", 
-        price: "350.000đ", 
-        category: "Thủ công mỹ nghệ", 
-        desc: "Chạm khắc tinh xảo" 
-    },
-    { 
-        id: "SP003", 
-        name: "Cao lầu Hội An", 
-        image: "https://placehold.co/60x60/F8F4ED/5C4033?text=SP", 
-        price: "50.000đ", 
-        category: "Đặc sản địa phương", 
-        desc: "Đặc sản nổi tiếng" 
-    }
-];
+const API_URL = 'http://localhost:3000/api/admin/products';
+const API_CATEGORIES = 'http://localhost:3000/api/admin/categories';
 
 const productTableBody = document.getElementById('productTableBody');
 const searchInput = document.getElementById('searchInput');
 
-// Hàm render bảng dữ liệu
+let allCategories = [];
+
+// Tải danh mục để dùng trong form
+async function loadCategories() {
+    try {
+        const res = await fetch(API_CATEGORIES);
+        const json = await res.json();
+        if (json.success) allCategories = json.data;
+    } catch {
+        allCategories = [];
+    }
+}
+
+// Render options danh mục
+function renderCategoryOptions(selectedId = '') {
+    return allCategories.map(cat =>
+        `<option value="${cat.maDanhMuc}" ${cat.maDanhMuc == selectedId ? 'selected' : ''}>${cat.tenDanhMuc}</option>`
+    ).join('');
+}
+
+// Tải danh sách sản phẩm
+async function loadProducts(search = '') {
+    productTableBody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:40px;color:#A0AEC0;">Đang tải...</td></tr>`;
+    try {
+        const url = search ? `${API_URL}?search=${encodeURIComponent(search)}` : API_URL;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const json = await res.json();
+        if (json.success) {
+            renderTable(json.data);
+        } else {
+            productTableBody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:red;padding:40px;">Lỗi: ${json.message}</td></tr>`;
+        }
+    } catch (err) {
+        console.error('loadProducts error:', err);
+        productTableBody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:red;padding:40px;">Không thể kết nối server. (${err.message})</td></tr>`;
+    }
+}
+
+// Render bảng sản phẩm
 function renderTable(data) {
     productTableBody.innerHTML = '';
-    
+
     if (data.length === 0) {
-        productTableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 40px; color:#A0AEC0; font-size: 15px;">Không tìm thấy sản phẩm nào.</td></tr>`;
+        productTableBody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:40px;color:#A0AEC0;">Không tìm thấy sản phẩm nào.</td></tr>`;
         return;
     }
 
-    data.forEach(product => {
+    data.forEach(sp => {
+        const giaFmt = Number(sp.gia).toLocaleString('vi-VN') + ' đ';
+        const imgHtml = sp.hinhAnh
+            ? `<img src="${sp.hinhAnh}" alt="${sp.tenSanPham}" style="width:60px;height:60px;object-fit:cover;border-radius:8px;border:1px solid #E2E8F0;">`
+            : `<div style="width:60px;height:60px;background:#EDF2F7;border-radius:8px;display:flex;align-items:center;justify-content:center;"><i class="ph ph-image" style="font-size:24px;color:#A0AEC0;"></i></div>`;
+
         const tr = document.createElement('tr');
-        
         tr.innerHTML = `
-            <td><strong>${product.id}</strong></td>
-            <td><img src="${product.image}" class="product-img" alt="Ảnh SP"></td>
+            <td><strong>#${sp.maSanPham}</strong></td>
+            <td>${imgHtml}</td>
             <td>
-                <div class="product-info">
-                    <strong>${product.name}</strong>
-                    <span class="product-desc" title="${product.desc}">${product.desc}</span>
+                <div style="font-weight:600;color:#2D3748;">${sp.tenSanPham}</div>
+                <div style="font-size:12px;color:#A0AEC0;margin-top:4px;">Tồn kho: ${sp.soLuongTon}</div>
+            </td>
+            <td><strong style="color:#2D6A4F;">${giaFmt}</strong></td>
+            <td>
+                <span style="background:#EDF2F7;color:#4A5568;padding:4px 10px;border-radius:20px;font-size:13px;">
+                    ${sp.tenDanhMuc || '—'}
+                </span>
+            </td>
+            <td>
+                <div class="table-actions">
+                    <button class="btn-action btn-edit" onclick="editProduct(${sp.maSanPham})" title="Sửa sản phẩm">
+                        <i class="ph ph-pencil-simple"></i>
+                    </button>
+                    <button class="btn-action btn-delete" onclick="deleteProduct(${sp.maSanPham}, '${sp.tenSanPham.replace(/'/g, "\\'")}')" title="Xóa sản phẩm">
+                        <i class="ph ph-trash"></i>
+                    </button>
                 </div>
             </td>
-            <td>${product.price}</td>
-            <td>${product.category}</td>
-            <td class="actions">
-                <button class="btn-action btn-edit" onclick="editProduct('${product.id}')" title="Sửa sản phẩm">
-                    <i class="ph ph-pencil-simple"></i>
-                </button>
-                <button class="btn-action btn-delete" onclick="deleteProduct('${product.id}')" title="Xóa sản phẩm">
-                    <i class="ph ph-trash"></i>
-                </button>
-            </td>
         `;
-        
         productTableBody.appendChild(tr);
     });
 }
 
-// Hàm lấy Form HTML dùng chung cho Thêm / Sửa
-function getProductFormHtml(product = {}) {
+// Form HTML dùng chung cho thêm/sửa
+function buildFormHtml(sp = {}) {
     return `
-        <div style="text-align: left; padding: 10px 0;">
-            <div style="margin-bottom: 16px;">
-                <label style="display: block; font-size: 15px; font-weight: 600; color: #2D3748; margin-bottom: 8px;">Tên sản phẩm <span style="color:#E53E3E">*</span></label>
-                <input id="swal-prod-name" class="swal2-input" style="width: 100%; margin: 0; box-sizing: border-box; font-size: 15px; border-radius: 10px;" placeholder="Ví dụ: Đèn lồng Hội An" value="${product.name || ''}">
+        <div style="text-align:left;display:flex;flex-direction:column;gap:14px;padding:4px 0;">
+            <div>
+                <label style="display:block;font-size:14px;font-weight:600;color:#2D3748;margin-bottom:6px;">
+                    Tên sản phẩm <span style="color:#E53E3E">*</span>
+                </label>
+                <input id="sp-ten" class="swal2-input" style="width:100%;margin:0;box-sizing:border-box;border-radius:10px;"
+                    placeholder="Nhập tên sản phẩm..." value="${sp.tenSanPham || ''}">
             </div>
-            <div style="display: flex; gap: 16px; margin-bottom: 16px;">
-                <div style="flex: 1;">
-                    <label style="display: block; font-size: 15px; font-weight: 600; color: #2D3748; margin-bottom: 8px;">Giá tiền <span style="color:#E53E3E">*</span></label>
-                    <input id="swal-prod-price" type="text" class="swal2-input" style="width: 100%; margin: 0; box-sizing: border-box; font-size: 15px; border-radius: 10px;" placeholder="Vd: 120.000đ" value="${product.price || ''}">
+            <div style="display:flex;gap:12px;">
+                <div style="flex:1;">
+                    <label style="display:block;font-size:14px;font-weight:600;color:#2D3748;margin-bottom:6px;">
+                        Giá tiền (đ) <span style="color:#E53E3E">*</span>
+                    </label>
+                    <input id="sp-gia" class="swal2-input" type="number" min="0" style="width:100%;margin:0;box-sizing:border-box;border-radius:10px;"
+                        placeholder="Ví dụ: 150000" value="${sp.gia || ''}">
                 </div>
-                <div style="flex: 1;">
-                    <label style="display: block; font-size: 15px; font-weight: 600; color: #2D3748; margin-bottom: 8px;">Danh mục <span style="color:#E53E3E">*</span></label>
-                    <input id="swal-prod-category" type="text" class="swal2-input" style="width: 100%; margin: 0; box-sizing: border-box; font-size: 15px; border-radius: 10px;" placeholder="Vd: Thủ công mỹ nghệ" value="${product.category || ''}">
+                <div style="flex:1;">
+                    <label style="display:block;font-size:14px;font-weight:600;color:#2D3748;margin-bottom:6px;">
+                        Tồn kho
+                    </label>
+                    <input id="sp-ton" class="swal2-input" type="number" min="0" style="width:100%;margin:0;box-sizing:border-box;border-radius:10px;"
+                        placeholder="Ví dụ: 100" value="${sp.soLuongTon !== undefined ? sp.soLuongTon : ''}">
                 </div>
             </div>
-            <div style="margin-bottom: 16px;">
-                <label style="display: block; font-size: 15px; font-weight: 600; color: #2D3748; margin-bottom: 8px;">Mô tả sản phẩm</label>
-                <input id="swal-prod-desc" type="text" class="swal2-input" style="width: 100%; margin: 0; box-sizing: border-box; font-size: 15px; border-radius: 10px;" placeholder="Vd: Làm thủ công truyền thống" value="${product.desc || ''}">
+            <div>
+                <label style="display:block;font-size:14px;font-weight:600;color:#2D3748;margin-bottom:6px;">
+                    Danh mục <span style="color:#E53E3E">*</span>
+                </label>
+                <select id="sp-danhmuc" class="swal2-input" style="width:100%;margin:0;box-sizing:border-box;border-radius:10px;height:46px;">
+                    <option value="">-- Chọn danh mục --</option>
+                    ${renderCategoryOptions(sp.maDanhMuc)}
+                </select>
             </div>
-            <div style="margin-bottom: 8px;">
-                <label style="display: block; font-size: 15px; font-weight: 600; color: #2D3748; margin-bottom: 8px;">Link hình ảnh</label>
-                <input id="swal-prod-image" type="text" class="swal2-input" style="width: 100%; margin: 0; box-sizing: border-box; font-size: 15px; border-radius: 10px;" placeholder="URL hình ảnh" value="${product.image || 'https://placehold.co/60x60/F8F4ED/5C4033?text=SP'}">
+            <div>
+                <label style="display:block;font-size:14px;font-weight:600;color:#2D3748;margin-bottom:6px;">
+                    URL hình ảnh
+                </label>
+                <input id="sp-hinhanh" class="swal2-input" style="width:100%;margin:0;box-sizing:border-box;border-radius:10px;"
+                    placeholder="https://..." value="${sp.hinhAnh || ''}">
+            </div>
+            <div>
+                <label style="display:block;font-size:14px;font-weight:600;color:#2D3748;margin-bottom:6px;">
+                    Mô tả
+                </label>
+                <textarea id="sp-mota" class="swal2-textarea" style="width:100%;margin:0;box-sizing:border-box;border-radius:10px;resize:vertical;min-height:80px;"
+                    placeholder="Mô tả sản phẩm...">${sp.moTa || ''}</textarea>
             </div>
         </div>
     `;
 }
 
-// Validator cho form sản phẩm
-function validateProductForm() {
-    const name = document.getElementById('swal-prod-name').value.trim();
-    const price = document.getElementById('swal-prod-price').value.trim();
-    const category = document.getElementById('swal-prod-category').value.trim();
-    const desc = document.getElementById('swal-prod-desc').value.trim();
-    const image = document.getElementById('swal-prod-image').value.trim();
-    
-    if (!name) return Swal.showValidationMessage('Vui lòng nhập tên sản phẩm!');
-    if (!price) return Swal.showValidationMessage('Vui lòng nhập giá tiền!');
-    if (!category) return Swal.showValidationMessage('Vui lòng nhập danh mục!');
-    
-    return { name, price, category, desc, image };
+// Validate và lấy dữ liệu form
+function getFormData() {
+    const tenSanPham = document.getElementById('sp-ten').value.trim();
+    const gia = document.getElementById('sp-gia').value;
+    const maDanhMuc = document.getElementById('sp-danhmuc').value;
+    const hinhAnh = document.getElementById('sp-hinhanh').value.trim();
+    const moTa = document.getElementById('sp-mota').value.trim();
+    const soLuongTon = document.getElementById('sp-ton').value;
+
+    if (!tenSanPham) { Swal.showValidationMessage('Vui lòng nhập tên sản phẩm!'); return false; }
+    if (!gia || Number(gia) < 0) { Swal.showValidationMessage('Vui lòng nhập giá hợp lệ!'); return false; }
+    if (!maDanhMuc) { Swal.showValidationMessage('Vui lòng chọn danh mục!'); return false; }
+
+    return {
+        tenSanPham,
+        gia: Number(gia),
+        maDanhMuc: Number(maDanhMuc),
+        hinhAnh,
+        moTa,
+        soLuongTon: soLuongTon !== '' ? Number(soLuongTon) : 0
+    };
 }
 
-// Hàm thêm sản phẩm mới
+// Thêm sản phẩm
 async function addProduct() {
     const { value: formValues } = await Swal.fire({
         title: 'Thêm sản phẩm mới',
+        html: buildFormHtml(),
         width: 600,
-        html: getProductFormHtml(),
         focusConfirm: false,
         showCancelButton: true,
         confirmButtonColor: '#5C4033',
         cancelButtonColor: '#A0AEC0',
-        confirmButtonText: 'Lưu sản phẩm',
-        cancelButtonText: 'Hủy',
-        preConfirm: validateProductForm
+        confirmButtonText: 'Thêm mới',
+        cancelButtonText: 'Hủy bỏ',
+        preConfirm: getFormData
     });
 
-    if (formValues) {
-        const newId = 'SP' + String(products.length + 1).padStart(3, '0');
-        products.unshift({
-            id: newId,
-            name: formValues.name,
-            image: formValues.image || "https://placehold.co/60x60/F8F4ED/5C4033?text=Mới",
-            price: formValues.price,
-            category: formValues.category,
-            desc: formValues.desc
-        });
-        
-        renderTable(products);
-        
-        Swal.fire({
-            title: 'Thành công!',
-            text: `Đã thêm sản phẩm mới thành công.`,
-            icon: 'success',
-            timer: 1500,
-            showConfirmButton: false
-        });
-    }
-}
+    if (!formValues) return;
 
-// Hàm sửa thông tin sản phẩm
-async function editProduct(productId) {
-    const index = products.findIndex(p => p.id === productId);
-    if (index !== -1) {
-        const product = products[index];
-        
-        const { value: formValues } = await Swal.fire({
-            title: 'Chỉnh sửa sản phẩm',
-            width: 600,
-            html: getProductFormHtml(product),
-            focusConfirm: false,
-            showCancelButton: true,
-            confirmButtonColor: '#3182CE',
-            cancelButtonColor: '#A0AEC0',
-            confirmButtonText: 'Cập nhật',
-            cancelButtonText: 'Hủy',
-            preConfirm: validateProductForm
+    try {
+        const res = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formValues)
         });
-
-        if (formValues) {
-            products[index].name = formValues.name;
-            products[index].price = formValues.price;
-            products[index].category = formValues.category;
-            products[index].desc = formValues.desc;
-            products[index].image = formValues.image;
-            
-            renderTable(products);
-            
-            Swal.fire({
-                title: 'Đã cập nhật!',
-                text: 'Thông tin sản phẩm đã được lưu lại.',
-                icon: 'success',
-                timer: 1500,
-                showConfirmButton: false
-            });
+        const json = await res.json();
+        if (json.success) {
+            Swal.fire({ title: 'Thành công!', text: `Đã thêm sản phẩm "${formValues.tenSanPham}"`, icon: 'success', timer: 1500, showConfirmButton: false });
+            loadProducts(searchInput.value);
+        } else {
+            Swal.fire({ title: 'Lỗi!', text: json.message, icon: 'error' });
         }
+    } catch {
+        Swal.fire({ title: 'Lỗi!', text: 'Không thể kết nối server.', icon: 'error' });
     }
 }
 
-// Hàm xóa sản phẩm
-function deleteProduct(productId) {
-    const product = products.find(p => p.id === productId);
-    
+// Sửa sản phẩm
+async function editProduct(id) {
+    // Lấy thông tin hiện tại
+    let sp = {};
+    try {
+        const res = await fetch(`${API_URL}/${id}`);
+        const json = await res.json();
+        if (json.success) sp = json.data;
+    } catch {
+        Swal.fire({ title: 'Lỗi!', text: 'Không thể tải thông tin sản phẩm.', icon: 'error' });
+        return;
+    }
+
+    const { value: formValues } = await Swal.fire({
+        title: 'Sửa sản phẩm',
+        html: buildFormHtml(sp),
+        width: 600,
+        focusConfirm: false,
+        showCancelButton: true,
+        confirmButtonColor: '#3182CE',
+        cancelButtonColor: '#A0AEC0',
+        confirmButtonText: 'Cập nhật',
+        cancelButtonText: 'Hủy bỏ',
+        preConfirm: getFormData
+    });
+
+    if (!formValues) return;
+
+    try {
+        const res = await fetch(`${API_URL}/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formValues)
+        });
+        const json = await res.json();
+        if (json.success) {
+            Swal.fire({ title: 'Đã cập nhật!', text: 'Thông tin sản phẩm đã được thay đổi.', icon: 'success', timer: 1500, showConfirmButton: false });
+            loadProducts(searchInput.value);
+        } else {
+            Swal.fire({ title: 'Lỗi!', text: json.message, icon: 'error' });
+        }
+    } catch {
+        Swal.fire({ title: 'Lỗi!', text: 'Không thể kết nối server.', icon: 'error' });
+    }
+}
+
+// Xóa sản phẩm
+function deleteProduct(id, name) {
     Swal.fire({
-        title: 'Xóa sản phẩm?',
-        text: `Bạn có chắc muốn xóa sản phẩm này? Dữ liệu này không thể khôi phục!`,
-        icon: 'error',
+        title: 'Bạn có chắc chắn?',
+        text: `Sản phẩm "${name}" sẽ bị xóa vĩnh viễn!`,
+        icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#E53E3E',
         cancelButtonColor: '#A0AEC0',
         confirmButtonText: 'Đồng ý xóa',
         cancelButtonText: 'Hủy bỏ'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            products = products.filter(p => p.id !== productId);
-            renderTable(products);
-            
-            Swal.fire({
-                title: 'Đã xóa!',
-                text: 'Sản phẩm đã bị xóa khỏi hệ thống.',
-                icon: 'success',
-                timer: 1500,
-                showConfirmButton: false
-            });
+    }).then(async (result) => {
+        if (!result.isConfirmed) return;
+        try {
+            const res = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+            const json = await res.json();
+            if (json.success) {
+                Swal.fire({ title: 'Đã xóa!', text: 'Sản phẩm đã được xóa khỏi hệ thống.', icon: 'success', timer: 1500, showConfirmButton: false });
+                loadProducts(searchInput.value);
+            } else {
+                Swal.fire({ title: 'Lỗi!', text: json.message, icon: 'error' });
+            }
+        } catch {
+            Swal.fire({ title: 'Lỗi!', text: 'Không thể kết nối server.', icon: 'error' });
         }
     });
 }
 
-// Hàm đăng xuất
+// Đăng xuất
 function confirmLogout() {
     Swal.fire({
         title: 'Đăng xuất?',
-        text: "Bạn có muốn đăng xuất khỏi phiên làm việc này?",
+        text: 'Bạn có muốn đăng xuất khỏi phiên làm việc này?',
         icon: 'question',
         showCancelButton: true,
         confirmButtonColor: '#5C4033',
@@ -230,30 +286,19 @@ function confirmLogout() {
         cancelButtonText: 'Hủy'
     }).then((result) => {
         if (result.isConfirmed) {
-            Swal.fire({
-                title: 'Thành công',
-                text: 'Đã đăng xuất.',
-                icon: 'success',
-                timer: 1500,
-                showConfirmButton: false
-            });
+            Swal.fire({ title: 'Thành công', text: 'Đã đăng xuất.', icon: 'success', timer: 1500, showConfirmButton: false });
         }
     });
 }
 
-// Hàm tìm kiếm
-searchInput.addEventListener('input', function() {
-    const keyword = this.value.toLowerCase();
-    const filteredProducts = products.filter(p => 
-        p.name.toLowerCase().includes(keyword) || 
-        p.id.toLowerCase().includes(keyword) ||
-        p.category.toLowerCase().includes(keyword) ||
-        p.desc.toLowerCase().includes(keyword)
-    );
-    renderTable(filteredProducts);
+// Tìm kiếm debounce
+let searchTimeout;
+searchInput.addEventListener('input', function () {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => loadProducts(this.value), 300);
 });
 
-// Render dữ liệu ban đầu
-document.addEventListener('DOMContentLoaded', () => {
-    renderTable(products);
+document.addEventListener('DOMContentLoaded', async () => {
+    await loadCategories();
+    loadProducts();
 });
