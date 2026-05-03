@@ -258,6 +258,50 @@ function togglePw(id, btn) {
   inp.type = inp.type === 'password' ? 'text' : 'password';
   ic.textContent = inp.type === 'password' ? 'visibility' : 'visibility_off';
 }
+
+document.querySelector('form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+
+  if (!email || !password) {
+    alert('Vui lòng nhập email và mật khẩu!');
+    return;
+  }
+
+  try {
+    const response = await fetch('http://localhost:3000/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email, matKhau: password })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      // Lưu token và thông tin người dùng vào localStorage
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+
+      alert('Đăng nhập thành công!');
+      
+      // Chuyển hướng tùy theo vai trò
+      if (data.user.role === 'ADMIN') {
+        window.location.href = 'admin/dashboard.html'; // Hoặc trang admin tương ứng
+      } else {
+        window.location.href = 'trangchu.html';
+      }
+    } else {
+      alert(data.message || 'Đăng nhập thất bại!');
+    }
+  } catch (error) {
+    console.error('Lỗi:', error);
+    alert('Không thể kết nối đến server!');
+  }
+});
 </script>
 </body>
 </html>
