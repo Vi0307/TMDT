@@ -13,6 +13,7 @@ CREATE TABLE NguoiDung (
     maNguoiDung INT PRIMARY KEY IDENTITY(1,1),
     ten NVARCHAR(100),
     email NVARCHAR(100) UNIQUE,
+	matKhau NVARCHAR(255),
     soDienThoai NVARCHAR(20) UNIQUE,
     diaChi NVARCHAR(255),
     vaiTro NVARCHAR(50)
@@ -227,10 +228,10 @@ CREATE TABLE YeuCauHoanHang (
     FOREIGN KEY (maTrangThai) REFERENCES TrangThai(maTrangThai)
 );
 -- 1. NguoiDung
-INSERT INTO NguoiDung (ten, email, soDienThoai, diaChi, vaiTro)
+INSERT INTO NguoiDung (ten, email, soDienThoai, diaChi, vaiTro, matKhau)
 VALUES 
-(N'Admin', 'admin@gmail.com', '0900000001', N'Hà Nội', 'ADMIN'),
-(N'Nguyen Van A', 'user@gmail.com', '0900000002', N'HCM', 'USER');
+(N'Admin', 'admin@gmail.com', '0900000001', N'Hà Nội', 'ADMIN', '123456'),
+(N'Nguyen Van A', 'haip59621@gmail.com', '0900000002', N'HCM', 'USER', '123456');
 
 -- 2. ViDienTu
 INSERT INTO ViDienTu (maNguoiDung, soDu, trangThai)
