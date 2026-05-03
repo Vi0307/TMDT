@@ -143,8 +143,10 @@
 </div>
 </div>
 </div>
+<script src="auth.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+    // Highlight active nav link
     const currentPath = window.location.pathname.split('/').pop();
     const navLinks = document.querySelectorAll('#main-nav .nav-link');
     navLinks.forEach(link => {

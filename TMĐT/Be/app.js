@@ -23,6 +23,9 @@ app.use('/api/admin/orders', require('./admin/orders'));
 app.use('/api/admin/reviews', require('./admin/reviews'));
 app.use('/api/admin/returns', require('./admin/returns'));
 
+// Auth routes
+app.use('/api/auth', require('./routes/authRoutes'));
+
 // Route mặc định
 app.get('/', (_req, res) => {
     res.send('Server is running! Database connected.');
