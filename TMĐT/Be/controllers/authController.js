@@ -6,9 +6,15 @@ const { sql } = require('../config/db');
 const register = async (req, res) => {
     const { ten, email, matKhau, soDienThoai, diaChi } = req.body;
 
+    if (!ten || !email || !matKhau) {
+        return res.status(400).json({ message: 'Vui lòng cung cấp đầy đủ: ten, email, matKhau' });
+    }
+
     try {
         // Kiểm tra email đã tồn tại chưa
-        const checkUser = await sql.query`SELECT * FROM NguoiDung WHERE email = ${email}`;
+        const checkReq = new sql.Request();
+        checkReq.input('email', sql.NVarChar, email);
+        const checkUser = await checkReq.query('SELECT maNguoiDung FROM NguoiDung WHERE email = @email');
         if (checkUser.recordset.length > 0) {
             return res.status(400).json({ message: 'Email đã được sử dụng!' });
         }
@@ -18,15 +24,18 @@ const register = async (req, res) => {
         const hashedMatKhau = await bcrypt.hash(matKhau, salt);
 
         // Lưu người dùng vào DB
-        const pool = await sql.connect();
-        const request = pool.request();
-        const insertResult = await request
-            .input('ten', sql.NVarChar, ten)
-            .input('email', sql.NVarChar, email)
-            .input('matKhau', sql.NVarChar, hashedMatKhau)
-            .input('soDienThoai', sql.NVarChar, soDienThoai)
-            .input('diaChi', sql.NVarChar, diaChi)
-            .query('INSERT INTO NguoiDung (ten, email, matKhau, soDienThoai, diaChi, vaiTro, trangThai) OUTPUT INSERTED.maNguoiDung, INSERTED.vaiTro VALUES (@ten, @email, @matKhau, @soDienThoai, @diaChi, \'USER\', N\'Hoạt động\')');
+        const insertReq = new sql.Request();
+        insertReq.input('ten',         sql.NVarChar, ten);
+        insertReq.input('email',       sql.NVarChar, email);
+        insertReq.input('matKhau',     sql.NVarChar, hashedMatKhau);
+        insertReq.input('soDienThoai', sql.NVarChar, soDienThoai || null);
+        insertReq.input('diaChi',      sql.NVarChar, diaChi || null);
+
+        const insertResult = await insertReq.query(`
+            INSERT INTO NguoiDung (ten, email, matKhau, soDienThoai, diaChi, vaiTro, trangThai)
+            OUTPUT INSERTED.maNguoiDung, INSERTED.vaiTro
+            VALUES (@ten, @email, @matKhau, @soDienThoai, @diaChi, 'USER', N'Hoạt động')
+        `);
 
         const newUser = insertResult.recordset[0];
 
@@ -42,14 +51,14 @@ const register = async (req, res) => {
             token,
             user: {
                 id: newUser.maNguoiDung,
-                ten: ten,
-                email: email,
+                ten,
+                email,
                 role: newUser.vaiTro
             }
         });
     } catch (error) {
         console.error('Lỗi đăng ký:', error);
-        res.status(500).json({ message: 'Lỗi server!' });
+        res.status(500).json({ message: 'Lỗi server!', detail: error.message });
     }
 };
 
@@ -57,9 +66,15 @@ const register = async (req, res) => {
 const login = async (req, res) => {
     const { email, matKhau } = req.body;
 
+    if (!email || !matKhau) {
+        return res.status(400).json({ message: 'Vui lòng cung cấp email và matKhau' });
+    }
+
     try {
-        // Tìm người dùng theo email
-        const result = await sql.query`SELECT * FROM NguoiDung WHERE email = ${email}`;
+        const request = new sql.Request();
+        request.input('email', sql.NVarChar, email);
+        const result = await request.query('SELECT * FROM NguoiDung WHERE email = @email');
+
         if (result.recordset.length === 0) {
             return res.status(400).json({ message: 'Email hoặc mật khẩu không chính xác!' });
         }
@@ -96,7 +111,7 @@ const login = async (req, res) => {
         });
     } catch (error) {
         console.error('Lỗi đăng nhập:', error);
-        res.status(500).json({ message: 'Lỗi server!' });
+        res.status(500).json({ message: 'Lỗi server!', detail: error.message });
     }
 };
 
