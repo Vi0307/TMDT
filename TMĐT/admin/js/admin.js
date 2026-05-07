@@ -96,4 +96,30 @@ searchInput.addEventListener('input', function () {
     searchTimeout = setTimeout(() => loadUsers(this.value), 300);
 });
 
-document.addEventListener('DOMContentLoaded', () => loadUsers());
+document.addEventListener('DOMContentLoaded', () => {
+    loadUsers();
+
+    // Đăng xuất
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const result = await Swal.fire({
+                title: 'Đăng xuất?',
+                text: 'Bạn có chắc muốn đăng xuất không?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#E53E3E',
+                cancelButtonColor: '#A0AEC0',
+                confirmButtonText: 'Đăng xuất',
+                cancelButtonText: 'Hủy'
+            });
+            if (result.isConfirmed) {
+                localStorage.removeItem('token');
+                localStorage.removeItem('adminToken');
+                sessionStorage.clear();
+                window.location.href = '../../fe/dangnhap.html';
+            }
+        });
+    }
+});
