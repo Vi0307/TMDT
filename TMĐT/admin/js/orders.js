@@ -222,13 +222,16 @@ function confirmLogout() {
         text: 'Bạn có muốn đăng xuất khỏi phiên làm việc này?',
         icon: 'question',
         showCancelButton: true,
-        confirmButtonColor: '#5C4033',
+        confirmButtonColor: '#E53E3E',
         cancelButtonColor: '#A0AEC0',
         confirmButtonText: 'Đăng xuất',
         cancelButtonText: 'Hủy'
     }).then((result) => {
         if (result.isConfirmed) {
-            Swal.fire({ title: 'Thành công', text: 'Đã đăng xuất.', icon: 'success', timer: 1500, showConfirmButton: false });
+            localStorage.removeItem('token');
+            localStorage.removeItem('adminToken');
+            sessionStorage.clear();
+            window.location.href = '../../fe/dangnhap.html';
         }
     });
 }
