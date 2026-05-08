@@ -14,7 +14,8 @@ router.get('/', async (req, res) => {
                 pn.ngayNhap,
                 pn.maNCC,
                 ncc.tenNCC,
-                ncc.thongTinLienHe
+                ncc.soDienThoai,
+                ncc.email
             FROM PhieuNhap pn
             LEFT JOIN NhaCungCap ncc ON pn.maNCC = ncc.maNCC
         `;
@@ -29,6 +30,7 @@ router.get('/', async (req, res) => {
         const result = await request.query(query);
         res.json({ success: true, data: result.recordset });
     } catch (err) {
+        console.error('GET /receipts error:', err);
         res.status(500).json({ success: false, message: err.message });
     }
 });
@@ -52,17 +54,20 @@ router.post('/', async (req, res) => {
             return res.status(400).json({ success: false, message: 'Thiếu mã NCC hoặc ngày nhập' });
 
         const request = new sql.Request();
-        request.input('maNCC', sql.Int, maNCC);
-        request.input('ngayNhap', sql.Date, ngayNhap);
+        request.input('maNCC',      sql.Int,  maNCC);
+        request.input('ngayNhap',   sql.Date, ngayNhap);
+        // maNguoiTao = 1 (Admin mặc định) vì trang admin không có auth token
+        request.input('maNguoiTao', sql.Int,  1);
 
         const result = await request.query(`
-            INSERT INTO PhieuNhap (maNCC, ngayNhap)
+            INSERT INTO PhieuNhap (maNCC, maNguoiTao, ngayNhap)
             OUTPUT INSERTED.maPhieuNhap
-            VALUES (@maNCC, @ngayNhap)
+            VALUES (@maNCC, @maNguoiTao, @ngayNhap)
         `);
 
-        res.json({ success: true, maPhieuNhap: result.recordset[0].maPhieuNhap });
+        res.json({ success: true, maPhieuNhap: result.recordset[0].maPhieuNhap, message: 'Thêm phiếu nhập thành công' });
     } catch (err) {
+        console.error('POST /receipts error:', err);
         res.status(500).json({ success: false, message: err.message });
     }
 });

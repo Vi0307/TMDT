@@ -54,13 +54,29 @@ function renderTable(data) {
 
     data.forEach(sp => {
         const giaFmt = Number(sp.gia).toLocaleString('vi-VN') + ' đ';
-        const imgHtml = sp.hinhAnh
-            ? `<img src="${sp.hinhAnh}" alt="${sp.tenSanPham}" style="width:60px;height:60px;object-fit:cover;border-radius:8px;border:1px solid #E2E8F0;">`
-            : `<div style="width:60px;height:60px;background:#EDF2F7;border-radius:8px;display:flex;align-items:center;justify-content:center;"><i class="ph ph-image" style="font-size:24px;color:#A0AEC0;"></i></div>`;
+
+        // Ảnh: DB lưu dạng "THUCONGMYNGHE/abc.jpg" → cần trỏ về thư mục fe/images/
+        const imgSrc = sp.hinhAnh
+            ? `../../fe/images/${sp.hinhAnh}`
+            : null;
+        const imgHtml = imgSrc
+            ? `<img src="${imgSrc}" alt="${sp.tenSanPham}"
+                   style="width:60px;height:60px;object-fit:cover;border-radius:8px;border:1px solid #E2E8F0;"
+                   onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+              + `<div style="display:none;width:60px;height:60px;background:#EDF2F7;border-radius:8px;align-items:center;justify-content:center;">
+                     <i class="ph ph-image" style="font-size:24px;color:#A0AEC0;"></i>
+                 </div>`
+            : `<div style="width:60px;height:60px;background:#EDF2F7;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+                   <i class="ph ph-image" style="font-size:24px;color:#A0AEC0;"></i>
+               </div>`;
+
+        // maSanPham là string (SP01) → phải bọc trong quotes khi truyền vào onclick
+        const idStr = `'${sp.maSanPham}'`;
+        const nameEscaped = sp.tenSanPham.replace(/'/g, "\\'");
 
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td><strong>#${sp.maSanPham}</strong></td>
+            <td><strong>${sp.maSanPham}</strong></td>
             <td>${imgHtml}</td>
             <td>
                 <div style="font-weight:600;color:#2D3748;">${sp.tenSanPham}</div>
@@ -74,10 +90,10 @@ function renderTable(data) {
             </td>
             <td>
                 <div class="table-actions">
-                    <button class="btn-action btn-edit" onclick="editProduct(${sp.maSanPham})" title="Sửa sản phẩm">
+                    <button class="btn-action btn-edit" onclick="editProduct(${idStr})" title="Sửa sản phẩm">
                         <i class="ph ph-pencil-simple"></i>
                     </button>
-                    <button class="btn-action btn-delete" onclick="deleteProduct(${sp.maSanPham}, '${sp.tenSanPham.replace(/'/g, "\\'")}')" title="Xóa sản phẩm">
+                    <button class="btn-action btn-delete" onclick="deleteProduct(${idStr}, '${nameEscaped}')" title="Xóa sản phẩm">
                         <i class="ph ph-trash"></i>
                     </button>
                 </div>
@@ -128,7 +144,8 @@ function buildFormHtml(sp = {}) {
                     URL hình ảnh
                 </label>
                 <input id="sp-hinhanh" class="swal2-input" style="width:100%;margin:0;box-sizing:border-box;border-radius:10px;"
-                    placeholder="https://..." value="${sp.hinhAnh || ''}">
+                    placeholder="Ví dụ: THUCONGMYNGHE/giomaytredan.webp" value="${sp.hinhAnh || ''}">
+                ${sp.hinhAnh ? `<img src="../../fe/images/${sp.hinhAnh}" style="margin-top:8px;width:80px;height:80px;object-fit:cover;border-radius:8px;border:1px solid #E2E8F0;" onerror="this.style.display='none'">` : ''}
             </div>
             <div>
                 <label style="display:block;font-size:14px;font-weight:600;color:#2D3748;margin-bottom:6px;">
