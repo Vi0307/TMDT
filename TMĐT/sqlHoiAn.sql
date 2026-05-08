@@ -344,28 +344,33 @@ VALUES
 (N'Sức khỏe');
 
 -- 5. SanPham (20 sản phẩm)
-INSERT INTO SanPham (maSanPham, tenSanPham, gia, moTa, maDanhMuc, trangThai)
+INSERT INTO SanPham (maSanPham, tenSanPham, gia, moTa, maDanhMuc, hinhAnh, trangThai)
 VALUES
-('SP01', N'SP1',  10000,  N'Mô tả SP1',  1, N'Đang bán'),
-('SP02', N'SP2',  20000,  N'Mô tả SP2',  1, N'Đang bán'),
-('SP03', N'SP3',  30000,  N'Mô tả SP3',  1, N'Đang bán'),
-('SP04', N'SP4',  40000,  N'Mô tả SP4',  1, N'Đang bán'),
-('SP05', N'SP5',  50000,  N'Mô tả SP5',  2, N'Đang bán'),
-('SP06', N'SP6',  60000,  N'Mô tả SP6',  2, N'Đang bán'),
-('SP07', N'SP7',  70000,  N'Mô tả SP7',  2, N'Đang bán'),
-('SP08', N'SP8',  80000,  N'Mô tả SP8',  2, N'Đang bán'),
-('SP09', N'SP9',  90000,  N'Mô tả SP9',  3, N'Đang bán'),
-('SP10', N'SP10', 100000, N'Mô tả SP10', 3, N'Đang bán'),
-('SP11', N'SP11', 110000, N'Mô tả SP11', 3, N'Đang bán'),
-('SP12', N'SP12', 120000, N'Mô tả SP12', 3, N'Đang bán'),
-('SP13', N'SP13', 130000, N'Mô tả SP13', 4, N'Đang bán'),
-('SP14', N'SP14', 140000, N'Mô tả SP14', 4, N'Đang bán'),
-('SP15', N'SP15', 150000, N'Mô tả SP15', 4, N'Đang bán'),
-('SP16', N'SP16', 160000, N'Mô tả SP16', 4, N'Đang bán'),
-('SP17', N'SP17', 170000, N'Mô tả SP17', 5, N'Đang bán'),
-('SP18', N'SP18', 180000, N'Mô tả SP18', 5, N'Đang bán'),
-('SP19', N'SP19', 190000, N'Mô tả SP19', 5, N'Đang bán'),
-('SP20', N'SP20', 200000, N'Mô tả SP20', 5, N'Đang bán');
+-- Thủ công mỹ nghệ (maDanhMuc = 1)
+('SP01', N'Giỏ mây tre đan',    10000,  N'Giỏ được đan thủ công từ mây và tre tự nhiên bởi các nghệ nhân làng nghề Hội An. Thiết kế chắc chắn, thân thiện môi trường, phù hợp đựng đồ dùng hàng ngày hoặc làm quà tặng ý nghĩa.',  1, 'THUCONGMYNGHE/giomaytredan.webp',    N'Đang bán'),
+('SP02', N'Lọ hoa sơn mài',     20000,  N'Lọ hoa được chế tác từ gỗ mít, phủ nhiều lớp sơn mài truyền thống và đánh bóng tỉ mỉ. Họa tiết hoa sen và chim phượng được vẽ tay, mang đậm nét văn hóa phố cổ Hội An.',  1, 'THUCONGMYNGHE/lohoasonmai.jpg',      N'Đang bán'),
+('SP03', N'Nón lá Hội An',      30000,  N'Nón lá truyền thống được làm từ lá cọ non phơi khô, khâu tay từng mũi kim trên khung tre. Bên trong có thêu hình ảnh phố cổ Hội An, vừa che nắng vừa là món quà lưu niệm độc đáo.',  1, 'THUCONGMYNGHE/nonlahoian.jpg',       N'Đang bán'),
+('SP04', N'Túi xách thổ cẩm',   40000,  N'Túi xách được dệt từ vải thổ cẩm với hoa văn truyền thống của các dân tộc miền Trung. Khung túi chắc chắn, có khóa kéo tiện lợi, phù hợp đi chơi hoặc làm quà tặng bạn bè.',  1, 'THUCONGMYNGHE/tuixachthocam.jpg',    N'Đang bán'),
+-- Đặc sản (maDanhMuc = 2)
+('SP05', N'Bánh đậu xanh',      50000,  N'Bánh đậu xanh Hội An được làm từ đậu xanh cà vỏ, xay mịn, trộn đường và mỡ heo theo công thức gia truyền. Vị ngọt thanh, tan ngay trong miệng, đóng hộp tiện lợi làm quà biếu.',  2, 'DACSAN/banhdauxanh.jpg',             N'Đang bán'),
+('SP06', N'Bánh dừa nướng Hội An', 60000, N'Bánh dừa nướng đặc sản phố Hội, làm từ cơm dừa tươi nạo sợi, trộn đường mía và nướng trên than hoa. Vỏ ngoài giòn rụm, bên trong dẻo thơm mùi dừa, ăn một lần nhớ mãi.', 2, 'DACSAN/banhduanuonghoian.jpg',      N'Đang bán'),
+('SP07', N'Bánh tổ Hội An',     70000,  N'Bánh tổ là món ăn truyền thống không thể thiếu trong dịp Tết của người Hội An. Làm từ nếp, đường bát và gừng, bánh có vị ngọt đậm, dẻo dai, thường được chiên giòn trước khi ăn.',  2, 'DACSAN/banhtohoian.jpg',             N'Đang bán'),
+('SP08', N'Tương ớt phố Hội',   80000,  N'Tương ớt được làm theo công thức bí truyền của người Hội An, kết hợp ớt đỏ tươi, tỏi, giấm gạo và gia vị đặc biệt. Vị cay nồng, chua nhẹ, thơm tự nhiên, không chất bảo quản.',  2, 'DACSAN/tuongotphohoi.jpg',           N'Đang bán'),
+-- Quà lưu niệm (maDanhMuc = 3)
+('SP09', N'Đĩa gốm sứ',         90000,  N'Đĩa gốm được làm thủ công tại làng gốm Thanh Hà, nung ở nhiệt độ cao với men tự nhiên. Họa tiết hoa văn truyền thống được vẽ tay từng chiếc, không có hai chiếc nào giống nhau hoàn toàn.',  3, 'QUALUUNIEM/diagomsu.webp',           N'Đang bán'),
+('SP10', N'Lồng đèn Hội An',    100000, N'Lồng đèn lụa Hội An được làm từ khung tre già uốn tay và lụa tơ tằm nhuộm màu tự nhiên. Khi thắp sáng tỏa ánh vàng ấm áp, là biểu tượng văn hóa đặc trưng của phố cổ Hội An.',  3, 'QUALUUNIEM/longdenhoian.webp',       N'Đang bán'),
+('SP11', N'Nam châm lưu niệm',  110000, N'Nam châm lưu niệm in hình các địa danh nổi tiếng của Hội An như Chùa Cầu, phố đèn lồng, Hội quán Phúc Kiến. Chất liệu nhựa cao cấp, màu sắc sắc nét, gắn được lên tủ lạnh hoặc bảng từ.',  3, 'QUALUUNIEM/namchamluuniem.webp',     N'Đang bán'),
+('SP12', N'Tranh sơn dầu Hội An', 120000, N'Tranh sơn dầu vẽ tay phong cảnh phố cổ Hội An về đêm với ánh đèn lồng lung linh phản chiếu trên sông Hoài. Khung gỗ chắc chắn, có thể treo trang trí phòng khách hoặc làm quà tặng cao cấp.', 3, 'QUALUUNIEM/tranhsondauhoian.png', N'Đang bán'),
+-- Trang phục (maDanhMuc = 4)
+('SP13', N'Áo dài cách tân Hội An',    130000, N'Áo dài cách tân kết hợp giữa dáng áo dài truyền thống và thiết kế hiện đại, may từ vải lụa Hội An cao cấp. Họa tiết hoa văn tinh tế, phù hợp mặc đi chơi, chụp ảnh kỷ niệm tại phố cổ.', 4, 'TRANGPHUC/aodaicachtanhoian.webp',       N'Đang bán'),
+('SP14', N'Áo dài Hội An truyền thống', 140000, N'Áo dài truyền thống may theo kiểu dáng cổ điển, sử dụng vải lụa tơ tằm dệt tay với hoa văn thêu tay tinh xảo. Đường may tỉ mỉ, ôm dáng thanh lịch, tôn lên vẻ đẹp dịu dàng của người phụ nữ Việt.', 4, 'TRANGPHUC/aodaihoiantruyenthong.webp', N'Đang bán'),
+('SP15', N'Âu phục Hội An',     150000, N'Bộ âu phục may đo theo phong cách Hội An, kết hợp chất liệu vải lanh tự nhiên với đường cắt may hiện đại. Thoáng mát, phù hợp khí hậu nhiệt đới, thích hợp mặc tham quan phố cổ hoặc dự tiệc.',  4, 'TRANGPHUC/auphuchoian.jpg',          N'Đang bán'),
+('SP16', N'Vải lụa tơ tằm',     160000, N'Vải lụa tơ tằm nguyên chất được dệt thủ công trên khung cửi truyền thống tại làng lụa Hội An. Sợi tơ mịn mượt, màu sắc bền đẹp từ thuốc nhuộm tự nhiên, có thể may áo dài, khăn quàng hoặc trang trí nội thất.',  4, 'TRANGPHUC/vailuatotam.webp',         N'Đang bán'),
+-- Chăm sóc sức khỏe & thư giãn (maDanhMuc = 5)
+('SP17', N'Muối tắm dưỡng thể', 170000, N'Muối tắm được pha chế từ muối biển Cửa Đại kết hợp tinh dầu hoa hồng, lavender và chiết xuất thảo mộc tự nhiên. Giúp tẩy tế bào chết, dưỡng ẩm da, thư giãn cơ bắp sau ngày dài mệt mỏi.',  5, 'CHAMSOCSUCKHOEVATHUGIAN/muoitamduongthe.png',  N'Đang bán'),
+('SP18', N'Nến thơm đèn ngủ',   180000, N'Nến thơm làm từ sáp đậu nành tự nhiên, tim bấc bằng bông, hương thơm được chiết xuất từ hoa nhài và gỗ đàn hương Hội An. Cháy đều, không khói, tỏa hương nhẹ nhàng giúp thư giãn và dễ ngủ.',  5, 'CHAMSOCSUCKHOEVATHUGIAN/nenthomdengu.jpeg',    N'Đang bán'),
+('SP19', N'Trà an thần',        190000, N'Trà thảo mộc an thần được pha chế từ hoa cúc, tâm sen, lá vông nem và các thảo dược quý vùng Quảng Nam. Uống trước khi ngủ giúp thư giãn thần kinh, ngủ sâu giấc, thức dậy tỉnh táo và sảng khoái.',  5, 'CHAMSOCSUCKHOEVATHUGIAN/traanthan.jpg',        N'Đang bán'),
+('SP20', N'Trầm hương thơm phòng', 200000, N'Trầm hương tự nhiên khai thác từ rừng Quảng Nam, được chế tác thành que nhang và nụ trầm. Hương thơm thanh khiết, sâu lắng, giúp thanh lọc không khí, xua đuổi muỗi và tạo không gian thư giãn tâm linh.', 5, 'CHAMSOCSUCKHOEVATHUGIAN/tramhuongthomphong.webp', N'Đang bán');
 
 -- 6. ChiTietSanPham
 INSERT INTO ChiTietSanPham (maSanPham, soLuongTon, moTa)
