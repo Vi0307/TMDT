@@ -77,7 +77,7 @@ CREATE TABLE DanhMuc (
 -- 5. SanPham
 -- ========================================
 CREATE TABLE SanPham (
-    maSanPham  INT            PRIMARY KEY IDENTITY(1,1),
+    maSanPham  NVARCHAR(10)   PRIMARY KEY,                  -- SP01, SP02, ...
     tenSanPham NVARCHAR(100)  NOT NULL,
     gia        DECIMAL(10,2)  NOT NULL,
     moTa       NVARCHAR(MAX),
@@ -94,7 +94,7 @@ CREATE TABLE SanPham (
 -- ========================================
 CREATE TABLE ChiTietSanPham (
     maChiTiet   INT          PRIMARY KEY IDENTITY(1,1),
-    maSanPham   INT          NOT NULL UNIQUE,
+    maSanPham   NVARCHAR(10) NOT NULL UNIQUE,
     soLuongTon  INT          NOT NULL DEFAULT 0,
     moTa        NVARCHAR(MAX),
     CHECK (soLuongTon >= 0),
@@ -132,7 +132,7 @@ CREATE TABLE PhieuNhap (
 -- ========================================
 CREATE TABLE ChiTietPhieuNhap (
     maPhieuNhap INT           NOT NULL,
-    maSanPham   INT           NOT NULL,
+    maSanPham   NVARCHAR(10)  NOT NULL,
     soLuong     INT           NOT NULL,
     giaNhap     DECIMAL(10,2) NOT NULL,
     PRIMARY KEY (maPhieuNhap, maSanPham),
@@ -155,10 +155,10 @@ CREATE TABLE GioHang (
 -- 11. Chi tiết giỏ hàng
 -- ========================================
 CREATE TABLE ChiTietGioHang (
-    maCTGH    INT PRIMARY KEY IDENTITY(1,1),
-    maGioHang INT NOT NULL,
-    maSanPham INT NOT NULL,
-    soLuong   INT NOT NULL,
+    maCTGH    INT          PRIMARY KEY IDENTITY(1,1),
+    maGioHang INT          NOT NULL,
+    maSanPham NVARCHAR(10) NOT NULL,
+    soLuong   INT          NOT NULL,
     UNIQUE (maGioHang, maSanPham),                         -- không trùng sp trong 1 giỏ
     CHECK (soLuong > 0),
     FOREIGN KEY (maGioHang) REFERENCES GioHang(maGioHang),
@@ -234,7 +234,7 @@ CREATE TABLE DonHang (
 -- ========================================
 CREATE TABLE ChiTietDonHang (
     maDonHang INT           NOT NULL,
-    maSanPham INT           NOT NULL,
+    maSanPham NVARCHAR(10)  NOT NULL,
     soLuong   INT           NOT NULL,
     gia       DECIMAL(10,2) NOT NULL,                      -- snapshot giá lúc mua
     PRIMARY KEY (maDonHang, maSanPham),
@@ -267,7 +267,7 @@ CREATE TABLE GiaoDich (
 CREATE TABLE DanhGia (
     maDanhGia   INT          PRIMARY KEY IDENTITY(1,1),
     maNguoiDung INT          NOT NULL,
-    maSanPham   INT          NOT NULL,
+    maSanPham   NVARCHAR(10) NOT NULL,
     soSao       INT          NOT NULL,
     binhLuan    NVARCHAR(MAX),
     ngayDanhGia DATETIME     NOT NULL DEFAULT GETDATE(),
@@ -344,37 +344,37 @@ VALUES
 (N'Sức khỏe');
 
 -- 5. SanPham (20 sản phẩm)
-INSERT INTO SanPham (tenSanPham, gia, moTa, maDanhMuc, trangThai)
+INSERT INTO SanPham (maSanPham, tenSanPham, gia, moTa, maDanhMuc, trangThai)
 VALUES
-(N'SP1', 10000, N'Mô tả SP1', 1, N'Đang bán'),
-(N'SP2', 20000, N'Mô tả SP2', 1, N'Đang bán'),
-(N'SP3', 30000, N'Mô tả SP3', 1, N'Đang bán'),
-(N'SP4', 40000, N'Mô tả SP4', 1, N'Đang bán'),
-(N'SP5', 50000, N'Mô tả SP5', 2, N'Đang bán'),
-(N'SP6', 60000, N'Mô tả SP6', 2, N'Đang bán'),
-(N'SP7', 70000, N'Mô tả SP7', 2, N'Đang bán'),
-(N'SP8', 80000, N'Mô tả SP8', 2, N'Đang bán'),
-(N'SP9', 90000,  N'Mô tả SP9',  3, N'Đang bán'),
-(N'SP10',100000, N'Mô tả SP10', 3, N'Đang bán'),
-(N'SP11',110000, N'Mô tả SP11', 3, N'Đang bán'),
-(N'SP12',120000, N'Mô tả SP12', 3, N'Đang bán'),
-(N'SP13',130000, N'Mô tả SP13', 4, N'Đang bán'),
-(N'SP14',140000, N'Mô tả SP14', 4, N'Đang bán'),
-(N'SP15',150000, N'Mô tả SP15', 4, N'Đang bán'),
-(N'SP16',160000, N'Mô tả SP16', 4, N'Đang bán'),
-(N'SP17',170000, N'Mô tả SP17', 5, N'Đang bán'),
-(N'SP18',180000, N'Mô tả SP18', 5, N'Đang bán'),
-(N'SP19',190000, N'Mô tả SP19', 5, N'Đang bán'),
-(N'SP20',200000, N'Mô tả SP20', 5, N'Đang bán');
+('SP01', N'SP1',  10000,  N'Mô tả SP1',  1, N'Đang bán'),
+('SP02', N'SP2',  20000,  N'Mô tả SP2',  1, N'Đang bán'),
+('SP03', N'SP3',  30000,  N'Mô tả SP3',  1, N'Đang bán'),
+('SP04', N'SP4',  40000,  N'Mô tả SP4',  1, N'Đang bán'),
+('SP05', N'SP5',  50000,  N'Mô tả SP5',  2, N'Đang bán'),
+('SP06', N'SP6',  60000,  N'Mô tả SP6',  2, N'Đang bán'),
+('SP07', N'SP7',  70000,  N'Mô tả SP7',  2, N'Đang bán'),
+('SP08', N'SP8',  80000,  N'Mô tả SP8',  2, N'Đang bán'),
+('SP09', N'SP9',  90000,  N'Mô tả SP9',  3, N'Đang bán'),
+('SP10', N'SP10', 100000, N'Mô tả SP10', 3, N'Đang bán'),
+('SP11', N'SP11', 110000, N'Mô tả SP11', 3, N'Đang bán'),
+('SP12', N'SP12', 120000, N'Mô tả SP12', 3, N'Đang bán'),
+('SP13', N'SP13', 130000, N'Mô tả SP13', 4, N'Đang bán'),
+('SP14', N'SP14', 140000, N'Mô tả SP14', 4, N'Đang bán'),
+('SP15', N'SP15', 150000, N'Mô tả SP15', 4, N'Đang bán'),
+('SP16', N'SP16', 160000, N'Mô tả SP16', 4, N'Đang bán'),
+('SP17', N'SP17', 170000, N'Mô tả SP17', 5, N'Đang bán'),
+('SP18', N'SP18', 180000, N'Mô tả SP18', 5, N'Đang bán'),
+('SP19', N'SP19', 190000, N'Mô tả SP19', 5, N'Đang bán'),
+('SP20', N'SP20', 200000, N'Mô tả SP20', 5, N'Đang bán');
 
 -- 6. ChiTietSanPham
 INSERT INTO ChiTietSanPham (maSanPham, soLuongTon, moTa)
 VALUES
-( 1,50,N''),( 2,50,N''),( 3,50,N''),( 4,50,N''),
-( 5,50,N''),( 6,50,N''),( 7,50,N''),( 8,50,N''),
-( 9,50,N''),(10,50,N''),(11,50,N''),(12,50,N''),
-(13,50,N''),(14,50,N''),(15,50,N''),(16,50,N''),
-(17,50,N''),(18,50,N''),(19,50,N''),(20,50,N'');
+('SP01',50,N''),('SP02',50,N''),('SP03',50,N''),('SP04',50,N''),
+('SP05',50,N''),('SP06',50,N''),('SP07',50,N''),('SP08',50,N''),
+('SP09',50,N''),('SP10',50,N''),('SP11',50,N''),('SP12',50,N''),
+('SP13',50,N''),('SP14',50,N''),('SP15',50,N''),('SP16',50,N''),
+('SP17',50,N''),('SP18',50,N''),('SP19',50,N''),('SP20',50,N'');
 
 -- 7. NhaCungCap
 INSERT INTO NhaCungCap (tenNCC, email, soDienThoai, diaChi)
@@ -391,8 +391,8 @@ VALUES
 -- 9. ChiTietPhieuNhap
 INSERT INTO ChiTietPhieuNhap (maPhieuNhap, maSanPham, soLuong, giaNhap)
 VALUES
-(1, 1, 50, 8000),
-(2, 2, 50, 15000);
+(1, 'SP01', 50, 8000),
+(2, 'SP02', 50, 15000);
 
 -- 10. GioHang
 INSERT INTO GioHang (maNguoiDung)
@@ -401,8 +401,8 @@ VALUES (2);
 -- 11. ChiTietGioHang
 INSERT INTO ChiTietGioHang (maGioHang, maSanPham, soLuong)
 VALUES
-(1, 1, 2),
-(1, 2, 1);
+(1, 'SP01', 2),
+(1, 'SP02', 1);
 
 -- 12. TrangThai
 INSERT INTO TrangThai (tenTrangThai, moTa, loai)
@@ -447,8 +447,8 @@ VALUES
 -- 16. ChiTietDonHang
 INSERT INTO ChiTietDonHang (maDonHang, maSanPham, soLuong, gia)
 VALUES
-(1, 1, 1, 10000),
-(1, 2, 1, 20000);
+(1, 'SP01', 1, 10000),
+(1, 'SP02', 1, 20000);
 
 -- 17. GiaoDich (maTrangThai=6 = 'Thành công' loại PAYMENT)
 INSERT INTO GiaoDich (loaiGiaoDich, maTrangThai, soTien, momoCode, maDonHang)
@@ -458,7 +458,7 @@ VALUES
 -- 18. DanhGia
 INSERT INTO DanhGia (maNguoiDung, maSanPham, soSao, binhLuan)
 VALUES
-(2, 1, 5, N'Sản phẩm tốt, giao hàng nhanh');
+(2, 'SP01', 5, N'Sản phẩm tốt, giao hàng nhanh');
 
 -- 19. PhanHoiDanhGia
 INSERT INTO PhanHoiDanhGia (maNguoiDung, tieuDe, noiDung, trangThai, maDanhGia)
