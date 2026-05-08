@@ -86,7 +86,7 @@ router.post('/', async (req, res) => {
 
         for (const item of orderItems) {
             const spReq = new sql.Request();
-            spReq.input('maSanPham', sql.Int, item.maSanPham);
+            spReq.input('maSanPham', sql.NVarChar(10), item.maSanPham);
             const spResult = await spReq.query(`
                 SELECT sp.maSanPham, sp.tenSanPham, sp.gia,
                        ISNULL(ct.soLuongTon, 0) AS soLuongTon
@@ -149,8 +149,8 @@ router.post('/', async (req, res) => {
         // Thêm chi tiết đơn hàng + trừ tồn kho
         for (const item of validatedItems) {
             const detailReq = new sql.Request();
-            detailReq.input('maDonHang', sql.Int,          maDonHang);
-            detailReq.input('maSanPham', sql.Int,          item.maSanPham);
+            detailReq.input('maDonHang', sql.Int,           maDonHang);
+            detailReq.input('maSanPham', sql.NVarChar(10),  item.maSanPham);
             detailReq.input('soLuong',   sql.Int,          item.soLuong);
             detailReq.input('gia',       sql.Decimal(10,2), item.gia);
             await detailReq.query(`
@@ -160,7 +160,7 @@ router.post('/', async (req, res) => {
 
             // Trừ tồn kho
             const stockReq = new sql.Request();
-            stockReq.input('maSanPham', sql.Int, item.maSanPham);
+            stockReq.input('maSanPham', sql.NVarChar(10), item.maSanPham);
             stockReq.input('soLuong',   sql.Int, item.soLuong);
             await stockReq.query(`
                 UPDATE ChiTietSanPham
@@ -415,7 +415,7 @@ router.put('/:id/cancel', async (req, res) => {
         );
         for (const item of items.recordset) {
             const restoreReq = new sql.Request();
-            restoreReq.input('maSanPham', sql.Int, item.maSanPham);
+            restoreReq.input('maSanPham', sql.NVarChar(10), item.maSanPham);
             restoreReq.input('soLuong',   sql.Int, item.soLuong);
             await restoreReq.query(`
                 UPDATE ChiTietSanPham
