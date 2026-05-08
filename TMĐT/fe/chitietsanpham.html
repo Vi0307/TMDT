@@ -143,89 +143,64 @@
   </div>
 </div>
 </header>
+<script src="auth.js"></script>
 <main class="max-w-screen-2xl mx-auto px-8 py-12">
 <!-- Product Detail Section -->
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
 <!-- Gallery Column -->
 <div class="space-y-6">
 <div class="aspect-[4/5] bg-surface-container overflow-hidden rounded-lg shadow-sm border border-outline-variant/20">
-<img class="w-full h-full object-cover" data-alt="Exquisite handmade silk lantern from Hoi An with intricate floral patterns glowing softly against a dark weathered wooden background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8esnON8T6DCS0-9iMS6W0xj86pm2DZ-wnVktbO1qXIuIFAt0NxQ8RgU0wHLM2FrDyZFrxvAMIGwvbOs_FoGrHe-Yf2aBruzbcGwNNVXNtsnmM3na1aS0CtHoFPLrLNNO9_WPYA6L4WoeyrwFw3oh29RnB5S6mkcxIY1Xj56sIUI8RRtKQO91IoS7W-8sNrzOFGL0wb4ArR72w7kOITvCYwojDtcFslEnRFPgDI-XyJnVG4-qOhtK7N0RIQia6FxWfoGmh17g5c2dk"/>
+<img id="main-image" class="w-full h-full object-cover" src="" alt=""/>
 </div>
-<div class="grid grid-cols-4 gap-4">
-<div class="aspect-square bg-surface-container rounded-md overflow-hidden cursor-pointer border-2 border-primary">
-<img class="w-full h-full object-cover" data-alt="Close-up of vibrant red silk lantern with gold tassel in traditional Vietnamese style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4v3fX3CGt_d0lvK--hW6yKM1wNm0KZIcRXu0zy2Ir2qQpwlmfuRPxEhECPUt_DepiyO8HzTJCIEuyhZVJXiPCrTCB5_JLQeAdfl9EdqtgGCqmkCqXforsWtZwn-kvMb4SifkOCUakfSi9ePIi8Z6pnEzPdV2l67JvKR2QXfxSjOIzK9zQtVVPXIkJOYFlqQe73L6sWjjKuYmDCTK-EDTGDo3jYaON3bxuIWz-uUARD3ZS_QCJbjsjML493IQTYIiQCqpMlBi9VjOJ"/>
-</div>
-<div class="aspect-square bg-surface-container rounded-md overflow-hidden cursor-pointer border border-transparent hover:border-outline-variant">
-<img class="w-full h-full object-cover" data-alt="Yellow glowing silk lanterns hanging in a cluster at dusk in Hoi An ancient town" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD03xien97KTODdX37PDymBUoiCuSmc-xyK7176Ch6ufWA_hMTQZduXgtoEU15YHyonmEWWEU-ttMUzOlGeEzlv7hKk58acN_JDT2t6PiFaH2OUCOR3q6Ipk_rXrYUlHHbcBfEpheiOKs5Lo-hWq9Ui_W9byPU7L04BabxMIW5yDbgD2FnWoEuPddDb9KT3tsZcCLtXp9z6IiT3TpfZZr9LSQMy7YWkQWi-NDsONiqeR9Jcz8AyUBZaXx7qmDuMtCgeeTlBZcXkBEE3"/>
-</div>
-<div class="aspect-square bg-surface-container rounded-md overflow-hidden cursor-pointer border border-transparent hover:border-outline-variant">
-<img class="w-full h-full object-cover" data-alt="Artisan hand-painting delicate bamboo frames for silk lanterns in a traditional workshop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8Rf7roWiAfRl8XRy5N4B2dWwZ8TSGMTuwQWj3vo8h6_3y9oaOCOY8nC8FqmfQyXhmWjJ41sChVEyUOMquyZ09m8dtXR_0oNbvZY_seu0jydAqH-VbM43FuGYBi4tb-5GvyCBZq5g39pgMusOSbJIq-iqYMXT9UeZF4MCkvTn2XCUOs3DaU_LB2Aqu9mXip0QXsQv2aiJueQKvZ97OEJGmeKuTgqr2Q6FPk4FXrStbHvG9bkpZMI15LbWrzn2dzHTO6tlOdF5wCskN"/>
-</div>
-<div class="aspect-square bg-surface-container rounded-md overflow-hidden cursor-pointer border border-transparent hover:border-outline-variant">
-<img class="w-full h-full object-cover" data-alt="Various shapes of silk lanterns including garlic, globe, and diamond shapes displayed in a boutique" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASAlORGmSSgKjF75z4uyXWuLbr_vMtPPfNwVmGFqNHDPW1o6N-2QH_TApVZ3jwIl__8FZj2KRusoWTAgrecZa0omJ-gw_zVc_8PgT2LbSc5V544vVaGJg6N4hihh4osVa9h8-7ngZa4Q5welkNRIRyxsKDMQX3FnEVhyLB8rEAbYE7_LVCEnstUac30m_dn9vBIVlv8WO5vGNBaRdkpU9hgL--9-u5e6IfUTnoRaB7s6u-hMuo10XKvwQ3vDnoRAWiarYUD_Uh1sW0"/>
-</div>
+<div id="thumbnails" class="grid grid-cols-4 gap-4">
+    <!-- Render từ JS -->
 </div>
 </div>
 <!-- Information Column -->
 <div class="flex flex-col gap-8">
 <div class="space-y-2">
-<span class="text-primary font-label-caps uppercase tracking-widest bg-primary/10 px-3 py-1 rounded-full">Thủ Công Truyền Thống</span>
-<h1 class="font-display-lg text-display-lg text-on-surface">Đèn Lồng Lụa Hội An Cao Cấp</h1>
+<span id="product-category" class="text-primary font-label-caps uppercase tracking-widest bg-primary/10 px-3 py-1 rounded-full">...</span>
+<h1 id="product-name" class="font-display-lg text-display-lg text-on-surface">Đang tải...</h1>
 <div class="flex items-center gap-2 text-primary">
-<div class="flex">
-<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<div id="product-stars" class="flex">
+    <!-- Render từ JS -->
 </div>
-<span class="font-body-md text-outline">(128 Đánh giá)</span>
+<span id="review-count" class="font-body-md text-outline">(0 Đánh giá)</span>
 </div>
 </div>
-<div class="text-3xl font-headline-md text-secondary font-bold">
-                    850.000 VND
-                </div>
-<div class="font-body-lg text-on-surface-variant leading-relaxed border-l-2 border-primary/20 pl-6 italic">
-                    Chế tác từ khung tre già và lụa tơ tằm Hà Đông thượng hạng, mỗi chiếc đèn lồng là một tác phẩm nghệ thuật độc bản mang hơi thở của phố cổ trăm năm.
-                </div>
-<div class="space-y-4">
-<label class="font-label-caps text-outline uppercase tracking-wider">Chọn Màu Sắc</label>
-<div class="flex gap-4">
-<button class="w-10 h-10 rounded-full bg-[#B52424] border-2 border-white ring-2 ring-primary lantern-glow"></button>
-<button class="w-10 h-10 rounded-full bg-[#E5A022] border-2 border-white ring-1 ring-outline-variant"></button>
-<button class="w-10 h-10 rounded-full bg-[#4A2C2A] border-2 border-white ring-1 ring-outline-variant"></button>
-<button class="w-10 h-10 rounded-full bg-[#005F6B] border-2 border-white ring-1 ring-outline-variant"></button>
-<button class="w-10 h-10 rounded-full bg-[#FAF9F6] border-2 border-white ring-1 ring-outline-variant"></button>
-</div>
-</div>
+<div id="product-price" class="text-3xl font-headline-md text-secondary font-bold">---</div>
+<div id="product-desc" class="font-body-lg text-on-surface-variant leading-relaxed border-l-2 border-primary/20 pl-6 italic"></div>
+<div id="product-stock" class="text-sm"></div>
 <div class="flex items-end gap-6">
 <div class="space-y-4 flex-grow max-w-[150px]">
 <label class="font-label-caps text-outline uppercase tracking-wider">Số Lượng</label>
 <div class="flex items-center border border-outline-variant rounded-lg p-1 bg-surface-container-low">
-<button class="w-10 h-10 flex items-center justify-center hover:bg-surface-variant rounded">-</button>
-<input class="w-full text-center bg-transparent border-none focus:ring-0 font-body-md" type="text" value="1"/>
-<button class="w-10 h-10 flex items-center justify-center hover:bg-surface-variant rounded">+</button>
+<button onclick="changeQty(-1)" class="w-10 h-10 flex items-center justify-center hover:bg-surface-variant rounded text-xl font-bold">−</button>
+<input id="qty-input" class="w-full text-center bg-transparent border-none focus:ring-0 font-body-md" type="text" value="1" readonly/>
+<button onclick="changeQty(1)" class="w-10 h-10 flex items-center justify-center hover:bg-surface-variant rounded text-xl font-bold">+</button>
 </div>
 </div>
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
-<button onclick="window.location.href='giohang.html'" class="bg-secondary text-on-primary py-4 rounded-lg font-label-caps text-sm tracking-widest uppercase hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+<button id="btn-add-cart" onclick="addToCart()"
+    class="bg-secondary text-on-primary py-4 rounded-lg font-label-caps text-sm tracking-widest uppercase hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
 <span class="material-symbols-outlined">shopping_bag</span>
-                        Thêm Vào Giỏ
-                    </button>
-<button onclick="window.location.href='thanhtoan.html'" class="border-2 border-[#4A2C2A] text-[#4A2C2A] py-4 rounded-lg font-label-caps text-sm tracking-widest uppercase hover:bg-[#4A2C2A] hover:text-white transition-all flex items-center justify-center gap-2">
-                        Mua Ngay
-                    </button>
+    Thêm Vào Giỏ
+</button>
+<button id="btn-buy-now" onclick="buyNow()"
+    class="border-2 border-[#4A2C2A] text-[#4A2C2A] py-4 rounded-lg font-label-caps text-sm tracking-widest uppercase hover:bg-[#4A2C2A] hover:text-white transition-all flex items-center justify-center gap-2">
+    Mua Ngay
+</button>
 </div>
 <div class="flex items-center gap-8 py-6 border-y border-outline-variant/30 text-sm font-body-md text-outline">
 <div class="flex items-center gap-2">
 <span class="material-symbols-outlined text-primary">local_shipping</span>
-                        Giao hàng toàn quốc
-                    </div>
+    Giao hàng toàn quốc
+</div>
 <div class="flex items-center gap-2">
 <span class="material-symbols-outlined text-primary">verified_user</span>
-                        Bảo hành 12 tháng
-                    </div>
+    Bảo hành 12 tháng
+</div>
 </div>
 </div>
 </div>
@@ -233,39 +208,67 @@
 <section class="mt-24">
 <div class="border-b border-outline-variant/30 mb-8">
 <div class="flex gap-12">
-<button class="pb-4 border-b-2 border-primary text-primary font-title-sm">Thông số kỹ thuật</button>
-<button class="pb-4 border-b-2 border-transparent text-outline hover:text-on-surface transition-colors font-title-sm">Câu chuyện nghệ nhân</button>
-<button class="pb-4 border-b-2 border-transparent text-outline hover:text-on-surface transition-colors font-title-sm">Đánh giá khách hàng</button>
+<button data-tab="specs" onclick="switchTab('specs')"
+    class="pb-4 border-b-2 border-primary text-primary font-title-sm">Thông số kỹ thuật</button>
+<button data-tab="story" onclick="switchTab('story')"
+    class="pb-4 border-b-2 border-transparent text-outline hover:text-on-surface transition-colors font-title-sm">Câu chuyện nghệ nhân</button>
+<button data-tab="reviews" onclick="switchTab('reviews')"
+    class="pb-4 border-b-2 border-transparent text-outline hover:text-on-surface transition-colors font-title-sm">Đánh giá khách hàng</button>
 </div>
 </div>
+
+<!-- Tab: Thông số -->
+<div data-panel="specs">
 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 bg-surface-container-low p-10 rounded-xl">
 <div class="space-y-6">
 <div class="flex justify-between border-b border-outline-variant/20 pb-3">
-<span class="font-label-caps text-outline">Chất liệu khung</span>
-<span class="font-body-md">Tre già đã qua xử lý chống mối mọt</span>
+<span class="font-label-caps text-outline">Danh mục</span>
+<span id="spec-category" class="font-body-md">—</span>
 </div>
 <div class="flex justify-between border-b border-outline-variant/20 pb-3">
-<span class="font-label-caps text-outline">Chất liệu vải</span>
-<span class="font-body-md">Lụa tơ tằm Hà Đông tự nhiên</span>
+<span class="font-label-caps text-outline">Mã sản phẩm</span>
+<span id="spec-id" class="font-body-md">—</span>
 </div>
 <div class="flex justify-between border-b border-outline-variant/20 pb-3">
-<span class="font-label-caps text-outline">Kích thước</span>
-<span class="font-body-md">Đường kính 35cm, Cao 45cm</span>
+<span class="font-label-caps text-outline">Tồn kho</span>
+<span id="spec-stock" class="font-body-md">—</span>
 </div>
 </div>
 <div class="space-y-6">
 <div class="flex justify-between border-b border-outline-variant/20 pb-3">
-<span class="font-label-caps text-outline">Phụ kiện đi kèm</span>
-<span class="font-body-md">Dây treo gỗ trạm khắc, bóng LED 5W</span>
+<span class="font-label-caps text-outline">Điểm đánh giá</span>
+<span id="spec-rating" class="font-body-md">—</span>
 </div>
 <div class="flex justify-between border-b border-outline-variant/20 pb-3">
-<span class="font-label-caps text-outline">Thời gian chế tác</span>
-<span class="font-body-md">3-5 ngày làm việc</span>
+<span class="font-label-caps text-outline">Số lượt đánh giá</span>
+<span id="spec-review-count" class="font-body-md">—</span>
 </div>
 <div class="flex justify-between border-b border-outline-variant/20 pb-3">
 <span class="font-label-caps text-outline">Xuất xứ</span>
-<span class="font-body-md">Làng nghề lồng đèn Hội An</span>
+<span class="font-body-md">Hội An, Quảng Nam</span>
 </div>
+</div>
+</div>
+</div>
+
+<!-- Tab: Câu chuyện -->
+<div data-panel="story" style="display:none">
+<div class="bg-surface-container-low p-10 rounded-xl">
+<p class="font-body-lg text-on-surface-variant leading-relaxed italic border-l-4 border-primary/30 pl-6">
+    "Mỗi sản phẩm từ Hội An Tinh Hoa đều được chế tác bởi những nghệ nhân đã gắn bó cả đời với nghề truyền thống.
+    Đôi tay họ mang theo ký ức của nhiều thế hệ, từng đường nét đều chứa đựng tâm huyết và niềm tự hào về di sản văn hóa phố cổ."
+</p>
+<p class="font-body-md text-on-surface-variant mt-6 leading-relaxed">
+    Chúng tôi cam kết mang đến những sản phẩm thủ công chính gốc, được làm hoàn toàn bằng tay từ nguyên liệu tự nhiên,
+    không qua sản xuất công nghiệp. Mỗi sản phẩm là một tác phẩm độc bản, không có hai chiếc nào giống nhau hoàn toàn.
+</p>
+</div>
+</div>
+
+<!-- Tab: Đánh giá -->
+<div data-panel="reviews" style="display:none">
+<div id="review-list" class="bg-surface-container-low p-10 rounded-xl space-y-6">
+    <!-- Render từ JS -->
 </div>
 </div>
 </section>
@@ -278,40 +281,8 @@
 </div>
 <a class="text-primary font-label-caps border-b border-primary pb-1 hover:text-on-primary-container transition-colors" href="sanpham.html">Xem tất cả</a>
 </div>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-<!-- Product Card 1 -->
-<div class="group cursor-pointer">
-<div class="aspect-[3/4] rounded-lg overflow-hidden relative mb-4 bg-surface-container shadow-sm group-hover:shadow-lg transition-all duration-300">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Traditional globe shaped silk lantern in deep amber yellow with dark wood accents" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhjAvvcJL41wSFE9H6UwHECG7Z8Coj54bzAZtDZyDMKy-6CMaCBtNTEEr-t-aXQa-PtHfVWlFEENqiGhSYrYfD85f8H2MTLdDm--olG2Zew4c2rdyHkzR5FeZOFZCBgzHbcQxuKQZNCymdD0E1xJeBu6UJmU_moZxuZ-JcZXAlWZnaPGjCBePP5rWgvLeqDl45KRFRg95MZTrDC6cKoBUGWWyjDoK75jtCNuSSHKc1WKRzcOGMD81I6dU4YMxBWMufoqMV1YoVXq5Z"/>
-<div class="absolute top-4 left-4 bg-primary text-on-primary px-3 py-1 text-xs font-label-caps uppercase">Bán chạy</div>
-</div>
-<h3 class="font-title-sm text-title-sm mb-1 group-hover:text-primary transition-colors">Đèn Lồng Quả Cầu Vàng</h3>
-<p class="font-body-md text-secondary font-bold">720.000 VND</p>
-</div>
-<!-- Product Card 2 -->
-<div class="group cursor-pointer">
-<div class="aspect-[3/4] rounded-lg overflow-hidden relative mb-4 bg-surface-container shadow-sm group-hover:shadow-lg transition-all duration-300">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Tear-drop shaped turquoise silk lantern with hand-painted lotus motif" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6zAHAvaa3Qsx4AxHS8aF2_Hb7aCoMUYPAVh5CN16FgnLV_T0WQrAldbdMp_3Kf4VSvCsFX2PadFFyEy_6ic0EGD5C9VvTVBgZ08NY0Pfduxzf190yjqjasUON8beFusSus65wtQLT_onAmV1wDOCkW9CI-xb-Pxkk3f-2Tm1YgsBTDRoo5I5QzbNE89zAVG0uU9N2gXRzXqPmItRfWjGZ7-z_cFZNohiwj0VcZD0He1jymJU35DoRW2y7iiZ7MHelo5vLMDXGIvSp"/>
-</div>
-<h3 class="font-title-sm text-title-sm mb-1 group-hover:text-primary transition-colors">Đèn Lồng Dáng Củ Tỏi Lam</h3>
-<p class="font-body-md text-secondary font-bold">950.000 VND</p>
-</div>
-<!-- Product Card 3 -->
-<div class="group cursor-pointer">
-<div class="aspect-[3/4] rounded-lg overflow-hidden relative mb-4 bg-surface-container shadow-sm group-hover:shadow-lg transition-all duration-300">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Large rectangular silk lantern with wooden frame and warm internal lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBX9Fk_qGvi2Pt1mVd_ULmChqOBsszhjzdwoLh38LseeSoo9nYDEsrpLSodV73ZfNRFE_hbs1QH8Vq7juj_PhG2hY_pYxKd2_XZCUgDREzI4b4fD6bVYlHMK4QavqemfwbFK11vQWxos12Xw1S27Kp0kFqUsirpaY3UTNcOm3xJrJlpNsiCH5cUJ-okzdWEnuDnlUZ4au4LCmxyc-ioMs4tLiIqZv8ugHKxl-1a1DYFKj96Nzva-Sw4RF3oRjeZjsgSBorQMTRdHP0t"/>
-</div>
-<h3 class="font-title-sm text-title-sm mb-1 group-hover:text-primary transition-colors">Đèn Gỗ Bọc Lụa Vuông</h3>
-<p class="font-body-md text-secondary font-bold">1.200.000 VND</p>
-</div>
-<!-- Product Card 4 -->
-<div class="group cursor-pointer">
-<div class="aspect-[3/4] rounded-lg overflow-hidden relative mb-4 bg-surface-container shadow-sm group-hover:shadow-lg transition-all duration-300">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Cluster of mini silk lanterns in various pastel colors hanging from a decorative branch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0R54h3BGFXNI-57dHJhn0iBqGSrauZhycoJvY3bLgYWiZLgSVheTCV3lre4ylFdmUjIOTA0nMlYZxKLbka_wP628QlHHcEFE3BSWWnqlVf5BjhTLgZhSTHMJV708qZByE9qMIfRnytsV324yR-rK5upZR3QKVw_N9qCJZSKvV1CUb5JCHAzKPfTmxvP3NvB-ws7RYP1YTbj6R0W1N9QhqV_IpLIAbxetxEZb7eqrTqW3GrAgmNk4qQE_074Pr6eqKHsrEqDl2enjd"/>
-</div>
-<h3 class="font-title-sm text-title-sm mb-1 group-hover:text-primary transition-colors">Đèn Lồng Mini để bàn</h3>
-<p class="font-body-md text-secondary font-bold">580.000 VND</p>
-</div>
+<div id="related-products" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+    <!-- Render từ JS -->
 </div>
 </section>
 </main>
@@ -377,4 +348,20 @@
 <span class="font-serif text-[10px] font-medium">Tài khoản</span>
 </a>
 </nav>
+<script src="auth.js"></script>
+<script src="js/chitietsanpham.js"></script>
+<script>
+// Điền thông số kỹ thuật sau khi renderProduct chạy xong
+const _origRender = renderProduct;
+renderProduct = function(sp) {
+    _origRender(sp);
+    // Điền vào tab thông số
+    const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+    set('spec-category',     sp.tenDanhMuc || '—');
+    set('spec-id',           sp.maSanPham);
+    set('spec-stock',        sp.soLuongTon > 0 ? sp.soLuongTon + ' sản phẩm' : 'Hết hàng');
+    set('spec-rating',       sp.diemTrungBinh ? Number(sp.diemTrungBinh).toFixed(1) + ' / 5' : 'Chưa có');
+    set('spec-review-count', (sp.soLuongDanhGia || 0) + ' lượt');
+};
+</script>
 </body></html>

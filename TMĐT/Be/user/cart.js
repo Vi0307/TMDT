@@ -107,7 +107,7 @@ router.post('/', async (req, res) => {
     try {
         // Kiểm tra sản phẩm tồn tại và còn hàng
         const spReq = new sql.Request();
-        spReq.input('maSanPham', sql.Int, maSanPham);
+        spReq.input('maSanPham', sql.NVarChar(10), maSanPham);
         const spResult = await spReq.query(`
             SELECT sp.maSanPham, sp.tenSanPham, ISNULL(ct.soLuongTon, 0) AS soLuongTon
             FROM SanPham sp
@@ -130,7 +130,7 @@ router.post('/', async (req, res) => {
         // Kiểm tra sản phẩm đã có trong giỏ chưa
         const checkReq = new sql.Request();
         checkReq.input('maGioHang', sql.Int, maGioHang);
-        checkReq.input('maSanPham', sql.Int, maSanPham);
+        checkReq.input('maSanPham', sql.NVarChar(10), maSanPham);
         const existing = await checkReq.query(`
             SELECT maCTGH, soLuong FROM ChiTietGioHang
             WHERE maGioHang = @maGioHang AND maSanPham = @maSanPham
@@ -155,7 +155,7 @@ router.post('/', async (req, res) => {
             // Thêm mới
             const insertReq = new sql.Request();
             insertReq.input('maGioHang', sql.Int, maGioHang);
-            insertReq.input('maSanPham', sql.Int, maSanPham);
+            insertReq.input('maSanPham', sql.NVarChar(10), maSanPham);
             insertReq.input('soLuong',   sql.Int, parseInt(soLuong));
             await insertReq.query(`
                 INSERT INTO ChiTietGioHang (maGioHang, maSanPham, soLuong)

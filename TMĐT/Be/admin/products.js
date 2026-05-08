@@ -42,7 +42,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const request = new sql.Request();
-        request.input('id', sql.Int, req.params.id);
+        request.input('id', sql.NVarChar(10), req.params.id);
 
         const result = await request.query(`
             SELECT 
@@ -95,7 +95,7 @@ router.post('/', async (req, res) => {
 
         // Thêm chi tiết tồn kho
         const request2 = new sql.Request();
-        request2.input('maSanPham', sql.Int, maSanPham);
+        request2.input('maSanPham', sql.NVarChar(10), maSanPham);
         request2.input('soLuongTon', sql.Int, soLuongTon || 0);
         await request2.query(`
             INSERT INTO ChiTietSanPham (maSanPham, soLuongTon)
@@ -118,7 +118,7 @@ router.put('/:id', async (req, res) => {
             return res.status(400).json({ success: false, message: 'Thiếu thông tin bắt buộc (tên, giá, danh mục)' });
 
         const request = new sql.Request();
-        request.input('id', sql.Int, req.params.id);
+        request.input('id', sql.NVarChar(10), req.params.id);
         request.input('tenSanPham', sql.NVarChar, tenSanPham);
         request.input('gia', sql.Decimal(10, 2), gia);
         request.input('moTa', sql.NVarChar, moTa || '');
@@ -134,7 +134,7 @@ router.put('/:id', async (req, res) => {
         // Cập nhật hoặc thêm mới tồn kho
         if (soLuongTon !== undefined) {
             const request2 = new sql.Request();
-            request2.input('id', sql.Int, req.params.id);
+            request2.input('id', sql.NVarChar(10), req.params.id);
             request2.input('soLuongTon', sql.Int, soLuongTon);
             await request2.query(`
                 IF EXISTS (SELECT 1 FROM ChiTietSanPham WHERE maSanPham = @id)
@@ -155,7 +155,7 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     try {
         const request = new sql.Request();
-        request.input('id', sql.Int, req.params.id);
+        request.input('id', sql.NVarChar(10), req.params.id);
 
         // Kiểm tra sản phẩm có trong đơn hàng không
         const check = await request.query(`

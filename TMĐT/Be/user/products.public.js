@@ -91,7 +91,7 @@ router.get('/', async (req, res) => {
             GROUP BY
                 sp.maSanPham, sp.tenSanPham, sp.gia, sp.moTa, sp.hinhAnh,
                 dm.maDanhMuc, dm.tenDanhMuc, ct.soLuongTon
-            ORDER BY sp.maSanPham DESC
+            ORDER BY sp.maSanPham ASC
             OFFSET @offset ROWS FETCH NEXT @limit ROWS ONLY
         `);
 
@@ -118,7 +118,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const request = new sql.Request();
-        request.input('id', sql.Int, req.params.id);
+        request.input('id', sql.NVarChar(10), req.params.id);  // maSanPham là NVARCHAR(10)
 
         // Thông tin sản phẩm
         const productResult = await request.query(`
@@ -153,7 +153,7 @@ router.get('/:id', async (req, res) => {
 
         // Lấy đánh giá kèm phản hồi admin
         const reviewRequest = new sql.Request();
-        reviewRequest.input('id', sql.Int, req.params.id);
+        reviewRequest.input('id', sql.NVarChar(10), req.params.id);  // maSanPham là NVARCHAR(10)
         const reviewResult = await reviewRequest.query(`
             SELECT
                 dg.maDanhGia,

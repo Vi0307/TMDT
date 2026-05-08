@@ -45,8 +45,8 @@ router.post('/', authMiddleware, async (req, res) => {
     try {
         // Kiểm tra user đã mua và nhận sản phẩm này chưa
         const purchaseReq = new sql.Request();
-        purchaseReq.input('maNguoiDung', sql.Int, req.user.id);
-        purchaseReq.input('maSanPham',   sql.Int, maSanPham);
+        purchaseReq.input('maNguoiDung', sql.Int,          req.user.id);
+        purchaseReq.input('maSanPham',   sql.NVarChar(10), maSanPham);
         const purchased = await purchaseReq.query(`
             SELECT TOP 1 dh.maDonHang
             FROM DonHang dh
@@ -66,8 +66,8 @@ router.post('/', authMiddleware, async (req, res) => {
 
         // Kiểm tra đã đánh giá chưa
         const existReq = new sql.Request();
-        existReq.input('maNguoiDung', sql.Int, req.user.id);
-        existReq.input('maSanPham',   sql.Int, maSanPham);
+        existReq.input('maNguoiDung', sql.Int,          req.user.id);
+        existReq.input('maSanPham',   sql.NVarChar(10), maSanPham);
         const existing = await existReq.query(`
             SELECT maDanhGia FROM DanhGia
             WHERE maNguoiDung = @maNguoiDung AND maSanPham = @maSanPham
@@ -82,8 +82,8 @@ router.post('/', authMiddleware, async (req, res) => {
 
         // Thêm đánh giá
         const insertReq = new sql.Request();
-        insertReq.input('maNguoiDung', sql.Int,     req.user.id);
-        insertReq.input('maSanPham',   sql.Int,     maSanPham);
+        insertReq.input('maNguoiDung', sql.Int,          req.user.id);
+        insertReq.input('maSanPham',   sql.NVarChar(10), maSanPham);
         insertReq.input('soSao',       sql.Int,     soSao);
         insertReq.input('binhLuan',    sql.NVarChar, binhLuan || null);
 
@@ -114,7 +114,7 @@ router.get('/products/:id/reviews', async (req, res) => {
         const offset = (parseInt(page) - 1) * parseInt(limit);
 
         const request = new sql.Request();
-        request.input('maSanPham', sql.Int, req.params.id);
+        request.input('maSanPham', sql.NVarChar(10), req.params.id);
         request.input('offset',    sql.Int, offset);
         request.input('limit',     sql.Int, parseInt(limit));
 
