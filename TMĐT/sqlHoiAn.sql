@@ -320,8 +320,8 @@ GO
 -- matKhau đã được hash bằng bcrypt (plain text: 123456)
 INSERT INTO NguoiDung (ten, email, matKhau, soDienThoai, diaChi, vaiTro, trangThai)
 VALUES 
-(N'Admin',        'admin@gmail.com',      '$2b$10$qz8iPZhs89yWEEizk5HqVO5UMzyCs4Jn16xXP2PTQLkpEGcwgzWji', '0900000001', N'Hà Nội', 'ADMIN', N'Hoạt động'),
-(N'Nguyen Van A', 'haip59621@gmail.com',  '$2b$10$qz8iPZhs89yWEEizk5HqVO5UMzyCs4Jn16xXP2PTQLkpEGcwgzWji', '0900000002', N'HCM',    'USER',  N'Hoạt động');
+(N'Admin',        'admin@gmail.com',      '123456', '0900000001', N'Hà Nội', 'ADMIN', N'Hoạt động'),
+(N'Nguyen Van A', 'haip59621@gmail.com',  '123456', '0900000002', N'HCM',    'USER',  N'Hoạt động');
 
 -- 2. ViDienTu
 INSERT INTO ViDienTu (maNguoiDung, soDu, trangThai)
