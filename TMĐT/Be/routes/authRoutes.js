@@ -3,6 +3,7 @@ const router = express.Router();
 const { register, login } = require('../controllers/authController');
 const { authMiddleware } = require('../middleware/authMiddleware');
 const { sql } = require('../config/db');
+const { sendOTP } = require('../utils/mailer');
 
 // Đăng ký: POST /api/auth/register
 router.post('/register', register);
@@ -133,22 +134,25 @@ router.post('/forgot-password', async (req, res) => {
 
         // Tạo OTP 6 số ngẫu nhiên
         const otp = String(Math.floor(100000 + Math.random() * 900000));
-        const expiry = new Date(Date.now() + 5 * 60 * 1000); // hết hạn sau 5 phút
 
         const insertReq = new sql.Request();
         insertReq.input('maNguoiDung',    sql.Int,      maNguoiDung);
         insertReq.input('maXacThuc',      sql.NVarChar,  otp);
-        insertReq.input('thoiGianHetHan', sql.DateTime,  expiry);
         await insertReq.query(`
             INSERT INTO OTP (maNguoiDung, maXacThuc, thoiGianHetHan, loai, trangThai)
-            VALUES (@maNguoiDung, @maXacThuc, @thoiGianHetHan, 'RESET_PASSWORD', 'unused')
+            VALUES (@maNguoiDung, @maXacThuc, DATEADD(minute, 5, GETDATE()), 'RESET_PASSWORD', 'unused')
         `);
 
-        // MOCK: Trong thực tế sẽ gửi email. Ở đây trả OTP về để test.
+        // Gửi email thật
+        const emailSent = await sendOTP(email, otp);
+        
+        if (!emailSent) {
+            return res.status(500).json({ success: false, message: 'Có lỗi khi gửi email OTP. Vui lòng thử lại sau.' });
+        }
+
         return res.json({
             success: true,
-            message: 'Mã OTP đã được gửi đến email của bạn.',
-            otp      // ⚠ Chỉ dùng khi dev/test — production phải gửi qua email
+            message: 'Mã OTP đã được gửi đến email của bạn.'
         });
     } catch (err) {
         console.error('POST /auth/forgot-password error:', err);
@@ -206,8 +210,6 @@ router.post('/reset-password', async (req, res) => {
     }
 
     try {
-        const bcrypt = require('bcryptjs');
-
         // Kiểm tra OTP còn hiệu lực
         const checkReq = new sql.Request();
         checkReq.input('email', sql.NVarChar, email);
@@ -233,13 +235,10 @@ router.post('/reset-password', async (req, res) => {
 
         const { maOtp, maNguoiDung } = otpResult.recordset[0];
 
-        // Hash mật khẩu mới
-        const hashed = await bcrypt.hash(matKhauMoi, 10);
-
-        // Cập nhật mật khẩu
+        // Cập nhật mật khẩu (lưu plain text)
         const updateReq = new sql.Request();
         updateReq.input('maNguoiDung', sql.Int,      maNguoiDung);
-        updateReq.input('matKhau',     sql.NVarChar,  hashed);
+        updateReq.input('matKhau',     sql.NVarChar,  matKhauMoi);
         await updateReq.query(
             `UPDATE NguoiDung SET matKhau = @matKhau WHERE maNguoiDung = @maNguoiDung`
         );

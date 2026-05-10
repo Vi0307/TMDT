@@ -352,13 +352,52 @@ function checkMatch() {
   }
 }
 
-function doReset(e) {
+async function doReset(e) {
   e.preventDefault();
   const pw = document.getElementById('pw').value;
   const pw2 = document.getElementById('pw2').value;
   if (pw.length < 8) return;
   if (pw !== pw2) return;
-  document.getElementById('success').classList.add('show');
+
+  const email = sessionStorage.getItem('reset_email');
+  const otp = sessionStorage.getItem('reset_otp');
+
+  if (!email || !otp) {
+      alert("Thiếu thông tin xác thực. Vui lòng thực hiện lại từ đầu.");
+      window.location.href = 'nhapemail.html';
+      return;
+  }
+
+  const btn = e.target.querySelector('.btn-main');
+  const oldText = btn.innerHTML;
+  btn.innerHTML = 'Đang xử lý...';
+  btn.disabled = true;
+
+  try {
+      const res = await fetch('http://localhost:3000/api/auth/reset-password', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email, otp: otp, matKhauMoi: pw })
+      });
+      const json = await res.json();
+      
+      if (json.success) {
+          // Thành công thì xóa session và hiện popup
+          sessionStorage.removeItem('reset_email');
+          sessionStorage.removeItem('reset_otp');
+          sessionStorage.removeItem('reset_otp_hint');
+          
+          document.getElementById('success').classList.add('show');
+      } else {
+          alert(json.message || "Có lỗi xảy ra, vui lòng thử lại.");
+          btn.innerHTML = oldText;
+          btn.disabled = false;
+      }
+  } catch (err) {
+      alert("Không thể kết nối đến máy chủ.");
+      btn.innerHTML = oldText;
+      btn.disabled = false;
+  }
 }
 </script>
 </body>
