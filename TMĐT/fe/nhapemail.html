@@ -125,6 +125,7 @@ body { font-family: 'Be Vietnam Pro', sans-serif; min-height: 100vh; }
 .back-link:hover { gap:9px; }
 
 @media(max-width:768px){ .left{display:none;} }
+@keyframes spin { from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
 </style>
 </head>
 <body>
@@ -194,7 +195,7 @@ body { font-family: 'Be Vietnam Pro', sans-serif; min-height: 100vh; }
       <div class="form-body">
         <p class="desc">Nhập địa chỉ email đã đăng ký. Chúng tôi sẽ gửi <strong>mã xác thực OTP</strong> đến hộp thư của bạn.</p>
 
-        <form onsubmit="goToOtp(event)">
+        <form id="forgot-form">
           <div class="field">
             <label for="email">Địa chỉ email</label>
             <div class="input-box">
@@ -203,7 +204,10 @@ body { font-family: 'Be Vietnam Pro', sans-serif; min-height: 100vh; }
             </div>
           </div>
 
-          <button class="btn-main" type="submit">
+          <!-- Thông báo kết quả -->
+          <div id="msg" style="display:none;padding:10px 14px;border-radius:4px;font-size:13px;margin-bottom:14px;font-weight:500;"></div>
+
+          <button id="btn-send" class="btn-main" type="submit">
             Gửi Mã Xác Thực
             <span class="material-symbols-outlined" style="font-size:18px;">send</span>
           </button>
@@ -226,15 +230,6 @@ body { font-family: 'Be Vietnam Pro', sans-serif; min-height: 100vh; }
   </div>
 </div>
 
-<script>
-function goToOtp(e) {
-  e.preventDefault();
-  const email = document.getElementById('email').value;
-  if (email) {
-    sessionStorage.setItem('reset_email', email);
-    window.location.href = 'nhapmaOtp.html';
-  }
-}
-</script>
+<script src="js/nhapemail.js"></script>
 </body>
 </html>
