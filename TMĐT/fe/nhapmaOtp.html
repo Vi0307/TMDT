@@ -107,6 +107,7 @@ body { font-family: 'Be Vietnam Pro', sans-serif; min-height: 100vh; }
 .back-link:hover { gap:9px; }
 
 @media(max-width:768px){ .left{display:none;} }
+@keyframes spin { from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
 </style>
 </head>
 <body>
@@ -176,7 +177,7 @@ body { font-family: 'Be Vietnam Pro', sans-serif; min-height: 100vh; }
         <p class="desc">Mã xác thực đã được gửi đến</p>
         <div class="email-badge" id="email-display">example@hoian.com</div>
 
-        <form onsubmit="goToReset(event)">
+        <form id="otp-form">
           <div class="otp-row">
             <input class="otp-input" type="text" inputmode="numeric" maxlength="1" id="o1"/>
             <input class="otp-input" type="text" inputmode="numeric" maxlength="1" id="o2"/>
@@ -192,7 +193,10 @@ body { font-family: 'Be Vietnam Pro', sans-serif; min-height: 100vh; }
             <button class="resend-btn" id="resend-btn" type="button" onclick="resendOtp()">Gửi lại</button>
           </div>
 
-          <button class="btn-main" type="submit">
+          <!-- Thông báo kết quả -->
+          <div id="msg" style="display:none;padding:10px 14px;border-radius:4px;font-size:13px;margin-bottom:14px;font-weight:500;text-align:center;"></div>
+
+          <button id="btn-verify" class="btn-main" type="submit">
             Xác Nhận Mã
             <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span>
           </button>
@@ -215,66 +219,6 @@ body { font-family: 'Be Vietnam Pro', sans-serif; min-height: 100vh; }
   </div>
 </div>
 
-<script>
-// Show email
-const email = sessionStorage.getItem('reset_email') || 'example@hoian.com';
-document.getElementById('email-display').textContent = email;
-
-// OTP auto-focus
-const inputs = document.querySelectorAll('.otp-input');
-inputs.forEach((inp, i) => {
-  inp.addEventListener('input', () => {
-    inp.value = inp.value.replace(/\D/g, '');
-    if (inp.value) {
-      inp.classList.add('filled');
-      if (i < inputs.length - 1) inputs[i+1].focus();
-    } else {
-      inp.classList.remove('filled');
-    }
-  });
-  inp.addEventListener('keydown', e => {
-    if (e.key === 'Backspace' && !inp.value && i > 0) inputs[i-1].focus();
-  });
-  inp.addEventListener('paste', e => {
-    const data = e.clipboardData.getData('text').replace(/\D/g,'').slice(0,6);
-    data.split('').forEach((c, j) => {
-      if (inputs[j]) { inputs[j].value = c; inputs[j].classList.add('filled'); }
-    });
-    e.preventDefault();
-  });
-});
-
-// Timer
-let secs = 120;
-const timerEl = document.getElementById('timer');
-const resendBtn = document.getElementById('resend-btn');
-let tick = setInterval(updateTimer, 1000);
-
-function updateTimer() {
-  secs--;
-  const m = String(Math.floor(secs/60)).padStart(2,'0');
-  const s = String(secs%60).padStart(2,'0');
-  timerEl.textContent = m + ':' + s;
-  if (secs <= 0) {
-    clearInterval(tick);
-    timerEl.textContent = '00:00';
-    timerEl.style.color = '#b52424';
-    resendBtn.classList.add('visible');
-  }
-}
-
-function resendOtp() {
-  secs = 120; timerEl.style.color = '#805600';
-  resendBtn.classList.remove('visible');
-  clearInterval(tick);
-  tick = setInterval(updateTimer, 1000);
-}
-
-function goToReset(e) {
-  e.preventDefault();
-  const otp = [...inputs].map(i => i.value).join('');
-  if (otp.length === 6) window.location.href = 'datlaimk.html';
-}
-</script>
+<script src="js/nhapmaOtp.js"></script>
 </body>
 </html>
