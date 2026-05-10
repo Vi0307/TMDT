@@ -171,8 +171,8 @@ document.addEventListener('DOMContentLoaded', () => {
 <span class="material-symbols-outlined text-sm">photo_camera</span>
 </button>
 </div>
-<h2 class="mt-4 font-headline-md text-headline-md text-on-surface">Nguyễn Minh Trí</h2>
-<p class="font-body-md text-on-surface-variant">Thành viên từ 2023</p>
+<h2 id="sidebar-name" class="mt-4 font-headline-md text-headline-md text-on-surface">—</h2>
+<p id="sidebar-join" class="font-body-md text-on-surface-variant">Thành viên</p>
 </div>
 <nav class="space-y-1">
 <a class="flex items-center gap-3 px-4 py-3 bg-primary-container/10 text-primary font-medium rounded transition-all" href="taikhoan.html">
@@ -209,55 +209,45 @@ document.addEventListener('DOMContentLoaded', () => {
 <h1 class="font-display-lg text-display-lg text-on-surface mb-2">Thông tin tài khoản</h1>
 <p class="font-body-lg text-on-surface-variant">Cập nhật chi tiết cá nhân để chúng tôi phục vụ bạn tốt hơn.</p>
 </header>
-<form class="space-y-10">
+<form id="profile-form" class="space-y-10">
 <!-- Personal Info Section -->
 <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-variant">
 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
 <!-- Full Name -->
 <div class="space-y-2">
 <label class="block font-label-caps text-outline">HỌ TÊN</label>
-<input class="w-full bg-transparent border-b-2 border-outline-variant focus:border-primary focus:ring-0 px-0 py-2 font-headline-md text-headline-md transition-all outline-none" placeholder="Nhập họ tên..." type="text" value="Nguyễn Minh Trí"/>
+<input id="input-ten" class="w-full bg-transparent border-b-2 border-outline-variant focus:border-primary focus:ring-0 px-0 py-2 font-headline-md text-headline-md transition-all outline-none" placeholder="Nhập họ tên..." type="text"/>
 </div>
 <!-- Email -->
 <div class="space-y-2">
 <label class="block font-label-caps text-outline">EMAIL</label>
-<input class="w-full bg-transparent border-b-2 border-outline-variant focus:border-primary focus:ring-0 px-0 py-2 font-body-lg transition-all outline-none" placeholder="example@email.com" type="email" value="minhtri.heritage@gmail.com"/>
+<input id="input-email" class="w-full bg-transparent border-b-2 border-outline-variant px-0 py-2 font-body-lg transition-all outline-none text-on-surface-variant cursor-not-allowed" placeholder="example@email.com" type="email" readonly/>
+<p class="text-xs text-on-surface-variant">Email không thể thay đổi</p>
 </div>
 <!-- Phone -->
 <div class="space-y-2">
 <label class="block font-label-caps text-outline">SỐ ĐIỆN THOẠI</label>
-<input class="w-full bg-transparent border-b-2 border-outline-variant focus:border-primary focus:ring-0 px-0 py-2 font-body-lg transition-all outline-none" placeholder="Nhập số điện thoại..." type="tel" value="+84 905 123 456"/>
+<input id="input-sdt" class="w-full bg-transparent border-b-2 border-outline-variant focus:border-primary focus:ring-0 px-0 py-2 font-body-lg transition-all outline-none" placeholder="Nhập số điện thoại..." type="tel"/>
 </div>
-<!-- Date of Birth (Optional) -->
 </div>
 </div>
 <!-- Shipping Address Section -->
 <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-variant">
 <div class="flex items-center gap-3 mb-6">
 <span class="material-symbols-outlined text-primary">location_on</span>
-<h3 class="font-title-sm text-on-surface" innertext="Địa chỉ nhận hàng">Địa chỉ nhận hàng mặc định</h3>
+<h3 class="font-title-sm text-on-surface">Địa chỉ nhận hàng mặc định</h3>
 </div>
 <div class="space-y-6">
 <div class="space-y-2">
 <label class="block font-label-caps text-outline">ĐỊA CHỈ CHI TIẾT</label>
-<textarea class="w-full bg-transparent border-2 border-outline-variant rounded-lg focus:border-primary focus:ring-0 p-4 font-body-md transition-all outline-none lantern-glow" placeholder="Số nhà, tên đường, phường/xã..." rows="3">123 Trần Phú, Phường Minh An, TP. Hội An, Quảng Nam</textarea>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div class="flex items-center justify-between p-4 border border-outline-variant rounded-lg">
-<span class="font-body-md text-on-surface">Đặt làm mặc định</span>
-<!-- Custom "Lantern" Toggle -->
-<label class="relative inline-flex items-center cursor-pointer">
-<input checked="" class="sr-only peer" type="checkbox"/>
-<div class="w-11 h-6 bg-surface-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container shadow-inner"></div>
-</label>
-</div>
+<textarea id="input-diachi" class="w-full bg-transparent border-2 border-outline-variant rounded-lg focus:border-primary focus:ring-0 p-4 font-body-md transition-all outline-none lantern-glow" placeholder="Số nhà, tên đường, phường/xã..." rows="3"></textarea>
 </div>
 </div>
 </div>
 <!-- Actions -->
 <div class="flex justify-end items-center gap-6 pt-4">
-<button class="font-label-caps text-on-surface-variant hover:text-on-surface transition-colors px-6 py-3" type="button">HỦY THAY ĐỔI</button>
-<button class="bg-secondary text-on-secondary px-10 py-3 rounded shadow-md hover:opacity-90 transition-all font-label-caps" type="submit">LƯU THÔNG TIN</button>
+<button id="btn-huy" class="font-label-caps text-on-surface-variant hover:text-on-surface transition-colors px-6 py-3" type="button">HỦY THAY ĐỔI</button>
+<button id="btn-save" class="bg-secondary text-on-secondary px-10 py-3 rounded shadow-md hover:opacity-90 transition-all font-label-caps" type="submit">LƯU THÔNG TIN</button>
 </div>
 </form>
 </section>
@@ -308,4 +298,6 @@ document.addEventListener('DOMContentLoaded', () => {
         <p class="font-serif text-sm text-stone-500 dark:text-stone-400">© 2024 Hội An Tinh Hoa. Gìn giữ giá trị nghệ thuật truyền thống.</p>
     </div>
 </footer>
+<script src="auth.js"></script>
+<script src="js/taikhoan.js"></script>
 </body></html>
