@@ -189,8 +189,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span class="material-symbols-outlined text-sm">photo_camera</span>
                         </button>
                     </div>
-                    <h2 class="mt-4 font-headline-md text-headline-md text-on-surface">Nguyễn Minh Trí</h2>
-                    <p class="font-body-md text-on-surface-variant">Thành viên từ 2023</p>
+                    <h2 id="user-name" class="mt-4 font-headline-md text-headline-md text-on-surface">—</h2>
+                    <p id="user-join" class="font-body-md text-on-surface-variant">Thành viên</p>
                 </div>
                 <nav class="space-y-1">
                     <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/50 rounded transition-all"
@@ -234,180 +234,37 @@ document.addEventListener('DOMContentLoaded', () => {
             </header>
 
             <!-- Tabs Navigation -->
-            <div class="flex overflow-x-auto border-b border-outline-variant mb-8 hide-scrollbar">
-                <a href="donhangcuatoi.html"
-                    class="whitespace-nowrap px-6 py-3 font-body-lg font-medium text-primary border-b-2 border-primary transition-colors">Tất
-                    cả</a>
-                <a href="dangxulydh.html"
-                    class="whitespace-nowrap px-6 py-3 font-body-lg text-on-surface-variant hover:text-primary transition-colors">Đang
-                    xử lý</a>
-                <a href="danggiaodh.html"
-                    class="whitespace-nowrap px-6 py-3 font-body-lg text-on-surface-variant hover:text-primary transition-colors">Đang
-                    giao</a>
-                <a href="dagiaodh.html"
-                    class="whitespace-nowrap px-6 py-3 font-body-lg text-on-surface-variant hover:text-primary transition-colors">Đã
-                    giao</a>
-                <a href="hoanvahuy.html"
-                    class="whitespace-nowrap px-6 py-3 font-body-lg text-on-surface-variant hover:text-primary transition-colors">Hoàn
-                    và hủy</a>
+            <div class="flex overflow-x-auto border-b border-outline-variant mb-8 hide-scrollbar" id="order-tabs">
+                <button data-tab="all"
+                    class="tab-btn whitespace-nowrap px-6 py-3 font-body-lg font-medium text-primary border-b-2 border-primary transition-colors">
+                    Tất cả
+                    <span class="tab-count ml-1 bg-primary text-white text-[10px] px-1.5 py-0.5 rounded-full inline-flex items-center justify-center min-w-[18px]"></span>
+                </button>
+                <button data-tab="processing"
+                    class="tab-btn whitespace-nowrap px-6 py-3 font-body-lg text-on-surface-variant hover:text-primary transition-colors">
+                    Đang xử lý
+                    <span class="tab-count ml-1 bg-primary text-white text-[10px] px-1.5 py-0.5 rounded-full inline-flex items-center justify-center min-w-[18px]" style="display:none"></span>
+                </button>
+                <button data-tab="shipping"
+                    class="tab-btn whitespace-nowrap px-6 py-3 font-body-lg text-on-surface-variant hover:text-primary transition-colors">
+                    Đang giao
+                    <span class="tab-count ml-1 bg-primary text-white text-[10px] px-1.5 py-0.5 rounded-full inline-flex items-center justify-center min-w-[18px]" style="display:none"></span>
+                </button>
+                <button data-tab="delivered"
+                    class="tab-btn whitespace-nowrap px-6 py-3 font-body-lg text-on-surface-variant hover:text-primary transition-colors">
+                    Đã giao
+                    <span class="tab-count ml-1 bg-primary text-white text-[10px] px-1.5 py-0.5 rounded-full inline-flex items-center justify-center min-w-[18px]" style="display:none"></span>
+                </button>
+                <button data-tab="cancelled"
+                    class="tab-btn whitespace-nowrap px-6 py-3 font-body-lg text-on-surface-variant hover:text-primary transition-colors">
+                    Hoàn và hủy
+                    <span class="tab-count ml-1 bg-error text-white text-[10px] px-1.5 py-0.5 rounded-full inline-flex items-center justify-center min-w-[18px]" style="display:none"></span>
+                </button>
             </div>
 
             <!-- Orders List -->
-            <div class="space-y-6">
-<!-- Card 1 (Processing) -->
-                <div
-                    class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-surface-variant hover:shadow-md transition-shadow">
-                    <div
-                        class="flex flex-col md:flex-row justify-between md:items-center border-b border-outline-variant pb-4 mb-4 gap-4">
-                        <div>
-                            <a href="chitietdonhang.html?id=HAH-10305"
-                                class="font-label-caps text-outline hover:text-primary underline transition-colors cursor-pointer">MÃ
-                                ĐƠN: #HAH-10305</a>
-                            <span class="text-on-surface-variant font-body-md md:ml-4 block md:inline mt-1 md:mt-0">Ngày
-                                đặt: 02/11/2023</span>
-                        </div>
-                        <div
-                            class="px-3 py-1 bg-surface-variant text-on-surface font-label-caps rounded-full text-[10px] self-start md:self-auto text-center">
-                            ĐANG XỬ LÝ
-                        </div>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="flex gap-4 items-center">
-                            <div
-                                class="w-20 h-20 bg-surface-container rounded-lg overflow-hidden flex-shrink-0 border border-outline-variant">
-                                <img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80"
-                                    alt="Product" class="w-full h-full object-cover">
-                            </div>
-                            <div class="flex-grow">
-                                <h4 class="font-title-sm text-on-surface">Gốm Thanh Hà tráng men</h4>
-                                <p class="font-body-md text-on-surface-variant mt-1">Phân loại: Bình cắm hoa, Men xanh
-                                    lam</p>
-                                <div class="font-body-md text-on-surface mt-2 flex justify-between">
-                                    <span>x1</span>
-                                    <span class="font-medium">350.000 ₫</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="border-t border-outline-variant pt-4 mt-4 flex flex-col md:flex-row justify-between items-center gap-4">
-                        <div class="font-body-md text-on-surface-variant w-full md:w-auto text-right md:text-left">
-                            Tổng cộng: <span class="font-headline-md text-error font-semibold ml-2">350.000 ₫</span>
-                        </div>
-                        <div class="flex gap-3 w-full md:w-auto">
-                            <button onclick="window.location.href='huydon.html'"
-                                class="flex-1 md:flex-none px-6 py-2 border border-outline text-on-surface font-label-caps rounded hover:bg-surface-variant transition-colors">HỦY
-                                ĐƠN</button>
-                            <a href="chitietdonhang.html?id=HAH-10305"
-                                class="text-center flex-1 md:flex-none px-6 py-2 bg-secondary text-on-secondary font-label-caps rounded shadow hover:opacity-90 transition-opacity block">CHI
-                                TIẾT</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 2 (Shipping) -->
-                <div
-                    class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-surface-variant hover:shadow-md transition-shadow">
-                    <div
-                        class="flex flex-col md:flex-row justify-between md:items-center border-b border-outline-variant pb-4 mb-4 gap-4">
-                        <div>
-                            <a href="chitietdonhang.html?id=HAH-10293"
-                                class="font-label-caps text-outline hover:text-primary underline transition-colors cursor-pointer">MÃ
-                                ĐƠN: #HAH-10293</a>
-                            <span class="text-on-surface-variant font-body-md md:ml-4 block md:inline mt-1 md:mt-0">Ngày
-                                đặt: 25/10/2023</span>
-                        </div>
-                        <div
-                            class="px-3 py-1 bg-primary-container/20 text-primary font-label-caps rounded-full text-[10px] self-start md:self-auto text-center">
-                            ĐANG GIAO HÀNG
-                        </div>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="flex gap-4 items-center">
-                            <div
-                                class="w-20 h-20 bg-surface-container rounded-lg overflow-hidden flex-shrink-0 border border-outline-variant">
-                                <img src="https://images.unsplash.com/photo-1606170033648-5d55a3edf314?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80"
-                                    alt="Product" class="w-full h-full object-cover">
-                            </div>
-                            <div class="flex-grow">
-                                <h4 class="font-title-sm text-on-surface">Đèn lồng lụa Hội An truyền thống</h4>
-                                <p class="font-body-md text-on-surface-variant mt-1">Phân loại: Lụa tơ tằm, Đỏ đô</p>
-                                <div class="font-body-md text-on-surface mt-2 flex justify-between">
-                                    <span>x2</span>
-                                    <span class="font-medium">450.000 ₫</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="border-t border-outline-variant pt-4 mt-4 flex flex-col md:flex-row justify-between items-center gap-4">
-                        <div class="font-body-md text-on-surface-variant w-full md:w-auto text-right md:text-left">
-                            Tổng cộng: <span class="font-headline-md text-error font-semibold ml-2">900.000 ₫</span>
-                        </div>
-                        <div class="flex gap-3 w-full md:w-auto">
-                            <button
-                                class="flex-1 md:flex-none px-6 py-2 border border-outline text-on-surface font-label-caps rounded hover:bg-surface-variant transition-colors">LIÊN
-                                HỆ ĐVVC</button>
-                            <a href="chitietdonhang.html?id=HAH-10293"
-                                class="text-center flex-1 md:flex-none px-6 py-2 bg-secondary text-on-secondary font-label-caps rounded shadow hover:opacity-90 transition-opacity block">CHI
-                                TIẾT</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 3 (Delivered) -->
-                <div
-                    class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-surface-variant hover:shadow-md transition-shadow">
-                    <div
-                        class="flex flex-col md:flex-row justify-between md:items-center border-b border-outline-variant pb-4 mb-4 gap-4">
-                        <div>
-                            <a href="chitietdonhang.html?id=HAH-10152"
-                                class="font-label-caps text-outline hover:text-primary underline transition-colors cursor-pointer">MÃ
-                                ĐƠN: #HAH-10152</a>
-                            <span class="text-on-surface-variant font-body-md md:ml-4 block md:inline mt-1 md:mt-0">Ngày
-                                đặt: 10/09/2023</span>
-                        </div>
-                        <div
-                            class="px-3 py-1 bg-[#4CAF50]/10 text-[#2E7D32] font-label-caps rounded-full text-[10px] self-start md:self-auto text-center">
-                            ĐÃ GIAO HÀNG
-                        </div>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="flex gap-4 items-center">
-                            <div
-                                class="w-20 h-20 bg-surface-container rounded-lg overflow-hidden flex-shrink-0 border border-outline-variant">
-                                <img src="https://images.unsplash.com/photo-1584589167171-541ce45f1eea?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80"
-                                    alt="Product" class="w-full h-full object-cover">
-                            </div>
-                            <div class="flex-grow">
-                                <h4 class="font-title-sm text-on-surface">Khăn lụa thêu tay nghệ nhân</h4>
-                                <p class="font-body-md text-on-surface-variant mt-1">Phân loại: Lụa Mã Châu, Thêu hoa
-                                    sen</p>
-                                <div class="font-body-md text-on-surface mt-2 flex justify-between">
-                                    <span>x1</span>
-                                    <span class="font-medium">1.200.000 ₫</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="border-t border-outline-variant pt-4 mt-4 flex flex-col md:flex-row justify-between items-center gap-4">
-                        <div class="font-body-md text-on-surface-variant w-full md:w-auto text-right md:text-left">
-                            Tổng cộng: <span class="font-headline-md text-error font-semibold ml-2">1.200.000 ₫</span>
-                        </div>
-                        <div class="flex flex-wrap gap-3 w-full md:w-auto justify-end">
-                            <button onclick="window.location.href='hoanhang.html'"
-                                class="flex-1 md:flex-none px-6 py-2 border border-error text-error font-label-caps rounded hover:bg-error-container/20 transition-colors">TRẢ HÀNG / HOÀN TIỀN</button>
-                            <button onclick="window.location.href='danhgia.html'"
-                                class="flex-1 md:flex-none px-6 py-2 border border-outline text-on-surface font-label-caps rounded hover:bg-surface-variant transition-colors">ĐÁNH
-                                GIÁ</button>
-                            <a href="chitietdonhang.html?id=HAH-10152"
-                                class="text-center flex-1 md:flex-none px-6 py-2 bg-secondary text-on-secondary font-label-caps rounded shadow hover:opacity-90 transition-opacity block">CHI
-                                TIẾT</a>
-                        </div>
-                    </div>
-                </div>
-            
+            <div id="orders-container" class="space-y-6">
+                <!-- Render từ JS -->
             </div>
         </section>
     </main>
@@ -458,6 +315,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <p class="font-serif text-sm text-stone-500 dark:text-stone-400">© 2024 Hội An Tinh Hoa. Gìn giữ giá trị nghệ thuật truyền thống.</p>
         </div>
     </footer>
+    <script src="auth.js"></script>
+    <script src="js/donhangcuatoi.js"></script>
 </body>
 
 </html>
