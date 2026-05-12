@@ -15,11 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 2. Xử lý đăng xuất
-    if (userMenu) {
-        const logoutLink = userMenu.querySelector('a[href="trangchu.html"]');
-        if (logoutLink) {
-            logoutLink.addEventListener('click', (e) => {
+    // 2. Xử lý đăng xuất (Tìm tất cả các link Đăng xuất trên trang)
+    document.querySelectorAll('a').forEach(link => {
+        const text = link.textContent.trim();
+        if (text.includes('Đăng xuất') || (link.href.includes('trangchu.html') && link.querySelector('.material-symbols-outlined')?.textContent === 'logout')) {
+            link.addEventListener('click', (e) => {
                 e.preventDefault();
                 localStorage.removeItem('token');
                 localStorage.removeItem('user');
@@ -27,5 +27,37 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.location.href = 'trangchu.html';
             });
         }
+    });
+    // 3. Cập nhật số lượng giỏ hàng
+    updateCartCount();
+
+    function updateCartCount() {
+        const cartCountEl = document.getElementById('cart-count');
+        if (!cartCountEl) return;
+
+        if (!token) {
+            cartCountEl.classList.add('hidden');
+            return;
+        }
+
+        fetch('http://localhost:3005/api/cart', {
+            headers: { 'Authorization': `Bearer ${token}` }
+        })
+        .then(res => res.json())
+        .then(json => {
+            if (json.success) {
+                const count = json.data.items.reduce((sum, item) => sum + item.soLuong, 0);
+                if (count > 0) {
+                    cartCountEl.textContent = count;
+                    cartCountEl.classList.remove('hidden');
+                } else {
+                    cartCountEl.classList.add('hidden');
+                }
+            }
+        })
+        .catch(err => console.error('Error fetching cart count:', err));
     }
+
+    // Expose updateCartCount globally for use in other scripts
+    window.updateCartCount = updateCartCount;
 });

@@ -20,7 +20,7 @@
  * maPTTT: 1 = MOMO, 2 = COD
  */
 
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'http://localhost:3005/api';
 
 // Phí vận chuyển theo maPTVC
 const SHIPPING = {
@@ -34,9 +34,10 @@ const PAYMENT = {
     momo: { maPTTT: 1, ten: 'MOMO' }
 };
 
-let cartData   = null;   // { items, tongTien }
-let selectedVC = 1;      // maPTVC đang chọn
-let selectedTT = 'cod';  // key phương thức thanh toán
+let cartData = null;
+let selectedVC = 1; // 1: Nhanh, 2: Hỏa tốc
+let selectedTT = 'cod'; // 'cod' hoặc 'momo'
+let reorderItems = null; // Danh sách sản phẩm nếu là mua lại
 
 // ─── Khởi động ───────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
@@ -47,10 +48,112 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
-    await Promise.all([loadCart(), loadUserInfo()]);
+    const params = new URLSearchParams(window.location.search);
+    const reorderId = params.get('reorderId');
+
+    // Nếu là mua lại, tải thông tin đơn cũ trước
+    if (reorderId) {
+        await loadOldOrderInfo(reorderId);
+        // Sau đó vẫn loadUserInfo để lấy tên/sdt/email
+        await loadUserInfo();
+    } else {
+        // Bình thường thì load giỏ hàng và userInfo
+        await Promise.all([loadCart(), loadUserInfo()]);
+    }
+
     setupShippingEvents();
     setupPaymentEvents();
 });
+
+// ─── Load thông tin đơn hàng cũ để điền lại ─────────────────────────────────
+async function loadOldOrderInfo(id) {
+    const token = localStorage.getItem('token');
+    try {
+        const res = await fetch(`${API_URL}/orders/${id}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const json = await res.json();
+        if (json.success) {
+            const order = json.data;
+            reorderItems = order.chiTiet; // Lưu lại để dùng khi checkout
+            
+            // Điền địa chỉ
+            if (order.diaChiGiaoHang) {
+                document.getElementById('input-diachi').value = order.diaChiGiaoHang;
+            }
+
+            // Chọn loại địa chỉ
+            if (order.loaiDiaChi) {
+                const radio = document.querySelector(`input[name="loai-diachi"][value="${order.loaiDiaChi}"]`);
+                if (radio) radio.checked = true;
+            }
+
+            // Chọn PTVC
+            if (order.maPTVC) {
+                selectedVC = order.maPTVC;
+                const radio = document.querySelector(`input[name="shipping"][value="${selectedVC}"]`);
+                if (radio) radio.checked = true;
+                updatePriceSummary();
+            }
+
+            // Chọn PTTT
+            if (order.maPTTT) {
+                selectedTT = order.maPTTT === 1 ? 'momo' : 'cod';
+                const radio = document.querySelector(`input[name="payment"][value="${selectedTT}"]`);
+                if (radio) radio.checked = true;
+            }
+
+            // Render danh sách sản phẩm từ đơn cũ thay vì giỏ hàng
+            renderCartFromData({
+                items: order.chiTiet,
+                tongTien: order.chiTiet.reduce((sum, i) => sum + i.thanhTien, 0)
+            });
+        }
+    } catch (err) {
+        console.error('loadOldOrderInfo error:', err);
+    }
+}
+
+// Hàm render dùng chung cho cả giỏ hàng và mua lại
+function renderCartFromData(data) {
+    cartData = data;
+    const container = document.getElementById('order-items');
+    if (!container) return;
+
+    if (!data.items || data.items.length === 0) {
+        container.innerHTML = '<p class="text-on-surface-variant italic">Không có sản phẩm.</p>';
+        return;
+    }
+
+    container.innerHTML = data.items.map(item => {
+        const imgSrc = item.hinhAnh
+            ? `images/${item.hinhAnh}`
+            : 'https://placehold.co/80x96/f0eee9/837562?text=No+Image';
+        const giaFmt      = Number(item.gia).toLocaleString('vi-VN') + '₫';
+        const thanhTienFmt = Number(item.gia * item.soLuong).toLocaleString('vi-VN') + '₫';
+
+        return `
+            <div class="flex gap-stack-md items-start">
+                <div class="relative w-20 h-24 bg-surface-container-highest rounded overflow-hidden flex-shrink-0">
+                    <img src="${imgSrc}" alt="${item.tenSanPham}"
+                         class="w-full h-full object-cover"
+                         onerror="this.src='https://placehold.co/80x96/f0eee9/837562?text=No+Image'"/>
+                    <span class="absolute top-0 right-0 bg-primary text-white text-[10px] px-1.5 py-0.5 rounded-bl font-bold">
+                        x${item.soLuong}
+                    </span>
+                </div>
+                <div class="flex-grow min-w-0">
+                    <h3 class="font-body-lg text-body-lg font-medium text-on-surface leading-snug mb-1 truncate">${item.tenSanPham}</h3>
+                    <p class="text-body-md text-outline">Đơn giá: ${giaFmt}</p>
+                    <p class="text-body-md text-outline">Số lượng: ${item.soLuong}</p>
+                    <p class="text-body-lg font-semibold text-secondary mt-1">${thanhTienFmt}</p>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    updatePriceSummary();
+}
 
 // ─── Load giỏ hàng ───────────────────────────────────────────────────────────
 async function loadCart() {
@@ -220,19 +323,28 @@ async function handleCheckout() {
 
     try {
         // ── Bước 1: Tạo đơn hàng ──────────────────────────────────────────
+        const body = {
+            diaChiGiaoHang: diaChi,
+            loaiDiaChi:     loaiDiaChi,
+            maPTTT:         PAYMENT[selectedTT].maPTTT,
+            maPTVC:         selectedVC
+        };
+
+        // Nếu là mua lại (reorderItems), gửi kèm danh sách items thay vì để backend lấy từ giỏ
+        if (reorderItems) {
+            body.items = reorderItems.map(i => ({
+                maSanPham: i.maSanPham,
+                soLuong: i.soLuong
+            }));
+        }
+
         const orderRes = await fetch(`${API_URL}/orders`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify({
-                diaChiGiaoHang: diaChi,
-                loaiDiaChi:     loaiDiaChi,
-                maPTTT:         PAYMENT[selectedTT].maPTTT,
-                maPTVC:         selectedVC
-                // items không truyền → lấy từ giỏ hàng
-            })
+            body: JSON.stringify(body)
         });
         const orderJson = await orderRes.json();
 
@@ -270,12 +382,22 @@ async function handleCheckout() {
 
         // ── Bước 3: Thành công → redirect ─────────────────────────────────
         const tongCong = (cartData?.tongTien || 0) + SHIPPING[selectedVC].phi;
-        showNotification(
-            `Đặt hàng thành công! 🎉`,
-            `Mã đơn #${maDonHang} · ${Number(tongCong).toLocaleString('vi-VN')}₫ · Đang xử lý`,
-            'success'
-        );
-        setTimeout(() => window.location.href = 'donhangcuatoi.html', 2500);
+        
+        if (selectedTT === 'cod') {
+            showNotification(
+                `Đặt hàng thành công! 🎉`,
+                `Mã đơn #${maDonHang} · ${Number(tongCong).toLocaleString('vi-VN')}₫ · Đang xử lý`,
+                'success'
+            );
+        }
+        
+        setTimeout(() => {
+            if (selectedTT === 'momo') {
+                window.location.href = `mathanhtoan.html?id=${maDonHang}`;
+            } else {
+                window.location.href = 'donhangcuatoi.html';
+            }
+        }, selectedTT === 'momo' ? 500 : 2500);
 
     } catch (err) {
         console.error('handleCheckout error:', err);

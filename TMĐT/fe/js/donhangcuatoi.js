@@ -15,7 +15,7 @@
  *   cancelled  → Đã hủy
  */
 
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'http://localhost:3005/api';
 
 const TAB_STATUS = {
     all:       '',
@@ -163,9 +163,9 @@ function renderOrderCard(order) {
                 class="flex-1 md:flex-none px-6 py-2 border border-outline text-on-surface font-label-caps rounded hover:bg-surface-variant transition-colors">
                 ĐÁNH GIÁ
             </button>`;
-    } else if (order.tenTrangThai === 'Đã hủy') {
-        actions = `
-            <button onclick="window.location.href='sanpham.html'"
+    } else if (order.tenTrangThai === 'Đã hủy' || order.tenTrangThai === 'Đã giao') {
+        actions += `
+            <button onclick="buyAgain(${order.maDonHang})"
                 class="flex-1 md:flex-none px-6 py-2 border border-outline text-on-surface font-label-caps rounded hover:bg-surface-variant transition-colors">
                 MUA LẠI
             </button>`;
@@ -227,30 +227,14 @@ function renderOrderCard(order) {
 }
 
 // ─── Hủy đơn hàng ────────────────────────────────────────────────────────────
-async function cancelOrder(maDonHang) {
-    if (!confirm(`Bạn có chắc muốn hủy đơn hàng #${maDonHang}?`)) return;
+function cancelOrder(maDonHang) {
+    window.location.href = `huydon.html?id=${maDonHang}`;
+}
 
-    const token = localStorage.getItem('token');
-    try {
-        const res  = await fetch(`${API_URL}/orders/${maDonHang}/cancel`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({ lyDoHuy: 'Khách hàng hủy đơn' })
-        });
-        const json = await res.json();
-
-        if (json.success) {
-            showToast('Đã hủy đơn hàng thành công.');
-            await loadOrders(); // Reload lại danh sách
-        } else {
-            showToast(json.message, 'error');
-        }
-    } catch {
-        showToast('Không thể kết nối server.', 'error');
-    }
+// ─── Mua lại đơn hàng ────────────────────────────────────────────────────────
+function buyAgain(maDonHang) {
+    // Chuyển hướng trực tiếp sang trang đặt hàng với mã đơn cũ
+    window.location.href = `dathang.html?reorderId=${maDonHang}`;
 }
 
 // ─── Cập nhật số lượng đơn trên tab ──────────────────────────────────────────

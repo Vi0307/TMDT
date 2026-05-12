@@ -2,11 +2,11 @@
  * sanpham.js
  * Lấy danh sách sản phẩm từ API và render lên trang sanpham.html
  *
- * API: GET http://localhost:3000/api/products
+ * API: GET http://localhost:3005/api/products
  * Query params: keyword, category, minPrice, maxPrice, page, limit
  */
 
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'http://localhost:3005/api';
 
 // ─── State ───────────────────────────────────────────────────────────────────
 let currentPage = 1;
@@ -269,6 +269,7 @@ async function addToCart(maSanPham, tenSanPham) {
 
         if (json.success) {
             showToast(`✓ Đã thêm "${tenSanPham}" vào giỏ hàng`);
+            if (window.updateCartCount) window.updateCartCount();
         } else {
             showToast(json.message || 'Không thể thêm vào giỏ hàng', 'error');
         }
