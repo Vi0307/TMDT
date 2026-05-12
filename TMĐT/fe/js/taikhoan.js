@@ -7,7 +7,7 @@
  *   PUT /api/auth/me          - Cập nhật ten, soDienThoai, diaChi
  */
 
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'http://localhost:3005/api';
 
 // ─── Khởi động ───────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
@@ -107,10 +107,23 @@ async function saveUserInfo() {
     const ten    = document.getElementById('input-ten').value.trim();
     const sdt    = document.getElementById('input-sdt').value.trim();
     const diaChi = document.getElementById('input-diachi').value.trim();
+    const matKhau = document.getElementById('input-pass').value;
+    const confirmPass = document.getElementById('input-pass-confirm').value;
 
     if (!ten) {
         showToast('Họ tên không được để trống.', 'error');
         return;
+    }
+
+    if (matKhau || confirmPass) {
+        if (matKhau !== confirmPass) {
+            showToast('Mật khẩu xác nhận không khớp.', 'error');
+            return;
+        }
+        if (matKhau.length < 6) {
+            showToast('Mật khẩu phải có ít nhất 6 ký tự.', 'error');
+            return;
+        }
     }
 
     const btnSave = document.getElementById('btn-save');
@@ -120,13 +133,19 @@ async function saveUserInfo() {
     }
 
     try {
+        const payload = { ten, soDienThoai: sdt, diaChi };
+        if (matKhau) payload.matKhau = matKhau;
+
+        console.log('--- Frontend: Sending Profile Update ---');
+        console.log('Payload:', payload);
+        
         const res  = await fetch(`${API_URL}/auth/me`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify({ ten, soDienThoai: sdt, diaChi })
+            body: JSON.stringify(payload)
         });
         const json = await res.json();
 
@@ -144,6 +163,8 @@ async function saveUserInfo() {
             }));
 
             showToast('Đã lưu thông tin thành công!');
+            document.getElementById('input-pass').value = '';
+            document.getElementById('input-pass-confirm').value = '';
         } else {
             showToast(json.message || 'Cập nhật thất bại.', 'error');
         }

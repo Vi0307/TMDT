@@ -190,8 +190,8 @@ document.addEventListener('DOMContentLoaded', () => {
 <section class="bg-surface-container-low rounded-xl p-stack-md border border-outline-variant/30 shadow-sm">
 <div class="flex items-start justify-between mb-stack-md border-b border-outline-variant pb-stack-sm">
 <div>
-<h2 class="font-title-sm text-title-sm text-on-surface">Mã đơn hàng: #HA-99021</h2>
-<p class="text-on-surface-variant text-body-md italic">Ngày đặt: 24/05/2024</p>
+<h2 id="order-id-display" class="font-title-sm text-title-sm text-on-surface">Mã đơn hàng: #—</h2>
+<p id="order-date-display" class="text-on-surface-variant text-body-md italic">Ngày đặt: —</p>
 </div>
 <span class="bg-primary/10 text-primary px-stack-md py-base rounded-full text-label-caps">Chờ xác nhận</span>
 </div>
@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <p class="text-on-surface-variant text-body-md">Số lượng: 02 • Màu sắc: Vàng nghệ</p>
 </div>
 <div class="text-right">
-<span class="font-title-sm text-title-sm text-secondary">850.000₫</span>
+<span id="order-total-display" class="font-title-sm text-title-sm text-secondary">—</span>
 </div>
 </div>
 </section>
@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </label>
 </div>
 <div class="mt-stack-md">
-<textarea class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-stack-md focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-on-surface-variant/50" placeholder="Hãy chia sẻ thêm chi tiết để chúng tôi cải thiện dịch vụ..." rows="3"></textarea>
+<textarea id="cancel-reason-text" class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-stack-md focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-on-surface-variant/50" placeholder="Hãy chia sẻ thêm chi tiết để chúng tôi cải thiện dịch vụ..." rows="3"></textarea>
 </div>
 </section>
 <!-- Warning and Actions -->
@@ -251,31 +251,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     </button>
 </div>
 
-<script>
-    function showNotification(title, message, type = 'success') {
-        const toast = document.getElementById('notification-toast');
-        const icon = document.getElementById('notif-icon');
-        const titleEl = document.getElementById('notif-title');
-        const msgEl = document.getElementById('notif-message');
-
-        titleEl.textContent = title;
-        msgEl.textContent = message;
-        
-        toast.style.borderLeftColor = '#b52424';
-        icon.textContent = 'check_circle';
-        icon.style.color = '#b52424';
-
-        toast.classList.add('show');
-    }
-
-    function handleCancelConfirm() {
-        showNotification('Hủy đơn hàng thành công', 'Đơn hàng của bạn đã được hủy. Tiền sẽ được hoàn lại (nếu có) trong vòng 3-5 ngày.');
-        
-        setTimeout(() => {
-            window.location.href = 'donhangcuatoi.html';
-        }, 2000);
-    }
-</script>
+<script src="auth.js"></script>
+<script src="js/huydon.js"></script>
 </div>
 </div>
 </main>

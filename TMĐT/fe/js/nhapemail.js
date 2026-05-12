@@ -9,7 +9,7 @@
  * Sau khi thành công → lưu email vào sessionStorage → chuyển sang nhapmaOtp.html
  */
 
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'http://localhost:3005/api';
 
 document.addEventListener('DOMContentLoaded', () => {
     const form    = document.getElementById('forgot-form');

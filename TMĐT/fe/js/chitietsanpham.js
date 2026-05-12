@@ -8,7 +8,7 @@
  *   POST /api/cart               - Thêm vào giỏ hàng
  */
 
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'http://localhost:3005/api';
 
 let currentProduct = null;
 let soLuong = 1;
@@ -241,6 +241,7 @@ async function addToCart() {
 
         if (json.success) {
             showToast(`✓ Đã thêm "${currentProduct.tenSanPham}" vào giỏ hàng`);
+            if (window.updateCartCount) window.updateCartCount();
         } else {
             showToast(json.message || 'Không thể thêm vào giỏ hàng', 'error');
         }

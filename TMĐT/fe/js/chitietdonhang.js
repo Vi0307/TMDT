@@ -10,14 +10,16 @@
  * URL: chitietdonhang.html?id=1
  */
 
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'http://localhost:3005/api';
 
 // Map trạng thái → bước timeline (0-based)
 const STATUS_STEP = {
     'Chờ xác nhận': 0,
     'Đang giao':    2,
     'Đã giao':      3,
-    'Đã hủy':       -1
+    'Đã hủy':       -1,
+    'Chờ duyệt hoàn': -2,
+    'Đã hoàn hàng': -3
 };
 
 // ─── Khởi động ───────────────────────────────────────────────────────────────
@@ -187,6 +189,9 @@ function renderTimeline(order) {
 
     if (step === -1) {
         // Đã hủy
+        const ngayHuy = order.ngayHuy ? formatDate(order.ngayHuy) : '';
+        const gioHuy = order.ngayHuy ? new Date(order.ngayHuy).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }) : '';
+        
         container.innerHTML = `
             <div class="absolute top-5 left-10 right-10 h-0.5 bg-outline-variant"></div>
             <div class="relative z-10 flex flex-col items-center text-center w-1/2">
@@ -200,8 +205,35 @@ function renderTimeline(order) {
                 <div class="w-10 h-10 rounded-full bg-error-container text-error flex items-center justify-center mb-3 border-4 border-surface-container-lowest">
                     <span class="material-symbols-outlined text-sm">cancel</span>
                 </div>
-                <p class="font-title-sm text-sm text-error">Đã hủy</p>
-                ${order.lyDoHuy ? `<p class="font-body-md text-xs text-error mt-1">${order.lyDoHuy}</p>` : ''}
+                <p class="font-title-sm text-sm text-error">Đã hủy đơn</p>
+                <p class="font-body-md text-xs text-error mt-1">${gioHuy} ${ngayHuy}</p>
+                ${order.lyDoHuy ? `<p class="font-body-md text-[11px] text-error mt-1 bg-error/5 px-2 py-1 rounded italic">Lý do: ${order.lyDoHuy}</p>` : ''}
+            </div>
+        `;
+        return;
+    }
+
+    if (step === -2 || step === -3) {
+        // Hoàn hàng
+        const ngayHoan = order.ngayHoanThanh ? formatDate(order.ngayHoanThanh) : (order.ngayDat ? formatDate(order.ngayDat) : '');
+        const label = step === -2 ? 'Đang xử lý hoàn' : 'Đã hoàn tiền';
+        const icon = step === -2 ? 'pending' : 'keyboard_return';
+        
+        container.innerHTML = `
+            <div class="absolute top-5 left-10 right-10 h-0.5 bg-outline-variant"></div>
+            <div class="relative z-10 flex flex-col items-center text-center w-1/2">
+                <div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center lantern-glow mb-3 border-4 border-surface-container-lowest">
+                    <span class="material-symbols-outlined text-sm">check</span>
+                </div>
+                <p class="font-title-sm text-sm text-on-surface">Đã giao hàng</p>
+                <p class="font-body-md text-xs text-on-surface-variant mt-1">${formatDate(order.ngayGiaoHang) || ngayDat}</p>
+            </div>
+            <div class="relative z-10 flex flex-col items-center text-center w-1/2">
+                <div class="w-10 h-10 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center mb-3 border-4 border-surface-container-lowest">
+                    <span class="material-symbols-outlined text-sm">${icon}</span>
+                </div>
+                <p class="font-title-sm text-sm text-orange-600">${label}</p>
+                <p class="font-body-md text-xs text-orange-600 mt-1">${ngayHoan}</p>
             </div>
         `;
         return;

@@ -8,7 +8,7 @@
  *   DELETE /api/cart/:id    - Xóa 1 item
  */
 
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'http://localhost:3005/api';
 
 // ─── Khởi động ───────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
@@ -139,13 +139,57 @@ async function changeQty(maCTGH, newQty, maxQty) {
         });
         const json = await res.json();
         if (json.success) {
-            loadCart(); // Reload để cập nhật tổng tiền
+            // Cập nhật số lượng hiển thị
+            const qtyEl = document.getElementById(`qty-${maCTGH}`);
+            if (qtyEl) qtyEl.textContent = newQty;
+
+            // Cập nhật giá trị nút cộng/trừ (để lần bấm sau đúng giá trị)
+            const row = document.getElementById(`row-${maCTGH}`);
+            if (row) {
+                const buttons = row.querySelectorAll('button[onclick^="changeQty"]');
+                buttons[0].setAttribute('onclick', `changeQty(${maCTGH}, ${newQty - 1}, ${maxQty})`);
+                buttons[1].setAttribute('onclick', `changeQty(${maCTGH}, ${newQty + 1}, ${maxQty})`);
+                
+                // Cập nhật thành tiền của dòng
+                const price = parseFloat(row.querySelector('td:nth-child(2)').textContent.replace(/[^\d]/g, ''));
+                const thanhTienEl = document.getElementById(`thanhtien-${maCTGH}`);
+                if (thanhTienEl) {
+                    thanhTienEl.textContent = Number(price * newQty).toLocaleString('vi-VN') + '₫';
+                }
+            }
+
+            // Cập nhật tổng kết toàn cục (fetch lại thầm lặng hoặc tính toán lại)
+            updateGlobalSummaryLocally();
+            if (window.updateCartCount) window.updateCartCount();
         } else {
             showToast(json.message, 'error');
         }
     } catch {
         showToast('Không thể kết nối server', 'error');
     }
+}
+
+function updateGlobalSummaryLocally() {
+    let tamTinh = 0;
+    let totalItems = 0;
+    
+    document.querySelectorAll('[id^="thanhtien-"]').forEach(el => {
+        const val = parseFloat(el.textContent.replace(/[^\d]/g, ''));
+        tamTinh += val;
+    });
+
+    document.querySelectorAll('[id^="qty-"]').forEach(el => {
+        totalItems += parseInt(el.textContent.trim());
+    });
+
+    const phiVC = tamTinh > 0 ? 15000 : 0;
+    const tongCong = tamTinh + phiVC;
+    const fmt = (n) => Number(n).toLocaleString('vi-VN') + '₫';
+
+    document.getElementById('tam-tinh').textContent    = fmt(tamTinh);
+    document.getElementById('phi-vc').textContent      = fmt(phiVC);
+    document.getElementById('tong-cong').textContent   = fmt(tongCong);
+    document.getElementById('item-count').textContent  = totalItems;
 }
 
 // ─── Xóa 1 item ──────────────────────────────────────────────────────────────
@@ -161,8 +205,14 @@ async function removeItem(maCTGH) {
             // Xóa dòng khỏi DOM ngay lập tức
             const row = document.getElementById(`row-${maCTGH}`);
             if (row) row.remove();
-            // Reload để cập nhật tổng tiền
-            loadCart();
+            
+            // Nếu không còn sản phẩm nào thì reload để hiện trạng thái trống
+            if (document.querySelectorAll('[id^="row-"]').length === 0) {
+                loadCart();
+            } else {
+                updateGlobalSummaryLocally();
+            }
+            if (window.updateCartCount) window.updateCartCount();
         } else {
             showToast(json.message, 'error');
         }

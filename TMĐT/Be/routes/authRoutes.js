@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcryptjs');
 const { register, login } = require('../controllers/authController');
 const { authMiddleware } = require('../middleware/authMiddleware');
 const { sql } = require('../config/db');
@@ -47,9 +48,10 @@ router.get('/me', authMiddleware, async (req, res) => {
 });
 
 // Cập nhật thông tin user: PUT /api/auth/me
-// Body: { ten, soDienThoai, diaChi }
+// Body: { ten, soDienThoai, diaChi, matKhau }
 router.put('/me', authMiddleware, async (req, res) => {
-    const { ten, soDienThoai, diaChi } = req.body;
+    console.log('>>> RECEIVED PUT /me REQUEST <<<');
+    const { ten, soDienThoai, diaChi, matKhau } = req.body;
 
     if (!ten || ten.trim() === '') {
         return res.status(400).json({ success: false, message: 'Họ tên không được để trống.' });
@@ -62,11 +64,16 @@ router.put('/me', authMiddleware, async (req, res) => {
         request.input('soDienThoai', sql.NVarChar,  soDienThoai || null);
         request.input('diaChi',      sql.NVarChar,  diaChi || null);
 
-        await request.query(`
-            UPDATE NguoiDung
-            SET ten = @ten, soDienThoai = @soDienThoai, diaChi = @diaChi
-            WHERE maNguoiDung = @id
-        `);
+        let query = 'UPDATE NguoiDung SET ten = @ten, soDienThoai = @soDienThoai, diaChi = @diaChi';
+        
+        if (matKhau && matKhau.length >= 6) {
+            const hashedPwd = await bcrypt.hash(matKhau, 10);
+            request.input('matKhau', sql.NVarChar(255), hashedPwd);
+            query += ', matKhau = @matKhau';
+        }
+
+        query += ' WHERE maNguoiDung = @id';
+        await request.query(query);
 
         // Trả về thông tin mới nhất
         const getReq = new sql.Request();
@@ -235,10 +242,13 @@ router.post('/reset-password', async (req, res) => {
 
         const { maOtp, maNguoiDung } = otpResult.recordset[0];
 
-        // Cập nhật mật khẩu (lưu plain text)
+        // Cập nhật mật khẩu (phải hash)
+        const bcrypt = require('bcryptjs');
+        const hashedPwd = await bcrypt.hash(matKhauMoi, 10);
+
         const updateReq = new sql.Request();
         updateReq.input('maNguoiDung', sql.Int,      maNguoiDung);
-        updateReq.input('matKhau',     sql.NVarChar,  matKhauMoi);
+        updateReq.input('matKhau',     sql.NVarChar,  hashedPwd);
         await updateReq.query(
             `UPDATE NguoiDung SET matKhau = @matKhau WHERE maNguoiDung = @maNguoiDung`
         );

@@ -8,7 +8,7 @@
  * Sau khi thành công → lưu otp vào sessionStorage → chuyển sang datlaimk.html
  */
 
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'http://localhost:3005/api';
 
 // ─── Khởi động ───────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
