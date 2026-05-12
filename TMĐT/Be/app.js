@@ -4,15 +4,28 @@ require('dotenv').config();
 const { connectDB } = require('./config/db');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3005;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Kết nối cơ sở dữ liệu
-connectDB();
+// Giữ cho tiến trình không tự thoát
+setInterval(() => {}, 1000 * 60 * 60);
+
+// Kết nối cơ sở dữ liệu và khởi động server
+const startServer = async () => {
+    await connectDB();
+    app.listen(PORT, () => {
+        console.log(`🚀 Server đang chạy tại http://localhost:${PORT}`);
+        console.log('--- NEW SERVER VERSION 2.0 (PASSWORD FIX) ---');
+        console.log(`📋 Admin API: http://localhost:${PORT}/api/admin/`);
+        console.log(`🛒 User  API: http://localhost:${PORT}/api/`);
+    });
+};
+
+startServer();
 
 // ─────────────────────────────────────────────
 // ADMIN routes (giữ nguyên, không thay đổi)
@@ -75,9 +88,10 @@ app.get('/', (_req, res) => {
     res.send('Server is running! Database connected.');
 });
 
-// Khởi động server
-app.listen(PORT, () => {
-    console.log(`🚀 Server đang chạy tại http://localhost:${PORT}`);
-    console.log(`📋 Admin API: http://localhost:${PORT}/api/admin/`);
-    console.log(`🛒 User  API: http://localhost:${PORT}/api/`);
+// Xử lý lỗi toàn cục để không bị ngắt server
+process.on('uncaughtException', (err) => {
+    console.error('❌ LỖI HỆ THỐNG (Uncaught Exception):', err);
+});
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('❌ LỖI HỆ THỐNG (Unhandled Rejection):', reason);
 });
