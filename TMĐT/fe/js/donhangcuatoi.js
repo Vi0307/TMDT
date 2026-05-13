@@ -3,27 +3,13 @@
  * Lấy danh sách đơn hàng từ API và render lên trang donhangcuatoi.html
  *
  * API:
- *   GET /api/orders/my-orders?status=&page=&limit=
+ *   GET /api/orders/my-orders?limit=50
+ *   GET /api/returns/my-returns?limit=50
  *   GET /api/auth/me
  *   PUT /api/orders/:id/cancel
- *
- * Status map (FE tab → API):
- *   all        → không filter
- *   processing → Chờ xác nhận
- *   shipping   → Đang giao
- *   delivered  → Đã giao
- *   cancelled  → Đã hủy
  */
 
 const API_URL = 'http://localhost:3005/api';
-
-const TAB_STATUS = {
-    all:       '',
-    processing: 'processing',
-    shipping:   'delivering',
-    delivered:  'delivered',
-    cancelled:  'cancelled'
-};
 
 // Badge config theo trạng thái
 const STATUS_BADGE = {
@@ -33,8 +19,16 @@ const STATUS_BADGE = {
     'Đã hủy':       { label: 'ĐÃ HỦY',         cls: 'bg-error-container/20 text-error' }
 };
 
+// Badge trạng thái yêu cầu hoàn hàng
+const RETURN_BADGE = {
+    'Chờ duyệt hoàn': { label: 'CHỜ DUYỆT HOÀN', cls: 'bg-amber-100 text-amber-800' },
+    'Đã duyệt hoàn':  { label: 'ĐÃ HOÀN HÀNG',   cls: 'bg-green-100 text-green-800' },
+    'Từ chối hoàn':   { label: 'TỪ CHỐI HOÀN',    cls: 'bg-error-container/20 text-error' }
+};
+
 let currentTab = 'all';
-let allOrders  = [];   // cache toàn bộ đơn hàng
+let allOrders  = [];   // cache đơn hàng
+let returnMap  = {};   // { maDonHang: trangThaiHoan } — đơn nào đã có yêu cầu hoàn
 
 // ─── Khởi động ───────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
@@ -67,31 +61,47 @@ async function loadUserInfo() {
             }
         }
     } catch (err) {
-        // Fallback localStorage
         const user = JSON.parse(localStorage.getItem('user') || '{}');
         const nameEl = document.getElementById('user-name');
         if (nameEl && user.ten) nameEl.textContent = user.ten;
     }
 }
 
-// ─── Load đơn hàng ───────────────────────────────────────────────────────────
+// ─── Load đơn hàng + yêu cầu hoàn hàng ──────────────────────────────────────
 async function loadOrders() {
     const token = localStorage.getItem('token');
     const container = document.getElementById('orders-container');
     container.innerHTML = renderSkeleton();
 
     try {
-        const res  = await fetch(`${API_URL}/orders/my-orders?limit=50`, {
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
-        const json = await res.json();
+        // Gọi song song 2 API
+        const [ordersRes, returnsRes] = await Promise.all([
+            fetch(`${API_URL}/orders/my-orders?limit=50`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            }),
+            fetch(`${API_URL}/returns/my-returns?limit=50`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            })
+        ]);
 
-        if (!json.success) {
+        const ordersJson  = await ordersRes.json();
+        const returnsJson = await returnsRes.json();
+
+        if (!ordersJson.success) {
             showEmpty('Không thể tải đơn hàng. Vui lòng thử lại.');
             return;
         }
 
-        allOrders = json.data;
+        allOrders = ordersJson.data;
+
+        // Build map: maDonHang → trangThaiHoan
+        returnMap = {};
+        if (returnsJson.success && returnsJson.data) {
+            returnsJson.data.forEach(r => {
+                returnMap[r.maDonHang] = r.trangThai; // 'Chờ duyệt hoàn' | 'Đã duyệt hoàn' | 'Từ chối hoàn'
+            });
+        }
+
         renderOrders(currentTab);
         updateTabCounts();
 
@@ -106,17 +116,18 @@ function renderOrders(tab) {
     currentTab = tab;
     const container = document.getElementById('orders-container');
 
-    // Lọc theo tab
-    const filtered = tab === 'all'
-        ? allOrders
-        : allOrders.filter(o => {
-            const s = o.tenTrangThai;
-            if (tab === 'processing') return s === 'Chờ xác nhận';
-            if (tab === 'shipping')   return s === 'Đang giao';
-            if (tab === 'delivered')  return s === 'Đã giao';
-            if (tab === 'cancelled')  return s === 'Đã hủy';
-            return true;
-        });
+    const filtered = allOrders.filter(o => {
+        const hasReturn = !!returnMap[o.maDonHang];
+
+        if (tab === 'all')        return true;
+        if (tab === 'processing') return o.tenTrangThai === 'Chờ xác nhận';
+        if (tab === 'shipping')   return o.tenTrangThai === 'Đang giao';
+        // Tab "Đã giao": chỉ hiện đơn đã giao mà CHƯA có yêu cầu hoàn
+        if (tab === 'delivered')  return o.tenTrangThai === 'Đã giao' && !hasReturn;
+        // Tab "Hoàn và hủy": đơn đã hủy HOẶC đơn đã giao có yêu cầu hoàn
+        if (tab === 'cancelled')  return o.tenTrangThai === 'Đã hủy' || hasReturn;
+        return true;
+    });
 
     if (filtered.length === 0) {
         showEmpty('Không có đơn hàng nào trong mục này.');
@@ -129,18 +140,27 @@ function renderOrders(tab) {
 // ─── Render 1 card đơn hàng ───────────────────────────────────────────────────
 function formatDate(dateStr) {
     if (!dateStr) return '—';
-    // Lấy phần YYYY-MM-DD trước khi parse để tránh UTC offset làm lệch ngày
     const datePart = (dateStr + '').split('T')[0];
     const [year, month, day] = datePart.split('-');
     return `${day}/${month}/${year}`;
 }
 
 function renderOrderCard(order) {
-    const badge   = STATUS_BADGE[order.tenTrangThai] || { label: order.tenTrangThai, cls: 'bg-surface-variant text-on-surface' };
+    const hasReturn    = !!returnMap[order.maDonHang];
+    const returnStatus = returnMap[order.maDonHang];
+
+    // Badge: nếu có yêu cầu hoàn thì dùng badge hoàn, không thì dùng badge đơn hàng
+    let badge;
+    if (hasReturn && RETURN_BADGE[returnStatus]) {
+        badge = RETURN_BADGE[returnStatus];
+    } else {
+        badge = STATUS_BADGE[order.tenTrangThai] || { label: order.tenTrangThai, cls: 'bg-surface-variant text-on-surface' };
+    }
+
     const tongFmt = Number(order.tongTien).toLocaleString('vi-VN') + ' ₫';
     const ngayDat = formatDate(order.ngayDat);
 
-    // Nút hành động theo trạng thái
+    // Nút hành động
     let actions = '';
     if (order.tenTrangThai === 'Chờ xác nhận') {
         actions = `
@@ -153,7 +173,8 @@ function renderOrderCard(order) {
             <button class="flex-1 md:flex-none px-6 py-2 border border-outline text-on-surface font-label-caps rounded hover:bg-surface-variant transition-colors">
                 LIÊN HỆ ĐVVC
             </button>`;
-    } else if (order.tenTrangThai === 'Đã giao') {
+    } else if (order.tenTrangThai === 'Đã giao' && !hasReturn) {
+        // Chưa có yêu cầu hoàn → cho phép trả hàng và đánh giá
         actions = `
             <button onclick="window.location.href='hoanhang.html?id=${order.maDonHang}'"
                 class="flex-1 md:flex-none px-6 py-2 border border-error text-error font-label-caps rounded hover:bg-error-container/20 transition-colors">
@@ -163,9 +184,15 @@ function renderOrderCard(order) {
                 class="flex-1 md:flex-none px-6 py-2 border border-outline text-on-surface font-label-caps rounded hover:bg-surface-variant transition-colors">
                 ĐÁNH GIÁ
             </button>`;
-    } else if (order.tenTrangThai === 'Đã hủy' || order.tenTrangThai === 'Đã giao') {
-        actions += `
-            <button onclick="buyAgain(${order.maDonHang})"
+    } else if (order.tenTrangThai === 'Đã giao' && hasReturn) {
+        // Đã có yêu cầu hoàn → chỉ hiện trạng thái, không cho trả lại
+        actions = `
+            <span class="flex-1 md:flex-none px-4 py-2 text-xs text-on-surface-variant italic">
+                Yêu cầu hoàn: ${returnStatus}
+            </span>`;
+    } else if (order.tenTrangThai === 'Đã hủy') {
+        actions = `
+            <button onclick="window.location.href='sanpham.html'"
                 class="flex-1 md:flex-none px-6 py-2 border border-outline text-on-surface font-label-caps rounded hover:bg-surface-variant transition-colors">
                 MUA LẠI
             </button>`;
@@ -182,7 +209,6 @@ function renderOrderCard(order) {
 
     return `
         <div class="order-card bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-surface-variant hover:shadow-md transition-shadow">
-            <!-- Header -->
             <div class="flex flex-col md:flex-row justify-between md:items-center border-b border-outline-variant pb-4 mb-4 gap-4">
                 <div>
                     <a href="chitietdonhang.html?id=${order.maDonHang}"
@@ -199,7 +225,6 @@ function renderOrderCard(order) {
                 </div>
             </div>
 
-            <!-- Sản phẩm (hiển thị số lượng) -->
             <div class="flex items-center gap-3 mb-4">
                 <span class="material-symbols-outlined text-on-surface-variant">inventory_2</span>
                 <span class="font-body-md text-on-surface-variant">
@@ -208,7 +233,6 @@ function renderOrderCard(order) {
                 </span>
             </div>
 
-            <!-- Footer -->
             <div class="border-t border-outline-variant pt-4 flex flex-col md:flex-row justify-between items-center gap-4">
                 <div class="font-body-md text-on-surface-variant w-full md:w-auto text-right md:text-left">
                     Tổng cộng:
@@ -231,20 +255,16 @@ function cancelOrder(maDonHang) {
     window.location.href = `huydon.html?id=${maDonHang}`;
 }
 
-// ─── Mua lại đơn hàng ────────────────────────────────────────────────────────
-function buyAgain(maDonHang) {
-    // Chuyển hướng trực tiếp sang trang đặt hàng với mã đơn cũ
-    window.location.href = `dathang.html?reorderId=${maDonHang}`;
-}
-
 // ─── Cập nhật số lượng đơn trên tab ──────────────────────────────────────────
 function updateTabCounts() {
     const counts = {
-        all:       allOrders.length,
+        all:        allOrders.length,
         processing: allOrders.filter(o => o.tenTrangThai === 'Chờ xác nhận').length,
         shipping:   allOrders.filter(o => o.tenTrangThai === 'Đang giao').length,
-        delivered:  allOrders.filter(o => o.tenTrangThai === 'Đã giao').length,
-        cancelled:  allOrders.filter(o => o.tenTrangThai === 'Đã hủy').length
+        // Đã giao nhưng chưa có yêu cầu hoàn
+        delivered:  allOrders.filter(o => o.tenTrangThai === 'Đã giao' && !returnMap[o.maDonHang]).length,
+        // Đã hủy HOẶC có yêu cầu hoàn
+        cancelled:  allOrders.filter(o => o.tenTrangThai === 'Đã hủy' || !!returnMap[o.maDonHang]).length
     };
 
     document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -268,7 +288,6 @@ function setupTabs() {
             });
             tab.classList.add('font-medium', 'text-primary', 'border-b-2', 'border-primary');
             tab.classList.remove('text-on-surface-variant');
-
             renderOrders(tab.getAttribute('data-tab'));
         });
     });
@@ -309,7 +328,6 @@ function renderSkeleton() {
 function showToast(message, type = 'success') {
     const existing = document.getElementById('toast');
     if (existing) existing.remove();
-
     const toast = document.createElement('div');
     toast.id = 'toast';
     toast.className = `fixed bottom-8 left-1/2 -translate-x-1/2 z-50 px-6 py-3 rounded-lg shadow-lg text-white text-sm font-medium

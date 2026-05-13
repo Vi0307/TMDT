@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/api/admin/users';
+const API_URL = 'http://localhost:3005/api/admin/users';
 
 const userTableBody = document.getElementById('userTableBody');
 const searchInput = document.getElementById('searchInput');

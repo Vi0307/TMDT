@@ -64,8 +64,6 @@ const register = async (req, res) => {
 
 // Đăng nhập
 const login = async (req, res) => {
-    console.log('--- LOGIN ATTEMPT START ---');
-    console.log('Body received:', req.body);
     const { email, matKhau } = req.body;
 
     if (!email || !matKhau) {
@@ -78,25 +76,35 @@ const login = async (req, res) => {
         const result = await request.query('SELECT * FROM NguoiDung WHERE email = @email');
 
         if (result.recordset.length === 0) {
-            console.log('--- USER NOT FOUND IN DB ---:', email);
             return res.status(400).json({ message: 'Email hoặc mật khẩu không chính xác!' });
         }
 
         const user = result.recordset[0];
         const storedHash = user.matKhau ? user.matKhau.trim() : '';
 
-        // Kiểm tra mật khẩu
-        console.log('--- LOGIN DEBUG ---');
-        console.log('Email:', email);
-        console.log('Password received:', matKhau);
-        console.log('Stored Hash in DB:', storedHash);
-        
-        const isMatch = await bcrypt.compare(matKhau, storedHash);
+        let isMatch = false;
+
+        if (storedHash.startsWith('$2')) {
+            // Mật khẩu đã được hash bằng bcrypt → so sánh bình thường
+            isMatch = await bcrypt.compare(matKhau, storedHash);
+        } else {
+            // Mật khẩu còn là plain text → so sánh trực tiếp
+            isMatch = (matKhau === storedHash);
+
+            if (isMatch) {
+                // Tự động hash lại và lưu vào DB để lần sau dùng bcrypt
+                const hashed = await bcrypt.hash(matKhau, 10);
+                const updateReq = new sql.Request();
+                updateReq.input('id',  sql.Int,      user.maNguoiDung);
+                updateReq.input('pwd', sql.NVarChar,  hashed);
+                await updateReq.query('UPDATE NguoiDung SET matKhau = @pwd WHERE maNguoiDung = @id');
+                console.log(`[Auth] Auto-hashed password for user ${email}`);
+            }
+        }
+
         if (!isMatch) {
-            console.log('--- Password Match Failed ---');
             return res.status(400).json({ message: 'Email hoặc mật khẩu không chính xác!' });
         }
-        console.log('--- Password Match Success ---');
 
         // Kiểm tra trạng thái tài khoản
         if (user.trangThai === 'Bị khóa') {
