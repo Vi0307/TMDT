@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/api/admin/orders';
+const API_URL = 'http://localhost:3005/api/admin/orders';
 
 const orderTableBody = document.getElementById('orderTableBody');
 const searchInput = document.getElementById('searchInput');

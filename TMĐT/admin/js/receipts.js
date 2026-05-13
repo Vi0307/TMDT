@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/api/admin/receipts';
+const API_URL = 'http://localhost:3005/api/admin/receipts';
 
 const receiptTableBody = document.getElementById('receiptTableBody');
 const searchInput = document.getElementById('searchInput');

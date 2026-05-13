@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/api/admin/categories';
+const API_URL = 'http://localhost:3005/api/admin/categories';
 
 const categoryTableBody = document.getElementById('categoryTableBody');
 const searchInput = document.getElementById('searchInput');

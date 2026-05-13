@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/api/admin/reviews';
+const API_URL = 'http://localhost:3005/api/admin/reviews';
 
 const reviewTableBody = document.getElementById('reviewTableBody');
 const searchInput = document.getElementById('searchInput');
