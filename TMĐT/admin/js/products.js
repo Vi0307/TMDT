@@ -1,5 +1,5 @@
 const API_URL = 'http://localhost:3005/api/admin/products';
-const API_CATEGORIES = 'http://localhost:3000/api/admin/categories';
+const API_CATEGORIES = 'http://localhost:3005/api/admin/categories';
 
 const productTableBody = document.getElementById('productTableBody');
 const searchInput = document.getElementById('searchInput');
