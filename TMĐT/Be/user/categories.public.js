@@ -22,14 +22,15 @@ const { sql } = require('../config/db');
 router.get('/', async (req, res) => {
     try {
         const result = await new sql.Request().query(`
-            SELECT
-                dm.maDanhMuc,
-                dm.tenDanhMuc,
-                COUNT(sp.maSanPham) AS soLuongSanPham
-            FROM DanhMuc dm
-            LEFT JOIN SanPham sp ON dm.maDanhMuc = sp.maDanhMuc
-            LEFT JOIN ChiTietSanPham ct ON sp.maSanPham = ct.maSanPham AND ct.trangThai = N'Đang bán'
-            GROUP BY dm.maDanhMuc, dm.tenDanhMuc
+                SELECT
+                    dm.maDanhMuc,
+                    dm.tenDanhMuc,
+                    dm.hinhAnh,
+                    COUNT(sp.maSanPham) AS soLuongSanPham
+                FROM DanhMuc dm
+                LEFT JOIN SanPham sp ON dm.maDanhMuc = sp.maDanhMuc
+                LEFT JOIN ChiTietSanPham ct ON sp.maSanPham = ct.maSanPham AND ct.trangThai = N'Đang bán'
+                GROUP BY dm.maDanhMuc, dm.tenDanhMuc, dm.hinhAnh
             ORDER BY dm.maDanhMuc ASC
         `);
 

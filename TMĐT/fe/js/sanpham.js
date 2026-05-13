@@ -20,6 +20,13 @@ let currentFilters = {
 
 // ─── Khởi động ───────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
+    // Lấy category từ URL nếu có
+    const params = new URLSearchParams(window.location.search);
+    const catFromUrl = params.get('category');
+    if (catFromUrl) {
+        currentFilters.category = catFromUrl;
+    }
+
     await loadCategories();
     await loadProducts();
     setupEvents();
@@ -40,16 +47,17 @@ async function loadCategories() {
         // Thêm option "Tất cả"
         container.innerHTML = `
             <label class="flex items-center group cursor-pointer">
-                <input type="radio" name="category" value="" checked
+                <input type="radio" name="category" value="" ${!currentFilters.category ? 'checked' : ''}
                     class="w-4 h-4 border-outline text-primary focus:ring-primary accent-primary"/>
                 <span class="ml-3 font-body-md text-on-surface-variant group-hover:text-primary transition-colors">Tất cả</span>
             </label>
         `;
 
         json.data.forEach(cat => {
+            const isChecked = currentFilters.category == cat.maDanhMuc;
             container.innerHTML += `
                 <label class="flex items-center group cursor-pointer">
-                    <input type="radio" name="category" value="${cat.maDanhMuc}"
+                    <input type="radio" name="category" value="${cat.maDanhMuc}" ${isChecked ? 'checked' : ''}
                         class="w-4 h-4 border-outline text-primary focus:ring-primary accent-primary"/>
                     <span class="ml-3 font-body-md text-on-surface-variant group-hover:text-primary transition-colors">
                         ${cat.tenDanhMuc}
