@@ -171,7 +171,7 @@ function renderProductCard(sp) {
                 ${badge}
             </a>
             <h4 class="font-title-sm text-on-surface mb-1 line-clamp-1">${sp.tenSanPham}</h4>
-            <p class="font-body-md text-on-surface-variant text-sm mb-1 line-clamp-2">${sp.moTa || ''}</p>
+            <p class="font-body-md text-on-surface-variant text-sm mb-1 line-clamp-2">${sp.moTaNgan || ''}</p>
             <div class="flex items-center gap-1 mb-3">
                 ${stars}
                 <span class="text-xs text-on-surface-variant">(${sp.soLuongDanhGia})</span>

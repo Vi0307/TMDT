@@ -169,7 +169,8 @@
 </div>
 </div>
 <div id="product-price" class="text-3xl font-headline-md text-secondary font-bold">---</div>
-<div id="product-desc" class="font-body-lg text-on-surface-variant leading-relaxed border-l-2 border-primary/20 pl-6 italic"></div>
+<div id="product-desc-short" class="font-body-lg text-on-surface-variant leading-relaxed border-l-2 border-primary/20 pl-6 italic mb-4"></div>
+<div id="product-desc" class="font-body-md text-on-surface-variant leading-relaxed"></div>
 <div id="product-stock" class="text-sm"></div>
 <div class="flex items-end gap-6">
 <div class="space-y-4 flex-grow max-w-[150px]">
@@ -210,8 +211,6 @@
 <div class="flex gap-12">
 <button data-tab="specs" onclick="switchTab('specs')"
     class="pb-4 border-b-2 border-primary text-primary font-title-sm">Thông số kỹ thuật</button>
-<button data-tab="story" onclick="switchTab('story')"
-    class="pb-4 border-b-2 border-transparent text-outline hover:text-on-surface transition-colors font-title-sm">Câu chuyện nghệ nhân</button>
 <button data-tab="reviews" onclick="switchTab('reviews')"
     class="pb-4 border-b-2 border-transparent text-outline hover:text-on-surface transition-colors font-title-sm">Đánh giá khách hàng</button>
 </div>
@@ -245,23 +244,25 @@
 </div>
 <div class="flex justify-between border-b border-outline-variant/20 pb-3">
 <span class="font-label-caps text-outline">Xuất xứ</span>
-<span class="font-body-md">Hội An, Quảng Nam</span>
+<span id="spec-origin" class="font-body-md">—</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant/20 pb-3">
+<span class="font-label-caps text-outline">Chất liệu</span>
+<span id="spec-material" class="font-body-md">—</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant/20 pb-3">
+<span class="font-label-caps text-outline">Kích thước</span>
+<span id="spec-size" class="font-body-md">—</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant/20 pb-3">
+<span class="font-label-caps text-outline">Trọng lượng</span>
+<span id="spec-weight" class="font-body-md">—</span>
 </div>
 </div>
 </div>
-</div>
-
-<!-- Tab: Câu chuyện -->
-<div data-panel="story" style="display:none">
-<div class="bg-surface-container-low p-10 rounded-xl">
-<p class="font-body-lg text-on-surface-variant leading-relaxed italic border-l-4 border-primary/30 pl-6">
-    "Mỗi sản phẩm từ Hội An Tinh Hoa đều được chế tác bởi những nghệ nhân đã gắn bó cả đời với nghề truyền thống.
-    Đôi tay họ mang theo ký ức của nhiều thế hệ, từng đường nét đều chứa đựng tâm huyết và niềm tự hào về di sản văn hóa phố cổ."
-</p>
-<p class="font-body-md text-on-surface-variant mt-6 leading-relaxed">
-    Chúng tôi cam kết mang đến những sản phẩm thủ công chính gốc, được làm hoàn toàn bằng tay từ nguyên liệu tự nhiên,
-    không qua sản xuất công nghiệp. Mỗi sản phẩm là một tác phẩm độc bản, không có hai chiếc nào giống nhau hoàn toàn.
-</p>
+<div class="mt-8 bg-surface-container-low p-10 rounded-xl">
+    <h3 class="font-title-sm mb-4">Hướng dẫn bảo quản</h3>
+    <p id="spec-care" class="font-body-md text-on-surface-variant leading-relaxed">—</p>
 </div>
 </div>
 

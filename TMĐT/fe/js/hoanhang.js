@@ -153,7 +153,7 @@ function setupForm(orderId) {
 
             if (json.success) {
                 showToast('✓ ' + json.message, 'success');
-                setTimeout(() => window.location.href = 'donhangcuatoi.html', 2000);
+                setTimeout(() => window.location.href = 'donhangcuatoi.html?tab=cancelled', 2000);
             } else {
                 showToast(json.message || 'Gửi yêu cầu thất bại.', 'error');
                 btnSubmit.disabled = false;
