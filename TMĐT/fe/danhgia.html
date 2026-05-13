@@ -135,10 +135,10 @@
 <div class="md:col-span-4">
 <div class="bg-surface-container-low p-stack-md rounded shadow-sm sticky top-24">
 <div class="aspect-square w-full mb-stack-md overflow-hidden rounded-sm">
-<img class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" data-alt="Close-up of a handcrafted Hoi An silk lantern with intricate floral patterns, warm golden glow, soft shadows on textured paper background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcMQnBTg0lHE_GVO2otWGe7dwhWWqCLTCu94coAs6kXqBPebl-RQ56EefJuHwsOvadveUbgGbofZTf9pxpeaMLX6U3H_YH3CMXtL2HfCxxZDedhBmu2RsuI7J2eOa810vMDX6hC01A92Q8BabNqDdJYjaW8Ho8AU8HdIZbEShc3VazpnaFMc31aqI2oKpmhEWuuQP8Soz6rqFLumTCHFh-voN63oZMN16a-wFopgo1JVcIxhMVvKZptRFDyNQyGYPO-XKOcZt3FrOn"/>
+<img id="product-img" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" src="https://placehold.co/400x400/f0eee9/837562?text=Loading..."/>
 </div>
-<h2 class="font-title-sm text-title-sm text-on-surface mb-base">Đèn Lồng Lụa Hà Đông</h2>
-<p class="font-body-md text-body-md text-outline mb-stack-md">Phân loại: Vàng Hoàng Kim - Cỡ Lớn</p>
+<h2 id="product-name" class="font-title-sm text-title-sm text-on-surface mb-base">Đang tải...</h2>
+<p id="product-desc" class="font-body-md text-body-md text-outline mb-stack-md">Mã SP: ...</p>
 <div class="flex items-center space-x-2 text-primary">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified</span>
 <span class="font-label-caps text-[10px]">Đã mua tại cửa hàng</span>
@@ -151,29 +151,29 @@
 <!-- Star Rating Section -->
 <div class="space-y-stack-sm">
 <label class="font-label-caps text-label-caps text-on-surface-variant block">Chất lượng sản phẩm</label>
-<div class="flex items-center space-x-2">
-<button class="group transition-transform hover:scale-110" type="button">
+<div id="star-container" class="flex items-center space-x-2">
+<button class="group transition-transform hover:scale-110 star-btn" data-value="1" type="button">
 <span class="material-symbols-outlined text-outline-variant text-4xl">star</span>
 </button>
-<button class="group transition-transform hover:scale-110" type="button">
+<button class="group transition-transform hover:scale-110 star-btn" data-value="2" type="button">
 <span class="material-symbols-outlined text-outline-variant text-4xl">star</span>
 </button>
-<button class="group transition-transform hover:scale-110" type="button">
+<button class="group transition-transform hover:scale-110 star-btn" data-value="3" type="button">
 <span class="material-symbols-outlined text-outline-variant text-4xl">star</span>
 </button>
-<button class="group transition-transform hover:scale-110" type="button">
+<button class="group transition-transform hover:scale-110 star-btn" data-value="4" type="button">
 <span class="material-symbols-outlined text-outline-variant text-4xl">star</span>
 </button>
-<button class="group transition-transform hover:scale-110" type="button">
+<button class="group transition-transform hover:scale-110 star-btn" data-value="5" type="button">
 <span class="material-symbols-outlined text-outline-variant text-4xl">star</span>
 </button>
-<span class="font-body-md text-primary ml-base"></span>
+<span id="star-label" class="font-body-md text-primary ml-base">Vui lòng chọn sao</span>
 </div>
 </div>
 <!-- Written Review Section -->
 <div class="space-y-stack-sm">
 <label class="font-label-caps text-label-caps text-on-surface-variant block">Nhận xét chi tiết</label>
-<textarea class="w-full bg-transparent border-t-0 border-l-0 border-r-0 border-b border-outline focus:border-primary focus:ring-0 font-body-md text-on-surface placeholder:text-outline-variant py-stack-sm transition-all resize-none" placeholder="Hãy chia sẻ cảm nhận của bạn về chất liệu lụa, độ hoàn thiện và cách đóng gói..." rows="5"></textarea>
+<textarea id="review-content" class="w-full bg-transparent border-t-0 border-l-0 border-r-0 border-b border-outline focus:border-primary focus:ring-0 font-body-md text-on-surface placeholder:text-outline-variant py-stack-sm transition-all resize-none" placeholder="Hãy chia sẻ cảm nhận của bạn về chất liệu lụa, độ hoàn thiện và cách đóng gói..." rows="5"></textarea>
 </div>
 <!-- Media Upload Section -->
 <div class="space-y-stack-sm">
@@ -195,7 +195,7 @@
 <input class="rounded-sm border-outline text-secondary focus:ring-secondary" id="anonymous" type="checkbox"/>
 <label class="font-body-md text-on-surface-variant cursor-pointer" for="anonymous">Đánh giá ẩn danh</label>
 </div>
-<button onclick="window.location.href='donhangcuatoi.html'" class="bg-secondary text-on-primary px-12 py-3 rounded shadow-lg hover:bg-on-secondary-container hover:scale-[1.02] active:scale-95 transition-all font-headline-md text-body-lg" type="button">
+<button id="btn-submit" class="bg-secondary text-on-primary px-12 py-3 rounded shadow-lg hover:bg-on-secondary-container hover:scale-[1.02] active:scale-95 transition-all font-headline-md text-body-lg" type="button">
                             Gửi đánh giá
                         </button>
 </div>
@@ -246,4 +246,5 @@
         <p class="font-serif text-sm text-stone-500 dark:text-stone-400">© 2024 Hội An Tinh Hoa. Gìn giữ giá trị nghệ thuật truyền thống.</p>
     </div>
 </footer>
+<script src="js/danhgia.js"></script>
 </body></html>

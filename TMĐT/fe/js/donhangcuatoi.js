@@ -39,8 +39,30 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     await Promise.all([loadUserInfo(), loadOrders()]);
-    setupTabs();
+    
+    // Xử lý tab từ URL (ví dụ ?tab=cancelled)
+    const params = new URLSearchParams(window.location.search);
+    const tabParam = params.get('tab');
+    if (tabParam) {
+        const tabBtn = document.querySelector(`.tab-btn[data-tab="${tabParam}"]`);
+        if (tabBtn) {
+            switchTab(tabBtn);
+        }
+    } else {
+        setupTabs();
+    }
 });
+
+// Hàm hỗ trợ đổi tab
+function switchTab(tabBtn) {
+    document.querySelectorAll('.tab-btn').forEach(t => {
+        t.classList.remove('font-medium', 'text-primary', 'border-b-2', 'border-primary');
+        t.classList.add('text-on-surface-variant');
+    });
+    tabBtn.classList.add('font-medium', 'text-primary', 'border-b-2', 'border-primary');
+    tabBtn.classList.remove('text-on-surface-variant');
+    renderOrders(tabBtn.getAttribute('data-tab'));
+}
 
 // ─── Load thông tin user vào sidebar ─────────────────────────────────────────
 async function loadUserInfo() {
@@ -117,15 +139,32 @@ function renderOrders(tab) {
     const container = document.getElementById('orders-container');
 
     const filtered = allOrders.filter(o => {
-        const hasReturn = !!returnMap[o.maDonHang];
+        const hasReturn    = !!returnMap[o.maDonHang];
+        const returnStatus = returnMap[o.maDonHang];
 
         if (tab === 'all')        return true;
-        if (tab === 'processing') return o.tenTrangThai === 'Chờ xác nhận';
-        if (tab === 'shipping')   return o.tenTrangThai === 'Đang giao';
-        // Tab "Đã giao": chỉ hiện đơn đã giao mà CHƯA có yêu cầu hoàn
-        if (tab === 'delivered')  return o.tenTrangThai === 'Đã giao' && !hasReturn;
-        // Tab "Hoàn và hủy": đơn đã hủy HOẶC đơn đã giao có yêu cầu hoàn
-        if (tab === 'cancelled')  return o.tenTrangThai === 'Đã hủy' || hasReturn;
+        
+        // Trạng thái đơn hàng gốc
+        const isProcessing = o.tenTrangThai === 'Chờ xác nhận';
+        const isShipping   = o.tenTrangThai === 'Đang giao';
+        const isDelivered  = o.tenTrangThai === 'Đã giao';
+        const isCancelled  = o.tenTrangThai === 'Đã hủy';
+
+        // Nếu có yêu cầu hoàn (và không bị từ chối) -> ƯU TIÊN hiện ở tab Hoàn và hủy
+        const showInReturnTab = hasReturn && returnStatus !== 'Từ chối hoàn';
+
+        if (tab === 'processing') return isProcessing && !showInReturnTab;
+        if (tab === 'shipping')   return isShipping && !showInReturnTab;
+        
+        // Tab "Đã giao": hiện đơn đã giao mà (CHƯA có yêu cầu hoàn HOẶC yêu cầu bị từ chối)
+        if (tab === 'delivered') {
+            return isDelivered && (!hasReturn || returnStatus === 'Từ chối hoàn');
+        }
+        
+        // Tab "Hoàn và hủy": đơn đã hủy HOẶC đơn có yêu cầu hoàn (mà CHƯA bị từ chối)
+        if (tab === 'cancelled') {
+            return isCancelled || showInReturnTab;
+        }
         return true;
     });
 
@@ -162,13 +201,13 @@ function renderOrderCard(order) {
 
     // Nút hành động
     let actions = '';
-    if (order.tenTrangThai === 'Chờ xác nhận') {
+    if (order.tenTrangThai === 'Chờ xác nhận' && !hasReturn) {
         actions = `
             <button onclick="cancelOrder(${order.maDonHang})"
                 class="flex-1 md:flex-none px-6 py-2 border border-outline text-on-surface font-label-caps rounded hover:bg-surface-variant transition-colors">
                 HỦY ĐƠN
             </button>`;
-    } else if (order.tenTrangThai === 'Đang giao') {
+    } else if (order.tenTrangThai === 'Đang giao' && !hasReturn) {
         actions = `
             <button class="flex-1 md:flex-none px-6 py-2 border border-outline text-on-surface font-label-caps rounded hover:bg-surface-variant transition-colors">
                 LIÊN HỆ ĐVVC
@@ -258,13 +297,21 @@ function cancelOrder(maDonHang) {
 // ─── Cập nhật số lượng đơn trên tab ──────────────────────────────────────────
 function updateTabCounts() {
     const counts = {
-        all:        allOrders.length,
-        processing: allOrders.filter(o => o.tenTrangThai === 'Chờ xác nhận').length,
-        shipping:   allOrders.filter(o => o.tenTrangThai === 'Đang giao').length,
-        // Đã giao nhưng chưa có yêu cầu hoàn
-        delivered:  allOrders.filter(o => o.tenTrangThai === 'Đã giao' && !returnMap[o.maDonHang]).length,
-        // Đã hủy HOẶC có yêu cầu hoàn
-        cancelled:  allOrders.filter(o => o.tenTrangThai === 'Đã hủy' || !!returnMap[o.maDonHang]).length
+        all: allOrders.length,
+        processing: allOrders.filter(o => 
+            o.tenTrangThai === 'Chờ xác nhận' && !(!!returnMap[o.maDonHang] && returnMap[o.maDonHang] !== 'Từ chối hoàn')
+        ).length,
+        shipping: allOrders.filter(o => 
+            o.tenTrangThai === 'Đang giao' && !(!!returnMap[o.maDonHang] && returnMap[o.maDonHang] !== 'Từ chối hoàn')
+        ).length,
+        // Đã giao: (Đã giao) VÀ (không có hoàn HOẶC hoàn bị từ chối)
+        delivered: allOrders.filter(o => 
+            o.tenTrangThai === 'Đã giao' && (!returnMap[o.maDonHang] || returnMap[o.maDonHang] === 'Từ chối hoàn')
+        ).length,
+        // Hoàn và hủy: (Đã hủy) HOẶC (có hoàn và không bị từ chối)
+        cancelled: allOrders.filter(o => 
+            o.tenTrangThai === 'Đã hủy' || (!!returnMap[o.maDonHang] && returnMap[o.maDonHang] !== 'Từ chối hoàn')
+        ).length
     };
 
     document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -282,13 +329,7 @@ function updateTabCounts() {
 function setupTabs() {
     document.querySelectorAll('.tab-btn').forEach(tab => {
         tab.addEventListener('click', () => {
-            document.querySelectorAll('.tab-btn').forEach(t => {
-                t.classList.remove('font-medium', 'text-primary', 'border-b-2', 'border-primary');
-                t.classList.add('text-on-surface-variant');
-            });
-            tab.classList.add('font-medium', 'text-primary', 'border-b-2', 'border-primary');
-            tab.classList.remove('text-on-surface-variant');
-            renderOrders(tab.getAttribute('data-tab'));
+            switchTab(tab);
         });
     });
 }

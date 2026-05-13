@@ -86,7 +86,24 @@ function renderProduct(sp) {
         Number(sp.gia).toLocaleString('vi-VN') + ' VNĐ';
 
     // Mô tả
-    document.getElementById('product-desc').textContent = sp.moTa || '';
+    document.getElementById('product-desc-short').textContent = sp.moTaNgan || '';
+    document.getElementById('product-desc').textContent = sp.moTaChiTiet || '';
+
+    // Thông số chi tiết (cho tab Specs)
+    const setSpec = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = val || '—';
+    };
+    setSpec('spec-category', sp.tenDanhMuc);
+    setSpec('spec-id',       sp.maSanPham);
+    setSpec('spec-stock',    sp.soLuongTon > 0 ? sp.soLuongTon + ' sản phẩm' : 'Hết hàng');
+    setSpec('spec-rating',   sp.diemTrungBinh ? Number(sp.diemTrungBinh).toFixed(1) + ' / 5' : 'Chưa có');
+    setSpec('spec-review-count', (sp.soLuongDanhGia || 0) + ' lượt');
+    setSpec('spec-origin',   sp.xuatXu);
+    setSpec('spec-material', sp.chatLieu);
+    setSpec('spec-size',     sp.kichThuoc);
+    setSpec('spec-weight',   sp.trongLuong);
+    setSpec('spec-care',     sp.huongDanBaoQuan);
 
     // Tồn kho
     const stockEl = document.getElementById('product-stock');
@@ -319,6 +336,7 @@ function showToast(message, type = 'success') {
 function showSkeleton() {
     document.getElementById('product-name').textContent = 'Đang tải...';
     document.getElementById('product-price').textContent = '---';
+    document.getElementById('product-desc-short').textContent = '';
     document.getElementById('product-desc').textContent = '';
 }
 

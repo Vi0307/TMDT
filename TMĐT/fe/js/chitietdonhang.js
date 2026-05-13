@@ -98,8 +98,12 @@ function renderOrderDetail(order) {
 
     // ── Nút hành động ────────────────────────────────────────────────────
     const btnCancel = document.getElementById('btn-cancel');
+    const hasReturn = !!order.maYeuCauHoan;
+    const isRejected = order.trangThaiHoan === 'Từ chối hoàn';
+
     if (btnCancel) {
-        if (order.tenTrangThai === 'Chờ xác nhận') {
+        // Chỉ hiện hủy đơn khi đơn "Chờ xác nhận" VÀ không có yêu cầu hoàn (hoặc đã bị từ chối)
+        if (order.tenTrangThai === 'Chờ xác nhận' && (!hasReturn || isRejected)) {
             btnCancel.style.display = 'flex';
             btnCancel.onclick = () => cancelOrder(order.maDonHang);
         } else {
@@ -146,6 +150,12 @@ function renderOrderDetail(order) {
                         <div class="text-right flex-shrink-0">
                             <p class="font-headline-md text-primary text-lg font-semibold">${giaFmt}</p>
                             <p class="font-body-md text-on-surface-variant mt-1">Thành tiền: ${thanhTienFmt}</p>
+                            ${order.tenTrangThai === 'Đã giao' ? `
+                                <button onclick="window.location.href='danhgia.html?productId=${item.maSanPham}'" 
+                                        class="mt-4 px-4 py-2 bg-primary/10 text-primary rounded-sm font-label-caps hover:bg-primary hover:text-white transition-all">
+                                    Đánh giá sản phẩm
+                                </button>
+                            ` : ''}
                         </div>
                     </div>
                 </div>
@@ -180,7 +190,18 @@ function renderOrderDetail(order) {
 // ─── Render timeline ─────────────────────────────────────────────────────────
 function renderTimeline(order) {
     const container = document.getElementById('timeline-container');
-    const step      = STATUS_STEP[order.tenTrangThai] ?? 0;
+    
+    // Ưu tiên trạng thái hoàn nếu có
+    const hasReturn = !!order.maYeuCauHoan;
+    const returnStatus = order.trangThaiHoan;
+    const isRejected = returnStatus === 'Từ chối hoàn';
+
+    let step = STATUS_STEP[order.tenTrangThai] ?? 0;
+    
+    if (hasReturn && !isRejected) {
+        if (returnStatus === 'Chờ duyệt hoàn') step = -2;
+        else if (returnStatus === 'Đã duyệt hoàn') step = -3;
+    }
 
     const ngayDat    = formatDate(order.ngayDat);
     const ngayXacNhan = order.ngayXacNhan ? formatDate(order.ngayXacNhan) : null;
