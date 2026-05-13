@@ -80,7 +80,7 @@ router.post('/', async (req, res) => {
             return res.status(400).json({ success: false, message: 'Thiếu thông tin bắt buộc (tên, giá, danh mục)' });
 
         // Thêm vào SanPham (không có gia/hinhAnh/trangThai nữa)
-        const request = new sql.Request();
+const request = new sql.Request();
         request.input('tenSanPham', sql.NVarChar(100), tenSanPham);
         request.input('moTaNgan',   sql.NVarChar,      moTa || '');
         request.input('maDanhMuc',  sql.Int,           maDanhMuc);
@@ -147,7 +147,7 @@ router.put('/:id', async (req, res) => {
                 WHERE maSanPham = @id
             ELSE
                 INSERT INTO ChiTietSanPham (maSanPham, gia, hinhAnh, soLuongTon)
-                VALUES (@id, @gia, @hinhAnh, @soLuongTon)
+VALUES (@id, @gia, @hinhAnh, @soLuongTon)
         `);
 
         res.json({ success: true, message: 'Cập nhật sản phẩm thành công' });

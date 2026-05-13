@@ -64,14 +64,14 @@ router.get('/', async (req, res) => {
                 ctgh.maCTGH,
                 ctgh.maSanPham,
                 sp.tenSanPham,
-                sp.gia,
-                sp.hinhAnh,
+                ct.gia,
+                ct.hinhAnh,
                 ctgh.soLuong,
-                (sp.gia * ctgh.soLuong) AS thanhTien,
+                (ct.gia * ctgh.soLuong) AS thanhTien,
                 ISNULL(ct.soLuongTon, 0) AS soLuongTon
             FROM ChiTietGioHang ctgh
             INNER JOIN SanPham sp ON ctgh.maSanPham = sp.maSanPham
-            LEFT JOIN ChiTietSanPham ct ON sp.maSanPham = ct.maSanPham
+            INNER JOIN ChiTietSanPham ct ON sp.maSanPham = ct.maSanPham
             WHERE ctgh.maGioHang = @maGioHang
             ORDER BY ctgh.maCTGH ASC
         `);
@@ -111,8 +111,8 @@ router.post('/', async (req, res) => {
         const spResult = await spReq.query(`
             SELECT sp.maSanPham, sp.tenSanPham, ISNULL(ct.soLuongTon, 0) AS soLuongTon
             FROM SanPham sp
-            LEFT JOIN ChiTietSanPham ct ON sp.maSanPham = ct.maSanPham
-            WHERE sp.maSanPham = @maSanPham AND sp.trangThai = N'Đang bán'
+            INNER JOIN ChiTietSanPham ct ON sp.maSanPham = ct.maSanPham
+            WHERE sp.maSanPham = @maSanPham AND ct.trangThai = N'Đang bán'
         `);
         if (spResult.recordset.length === 0) {
             return res.status(404).json({ success: false, message: 'Sản phẩm không tồn tại hoặc ngừng bán.' });

@@ -27,9 +27,8 @@ router.get('/', async (req, res) => {
                 dm.tenDanhMuc,
                 COUNT(sp.maSanPham) AS soLuongSanPham
             FROM DanhMuc dm
-            LEFT JOIN SanPham sp
-                ON dm.maDanhMuc = sp.maDanhMuc
-                AND sp.trangThai = N'Đang bán'
+            LEFT JOIN SanPham sp ON dm.maDanhMuc = sp.maDanhMuc
+            LEFT JOIN ChiTietSanPham ct ON sp.maSanPham = ct.maSanPham AND ct.trangThai = N'Đang bán'
             GROUP BY dm.maDanhMuc, dm.tenDanhMuc
             ORDER BY dm.maDanhMuc ASC
         `);
@@ -70,8 +69,9 @@ router.get('/:id/products', async (req, res) => {
         // Đếm tổng sản phẩm trong danh mục
         const countResult = await request.query(`
             SELECT COUNT(*) AS total
-            FROM SanPham
-            WHERE maDanhMuc = @id AND trangThai = N'Đang bán'
+            FROM SanPham sp
+            INNER JOIN ChiTietSanPham ct ON sp.maSanPham = ct.maSanPham
+            WHERE sp.maDanhMuc = @id AND ct.trangThai = N'Đang bán'
         `);
         const total = countResult.recordset[0].total;
 
@@ -80,17 +80,17 @@ router.get('/:id/products', async (req, res) => {
             SELECT
                 sp.maSanPham,
                 sp.tenSanPham,
-                sp.gia,
-                sp.moTa,
-                sp.hinhAnh,
+                ct.gia,
+                sp.moTaNgan,
+                ct.hinhAnh,
                 ISNULL(ct.soLuongTon, 0) AS soLuongTon,
                 ISNULL(AVG(CAST(dg.soSao AS FLOAT)), 0) AS diemTrungBinh,
                 COUNT(DISTINCT dg.maDanhGia) AS soLuongDanhGia
             FROM SanPham sp
             LEFT JOIN ChiTietSanPham ct ON sp.maSanPham = ct.maSanPham
             LEFT JOIN DanhGia dg ON sp.maSanPham = dg.maSanPham
-            WHERE sp.maDanhMuc = @id AND sp.trangThai = N'Đang bán'
-            GROUP BY sp.maSanPham, sp.tenSanPham, sp.gia, sp.moTa, sp.hinhAnh, ct.soLuongTon
+            WHERE sp.maDanhMuc = @id AND ct.trangThai = N'Đang bán'
+            GROUP BY sp.maSanPham, sp.tenSanPham, ct.gia, sp.moTaNgan, ct.hinhAnh, ct.soLuongTon
             ORDER BY sp.maSanPham DESC
             OFFSET @offset ROWS FETCH NEXT @limit ROWS ONLY
         `);

@@ -88,11 +88,11 @@ router.post('/', async (req, res) => {
             const spReq = new sql.Request();
             spReq.input('maSanPham', sql.NVarChar(10), item.maSanPham);
             const spResult = await spReq.query(`
-                SELECT sp.maSanPham, sp.tenSanPham, sp.gia,
+                SELECT sp.maSanPham, sp.tenSanPham, ct.gia,
                        ISNULL(ct.soLuongTon, 0) AS soLuongTon
                 FROM SanPham sp
                 LEFT JOIN ChiTietSanPham ct ON sp.maSanPham = ct.maSanPham
-                WHERE sp.maSanPham = @maSanPham AND sp.trangThai = N'Đang bán'
+                WHERE sp.maSanPham = @maSanPham AND ct.trangThai = N'Đang bán'
             `);
 
             if (spResult.recordset.length === 0) {
@@ -318,11 +318,15 @@ router.get('/:id', async (req, res) => {
                 tt.tenTrangThai,
                 pttt.phuongThuc AS phuongThucThanhToan,
                 ptvc.tenPTVC    AS phuongThucVanChuyen,
-                ptvc.phiVanChuyen AS phiVanChuyenHienTai
+                ptvc.phiVanChuyen AS phiVanChuyenHienTai,
+                yc.maYeuCau AS maYeuCauHoan,
+                yctt.tenTrangThai AS trangThaiHoan
             FROM DonHang dh
             INNER JOIN TrangThai tt ON dh.maTrangThai = tt.maTrangThai
             LEFT JOIN PhuongThucThanhToan pttt ON dh.maPTTT = pttt.maPTTT
             LEFT JOIN PhuongThucVanChuyen ptvc ON dh.maPTVC = ptvc.maPTVC
+            LEFT JOIN YeuCauHoanHang yc ON dh.maDonHang = yc.maDonHang
+            LEFT JOIN TrangThai yctt ON yc.maTrangThai = yctt.maTrangThai
             WHERE dh.maDonHang = @maDonHang AND dh.maNguoiDung = @maNguoiDung
         `);
 
@@ -333,18 +337,21 @@ router.get('/:id', async (req, res) => {
         // Chi tiết sản phẩm trong đơn
         const detailReq = new sql.Request();
         detailReq.input('maDonHang', sql.Int, req.params.id);
-        const detailResult = await detailReq.query(`
+        const detailQuery = `
             SELECT
                 ctdh.maSanPham,
                 sp.tenSanPham,
-                sp.hinhAnh,
+                ct.hinhAnh,
                 ctdh.soLuong,
                 ctdh.gia,
                 (ctdh.soLuong * ctdh.gia) AS thanhTien
             FROM ChiTietDonHang ctdh
             INNER JOIN SanPham sp ON ctdh.maSanPham = sp.maSanPham
+            LEFT JOIN ChiTietSanPham ct ON sp.maSanPham = ct.maSanPham
             WHERE ctdh.maDonHang = @maDonHang
-        `);
+        `;
+        console.log('EXECUTING QUERY:', detailQuery);
+        const detailResult = await detailReq.query(detailQuery);
 
         return res.json({
             success: true,
@@ -355,7 +362,12 @@ router.get('/:id', async (req, res) => {
         });
     } catch (err) {
         console.error('GET /orders/:id error:', err);
-        return res.status(500).json({ success: false, message: err.message });
+        return res.status(500).json({ 
+            success: false, 
+            message: 'ANTIGRAVITY ERROR: ' + err.message, 
+            stack: err.stack,
+            query: typeof detailQuery !== 'undefined' ? detailQuery : 'Query 1 failed'
+        });
     }
 });
 

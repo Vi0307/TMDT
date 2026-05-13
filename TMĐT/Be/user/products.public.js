@@ -40,7 +40,7 @@ router.get('/', async (req, res) => {
         const request = new sql.Request();
 
         // Base query — chỉ lấy sản phẩm đang bán
-        let where = `WHERE sp.trangThai = N'Đang bán'`;
+        let where = `WHERE ct.trangThai = N'Đang bán'`;
 
         if (keyword) {
             where += ` AND sp.tenSanPham LIKE @keyword`;
@@ -51,11 +51,11 @@ router.get('/', async (req, res) => {
             request.input('category', sql.Int, parseInt(category));
         }
         if (minPrice) {
-            where += ` AND sp.gia >= @minPrice`;
+            where += ` AND ct.gia >= @minPrice`;
             request.input('minPrice', sql.Decimal(10, 2), parseFloat(minPrice));
         }
         if (maxPrice) {
-            where += ` AND sp.gia <= @maxPrice`;
+            where += ` AND ct.gia <= @maxPrice`;
             request.input('maxPrice', sql.Decimal(10, 2), parseFloat(maxPrice));
         }
 
@@ -63,6 +63,7 @@ router.get('/', async (req, res) => {
         const countResult = await request.query(`
             SELECT COUNT(*) AS total
             FROM SanPham sp
+            INNER JOIN ChiTietSanPham ct ON sp.maSanPham = ct.maSanPham
             ${where}
         `);
         const total = countResult.recordset[0].total;
@@ -75,9 +76,9 @@ router.get('/', async (req, res) => {
             SELECT
                 sp.maSanPham,
                 sp.tenSanPham,
-                sp.gia,
-                sp.moTa,
-                sp.hinhAnh,
+                ct.gia,
+                sp.moTaNgan,
+                ct.hinhAnh,
                 dm.maDanhMuc,
                 dm.tenDanhMuc,
                 ISNULL(ct.soLuongTon, 0) AS soLuongTon,
@@ -89,7 +90,7 @@ router.get('/', async (req, res) => {
             LEFT JOIN DanhGia dg ON sp.maSanPham = dg.maSanPham
             ${where}
             GROUP BY
-                sp.maSanPham, sp.tenSanPham, sp.gia, sp.moTa, sp.hinhAnh,
+                sp.maSanPham, sp.tenSanPham, ct.gia, sp.moTaNgan, ct.hinhAnh,
                 dm.maDanhMuc, dm.tenDanhMuc, ct.soLuongTon
             ORDER BY sp.maSanPham ASC
             OFFSET @offset ROWS FETCH NEXT @limit ROWS ONLY
@@ -125,13 +126,19 @@ router.get('/:id', async (req, res) => {
             SELECT
                 sp.maSanPham,
                 sp.tenSanPham,
-                sp.gia,
-                sp.moTa,
-                sp.hinhAnh,
-                sp.trangThai,
+                ct.gia,
+                sp.moTaNgan,
+                ct.hinhAnh,
+                ct.trangThai,
                 dm.maDanhMuc,
                 dm.tenDanhMuc,
                 ISNULL(ct.soLuongTon, 0) AS soLuongTon,
+                ct.moTaChiTiet,
+                ct.xuatXu,
+                ct.chatLieu,
+                ct.kichThuoc,
+                ct.trongLuong,
+                ct.huongDanBaoQuan,
                 ISNULL(AVG(CAST(dg.soSao AS FLOAT)), 0) AS diemTrungBinh,
                 COUNT(DISTINCT dg.maDanhGia) AS soLuongDanhGia
             FROM SanPham sp
@@ -140,8 +147,9 @@ router.get('/:id', async (req, res) => {
             LEFT JOIN DanhGia dg ON sp.maSanPham = dg.maSanPham
             WHERE sp.maSanPham = @id
             GROUP BY
-                sp.maSanPham, sp.tenSanPham, sp.gia, sp.moTa, sp.hinhAnh, sp.trangThai,
-                dm.maDanhMuc, dm.tenDanhMuc, ct.soLuongTon
+                sp.maSanPham, sp.tenSanPham, ct.gia, sp.moTaNgan, ct.hinhAnh, ct.trangThai,
+                dm.maDanhMuc, dm.tenDanhMuc, ct.soLuongTon,
+                ct.moTaChiTiet, ct.xuatXu, ct.chatLieu, ct.kichThuoc, ct.trongLuong, ct.huongDanBaoQuan
         `);
 
         if (productResult.recordset.length === 0) {
