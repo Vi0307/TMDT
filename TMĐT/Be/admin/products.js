@@ -12,9 +12,9 @@ router.get('/', async (req, res) => {
             SELECT 
                 sp.maSanPham,
                 sp.tenSanPham,
-                sp.gia,
-                sp.moTa,
-                sp.hinhAnh,
+                ct.gia,
+                sp.moTaNgan,
+                ct.hinhAnh,
                 dm.maDanhMuc,
                 dm.tenDanhMuc,
                 ISNULL(ct.soLuongTon, 0) AS soLuongTon
@@ -48,12 +48,18 @@ router.get('/:id', async (req, res) => {
             SELECT 
                 sp.maSanPham,
                 sp.tenSanPham,
-                sp.gia,
-                sp.moTa,
-                sp.hinhAnh,
+                ct.gia,
+                sp.moTaNgan,
+                ct.hinhAnh,
                 dm.maDanhMuc,
                 dm.tenDanhMuc,
-                ISNULL(ct.soLuongTon, 0) AS soLuongTon
+                ISNULL(ct.soLuongTon, 0) AS soLuongTon,
+                ct.moTaChiTiet,
+                ct.xuatXu,
+                ct.chatLieu,
+                ct.kichThuoc,
+                ct.trongLuong,
+                ct.huongDanBaoQuan
             FROM SanPham sp
             LEFT JOIN DanhMuc dm ON sp.maDanhMuc = dm.maDanhMuc
             LEFT JOIN ChiTietSanPham ct ON sp.maSanPham = ct.maSanPham
@@ -72,7 +78,10 @@ router.get('/:id', async (req, res) => {
 // POST /api/admin/products - Thêm sản phẩm mới
 router.post('/', async (req, res) => {
     try {
-        const { tenSanPham, gia, moTa, maDanhMuc, hinhAnh, soLuongTon } = req.body;
+        const {
+            tenSanPham, gia, moTaNgan, maDanhMuc, hinhAnh,
+            soLuongTon, moTaChiTiet, xuatXu, chatLieu, kichThuoc, trongLuong, huongDanBaoQuan
+        } = req.body;
 
         if (!tenSanPham || !gia || !maDanhMuc)
             return res.status(400).json({ success: false, message: 'Thiếu thông tin bắt buộc (tên, giá, danh mục)' });
@@ -80,26 +89,33 @@ router.post('/', async (req, res) => {
         const request = new sql.Request();
         request.input('tenSanPham', sql.NVarChar, tenSanPham);
         request.input('gia', sql.Decimal(10, 2), gia);
-        request.input('moTa', sql.NVarChar, moTa || '');
+        request.input('moTaNgan', sql.NVarChar, moTaNgan || '');
         request.input('maDanhMuc', sql.Int, maDanhMuc);
         request.input('hinhAnh', sql.NVarChar, hinhAnh || '');
 
         // Thêm sản phẩm
         const result = await request.query(`
-            INSERT INTO SanPham (tenSanPham, gia, moTa, maDanhMuc, hinhAnh)
+            INSERT INTO SanPham (maSanPham, tenSanPham, moTaNgan, maDanhMuc)
             OUTPUT INSERTED.maSanPham
-            VALUES (@tenSanPham, @gia, @moTa, @maDanhMuc, @hinhAnh)
+            VALUES (@maSanPham, @tenSanPham, @moTaNgan, @maDanhMuc)
         `);
 
         const maSanPham = result.recordset[0].maSanPham;
 
-        // Thêm chi tiết tồn kho
+        // Thêm chi tiết tồn kho và thông tin chi tiết
         const request2 = new sql.Request();
         request2.input('maSanPham', sql.NVarChar(10), maSanPham);
         request2.input('soLuongTon', sql.Int, soLuongTon || 0);
+        request2.input('moTaChiTiet', sql.NVarChar, moTaChiTiet || '');
+        request2.input('xuatXu', sql.NVarChar, xuatXu || '');
+        request2.input('chatLieu', sql.NVarChar, chatLieu || '');
+        request2.input('kichThuoc', sql.NVarChar, kichThuoc || '');
+        request2.input('trongLuong', sql.NVarChar, trongLuong || '');
+        request2.input('huongDanBaoQuan', sql.NVarChar, huongDanBaoQuan || '');
+
         await request2.query(`
-            INSERT INTO ChiTietSanPham (maSanPham, soLuongTon)
-            VALUES (@maSanPham, @soLuongTon)
+            INSERT INTO ChiTietSanPham (maSanPham, gia, hinhAnh, trangThai, soLuongTon, moTaChiTiet, xuatXu, chatLieu, kichThuoc, trongLuong, huongDanBaoQuan)
+            VALUES (@maSanPham, @gia, @hinhAnh, @trangThai, @soLuongTon, @moTaChiTiet, @xuatXu, @chatLieu, @kichThuoc, @trongLuong, @huongDanBaoQuan)
         `);
 
         res.json({ success: true, maSanPham, message: 'Thêm sản phẩm thành công' });
@@ -112,7 +128,10 @@ router.post('/', async (req, res) => {
 // PUT /api/admin/products/:id - Sửa sản phẩm
 router.put('/:id', async (req, res) => {
     try {
-        const { tenSanPham, gia, moTa, maDanhMuc, hinhAnh, soLuongTon } = req.body;
+        const {
+            tenSanPham, gia, moTaNgan, maDanhMuc, hinhAnh,
+            soLuongTon, moTaChiTiet, xuatXu, chatLieu, kichThuoc, trongLuong, huongDanBaoQuan
+        } = req.body;
 
         if (!tenSanPham || !gia || !maDanhMuc)
             return res.status(400).json({ success: false, message: 'Thiếu thông tin bắt buộc (tên, giá, danh mục)' });
@@ -121,28 +140,45 @@ router.put('/:id', async (req, res) => {
         request.input('id', sql.NVarChar(10), req.params.id);
         request.input('tenSanPham', sql.NVarChar, tenSanPham);
         request.input('gia', sql.Decimal(10, 2), gia);
-        request.input('moTa', sql.NVarChar, moTa || '');
+        request.input('moTaNgan', sql.NVarChar, moTaNgan || '');
         request.input('maDanhMuc', sql.Int, maDanhMuc);
         request.input('hinhAnh', sql.NVarChar, hinhAnh || '');
 
         await request.query(`
             UPDATE SanPham 
-            SET tenSanPham = @tenSanPham, gia = @gia, moTa = @moTa, maDanhMuc = @maDanhMuc, hinhAnh = @hinhAnh
+            SET tenSanPham = @tenSanPham, moTaNgan = @moTaNgan, maDanhMuc = @maDanhMuc
             WHERE maSanPham = @id
         `);
 
-        // Cập nhật hoặc thêm mới tồn kho
-        if (soLuongTon !== undefined) {
-            const request2 = new sql.Request();
-            request2.input('id', sql.NVarChar(10), req.params.id);
-            request2.input('soLuongTon', sql.Int, soLuongTon);
-            await request2.query(`
-                IF EXISTS (SELECT 1 FROM ChiTietSanPham WHERE maSanPham = @id)
-                    UPDATE ChiTietSanPham SET soLuongTon = @soLuongTon WHERE maSanPham = @id
-                ELSE
-                    INSERT INTO ChiTietSanPham (maSanPham, soLuongTon) VALUES (@id, @soLuongTon)
-            `);
-        }
+        // Cập nhật hoặc thêm mới tồn kho và thông tin chi tiết
+        const request2 = new sql.Request();
+        request2.input('id', sql.NVarChar(10), req.params.id);
+        request2.input('soLuongTon', sql.Int, soLuongTon !== undefined ? soLuongTon : 0);
+        request2.input('moTaChiTiet', sql.NVarChar, moTaChiTiet || '');
+        request2.input('xuatXu', sql.NVarChar, xuatXu || '');
+        request2.input('chatLieu', sql.NVarChar, chatLieu || '');
+        request2.input('kichThuoc', sql.NVarChar, kichThuoc || '');
+        request2.input('trongLuong', sql.NVarChar, trongLuong || '');
+        request2.input('huongDanBaoQuan', sql.NVarChar, huongDanBaoQuan || '');
+
+        await request2.query(`
+            IF EXISTS (SELECT 1 FROM ChiTietSanPham WHERE maSanPham = @id)
+                UPDATE ChiTietSanPham 
+                SET gia = @gia,
+                    hinhAnh = @hinhAnh,
+                    trangThai = @trangThai,
+                    soLuongTon = @soLuongTon, 
+                    moTaChiTiet = @moTaChiTiet, 
+                    xuatXu = @xuatXu, 
+                    chatLieu = @chatLieu, 
+                    kichThuoc = @kichThuoc, 
+                    trongLuong = @trongLuong, 
+                    huongDanBaoQuan = @huongDanBaoQuan
+                WHERE maSanPham = @id
+            ELSE
+                INSERT INTO ChiTietSanPham (maSanPham, gia, hinhAnh, trangThai, soLuongTon, moTaChiTiet, xuatXu, chatLieu, kichThuoc, trongLuong, huongDanBaoQuan) 
+                VALUES (@id, @gia, @hinhAnh, @trangThai, @soLuongTon, @moTaChiTiet, @xuatXu, @chatLieu, @kichThuoc, @trongLuong, @huongDanBaoQuan)
+        `);
 
         res.json({ success: true, message: 'Cập nhật sản phẩm thành công' });
     } catch (err) {
