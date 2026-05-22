@@ -52,7 +52,7 @@ function renderTable(data) {
         return;
     }
 
-    data.forEach(sp => {
+    data.forEach((sp, index) => {
         const giaFmt = Number(sp.gia).toLocaleString('vi-VN') + ' đ';
 
         // Ảnh: DB lưu dạng "THUCONGMYNGHE/abc.jpg" → cần trỏ về thư mục fe/images/
@@ -76,7 +76,7 @@ function renderTable(data) {
 
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td><strong>${sp.maSanPham}</strong></td>
+            <td><strong>${index + 1}</strong></td>
             <td>${imgHtml}</td>
             <td>
                 <div style="font-weight:600;color:#2D3748;">${sp.tenSanPham}</div>

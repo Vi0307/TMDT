@@ -90,14 +90,14 @@ function renderTable(data) {
         return;
     }
 
-    data.forEach(r => {
+    data.forEach((r, index) => {
         const ngay     = r.ngayNhap ? new Date(r.ngayNhap).toLocaleDateString('vi-VN') : '';
         const tongTien = r.tongTien != null
             ? Number(r.tongTien).toLocaleString('vi-VN') + ' đ'
             : '—';
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td><strong>${r.maPhieuNhap}</strong></td>
+            <td><strong>${index + 1}</strong></td>
             <td>
                 <div style="font-weight:600;color:#2D3748;">${r.tenNCC || r.maNCC}</div>
             </td>

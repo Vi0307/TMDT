@@ -15,7 +15,7 @@ function renderTable(data) {
         return;
     }
 
-    data.forEach(req => {
+    data.forEach((req, index) => {
         let statusClass = '';
         if (req.tenTrangThai === 'Đã duyệt hoàn') statusClass = 'status-active';
         else if (req.tenTrangThai === 'Từ chối hoàn') statusClass = 'status-locked';
@@ -40,7 +40,7 @@ function renderTable(data) {
 
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td><strong>#${req.maDonHang}</strong></td>
+            <td><strong>${index + 1}</strong></td>
             <td>${req.tenKhachHang || ''}</td>
             <td>${req.lyDo || ''}</td>
             <td><span class="status-badge ${statusClass}">${req.tenTrangThai}</span></td>
