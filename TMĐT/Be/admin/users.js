@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
                 nd.soDienThoai,
                 nd.diaChi,
                 nd.vaiTro,
-                v.trangThai
+                COALESCE(v.trangThai, nd.trangThai) AS trangThai
             FROM NguoiDung nd
             LEFT JOIN ViDienTu v ON nd.maNguoiDung = v.maNguoiDung
             WHERE nd.vaiTro = 'USER'
@@ -43,7 +43,7 @@ router.get('/:id', async (req, res) => {
         request.input('id', sql.Int, req.params.id);
         const result = await request.query(`
             SELECT nd.maNguoiDung, nd.ten, nd.email, nd.soDienThoai, nd.diaChi, nd.vaiTro,
-                   v.soDu, v.trangThai
+                   v.soDu, COALESCE(v.trangThai, nd.trangThai) AS trangThai
             FROM NguoiDung nd
             LEFT JOIN ViDienTu v ON nd.maNguoiDung = v.maNguoiDung
             WHERE nd.maNguoiDung = @id
@@ -65,10 +65,21 @@ router.put('/:id/status', async (req, res) => {
         if (!trangThai)
             return res.status(400).json({ success: false, message: 'Thiếu trạng thái' });
 
+        // Chuẩn hóa trạng thái: NguoiDung và ViDienTu dùng 'Bị khóa' thay vì 'Đã khóa'
+        let dbStatus = trangThai;
+        if (dbStatus === 'Đã khóa') {
+            dbStatus = 'Bị khóa';
+        }
+
         const request = new sql.Request();
         request.input('id', sql.Int, req.params.id);
-        request.input('trangThai', sql.NVarChar, trangThai);
-        await request.query(`UPDATE ViDienTu SET trangThai = @trangThai WHERE maNguoiDung = @id`);
+        request.input('trangThai', sql.NVarChar, dbStatus);
+        
+        // Cập nhật đồng thời ở cả ViDienTu và NguoiDung
+        await request.query(`
+            UPDATE ViDienTu SET trangThai = @trangThai WHERE maNguoiDung = @id;
+            UPDATE NguoiDung SET trangThai = @trangThai WHERE maNguoiDung = @id;
+        `);
 
         res.json({ success: true, message: 'Cập nhật trạng thái thành công' });
     } catch (err) {

@@ -25,12 +25,11 @@ router.get('/', async (req, res) => {
                 SELECT
                     dm.maDanhMuc,
                     dm.tenDanhMuc,
-                    dm.hinhAnh,
                     COUNT(sp.maSanPham) AS soLuongSanPham
                 FROM DanhMuc dm
                 LEFT JOIN SanPham sp ON dm.maDanhMuc = sp.maDanhMuc
                 LEFT JOIN ChiTietSanPham ct ON sp.maSanPham = ct.maSanPham AND ct.trangThai = N'Đang bán'
-                GROUP BY dm.maDanhMuc, dm.tenDanhMuc, dm.hinhAnh
+                GROUP BY dm.maDanhMuc, dm.tenDanhMuc
             ORDER BY dm.maDanhMuc ASC
         `);
 

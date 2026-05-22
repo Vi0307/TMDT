@@ -26,14 +26,14 @@ function renderTable(data) {
         return;
     }
 
-    data.forEach(review => {
+    data.forEach((review, index) => {
         const statusClass = review.trangThai === 'Đã phản hồi' ? 'status-active' : 'status-locked';
         const btnIcon = review.trangThai === 'Đã phản hồi' ? 'ph-eye' : 'ph-chat-teardrop-text';
         const btnTitle = review.trangThai === 'Đã phản hồi' ? 'Xem/Sửa phản hồi' : 'Viết phản hồi';
 
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td><strong>${review.maDanhGia}</strong></td>
+            <td><strong>${index + 1}</strong></td>
             <td>${review.tenKhachHang || ''}</td>
             <td>${review.tenSanPham || ''}</td>
             <td>${getStarsHtml(review.soSao)}</td>

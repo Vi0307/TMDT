@@ -31,8 +31,12 @@ function renderTable(data) {
         return;
     }
 
-    data.forEach(user => {
-        const isActive = user.trangThai === 'Hoạt động';
+    data.forEach((user, index) => {
+        const statusStr = user.trangThai ? String(user.trangThai).trim().toLowerCase().normalize('NFC') : '';
+        const isActive = statusStr === 'hoạt động' || 
+                         statusStr === 'hoat dong' || 
+                         statusStr === 'hoạt động'.normalize('NFD').toLowerCase();
+
         const statusHtml = isActive
             ? `<span class="status-badge status-active">Hoạt động</span>`
             : `<span class="status-badge status-locked">Đã khóa</span>`;
@@ -43,7 +47,7 @@ function renderTable(data) {
 
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td><strong>${user.maNguoiDung}</strong></td>
+            <td><strong>${index + 1}</strong></td>
             <td>${user.ten}</td>
             <td>${user.email}</td>
             <td>${user.soDienThoai || ''}</td>

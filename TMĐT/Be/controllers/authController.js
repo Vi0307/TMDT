@@ -39,6 +39,21 @@ const register = async (req, res) => {
 
         const newUser = insertResult.recordset[0];
 
+        // Tạo ví điện tử cho user mới
+        const viReq = new sql.Request();
+        viReq.input('maNguoiDung', sql.Int, newUser.maNguoiDung);
+        await viReq.query(`
+            INSERT INTO ViDienTu (maNguoiDung, soDu, trangThai)
+            VALUES (@maNguoiDung, 0, N'Hoạt động')
+        `);
+
+        // Tạo giỏ hàng cho user mới
+        const cartReq = new sql.Request();
+        cartReq.input('maNguoiDung', sql.Int, newUser.maNguoiDung);
+        await cartReq.query(`
+            INSERT INTO GioHang (maNguoiDung) VALUES (@maNguoiDung)
+        `);
+
         // Tạo JWT Token cho user mới
         const token = jwt.sign(
             { id: newUser.maNguoiDung, role: newUser.vaiTro },

@@ -49,7 +49,7 @@ function renderTable() {
         return;
     }
 
-    paginatedOrders.forEach(order => {
+    paginatedOrders.forEach((order, index) => {
         const statusInfo = getStatusDisplay(order.status);
         const tongTienFmt = Number(order.tongTien).toLocaleString('vi-VN') + ' đ';
 
@@ -73,7 +73,7 @@ function renderTable() {
 
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td><strong>#${order.maDonHang}</strong></td>
+            <td><strong>${startIndex + index + 1}</strong></td>
             <td>${order.tenKhachHang || ''}</td>
             <td>${order.soLuongSanPham} sản phẩm</td>
             <td><strong>${tongTienFmt}</strong></td>
