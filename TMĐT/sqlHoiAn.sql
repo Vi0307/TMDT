@@ -19,6 +19,10 @@ GO
 USE ecommerce_detai3;
 GO
 
+-- Tắt Identity Cache để ngăn lỗi nhảy vọt ID (Identity Jump 1000) khi SQL Server khởi động lại
+ALTER DATABASE SCOPED CONFIGURATION SET IDENTITY_CACHE = OFF;
+GO
+
 -- ========================================
 -- 1. NguoiDung
 -- ========================================

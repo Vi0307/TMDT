@@ -282,30 +282,8 @@ function renderTimeline(order) {
 }
 
 // ─── Hủy đơn hàng ────────────────────────────────────────────────────────────
-async function cancelOrder(maDonHang) {
-    if (!confirm(`Bạn có chắc muốn hủy đơn hàng #${maDonHang}?`)) return;
-
-    const token = localStorage.getItem('token');
-    try {
-        const res  = await fetch(`${API_URL}/orders/${maDonHang}/cancel`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({ lyDoHuy: 'Khách hàng hủy đơn' })
-        });
-        const json = await res.json();
-
-        if (json.success) {
-            showToast('Đã hủy đơn hàng thành công.');
-            setTimeout(() => loadOrderDetail(maDonHang), 800);
-        } else {
-            showToast(json.message, 'error');
-        }
-    } catch {
-        showToast('Không thể kết nối server.', 'error');
-    }
+function cancelOrder(maDonHang) {
+    window.location.href = `huydon.html?id=${maDonHang}`;
 }
 
 // ─── Format ngày (tránh lệch timezone) ───────────────────────────────────────
