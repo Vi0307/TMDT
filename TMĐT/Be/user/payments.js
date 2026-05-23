@@ -135,16 +135,45 @@ router.post('/online', async (req, res) => {
             return res.status(400).json({ success: false, message: 'Đơn hàng đã bị hủy.' });
         }
 
-        // ── MOCK: Giả lập xác thực với cổng thanh toán ──
-        // Trong thực tế: gọi MOMO API để verify momoCode
-        const isPaymentSuccess = true; // mock luôn thành công
+        // ── KIỂM TRA & TRỪ SỐ DƯ VÍ ĐIỆN TỬ MOMO ──
+        const walletReq = new sql.Request();
+        walletReq.input('maNguoiDung', sql.Int, req.user.id);
+        const walletResult = await walletReq.query(`
+            SELECT soDu, trangThai FROM ViDienTu WHERE maNguoiDung = @maNguoiDung
+        `);
 
-        if (!isPaymentSuccess) {
+        if (walletResult.recordset.length === 0) {
             return res.status(400).json({
                 success: false,
-                message: 'Thanh toán thất bại. Vui lòng thử lại.'
+                message: 'Tài khoản của bạn chưa được liên kết ví điện tử MoMo.'
             });
         }
+
+        const { soDu, trangThai: trangThaiVi } = walletResult.recordset[0];
+        if (trangThaiVi === 'Bị khóa') {
+            return res.status(400).json({
+                success: false,
+                message: 'Ví điện tử MoMo của bạn hiện đang bị khóa.'
+            });
+        }
+
+        const tongTien = parseFloat(order.tongTien);
+        if (parseFloat(soDu) < tongTien) {
+            return res.status(400).json({
+                success: false,
+                message: `Số dư ví điện tử MoMo không đủ để thanh toán (Hiện có: ${Number(soDu).toLocaleString('vi-VN')} VNĐ, Cần thanh toán: ${Number(tongTien).toLocaleString('vi-VN')} VNĐ). Vui lòng chọn phương thức thanh toán khác.`
+            });
+        }
+
+        // Trừ tiền trong ví điện tử
+        const deductReq = new sql.Request();
+        deductReq.input('maNguoiDung', sql.Int, req.user.id);
+        deductReq.input('tongTien', sql.Decimal(10,2), tongTien);
+        await deductReq.query(`
+            UPDATE ViDienTu
+            SET soDu = soDu - @tongTien
+            WHERE maNguoiDung = @maNguoiDung
+        `);
 
         // Cập nhật giao dịch → "Thành công" + lưu momoCode
         const updateReq = new sql.Request();
@@ -162,7 +191,7 @@ router.post('/online', async (req, res) => {
 
         return res.json({
             success: true,
-            message: 'Thanh toán online thành công!',
+            message: 'Thanh toán qua ví điện tử MoMo thành công!',
             data: {
                 maDonHang,
                 soTien:     order.tongTien,

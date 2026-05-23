@@ -27,71 +27,72 @@ const { authMiddleware } = require('../middleware/authMiddleware');
 // POST /api/reviews — Thêm đánh giá (cần đăng nhập)
 // ─────────────────────────────────────────────
 router.post('/', authMiddleware, async (req, res) => {
-    const { maSanPham, soSao, binhLuan } = req.body;
+        const { maSanPham, soSao, binhLuan, hinhAnh } = req.body;
 
-    if (!maSanPham || !soSao) {
-        return res.status(400).json({
-            success: false,
-            message: 'Thiếu thông tin: maSanPham, soSao'
-        });
-    }
-    if (soSao < 1 || soSao > 5) {
-        return res.status(400).json({
-            success: false,
-            message: 'soSao phải từ 1 đến 5.'
-        });
-    }
-
-    try {
-        // Kiểm tra user đã mua và nhận sản phẩm này chưa
-        const purchaseReq = new sql.Request();
-        purchaseReq.input('maNguoiDung', sql.Int,          req.user.id);
-        purchaseReq.input('maSanPham',   sql.NVarChar(10), maSanPham);
-        const purchased = await purchaseReq.query(`
-            SELECT TOP 1 dh.maDonHang
-            FROM DonHang dh
-            INNER JOIN ChiTietDonHang ctdh ON dh.maDonHang = ctdh.maDonHang
-            INNER JOIN TrangThai tt ON dh.maTrangThai = tt.maTrangThai
-            WHERE dh.maNguoiDung = @maNguoiDung
-              AND ctdh.maSanPham = @maSanPham
-              AND tt.tenTrangThai = N'Đã giao'
-        `);
-
-        if (purchased.recordset.length === 0) {
-            return res.status(403).json({
+        if (!maSanPham || !soSao) {
+            return res.status(400).json({
                 success: false,
-                message: 'Bạn chỉ có thể đánh giá sản phẩm đã mua và đã nhận hàng.'
+                message: 'Thiếu thông tin: maSanPham, soSao'
+            });
+        }
+        if (soSao < 1 || soSao > 5) {
+            return res.status(400).json({
+                success: false,
+                message: 'soSao phải từ 1 đến 5.'
             });
         }
 
-        // Kiểm tra đã đánh giá chưa
-        const existReq = new sql.Request();
-        existReq.input('maNguoiDung', sql.Int,          req.user.id);
-        existReq.input('maSanPham',   sql.NVarChar(10), maSanPham);
-        const existing = await existReq.query(`
-            SELECT maDanhGia FROM DanhGia
-            WHERE maNguoiDung = @maNguoiDung AND maSanPham = @maSanPham
-        `);
+        try {
+            // Kiểm tra user đã mua và nhận sản phẩm này chưa
+            const purchaseReq = new sql.Request();
+            purchaseReq.input('maNguoiDung', sql.Int,          req.user.id);
+            purchaseReq.input('maSanPham',   sql.NVarChar(10), maSanPham);
+            const purchased = await purchaseReq.query(`
+                SELECT TOP 1 dh.maDonHang
+                FROM DonHang dh
+                INNER JOIN ChiTietDonHang ctdh ON dh.maDonHang = ctdh.maDonHang
+                INNER JOIN TrangThai tt ON dh.maTrangThai = tt.maTrangThai
+                WHERE dh.maNguoiDung = @maNguoiDung
+                  AND ctdh.maSanPham = @maSanPham
+                  AND tt.tenTrangThai = N'Đã giao'
+            `);
 
-        if (existing.recordset.length > 0) {
-            return res.status(409).json({
-                success: false,
-                message: 'Bạn đã đánh giá sản phẩm này rồi.'
-            });
-        }
+            if (purchased.recordset.length === 0) {
+                return res.status(403).json({
+                    success: false,
+                    message: 'Bạn chỉ có thể đánh giá sản phẩm đã mua và đã nhận hàng.'
+                });
+            }
 
-        // Thêm đánh giá
-        const insertReq = new sql.Request();
-        insertReq.input('maNguoiDung', sql.Int,          req.user.id);
-        insertReq.input('maSanPham',   sql.NVarChar(10), maSanPham);
-        insertReq.input('soSao',       sql.Int,     soSao);
-        insertReq.input('binhLuan',    sql.NVarChar, binhLuan || null);
+            // Kiểm tra đã đánh giá chưa
+            const existReq = new sql.Request();
+            existReq.input('maNguoiDung', sql.Int,          req.user.id);
+            existReq.input('maSanPham',   sql.NVarChar(10), maSanPham);
+            const existing = await existReq.query(`
+                SELECT maDanhGia FROM DanhGia
+                WHERE maNguoiDung = @maNguoiDung AND maSanPham = @maSanPham
+            `);
 
-        const result = await insertReq.query(`
-            INSERT INTO DanhGia (maNguoiDung, maSanPham, soSao, binhLuan)
-            OUTPUT INSERTED.maDanhGia, INSERTED.ngayDanhGia
-            VALUES (@maNguoiDung, @maSanPham, @soSao, @binhLuan)
-        `);
+            if (existing.recordset.length > 0) {
+                return res.status(409).json({
+                    success: false,
+                    message: 'Bạn đã đánh giá sản phẩm này rồi.'
+                });
+            }
+
+            // Thêm đánh giá
+            const insertReq = new sql.Request();
+            insertReq.input('maNguoiDung', sql.Int,          req.user.id);
+            insertReq.input('maSanPham',   sql.NVarChar(10), maSanPham);
+            insertReq.input('soSao',       sql.Int,     soSao);
+            insertReq.input('binhLuan',    sql.NVarChar, binhLuan || null);
+            insertReq.input('hinhAnh',     sql.NVarChar, hinhAnh || null);
+
+            const result = await insertReq.query(`
+                INSERT INTO DanhGia (maNguoiDung, maSanPham, soSao, binhLuan, hinhAnh)
+                OUTPUT INSERTED.maDanhGia, INSERTED.ngayDanhGia
+                VALUES (@maNguoiDung, @maSanPham, @soSao, @binhLuan, @hinhAnh)
+            `);
 
         return res.status(201).json({
             success: true,
@@ -139,6 +140,7 @@ router.get('/products/:id/reviews', async (req, res) => {
                 nd.ten AS tenNguoiDung,
                 dg.soSao,
                 dg.binhLuan,
+                dg.hinhAnh,
                 dg.ngayDanhGia,
                 ph.tieuDe   AS tieuDePhanHoi,
                 ph.noiDung  AS noiDungPhanHoi,

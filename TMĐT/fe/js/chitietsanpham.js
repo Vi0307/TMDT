@@ -163,9 +163,8 @@ function renderReviews(reviews) {
                 <p class="text-sm text-on-surface-variant">${rv.phanHoiAdmin}</p>
             </div>` : '';
 
-        // Tải ảnh đánh giá cục bộ từ localStorage
-        const key = `review_images_${currentProduct?.maSanPham}_${rv.tenNguoiDung || 'Khách hàng'}`;
-        const localImages = JSON.parse(localStorage.getItem(key) || '[]');
+        // Tải ảnh đánh giá từ cột hinhAnh lưu ở cơ sở dữ liệu
+        const localImages = JSON.parse(rv.hinhAnh || '[]');
         
         let imagesHtml = '';
         if (localImages.length > 0) {

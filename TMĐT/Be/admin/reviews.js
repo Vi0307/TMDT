@@ -11,10 +11,12 @@ router.get('/', async (req, res) => {
         let query = `
             SELECT 
                 dg.maDanhGia,
+                dg.maSanPham,
                 nd.ten AS tenKhachHang,
                 sp.tenSanPham,
                 dg.soSao,
                 dg.binhLuan,
+                dg.hinhAnh,
                 ph.maPhanHoi,
                 ph.tieuDe AS tieuDePhanHoi,
                 ph.noiDung AS noiDungPhanHoi,
@@ -45,10 +47,12 @@ router.get('/', async (req, res) => {
 
         const data = result.recordset.map(row => ({
             maDanhGia: row.maDanhGia,
+            maSanPham: row.maSanPham,
             tenKhachHang: row.tenKhachHang,
             tenSanPham: row.tenSanPham,
             soSao: row.soSao,
             binhLuan: row.binhLuan,
+            hinhAnh: row.hinhAnh,
             trangThai: row.maPhanHoi ? 'Đã phản hồi' : 'Chưa phản hồi',
             maPhanHoi: row.maPhanHoi,
             tieuDePhanHoi: row.tieuDePhanHoi || '',

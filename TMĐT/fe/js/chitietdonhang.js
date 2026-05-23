@@ -38,8 +38,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
+    updateBackLinks();
     await Promise.all([loadUserInfo(), loadOrderDetail(orderId)]);
 });
+
+function updateBackLinks() {
+    const params = new URLSearchParams(window.location.search);
+    const fromTab = params.get('fromTab') || 'all';
+    
+    // Tìm tất cả thẻ a có href chứa donhangcuatoi.html
+    const backLinks = document.querySelectorAll('a[href*="donhangcuatoi.html"]');
+    backLinks.forEach(link => {
+        link.href = `donhangcuatoi.html?tab=${fromTab}`;
+    });
+}
 
 // ─── Load thông tin user vào sidebar ─────────────────────────────────────────
 async function loadUserInfo() {
@@ -283,7 +295,9 @@ function renderTimeline(order) {
 
 // ─── Hủy đơn hàng ────────────────────────────────────────────────────────────
 function cancelOrder(maDonHang) {
-    window.location.href = `huydon.html?id=${maDonHang}`;
+    const params = new URLSearchParams(window.location.search);
+    const fromTab = params.get('fromTab') || 'all';
+    window.location.href = `huydon.html?id=${maDonHang}&fromTab=${fromTab}`;
 }
 
 // ─── Format ngày (tránh lệch timezone) ───────────────────────────────────────
@@ -296,12 +310,14 @@ function formatDate(dateStr) {
 
 // ─── Hiển thị lỗi ────────────────────────────────────────────────────────────
 function showError(msg) {
+    const params = new URLSearchParams(window.location.search);
+    const fromTab = params.get('fromTab') || 'all';
     document.querySelector('main').innerHTML = `
         <div class="flex flex-col items-center justify-center py-32 text-center w-full">
             <span class="material-symbols-outlined text-6xl text-on-surface-variant mb-4">error_outline</span>
             <h2 class="font-headline-md text-on-surface mb-2">Không tìm thấy đơn hàng</h2>
             <p class="text-on-surface-variant mb-6">${msg}</p>
-            <a href="donhangcuatoi.html" class="bg-primary text-white px-6 py-3 rounded font-label-caps hover:opacity-90 transition-opacity">
+            <a href="donhangcuatoi.html?tab=${fromTab}" class="bg-primary text-white px-6 py-3 rounded font-label-caps hover:opacity-90 transition-opacity">
                 Quay lại đơn hàng của tôi
             </a>
         </div>

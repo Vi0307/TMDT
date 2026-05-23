@@ -9,14 +9,36 @@ let currentOrderId = null;
 document.addEventListener('DOMContentLoaded', async () => {
     const params = new URLSearchParams(window.location.search);
     currentOrderId = params.get('id');
+    const fromTab = params.get('fromTab') || 'all';
 
     if (!currentOrderId) {
-        window.location.href = 'donhangcuatoi.html';
+        window.location.href = `donhangcuatoi.html?tab=${fromTab}`;
         return;
     }
 
+    updateBackLinks();
     await loadOrderInfo();
 });
+
+function updateBackLinks() {
+    const params = new URLSearchParams(window.location.search);
+    const fromTab = params.get('fromTab') || 'all';
+    
+    // Thẻ <a> quay lại
+    const backLinks = document.querySelectorAll('a[href*="donhangcuatoi.html"]');
+    backLinks.forEach(link => {
+        link.href = `donhangcuatoi.html?tab=${fromTab}`;
+    });
+
+    // Nút QUAY LẠI bằng button onclick (cải tiến selector chống lệch nháy đơn/kép)
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(btn => {
+        const clickAttr = btn.getAttribute('onclick');
+        if (clickAttr && clickAttr.includes('donhangcuatoi.html')) {
+            btn.setAttribute('onclick', `window.location.href='donhangcuatoi.html?tab=${fromTab}'`);
+        }
+    });
+}
 
 async function loadOrderInfo() {
     const token = localStorage.getItem('token');
@@ -65,8 +87,10 @@ async function handleCancelConfirm() {
 
         if (json.success) {
             showNotification('Hủy đơn hàng thành công', 'Đơn hàng của bạn đã được hủy. Tiền sẽ được hoàn lại (nếu có) trong vòng 3-5 ngày.');
+            const params = new URLSearchParams(window.location.search);
+            const fromTab = params.get('fromTab') || 'all';
             setTimeout(() => {
-                window.location.href = 'donhangcuatoi.html';
+                window.location.href = `donhangcuatoi.html?tab=${fromTab}`;
             }, 2000);
         } else {
             showNotification('Lỗi', json.message || 'Không thể hủy đơn hàng.', 'error');
