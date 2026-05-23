@@ -163,6 +163,37 @@ function renderReviews(reviews) {
                 <p class="text-sm text-on-surface-variant">${rv.phanHoiAdmin}</p>
             </div>` : '';
 
+        // Tải ảnh đánh giá cục bộ từ localStorage
+        const key = `review_images_${currentProduct?.maSanPham}_${rv.tenNguoiDung || 'Khách hàng'}`;
+        const localImages = JSON.parse(localStorage.getItem(key) || '[]');
+        
+        let imagesHtml = '';
+        if (localImages.length > 0) {
+            imagesHtml = `
+                <div class="flex flex-wrap gap-3 mt-3">
+                    ${localImages.map(img => {
+                        const isVideo = img.startsWith('data:video/') || img.includes('.mp4') || img.startsWith('data:application/octet-stream');
+                        if (isVideo) {
+                            return `
+                                <div class="w-24 h-24 bg-black rounded overflow-hidden border border-outline-variant/30 relative group cursor-pointer" onclick="window.open('${img}')">
+                                    <video class="w-full h-full object-cover" src="${img}" muted></video>
+                                    <div class="absolute inset-0 flex items-center justify-center bg-black/25">
+                                        <span class="material-symbols-outlined text-white text-xl">play_circle</span>
+                                    </div>
+                                </div>
+                            `;
+                        } else {
+                            return `
+                                <div class="w-24 h-24 bg-surface-container rounded overflow-hidden border border-outline-variant/30 cursor-pointer" onclick="window.open('${img}')">
+                                    <img class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" src="${img}" alt="Review image" />
+                                </div>
+                            `;
+                        }
+                    }).join('')}
+                </div>
+            `;
+        }
+
         return `
             <div class="border-b border-outline-variant/20 pb-6 last:border-0">
                 <div class="flex items-start justify-between mb-2">
@@ -173,6 +204,7 @@ function renderReviews(reviews) {
                     <span class="text-xs text-on-surface-variant">${ngay}</span>
                 </div>
                 <p class="text-sm text-on-surface-variant leading-relaxed">${rv.binhLuan || ''}</p>
+                ${imagesHtml}
                 ${phanHoi}
             </div>
         `;

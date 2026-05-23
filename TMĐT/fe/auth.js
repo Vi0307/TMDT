@@ -33,19 +33,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateCartCount() {
         const cartCountEl = document.getElementById('cart-count');
-        if (!cartCountEl) return;
 
         if (!token) {
-            cartCountEl.classList.add('hidden');
+            if (cartCountEl) cartCountEl.classList.add('hidden');
             return;
         }
 
         fetch('http://localhost:3005/api/cart', {
             headers: { 'Authorization': `Bearer ${token}` }
         })
-        .then(res => res.json())
+        .then(res => {
+            if (res.status === 401 || res.status === 403) {
+                // Token không hợp lệ hoặc database đã bị reset!
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                window.location.reload();
+                return null;
+            }
+            return res.json();
+        })
         .then(json => {
-            if (json.success) {
+            if (!json || !cartCountEl) return;
+            if (json.success && json.data && json.data.items) {
                 const count = json.data.items.reduce((sum, item) => sum + item.soLuong, 0);
                 if (count > 0) {
                     cartCountEl.textContent = count;

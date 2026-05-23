@@ -11,13 +11,14 @@
  */
 
 const jwt = require('jsonwebtoken');
+const { sql } = require('../config/db');
 
 /**
  * Xác thực token JWT.
  * Nếu hợp lệ, gắn req.user = { id, role } rồi next().
  * Nếu không hợp lệ, trả 401.
  */
-const authMiddleware = (req, res, next) => {
+const authMiddleware = async (req, res, next) => {
     const authHeader = req.headers['authorization'];
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -31,6 +32,19 @@ const authMiddleware = (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        
+        // KIỂM TRA USER THỰC SỰ TỒN TẠI TRONG DATABASE
+        const request = new sql.Request();
+        request.input('maNguoiDung', sql.Int, decoded.id);
+        const userCheck = await request.query('SELECT maNguoiDung FROM NguoiDung WHERE maNguoiDung = @maNguoiDung');
+        
+        if (userCheck.recordset.length === 0) {
+            return res.status(401).json({
+                success: false,
+                message: 'Tài khoản không tồn tại. Vui lòng đăng nhập lại.'
+            });
+        }
+
         req.user = { id: decoded.id, role: decoded.role };
         next();
     } catch (err) {

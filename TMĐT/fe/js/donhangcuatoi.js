@@ -219,7 +219,7 @@ function renderOrderCard(order) {
                 class="flex-1 md:flex-none px-6 py-2 border border-error text-error font-label-caps rounded hover:bg-error-container/20 transition-colors">
                 TRẢ HÀNG / HOÀN TIỀN
             </button>
-            <button onclick="window.location.href='danhgia.html?id=${order.maDonHang}'"
+            <button onclick="evaluateOrder(${order.maDonHang}, event)"
                 class="flex-1 md:flex-none px-6 py-2 border border-outline text-on-surface font-label-caps rounded hover:bg-surface-variant transition-colors">
                 ĐÁNH GIÁ
             </button>`;
@@ -231,7 +231,7 @@ function renderOrderCard(order) {
             </span>`;
     } else if (order.tenTrangThai === 'Đã hủy') {
         actions = `
-            <button onclick="window.location.href='sanpham.html'"
+            <button onclick="buyAgain(${order.maDonHang}, event)"
                 class="flex-1 md:flex-none px-6 py-2 border border-outline text-on-surface font-label-caps rounded hover:bg-surface-variant transition-colors">
                 MUA LẠI
             </button>`;
@@ -292,6 +292,129 @@ function renderOrderCard(order) {
 // ─── Hủy đơn hàng ────────────────────────────────────────────────────────────
 function cancelOrder(maDonHang) {
     window.location.href = `huydon.html?id=${maDonHang}`;
+}
+
+// ─── Mua lại đơn hàng ────────────────────────────────────────────────────────
+async function buyAgain(maDonHang, event) {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        window.location.href = 'dangnhap.html';
+        return;
+    }
+
+    const btn = event ? event.target : null;
+    let originalText = '';
+    if (btn) {
+        originalText = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = `<span class="material-symbols-outlined animate-spin text-[12px] align-middle mr-1">progress_activity</span> Đang mua lại...`;
+    }
+
+    try {
+        // 1. Lấy thông tin chi tiết đơn hàng cũ để lấy danh sách sản phẩm
+        const res = await fetch(`${API_URL}/orders/${maDonHang}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const json = await res.json();
+
+        if (!json.success || !json.data || !json.data.chiTiet) {
+            showToast('Không thể lấy chi tiết đơn hàng cũ', 'error');
+            if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            }
+            return;
+        }
+
+        const items = json.data.chiTiet;
+        if (items.length === 0) {
+            showToast('Đơn hàng không có sản phẩm nào', 'error');
+            if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            }
+            return;
+        }
+
+        // 2. Thêm từng sản phẩm vào giỏ hàng
+        const addPromises = items.map(item => 
+            fetch(`${API_URL}/cart`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ maSanPham: item.maSanPham, soLuong: item.soLuong })
+            }).then(r => r.json())
+        );
+
+        const results = await Promise.all(addPromises);
+        const allSuccess = results.every(resJson => resJson.success);
+
+        if (allSuccess) {
+            showToast('Đã thêm sản phẩm vào giỏ hàng');
+            if (window.updateCartCount) window.updateCartCount();
+            setTimeout(() => {
+                window.location.href = 'dathang.html';
+            }, 800);
+        } else {
+            showToast('Có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng', 'error');
+            if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            }
+        }
+
+    } catch (err) {
+        console.error('buyAgain error:', err);
+        showToast('Không thể kết nối server', 'error');
+        if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+        }
+    }
+}
+
+// ─── Đánh giá đơn hàng ───────────────────────────────────────────────────────
+async function evaluateOrder(maDonHang, event) {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        window.location.href = 'dangnhap.html';
+        return;
+    }
+
+    const btn = event ? event.target : null;
+    let originalText = '';
+    if (btn) {
+        originalText = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = `<span class="material-symbols-outlined animate-spin text-[12px] align-middle mr-1">progress_activity</span> Đang tải...`;
+    }
+
+    try {
+        const res = await fetch(`${API_URL}/orders/${maDonHang}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const json = await res.json();
+
+        if (json.success && json.data && json.data.chiTiet && json.data.chiTiet.length > 0) {
+            const firstProduct = json.data.chiTiet[0];
+            window.location.href = `danhgia.html?productId=${firstProduct.maSanPham}`;
+        } else {
+            showToast('Không tìm thấy sản phẩm trong đơn hàng để đánh giá', 'error');
+            if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            }
+        }
+    } catch (err) {
+        console.error('evaluateOrder error:', err);
+        showToast('Không thể kết nối server', 'error');
+        if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+        }
+    }
 }
 
 // ─── Cập nhật số lượng đơn trên tab ──────────────────────────────────────────

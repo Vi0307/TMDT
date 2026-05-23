@@ -119,9 +119,10 @@
   </nav>
   <!-- Icons -->
   <div class="flex items-center gap-4">
-    <a href="giohang.html" class="text-[#4A2C2A] hover:bg-stone-100 p-2 rounded-full transition-all block">
-<span class="material-symbols-outlined">shopping_cart</span>
-</a>
+    <a href="giohang.html" class="text-[#4A2C2A] hover:bg-stone-100 p-2 rounded-full transition-all block relative">
+      <span class="material-symbols-outlined">shopping_cart</span>
+      <span id="cart-count" class="absolute top-0 right-0 bg-red-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full hidden">0</span>
+    </a>
     <div class="relative group">
       <button class="text-[#4A2C2A] hover:bg-stone-100 p-2 rounded-full transition-all flex items-center">
         <span class="material-symbols-outlined">account_circle</span>

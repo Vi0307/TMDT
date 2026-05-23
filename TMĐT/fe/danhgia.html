@@ -178,23 +178,19 @@
 <!-- Media Upload Section -->
 <div class="space-y-stack-sm">
 <label class="font-label-caps text-label-caps text-on-surface-variant block">Hình ảnh &amp; Video thực tế</label>
-<div class="grid grid-cols-2 sm:grid-cols-4 gap-gutter">
+<div id="media-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-gutter">
 <!-- Upload Trigger -->
 <label class="cursor-pointer border-2 border-dashed border-outline-variant rounded hover:border-primary hover:bg-primary/5 transition-all aspect-square flex flex-col items-center justify-center group">
-<input class="hidden" multiple="" type="file"/>
+<input id="file-input" class="hidden" multiple="" type="file" accept="image/*,video/*"/>
 <span class="material-symbols-outlined text-outline group-hover:text-primary mb-base">add_a_photo</span>
 <span class="font-label-caps text-[10px] text-outline group-hover:text-primary text-center px-base">Tải ảnh/video</span>
 </label>
-<!-- Placeholder Preview -->
+<!-- Previews will be rendered here -->
 </div>
 <p class="font-label-caps text-[10px] text-outline mt-base">Tối đa 5 ảnh và 1 video. Định dạng: JPG, PNG, MP4.</p>
 </div>
 <!-- Action Section -->
-<div class="pt-stack-md flex flex-col sm:flex-row items-center justify-between gap-stack-md">
-<div class="flex items-center space-x-2">
-<input class="rounded-sm border-outline text-secondary focus:ring-secondary" id="anonymous" type="checkbox"/>
-<label class="font-body-md text-on-surface-variant cursor-pointer" for="anonymous">Đánh giá ẩn danh</label>
-</div>
+<div class="pt-stack-md flex flex-col sm:flex-row items-center justify-end gap-stack-md">
 <button id="btn-submit" class="bg-secondary text-on-primary px-12 py-3 rounded shadow-lg hover:bg-on-secondary-container hover:scale-[1.02] active:scale-95 transition-all font-headline-md text-body-lg" type="button">
                             Gửi đánh giá
                         </button>

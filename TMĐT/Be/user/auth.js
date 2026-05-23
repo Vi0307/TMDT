@@ -66,12 +66,14 @@ router.post('/register', async (req, res) => {
 
         const newUser = insertResult.recordset[0];
 
-        // Tạo ví điện tử cho user mới
+        // Tạo ví điện tử cho user mới với số dư ngẫu nhiên để dễ test (từ 100k đến 1M)
+        const randomSoDu = Math.floor(Math.random() * (1000 - 100 + 1) + 100) * 1000;
         const viReq = new sql.Request();
         viReq.input('maNguoiDung', sql.Int, newUser.maNguoiDung);
+        viReq.input('soDu', sql.Decimal(10, 2), randomSoDu);
         await viReq.query(`
             INSERT INTO ViDienTu (maNguoiDung, soDu, trangThai)
-            VALUES (@maNguoiDung, 0, N'Hoạt động')
+            VALUES (@maNguoiDung, @soDu, N'Hoạt động')
         `);
 
         // Tạo giỏ hàng cho user mới
