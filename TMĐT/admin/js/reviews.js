@@ -120,7 +120,7 @@ async function replyReview(maDanhGia, maPhanHoi, currentTitle, currentContent) {
     if (localImages.length > 0) {
         modalImagesHtml = `
             <div style="margin-top:12px; border-top: 1px dashed #E2E8F0; padding-top: 12px;">
-                <p style="margin-bottom:8px; font-weight:600;">Hình ảnh/Video đính kèm:</p>
+                <p style="margin-bottom:8px; font-weight:600;">Tệp đính kèm:</p>
                 <div style="display:flex;gap:8px;flex-wrap:wrap;">
                     ${localImages.map(img => {
                         const isVideo = img.startsWith('data:video/') || img.includes('.mp4') || img.startsWith('data:application/octet-stream');
