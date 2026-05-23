@@ -112,6 +112,16 @@ function setupSubmitButton() {
             btn.disabled = true;
             btn.textContent = 'Đang gửi...';
 
+            // Đọc tất cả hình ảnh/video sang định dạng Base64
+            const base64Promises = selectedMediaFiles.map(file => {
+                return new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => resolve(e.target.result);
+                    reader.readAsDataURL(file);
+                });
+            });
+            const base64s = await Promise.all(base64Promises);
+
             const res = await fetch(`${API_URL}/reviews`, {
                 method: 'POST',
                 headers: {
@@ -121,14 +131,14 @@ function setupSubmitButton() {
                 body: JSON.stringify({
                     maSanPham: productId,
                     soSao: selectedRating,
-                    binhLuan: binhLuan
+                    binhLuan: binhLuan,
+                    hinhAnh: base64s.length > 0 ? JSON.stringify(base64s) : null
                 })
             });
 
             const json = await res.json();
 
             if (json.success) {
-                await saveReviewImagesLocally(productId);
                 alert('Cảm ơn bạn đã đánh giá sản phẩm!');
                 window.location.href = 'donhangcuatoi.html';
             } else {

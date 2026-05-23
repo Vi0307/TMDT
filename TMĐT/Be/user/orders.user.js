@@ -116,6 +116,37 @@ router.post('/', async (req, res) => {
 
         const tongTien = tongTienHang + parseFloat(phiVanChuyen);
 
+        // Nếu chọn thanh toán qua MoMo (maPTTT = 1) -> Kiểm tra số dư ví điện tử trước khi tạo đơn
+        if (parseInt(maPTTT) === 1) {
+            const walletReq = new sql.Request();
+            walletReq.input('maNguoiDung', sql.Int, req.user.id);
+            const walletResult = await walletReq.query(`
+                SELECT soDu, trangThai FROM ViDienTu WHERE maNguoiDung = @maNguoiDung
+            `);
+
+            if (walletResult.recordset.length === 0) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Tài khoản của bạn chưa được liên kết ví điện tử MoMo.'
+                });
+            }
+
+            const { soDu, trangThai: trangThaiVi } = walletResult.recordset[0];
+            if (trangThaiVi === 'Bị khóa') {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Ví điện tử MoMo của bạn hiện đang bị khóa. Vui lòng liên hệ bộ phận hỗ trợ.'
+                });
+            }
+
+            if (parseFloat(soDu) < tongTien) {
+                return res.status(400).json({
+                    success: false,
+                    message: `Số dư ví điện tử MoMo không đủ để thanh toán (Hiện có: ${Number(soDu).toLocaleString('vi-VN')} VNĐ, Cần thanh toán: ${Number(tongTien).toLocaleString('vi-VN')} VNĐ). Vui lòng nạp thêm hoặc chọn phương thức thanh toán khác.`
+                });
+            }
+        }
+
         // Lấy maTrangThai "Chờ xác nhận" (ORDER)
         const ttReq = new sql.Request();
         const ttResult = await ttReq.query(
@@ -386,7 +417,7 @@ router.put('/:id/cancel', async (req, res) => {
 
         // Kiểm tra đơn hàng và trạng thái hiện tại
         const orderResult = await request.query(`
-            SELECT dh.maDonHang, tt.tenTrangThai
+            SELECT dh.maDonHang, tt.tenTrangThai, dh.tongTien, dh.maPTTT
             FROM DonHang dh
             INNER JOIN TrangThai tt ON dh.maTrangThai = tt.maTrangThai
             WHERE dh.maDonHang = @maDonHang AND dh.maNguoiDung = @maNguoiDung
@@ -396,7 +427,7 @@ router.put('/:id/cancel', async (req, res) => {
             return res.status(404).json({ success: false, message: 'Không tìm thấy đơn hàng.' });
         }
 
-        const { tenTrangThai } = orderResult.recordset[0];
+        const { tenTrangThai, tongTien, maPTTT } = orderResult.recordset[0];
         if (tenTrangThai !== 'Chờ xác nhận') {
             return res.status(400).json({
                 success: false,
@@ -418,6 +449,43 @@ router.put('/:id/cancel', async (req, res) => {
                 lyDoHuy  = @lyDoHuy
             WHERE maDonHang = @maDonHang
         `);
+
+        // Hoàn tiền vào ví điện tử nếu đã thanh toán qua MoMo (maPTTT = 1)
+        if (parseInt(maPTTT) === 1) {
+            const checkPayReq = new sql.Request();
+            checkPayReq.input('maDonHang', sql.Int, req.params.id);
+            const payTx = await checkPayReq.query(`
+                SELECT TOP 1 gd.maGiaoDich, tt.tenTrangThai
+                FROM GiaoDich gd
+                INNER JOIN TrangThai tt ON gd.maTrangThai = tt.maTrangThai
+                WHERE gd.maDonHang = @maDonHang AND gd.loaiGiaoDich = 'PAYMENT'
+            `);
+
+            if (payTx.recordset.length > 0 && payTx.recordset[0].tenTrangThai === 'Thành công') {
+                const refundAmount = parseFloat(tongTien);
+
+                // 1. Cộng tiền lại vào ví điện tử của user
+                const refundWalletReq = new sql.Request();
+                refundWalletReq.input('maNguoiDung', sql.Int, req.user.id);
+                refundWalletReq.input('tongTien', sql.Decimal(10,2), refundAmount);
+                await refundWalletReq.query(`
+                    UPDATE ViDienTu
+                    SET soDu = soDu + @tongTien
+                    WHERE maNguoiDung = @maNguoiDung
+                `);
+
+                // 2. Ghi nhận giao dịch hoàn tiền REFUND ở trạng thái "Thành công"
+                const refundTxReq = new sql.Request();
+                refundTxReq.input('maDonHang', sql.Int, req.params.id);
+                refundTxReq.input('soTien', sql.Decimal(10,2), refundAmount);
+                await refundTxReq.query(`
+                    INSERT INTO GiaoDich (loaiGiaoDich, maTrangThai, soTien, maDonHang)
+                    VALUES ('REFUND', (
+                        SELECT maTrangThai FROM TrangThai WHERE tenTrangThai = N'Thành công' AND loai = 'PAYMENT'
+                    ), @soTien, @maDonHang)
+                `);
+            }
+        }
 
         // Hoàn lại tồn kho
         const itemsReq = new sql.Request();

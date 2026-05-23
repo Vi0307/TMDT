@@ -31,13 +31,46 @@ function renderTable(data) {
         const btnIcon = review.trangThai === 'Đã phản hồi' ? 'ph-eye' : 'ph-chat-teardrop-text';
         const btnTitle = review.trangThai === 'Đã phản hồi' ? 'Xem/Sửa phản hồi' : 'Viết phản hồi';
 
+        // Tải ảnh/video đánh giá từ cột hinhAnh lưu ở cơ sở dữ liệu
+        const localImages = JSON.parse(review.hinhAnh || '[]');
+        
+        let imagesHtml = '';
+        if (localImages.length > 0) {
+            imagesHtml = `
+                <div class="review-images" style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;">
+                    ${localImages.map(img => {
+                        const isVideo = img.startsWith('data:video/') || img.includes('.mp4') || img.startsWith('data:application/octet-stream');
+                        if (isVideo) {
+                            return `
+                                <div style="width:36px;height:36px;background:black;border-radius:4px;overflow:hidden;border:1px solid #E2E8F0;position:relative;cursor:pointer;" onclick="window.open('${img}')">
+                                    <video style="width:100%;height:100%;object-fit:cover;" src="${img}" muted></video>
+                                    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.25)">
+                                        <i class="ph-fill ph-play-circle" style="color:white;font-size:12px;"></i>
+                                    </div>
+                                </div>
+                            `;
+                        } else {
+                            return `
+                                <div style="width:36px;height:36px;border-radius:4px;overflow:hidden;border:1px solid #E2E8F0;cursor:pointer;" onclick="window.open('${img}')">
+                                    <img style="width:100%;height:100%;object-fit:cover;" src="${img}" />
+                                </div>
+                            `;
+                        }
+                    }).join('')}
+                </div>
+            `;
+        }
+
         const tr = document.createElement('tr');
         tr.innerHTML = `
             <td><strong>${index + 1}</strong></td>
             <td>${review.tenKhachHang || ''}</td>
             <td>${review.tenSanPham || ''}</td>
             <td>${getStarsHtml(review.soSao)}</td>
-            <td><div class="review-content">${review.binhLuan || ''}</div></td>
+            <td>
+                <div class="review-content">${review.binhLuan || ''}</div>
+                ${imagesHtml}
+            </td>
             <td><span class="status-badge ${statusClass}">${review.trangThai}</span></td>
             <td class="actions">
                 <button class="btn-action btn-reply"
@@ -80,6 +113,39 @@ async function replyReview(maDanhGia, maPhanHoi, currentTitle, currentContent) {
     const review = allReviews.find(r => r.maDanhGia === maDanhGia);
     if (!review) return;
 
+    // Tải ảnh/video đánh giá từ cột hinhAnh lưu ở cơ sở dữ liệu
+    const localImages = JSON.parse(review.hinhAnh || '[]');
+    
+    let modalImagesHtml = '';
+    if (localImages.length > 0) {
+        modalImagesHtml = `
+            <div style="margin-top:12px; border-top: 1px dashed #E2E8F0; padding-top: 12px;">
+                <p style="margin-bottom:8px; font-weight:600;">Hình ảnh/Video đính kèm:</p>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                    ${localImages.map(img => {
+                        const isVideo = img.startsWith('data:video/') || img.includes('.mp4') || img.startsWith('data:application/octet-stream');
+                        if (isVideo) {
+                            return `
+                                <div style="width:60px;height:60px;background:black;border-radius:4px;overflow:hidden;border:1px solid #CBD5E0;position:relative;cursor:pointer;" onclick="window.open('${img}')">
+                                    <video style="width:100%;height:100%;object-fit:cover" src="${img}" muted></video>
+                                    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.25)">
+                                        <i class="ph-fill ph-play-circle" style="color:white;font-size:16px;"></i>
+                                    </div>
+                                </div>
+                            `;
+                        } else {
+                            return `
+                                <div style="width:60px;height:60px;border-radius:4px;overflow:hidden;border:1px solid #CBD5E0;cursor:pointer;" onclick="window.open('${img}')">
+                                    <img style="width:100%;height:100%;object-fit:cover" src="${img}" />
+                                </div>
+                            `;
+                        }
+                    }).join('')}
+                </div>
+            </div>
+        `;
+    }
+
     const { value: formValues } = await Swal.fire({
         title: isEditing ? 'Chỉnh sửa phản hồi' : 'Viết phản hồi',
         html: `
@@ -89,6 +155,7 @@ async function replyReview(maDanhGia, maPhanHoi, currentTitle, currentContent) {
                     <p><strong>Sản phẩm:</strong> ${review.tenSanPham}</p>
                     <p><strong>Đánh giá:</strong> ${getStarsHtml(review.soSao)}</p>
                     <p><strong>Nội dung:</strong> ${review.binhLuan}</p>
+                    ${modalImagesHtml}
                 </div>
                 <div style="margin-bottom:16px;">
                     <label style="display:block;font-size:15px;font-weight:600;color:#2D3748;margin-bottom:8px;">

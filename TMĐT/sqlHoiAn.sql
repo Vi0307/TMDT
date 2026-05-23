@@ -281,6 +281,7 @@ CREATE TABLE DanhGia (
     maSanPham   NVARCHAR(10) NOT NULL,
     soSao       INT          NOT NULL,
     binhLuan    NVARCHAR(MAX),
+    hinhAnh     NVARCHAR(MAX),
     ngayDanhGia DATETIME     NOT NULL DEFAULT GETDATE(),
     UNIQUE (maNguoiDung, maSanPham),                      -- 1 user chỉ đánh giá 1 lần/sp
     CHECK (soSao BETWEEN 1 AND 5),

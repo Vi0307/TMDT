@@ -42,9 +42,30 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
+    updateBackLinks();
     await loadOrderInfo(orderId);
     setupForm(orderId);
 });
+
+function updateBackLinks() {
+    const params = new URLSearchParams(window.location.search);
+    const fromTab = params.get('fromTab') || 'all';
+    
+    // Nút Quay lại bằng button onclick (cải tiến selector chống lệch nháy đơn/kép)
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(btn => {
+        const clickAttr = btn.getAttribute('onclick');
+        if (clickAttr && clickAttr.includes('donhangcuatoi.html')) {
+            btn.setAttribute('onclick', `window.location.href='donhangcuatoi.html?tab=${fromTab}'`);
+        }
+    });
+
+    // Các thẻ a khác nếu có
+    const backLinks = document.querySelectorAll('a[href*="donhangcuatoi.html"]');
+    backLinks.forEach(link => {
+        link.href = `donhangcuatoi.html?tab=${fromTab}`;
+    });
+}
 
 // ─── Load thông tin đơn hàng ─────────────────────────────────────────────────
 async function loadOrderInfo(orderId) {
@@ -153,7 +174,9 @@ function setupForm(orderId) {
 
             if (json.success) {
                 showToast('✓ ' + json.message, 'success');
-                setTimeout(() => window.location.href = 'donhangcuatoi.html?tab=cancelled', 2000);
+                const params = new URLSearchParams(window.location.search);
+                const fromTab = params.get('fromTab') || 'all';
+                setTimeout(() => window.location.href = `donhangcuatoi.html?tab=${fromTab}`, 2000);
             } else {
                 showToast(json.message || 'Gửi yêu cầu thất bại.', 'error');
                 btnSubmit.disabled = false;
@@ -170,12 +193,14 @@ function setupForm(orderId) {
 
 // ─── Hiển thị lỗi toàn trang ─────────────────────────────────────────────────
 function showError(msg) {
+    const params = new URLSearchParams(window.location.search);
+    const fromTab = params.get('fromTab') || 'all';
     document.querySelector('main').innerHTML = `
         <div class="flex flex-col items-center justify-center py-32 text-center">
             <span class="material-symbols-outlined text-6xl text-on-surface-variant mb-4">error_outline</span>
             <h2 class="font-headline-md text-on-surface mb-2">Không thể thực hiện</h2>
             <p class="text-on-surface-variant mb-6 max-w-md">${msg}</p>
-            <a href="donhangcuatoi.html"
+            <a href="donhangcuatoi.html?tab=${fromTab}"
                class="bg-primary text-white px-6 py-3 rounded font-label-caps hover:opacity-90 transition-opacity">
                 Quay lại đơn hàng của tôi
             </a>

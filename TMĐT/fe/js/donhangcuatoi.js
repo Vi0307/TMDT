@@ -40,6 +40,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     await Promise.all([loadUserInfo(), loadOrders()]);
     
+    setupTabs();
+
     // Xử lý tab từ URL (ví dụ ?tab=cancelled)
     const params = new URLSearchParams(window.location.search);
     const tabParam = params.get('tab');
@@ -48,8 +50,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (tabBtn) {
             switchTab(tabBtn);
         }
-    } else {
-        setupTabs();
     }
 });
 
@@ -215,7 +215,7 @@ function renderOrderCard(order) {
     } else if (order.tenTrangThai === 'Đã giao' && !hasReturn) {
         // Chưa có yêu cầu hoàn → cho phép trả hàng và đánh giá
         actions = `
-            <button onclick="window.location.href='hoanhang.html?id=${order.maDonHang}'"
+            <button onclick="window.location.href='hoanhang.html?id=${order.maDonHang}&fromTab=${currentTab}'"
                 class="flex-1 md:flex-none px-6 py-2 border border-error text-error font-label-caps rounded hover:bg-error-container/20 transition-colors">
                 TRẢ HÀNG / HOÀN TIỀN
             </button>
@@ -250,7 +250,7 @@ function renderOrderCard(order) {
         <div class="order-card bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-surface-variant hover:shadow-md transition-shadow">
             <div class="flex flex-col md:flex-row justify-between md:items-center border-b border-outline-variant pb-4 mb-4 gap-4">
                 <div>
-                    <a href="chitietdonhang.html?id=${order.maDonHang}"
+                    <a href="chitietdonhang.html?id=${order.maDonHang}&fromTab=${currentTab}"
                        class="font-label-caps text-outline hover:text-primary underline transition-colors cursor-pointer">
                         MÃ ĐƠN: #${order.maDonHang}
                     </a>
@@ -279,7 +279,7 @@ function renderOrderCard(order) {
                 </div>
                 <div class="flex flex-wrap gap-3 w-full md:w-auto justify-end">
                     ${actions}
-                    <a href="chitietdonhang.html?id=${order.maDonHang}"
+                    <a href="chitietdonhang.html?id=${order.maDonHang}&fromTab=${currentTab}"
                        class="text-center flex-1 md:flex-none px-6 py-2 bg-secondary text-on-secondary font-label-caps rounded shadow hover:opacity-90 transition-opacity block">
                         CHI TIẾT
                     </a>
@@ -291,7 +291,7 @@ function renderOrderCard(order) {
 
 // ─── Hủy đơn hàng ────────────────────────────────────────────────────────────
 function cancelOrder(maDonHang) {
-    window.location.href = `huydon.html?id=${maDonHang}`;
+    window.location.href = `huydon.html?id=${maDonHang}&fromTab=${currentTab}`;
 }
 
 // ─── Mua lại đơn hàng ────────────────────────────────────────────────────────

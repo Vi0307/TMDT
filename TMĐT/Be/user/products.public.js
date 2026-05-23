@@ -168,6 +168,7 @@ router.get('/:id', async (req, res) => {
                 nd.ten AS tenNguoiDung,
                 dg.soSao,
                 dg.binhLuan,
+                dg.hinhAnh,
                 dg.ngayDanhGia,
                 ph.noiDung AS phanHoiAdmin,
                 ph.ngayTao  AS ngayPhanHoi
