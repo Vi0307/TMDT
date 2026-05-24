@@ -45,40 +45,74 @@ async function fetchProductsBySupplier(maNCC) {
     }
 }
 
-// Tạo HTML options cho dropdown sản phẩm, nhóm theo danh mục
+// Tạo HTML options cho dropdown sản phẩm của nhà cung cấp
 function buildProductOptions(products) {
     if (!products || products.length === 0)
         return `<option value="">-- Chưa có sản phẩm --</option>`;
 
-    // Nhóm theo tenDanhMuc
-    const groups = {};
-    products.forEach(p => {
-        const dm = p.tenDanhMuc || 'Khác';
-        if (!groups[dm]) groups[dm] = [];
-        groups[dm].push(p);
-    });
-
-    let html = `<option value="">-- Chọn sản phẩm --</option>`;
-    for (const [dm, items] of Object.entries(groups)) {
-        html += `<optgroup label="${dm}">`;
-        items.forEach(p => {
-            html += `<option value="${p.maSanPham}">${p.tenSanPham}</option>`;
-        });
-        html += `</optgroup>`;
-    }
-    return html;
+    // Trả về trực tiếp các tùy chọn sản phẩm (không gộp nhóm danh mục hay dòng trống)
+    return products.map(p =>
+        `<option value="${p.maSanPham}">${p.tenSanPham}</option>`
+    ).join('');
 }
 
-// Xử lý khi đổi NCC → cập nhật dropdown sản phẩm
+// Xử lý khi đổi NCC → cập nhật dropdown sản phẩm và tự động chọn sản phẩm & điền thông tin
 async function onNccChange(maNCC) {
     const spEl = document.getElementById('swal-sp');
+    const slEl = document.getElementById('swal-sl');
+    const giaEl = document.getElementById('swal-gia');
     if (!spEl) return;
+
+    if (!maNCC) {
+        spEl.innerHTML = `<option value="">-- Chọn NCC trước --</option>`;
+        spEl.disabled = true;
+        window._currentNccProducts = [];
+        if (slEl) slEl.value = '';
+        if (giaEl) giaEl.value = '';
+        return;
+    }
+
     spEl.innerHTML = `<option value="">Đang tải...</option>`;
     spEl.disabled = true;
 
     const products = await fetchProductsBySupplier(maNCC);
+    window._currentNccProducts = products;
     spEl.innerHTML = buildProductOptions(products);
     spEl.disabled = false;
+
+    // Tự động chọn sản phẩm đầu tiên của NCC và điền thông tin giá gợi ý
+    if (products && products.length > 0) {
+        spEl.value = products[0].maSanPham;
+        if (slEl) slEl.value = 1; // Mặc định số lượng nhập là 1
+        if (giaEl && products[0].giaBan) {
+            // Giá nhập gợi ý = 70% giá bán lẻ, làm tròn đến hàng nghìn
+            const recommendedGia = Math.round((products[0].giaBan * 0.7) / 1000) * 1000;
+            giaEl.value = recommendedGia;
+        }
+    } else {
+        if (slEl) slEl.value = '';
+        if (giaEl) giaEl.value = '';
+    }
+}
+
+// Xử lý khi thay đổi sản phẩm trên dropdown → cập nhật lại giá nhập tự động theo sản phẩm mới chọn
+function onProductChange(maSanPham) {
+    const giaEl = document.getElementById('swal-gia');
+    if (!giaEl) return;
+
+    if (!maSanPham) {
+        giaEl.value = '';
+        return;
+    }
+
+    const products = window._currentNccProducts || [];
+    const product = products.find(p => p.maSanPham === maSanPham);
+    if (product && product.giaBan) {
+        const recommendedGia = Math.round((product.giaBan * 0.7) / 1000) * 1000;
+        giaEl.value = recommendedGia;
+    } else {
+        giaEl.value = '';
+    }
 }
 
 // Render bảng
@@ -97,7 +131,7 @@ function renderTable(data) {
             : '—';
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td><strong>${index + 1}</strong></td>
+            <td><strong>#${r.maPhieuNhap}</strong></td>
             <td>
                 <div style="font-weight:600;color:#2D3748;">${r.tenNCC || r.maNCC}</div>
             </td>
@@ -218,11 +252,12 @@ async function viewDetails(id) {
     }
 }
 
-// Tạo HTML dropdown NCC
+// Tạo HTML dropdown NCC kèm thông tin sản phẩm cung cấp
 function buildSupplierOptions(suppliers, selectedId = null) {
-    return suppliers.map(s =>
-        `<option value="${s.maNCC}" ${s.maNCC == selectedId ? 'selected' : ''}>${s.tenNCC}</option>`
-    ).join('');
+    return suppliers.map(s => {
+        const label = s.tenSanPhamCungCap ? `${s.tenNCC} - ${s.tenSanPhamCungCap}` : s.tenNCC;
+        return `<option value="${s.maNCC}" ${s.maNCC == selectedId ? 'selected' : ''}>${label}</option>`;
+    }).join('');
 }
 
 // Thêm phiếu nhập
@@ -270,13 +305,11 @@ async function addReceipt() {
                 <div>
                     <label style="display:block;font-size:13px;font-weight:600;color:#2D3748;margin-bottom:8px;">
                         Chi tiết sản phẩm
-                        <span style="font-weight:400;color:#A0AEC0;font-size:12px;margin-left:6px;">
-                            (chọn NCC trước để lọc sản phẩm theo danh mục)
-                        </span>
                     </label>
                     <div style="display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:8px;align-items:end;margin-bottom:8px;">
                         <select id="swal-sp" class="swal2-input"
-                            style="margin:0;box-sizing:border-box;border-radius:8px;height:38px;font-size:13px;" disabled>
+                            style="margin:0;box-sizing:border-box;border-radius:8px;height:38px;font-size:13px;"
+                            onchange="onProductChange(this.value)" disabled>
                             <option value="">-- Chọn NCC trước --</option>
                         </select>
                         <input id="swal-sl" type="number" min="1" placeholder="Số lượng"
@@ -415,10 +448,16 @@ function addProductRow() {
     // Cập nhật tổng tiền
     updateTongTien();
 
-    // Reset input
-    spEl.value  = '';
-    slEl.value  = '';
-    giaEl.value = '';
+    // Reset input về trạng thái ban đầu và cho phép chọn lại nhà cung cấp mới
+    const nccEl = document.getElementById('swal-ncc');
+    if (nccEl) {
+        nccEl.value = '';
+        onNccChange('');
+    } else {
+        spEl.value  = '';
+        slEl.value  = '';
+        giaEl.value = '';
+    }
 }
 
 // Xóa dòng sản phẩm khỏi bảng
@@ -513,13 +552,11 @@ async function editReceipt(id) {
                 <div>
                     <label style="display:block;font-size:13px;font-weight:600;color:#2D3748;margin-bottom:8px;">
                         Chi tiết sản phẩm
-                        <span style="font-weight:400;color:#A0AEC0;font-size:12px;margin-left:6px;">
-                            (đổi NCC để lọc lại sản phẩm theo danh mục)
-                        </span>
                     </label>
                     <div style="display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:8px;align-items:end;margin-bottom:8px;">
                         <select id="swal-sp" class="swal2-input"
-                            style="margin:0;box-sizing:border-box;border-radius:8px;height:38px;font-size:13px;">
+                            style="margin:0;box-sizing:border-box;border-radius:8px;height:38px;font-size:13px;"
+                            onchange="onProductChange(this.value)">
                             ${productOptions}
                         </select>
                         <input id="swal-sl" type="number" min="1" placeholder="Số lượng"
@@ -565,6 +602,7 @@ async function editReceipt(id) {
         cancelButtonText: 'Hủy bỏ',
         didOpen: () => {
             window._receiptItems = [];
+            window._currentNccProducts = products;
             if (d.chiTiet && d.chiTiet.length > 0) {
                 d.chiTiet.forEach(item => {
                     window._receiptItems.push({
