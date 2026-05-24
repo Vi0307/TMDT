@@ -67,8 +67,7 @@ router.put('/me', authMiddleware, async (req, res) => {
         let query = 'UPDATE NguoiDung SET ten = @ten, soDienThoai = @soDienThoai, diaChi = @diaChi';
         
         if (matKhau && matKhau.length >= 6) {
-            const hashedPwd = await bcrypt.hash(matKhau, 10);
-            request.input('matKhau', sql.NVarChar(255), hashedPwd);
+            request.input('matKhau', sql.NVarChar(255), matKhau);
             query += ', matKhau = @matKhau';
         }
 
@@ -242,13 +241,10 @@ router.post('/reset-password', async (req, res) => {
 
         const { maOtp, maNguoiDung } = otpResult.recordset[0];
 
-        // Cập nhật mật khẩu (phải hash)
-        const bcrypt = require('bcryptjs');
-        const hashedPwd = await bcrypt.hash(matKhauMoi, 10);
-
+        // Cập nhật mật khẩu (lưu plain text trực tiếp)
         const updateReq = new sql.Request();
         updateReq.input('maNguoiDung', sql.Int,      maNguoiDung);
-        updateReq.input('matKhau',     sql.NVarChar,  hashedPwd);
+        updateReq.input('matKhau',     sql.NVarChar,  matKhauMoi);
         await updateReq.query(
             `UPDATE NguoiDung SET matKhau = @matKhau WHERE maNguoiDung = @maNguoiDung`
         );

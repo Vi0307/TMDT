@@ -19,15 +19,11 @@ const register = async (req, res) => {
             return res.status(400).json({ message: 'Email đã được sử dụng!' });
         }
 
-        // Mã hóa mật khẩu
-        const salt = await bcrypt.genSalt(10);
-        const hashedMatKhau = await bcrypt.hash(matKhau, salt);
-
-        // Lưu người dùng vào DB
+        // Lưu người dùng vào DB (lưu plain text trực tiếp)
         const insertReq = new sql.Request();
         insertReq.input('ten',         sql.NVarChar, ten);
         insertReq.input('email',       sql.NVarChar, email);
-        insertReq.input('matKhau',     sql.NVarChar, hashedMatKhau);
+        insertReq.input('matKhau',     sql.NVarChar, matKhau);
         insertReq.input('soDienThoai', sql.NVarChar, soDienThoai || null);
         insertReq.input('diaChi',      sql.NVarChar, diaChi || null);
 
@@ -107,16 +103,6 @@ const login = async (req, res) => {
         } else {
             // Mật khẩu còn là plain text → so sánh trực tiếp
             isMatch = (matKhau === storedHash);
-
-            if (isMatch) {
-                // Tự động hash lại và lưu vào DB để lần sau dùng bcrypt
-                const hashed = await bcrypt.hash(matKhau, 10);
-                const updateReq = new sql.Request();
-                updateReq.input('id',  sql.Int,      user.maNguoiDung);
-                updateReq.input('pwd', sql.NVarChar,  hashed);
-                await updateReq.query('UPDATE NguoiDung SET matKhau = @pwd WHERE maNguoiDung = @id');
-                console.log(`[Auth] Auto-hashed password for user ${email}`);
-            }
         }
 
         if (!isMatch) {

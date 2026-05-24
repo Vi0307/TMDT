@@ -323,6 +323,22 @@ CREATE TABLE YeuCauHoanHang (
 );
 
 GO
+-- ========================================
+-- 21. Nhà cung cấp - Sản phẩm
+-- ========================================
+CREATE TABLE NCC_SanPham (
+    maNCC      INT          NOT NULL,
+    maSanPham  NVARCHAR(10) NOT NULL,
+
+    PRIMARY KEY (maNCC, maSanPham),
+
+    FOREIGN KEY (maNCC)
+        REFERENCES NhaCungCap(maNCC),
+
+    FOREIGN KEY (maSanPham)
+        REFERENCES SanPham(maSanPham)
+);
+GO
 
 -- ========================================
 -- INSERT DỮ LIỆU MẪU
@@ -497,8 +513,27 @@ GO
 -- 7. NhaCungCap
 INSERT INTO NhaCungCap (tenNCC, email, soDienThoai, diaChi)
 VALUES
-(N'NCC A', 'ncca@gmail.com', '0911000001', N'Hà Nội'),
-(N'NCC B', 'nccb@gmail.com', '0911000002', N'HCM');
+(N'NCC Nguyễn Lâm',     'nguyenlam@gmail.com',      '0911000001', N'Hội An'),
+(N'NCC Minh Phát',      'minhphat@gmail.com',       '0911000002', N'Đà Nẵng'),
+(N'NCC Hoàng Gia',      'hoanggia@gmail.com',       '0911000003', N'Quảng Nam'),
+(N'NCC Phúc An',        'phucan@gmail.com',         '0911000004', N'Huế'),
+(N'NCC Thiên Hương',    'thienhuong@gmail.com',     '0911000005', N'Hội An'),
+(N'NCC Gia Hưng',       'giahung@gmail.com',        '0911000006', N'Đà Nẵng'),
+(N'NCC Bảo Minh',       'baominh@gmail.com',        '0911000007', N'Quảng Ngãi'),
+(N'NCC An Khang',       'ankhang@gmail.com',        '0911000008', N'Hội An'),
+(N'NCC Thành Công',     'thanhcong@gmail.com',      '0911000009', N'Tam Kỳ'),
+(N'NCC Nhật Minh',      'nhatminh@gmail.com',       '0911000010', N'Đà Nẵng'),
+(N'NCC Mỹ Hạnh',        'myhanh@gmail.com',         '0911000011', N'Hội An'),
+(N'NCC Quốc Bảo',       'quocbao@gmail.com',        '0911000012', N'Huế'),
+(N'NCC Thuận Phát',     'thuanphat@gmail.com',      '0911000013', N'Quảng Nam'),
+(N'NCC Minh Tâm',       'minhtam@gmail.com',        '0911000014', N'Đà Nẵng'),
+(N'NCC Hữu Nghị',       'huunghi@gmail.com',        '0911000015', N'Hội An'),
+(N'NCC Gia Phúc',       'giaphuc@gmail.com',        '0911000016', N'Quảng Ngãi'),
+(N'NCC Hoàng Long',     'hoanglong@gmail.com',      '0911000017', N'Hội An'),
+(N'NCC Kim Ngân',       'kimngan@gmail.com',        '0911000018', N'Đà Nẵng'),
+(N'NCC Thành Đạt',      'thanhdat@gmail.com',       '0911000019', N'Quảng Nam'),
+(N'NCC Phú Quý',        'phuquy@gmail.com',         '0911000020', N'Hội An');
+GO
 
 -- 8. PhieuNhap (maNguoiTao = 1 là Admin)
 INSERT INTO PhieuNhap (maNCC, maNguoiTao, ngayNhap, tongTien, ghiChu)
@@ -588,4 +623,28 @@ INSERT INTO YeuCauHoanHang (maDonHang, maNguoiDung, lyDo, maTrangThai)
 VALUES
 (1, 2, N'Sản phẩm bị lỗi khi nhận hàng', 8);
 
+GO
+--21 Nhà cung cấp -Sản phẩm
+INSERT INTO NCC_SanPham (maNCC, maSanPham)
+VALUES
+(1,  'SP01'),
+(2,  'SP02'),
+(3,  'SP03'),
+(4,  'SP04'),
+(5,  'SP05'),
+(6,  'SP06'),
+(7,  'SP07'),
+(8,  'SP08'),
+(9,  'SP09'),
+(10, 'SP10'),
+(11, 'SP11'),
+(12, 'SP12'),
+(13, 'SP13'),
+(14, 'SP14'),
+(15, 'SP15'),
+(16, 'SP16'),
+(17, 'SP17'),
+(18, 'SP18'),
+(19, 'SP19'),
+(20, 'SP20');
 GO

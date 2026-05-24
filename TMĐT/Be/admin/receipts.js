@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
             request.input('search', sql.NVarChar, `%${search}%`);
         }
 
-        query += ` ORDER BY pn.maPhieuNhap DESC`;
+        query += ` ORDER BY pn.maPhieuNhap ASC`;
 
         const result = await request.query(query);
         res.json({ success: true, data: result.recordset });
@@ -36,18 +36,28 @@ router.get('/', async (req, res) => {
     }
 });
 
-// GET /api/admin/receipts/suppliers - Lấy danh sách NCC cho dropdown
+// GET /api/admin/receipts/suppliers - Lấy danh sách NCC cho dropdown kèm tên sản phẩm cung cấp
 router.get('/suppliers', async (req, res) => {
     try {
         const request = new sql.Request();
-        const result = await request.query(`SELECT maNCC, tenNCC FROM NhaCungCap ORDER BY tenNCC`);
+        const result = await request.query(`
+            SELECT 
+                ncc.maNCC, 
+                ncc.tenNCC,
+                STRING_AGG(sp.tenSanPham, ', ') AS tenSanPhamCungCap
+            FROM NhaCungCap ncc
+            LEFT JOIN NCC_SanPham nsp ON ncc.maNCC = nsp.maNCC
+            LEFT JOIN SanPham sp ON nsp.maSanPham = sp.maSanPham
+            GROUP BY ncc.maNCC, ncc.tenNCC
+            ORDER BY ncc.maNCC
+        `);
         res.json({ success: true, data: result.recordset });
     } catch (err) {
         res.status(500).json({ success: false, message: err.message });
     }
 });
 
-// GET /api/admin/receipts/suppliers/:id/products - Sản phẩm thuộc danh mục của NCC
+// GET /api/admin/receipts/suppliers/:id/products - Sản phẩm của NCC (sử dụng bảng trung gian NCC_SanPham)
 router.get('/suppliers/:id/products', async (req, res) => {
     try {
         const request = new sql.Request();
@@ -56,14 +66,15 @@ router.get('/suppliers/:id/products', async (req, res) => {
             SELECT
                 sp.maSanPham,
                 sp.tenSanPham,
-                dm.tenDanhMuc
+                dm.tenDanhMuc,
+                ctsp.gia AS giaBan
             FROM SanPham sp
             INNER JOIN DanhMuc dm          ON sp.maDanhMuc  = dm.maDanhMuc
-            INNER JOIN NhaCungCapDanhMuc ncd ON dm.maDanhMuc = ncd.maDanhMuc
+            INNER JOIN NCC_SanPham nsp     ON sp.maSanPham  = nsp.maSanPham
             INNER JOIN ChiTietSanPham ctsp  ON sp.maSanPham  = ctsp.maSanPham
-            WHERE ncd.maNCC = @maNCC
+            WHERE nsp.maNCC = @maNCC
               AND ctsp.trangThai = N'Đang bán'
-            ORDER BY dm.tenDanhMuc, sp.tenSanPham
+            ORDER BY sp.maSanPham
         `);
         res.json({ success: true, data: result.recordset });
     } catch (err) {
