@@ -112,13 +112,162 @@
         .silk-pattern {
             background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l30 30-30 30L0 30z' fill='%234A2C2A' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
         }
+
+        /* Glassmorphism Header */
+        .glass-header {
+            backdrop-filter: blur(12px) !important;
+            background-color: rgba(250, 249, 246, 0.82) !important;
+        }
+        .dark .glass-header {
+            background-color: rgba(12, 10, 9, 0.82) !important;
+        }
+
+        /* Swaying Decorative Lanterns inside Hero */
+        @keyframes sway-slow {
+            0% { transform: rotate(-3deg); }
+            100% { transform: rotate(3deg); }
+        }
+        @keyframes sway-medium {
+            0% { transform: rotate(-4.5deg); }
+            100% { transform: rotate(4.5deg); }
+        }
+        @keyframes sway-fast {
+            0% { transform: rotate(-6deg); }
+            100% { transform: rotate(6deg); }
+        }
+        .swaying-container {
+            transition: filter 0.3s ease, transform 0.3s ease;
+        }
+        .swaying-container:hover {
+            filter: brightness(1.2) drop-shadow(0 0 15px rgba(255, 186, 71, 0.85));
+        }
+
+        /* Scroll Reveal Systems */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(45px) scale(0.96);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity;
+        }
+        .reveal-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .reveal-delay-75 { transition-delay: 75ms; }
+        .reveal-delay-150 { transition-delay: 150ms; }
+        .reveal-delay-300 { transition-delay: 300ms; }
+        .reveal-delay-450 { transition-delay: 450ms; }
+        .reveal-delay-600 { transition-delay: 600ms; }
+
+        /* 3D Tilt Cards for Key Values */
+        .tilt-card {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+            will-change: transform;
+        }
+        .tilt-inner {
+            transform: translateZ(30px);
+            transform-style: preserve-3d;
+        }
+
+        /* Pulsing Glow Rings on Icons */
+        .glow-ring {
+            position: relative;
+        }
+        .glow-ring::before {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            background: rgba(229, 160, 34, 0.35);
+            z-index: -1;
+            opacity: 0;
+            transform: scale(0.7);
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.6s ease;
+        }
+        .group:hover .glow-ring::before {
+            opacity: 1;
+            transform: scale(1.22);
+        }
+
+        /* Heritage Crafts Showcase Tabs & Transitions */
+        .craft-content-panel {
+            transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        .craft-content-panel.fade-out {
+            opacity: 0;
+            transform: translateY(18px) scale(0.985);
+        }
+        .craft-tab-btn {
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .craft-tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: #b52424;
+            transition: width 0.35s ease, left 0.35s ease;
+        }
+        .craft-tab-btn.active::after {
+            width: 100%;
+            left: 0;
+        }
+
+        /* High-End Glassmorphism values cards */
+        .glass-value-card {
+            background: rgba(251, 249, 244, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(214, 196, 174, 0.4);
+            box-shadow: 0 10px 30px rgba(74, 44, 42, 0.05);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .glass-value-card:hover {
+            border-color: rgba(229, 160, 34, 0.55);
+            box-shadow: 0 20px 40px rgba(74, 44, 42, 0.12);
+        }
+
+        /* Shimmering Button */
+        .btn-shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-shimmer::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 30%;
+            height: 200%;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.35) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(25deg);
+            transition: all 0.75s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .btn-shimmer:hover::after {
+            left: 120%;
+            opacity: 1;
+        }
     </style>
+<script src="js/transition.js"></script>
 </head>
 
 <body class="bg-surface text-on-surface selection:bg-primary-container selection:text-on-primary-container">
     <!-- TopAppBar -->
     <header
-        class="bg-[#FAF9F6] dark:bg-stone-950 border-b border-stone-200 dark:border-stone-800 shadow-sm shadow-stone-900/5 sticky top-0 z-50">
+        class="bg-[#FAF9F6] dark:bg-stone-950 border-b border-stone-200 dark:border-stone-800 shadow-sm shadow-stone-900/5 sticky top-0 z-50 glass-header">
         <div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
             <div class="text-2xl font-serif font-bold text-stone-900 dark:text-amber-500">Hội An Tinh Hoa</div>
             <nav id="main-nav"
@@ -179,135 +328,226 @@
         </script>
     </header>
     <main class="silk-pattern">
-        <!-- Hero Section -->
-        <section class="relative h-[819px] flex items-center justify-center overflow-hidden">
+        <!-- Hero Section (Full-screen Atmospheric Heritage Canvas) -->
+        <section class="relative h-[820px] flex items-center justify-center overflow-hidden bg-[#120c08]">
+            <!-- Atmospheric Full-screen Images Cross-Fade Slider -->
             <div class="absolute inset-0 z-0">
-                <img alt="Ancient town at dusk" class="w-full h-full object-cover opacity-90 scale-105"
-                    data-alt="Atmospheric wide shot of Hoi An ancient town at dusk with glowing yellow lanterns reflected in the quiet river water"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNgMVITSgC8ehLVkh8sBXIuiUDC75pscLgFKBUkeTffXbtAXsEMXFFoPv5fzfLBIoBmWHTDNHC3AP_tHvari9yFz_tUWQ2ty--9w5QJ0YkW7vGSHSk4L6lMHa8m1m-bJQx4OshhtmarZwv-3lYcCOs0qVWC3e-Zw-2rA8Y1j1xfElGO0D2421SOnPjgZvCWtU5NTO8gYziU0UY4Gi5qWjb3_vPoywmjEHmE9pvxQ4-fMfXQ87oLoeEMCpfR0Zt7yE_aURB8-LSB4Y0" />
-                <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#4A2C2A]/20 to-[#F9F5F0]"></div>
+                <!-- Slide Img 1 -->
+                <img id="hero-bg-img-0" alt="Ancient town at dusk" class="hero-bg-img active absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out opacity-100 scale-102"
+                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNgMVITSgC8ehLVkh8sBXIuiUDC75pscLgFKBUkeTffXbtAXsEMXFFoPv5fzfLBIoBmWHTDNHC3AP_tHvari9yFz_tUWQ2ty--9w5QJ0YkW7vGSHSk4L6lMHa8m1m-bJQx4OshhtmarZwv-3lYcCOs0qVWC3e-Zw-2rA8Y1j1xfElGO0D2421SOnPjgZvCWtU5NTO8gYziU0UY4Gi5qWjb3_vPoywmjEHmE9pvxQ4-fMfXQ87oLoeEMCpfR0Zt7yE_aURB8-LSB4Y0" />
+                <!-- Slide Img 2 -->
+                <img id="hero-bg-img-1" alt="Pottery Craft" class="hero-bg-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out opacity-0 scale-102"
+                     src="images/thu_cong_my_nghe.png" />
+                <!-- Slide Img 3 -->
+                <img id="hero-bg-img-2" alt="Lồng đèn lung linh" class="hero-bg-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out opacity-0 scale-102"
+                     src="images/qua_luu_niem.png" />
+                
+                <!-- Gentle warm gradient cover for supreme contrast and readability -->
+                <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/35 to-[#fbf9f4] dark:to-[#0c0a09]"></div>
+                <canvas id="hero-canvas" class="absolute inset-0 z-10 pointer-events-none w-full h-full"></canvas>
             </div>
-            <div class="relative z-10 text-center px-4 max-w-4xl">
-                <span class="font-label-caps text-label-caps text-primary tracking-[0.3em] uppercase block mb-4">Di Sản
-                    &amp; Tâm Huyết</span>
-                <h2 class="font-display-lg text-[48px] md:text-[64px] leading-tight text-[#4A2C2A] mb-6">Nơi Thời Gian
-                    Ngưng Đọng</h2>
-                <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto italic">"Hội An không chỉ
-                    là một điểm đến, đó là một kho tàng ký ức được gìn giữ qua từng sợi tơ, lớp đất sét và ánh đèn lồng
-                    rực rỡ."</p>
+
+            <!-- Hanging String & Swaying Hội An Lanterns (Treo tự nhiên ở góc đỉnh Hero) -->
+            <div class="absolute top-0 left-0 w-full flex justify-center gap-8 md:gap-20 lg:gap-28 z-20 pointer-events-none px-6">
+                <!-- Lantern 1: Red Lotus (Tròn truyền thống) -->
+                <div class="flex flex-col items-center swaying-container" style="animation: sway-slow 4.5s ease-in-out infinite alternate; transform-origin: top center;">
+                    <div class="w-0.5 h-16 bg-[#5a3b00]/70"></div>
+                    <svg class="pointer-events-auto cursor-pointer" width="40" height="70" viewBox="0 0 60 110" fill="none" style="filter: drop-shadow(0 0 8px rgba(181,36,36,0.65));">
+                        <path d="M15 0H45V5H15V0Z" fill="#3a200a"/>
+                        <path d="M5 45C5 15 15 10 30 10C45 10 55 15 55 45C55 75 45 80 30 80C15 80 5 75 5 45Z" fill="#b52424" stroke="#ffba47" stroke-width="1.5"/>
+                        <path d="M18 10C12 30 12 60 18 80" stroke="#ffba47" stroke-width="1" stroke-dasharray="2 2"/>
+                        <path d="M42 10C48 30 48 60 42 80" stroke="#ffba47" stroke-width="1" stroke-dasharray="2 2"/>
+                        <line x1="30" y1="10" x2="30" y2="80" stroke="#ffba47" stroke-width="1" stroke-dasharray="2 2"/>
+                        <path d="M15 80H45V85H15V80Z" fill="#3a200a"/>
+                        <line x1="30" y1="85" x2="30" y2="95" stroke="#ffba47" stroke-width="2"/>
+                        <path d="M25 95 L25 110 M30 95 L30 115 M35 95 L35 110" stroke="#ffba47" stroke-width="1"/>
+                    </svg>
+                </div>
+                <!-- Lantern 2: Amber Diamond (Quả trám) -->
+                <div class="flex flex-col items-center swaying-container" style="animation: sway-medium 3.5s ease-in-out infinite alternate; transform-origin: top center; margin-top: -10px;">
+                    <div class="w-0.5 h-12 bg-[#5a3b00]/70"></div>
+                    <svg class="pointer-events-auto cursor-pointer" width="36" height="74" viewBox="0 0 60 120" fill="none" style="filter: drop-shadow(0 0 10px rgba(229,160,34,0.75));">
+                        <path d="M20 0H40V5H20V0Z" fill="#3a200a"/>
+                        <path d="M30 5 L10 50 L30 95 L50 50 Z" fill="#e5a022" stroke="#b52424" stroke-width="1.5"/>
+                        <path d="M20 5 L20 95" stroke="#b52424" stroke-width="1" stroke-dasharray="2 2"/>
+                        <path d="M40 5 L40 95" stroke="#b52424" stroke-width="1" stroke-dasharray="2 2"/>
+                        <line x1="30" y1="5" x2="30" y2="95" stroke="#b52424" stroke-width="1.5"/>
+                        <path d="M20 95H40V100H20V95Z" fill="#3a200a"/>
+                        <line x1="30" y1="100" x2="30" y2="108" stroke="#b52424" stroke-width="2"/>
+                        <path d="M25 108 L25 120 M30 108 L30 125 M35 108 L35 120" stroke="#b52424" stroke-width="1"/>
+                    </svg>
+                </div>
+                <!-- Lantern 3: Pink Capsule (Ống dẹt dài) -->
+                <div class="flex flex-col items-center swaying-container hidden sm:flex" style="animation: sway-fast 2.8s ease-in-out infinite alternate; transform-origin: top center; margin-top: 15px;">
+                    <div class="w-0.5 h-20 bg-[#5a3b00]/70"></div>
+                    <svg class="pointer-events-auto cursor-pointer" width="32" height="78" viewBox="0 0 50 120" fill="none" style="filter: drop-shadow(0 0 8px rgba(255,90,82,0.65));">
+                        <path d="M15 0H35V4H15V0Z" fill="#3a200a"/>
+                        <path d="M10 25 C10 10 15 10 25 10 C35 10 40 10 40 25 L40 75 C40 90 35 90 25 90 C15 90 10 90 10 75 Z" fill="#ff5a52" stroke="#ffddb0" stroke-width="1.5"/>
+                        <path d="M18 10 L18 90 M32 10 L32 90" stroke="#ffddb0" stroke-width="1" stroke-dasharray="2 2"/>
+                        <line x1="25" y1="10" x2="25" y2="90" stroke="#ffddb0" stroke-width="1" stroke-dasharray="2 2"/>
+                        <path d="M15 90H35V94H15V90Z" fill="#3a200a"/>
+                        <line x1="25" y1="94" x2="25" y2="102" stroke="#ffddb0" stroke-width="2"/>
+                        <path d="M20 102 L20 115 M25 102 L25 120 M30 102 L30 115" stroke="#ffddb0" stroke-width="1"/>
+                    </svg>
+                </div>
+                <!-- Lantern 4: Turquoise Hexagon (Lục giác ngọc bích) -->
+                <div class="flex flex-col items-center swaying-container hidden md:flex" style="animation: sway-slow 4.2s ease-in-out infinite alternate; transform-origin: top center; margin-top: 5px;">
+                    <div class="w-0.5 h-14 bg-[#5a3b00]/70"></div>
+                    <svg class="pointer-events-auto cursor-pointer" width="34" height="72" viewBox="0 0 50 110" fill="none" style="filter: drop-shadow(0 0 8px rgba(229,160,34,0.7));">
+                        <path d="M15 0H35V5H15V0Z" fill="#3a200a"/>
+                        <path d="M25 10 L8 35 L8 75 L25 100 L42 75 L42 35 Z" fill="#e5a022" stroke="#ffddb0" stroke-width="1.5"/>
+                        <line x1="25" y1="10" x2="25" y2="100" stroke="#ffddb0" stroke-width="1"/>
+                        <path d="M15 100H35V105H15V100Z" fill="#3a200a"/>
+                        <line x1="25" y1="105" x2="25" y2="110" stroke="#ffddb0" stroke-width="2"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Slides Text Content Wrapper (Fade & Horizonal Parallax Slide) -->
+            <div class="relative z-20 text-center px-6 max-w-4xl w-full h-[280px] flex items-center justify-center">
+                <!-- Slide Text 1 -->
+                <div class="hero-slide-text active absolute inset-0 flex flex-col items-center justify-center transition-all duration-700 ease-out transform" data-slide="0">
+                    <span class="font-label-caps text-label-caps text-amber-400 tracking-[0.3em] uppercase block mb-4 text-xs md:text-sm drop-shadow">Di Sản &amp; Tâm Huyết</span>
+                    <h2 class="font-display-lg text-[36px] md:text-[60px] leading-tight text-white mb-6 font-bold drop-shadow-md">Nơi Thời Gian Ngưng Đọng</h2>
+                    <p class="font-body-lg text-sm md:text-lg text-stone-200/90 max-w-2xl mx-auto italic leading-relaxed drop-shadow">"Hội An không chỉ là một điểm đến, đó là một kho tàng ký ức được gìn giữ qua từng sợi tơ, lớp đất sét Thanh Hà và ánh đèn lồng rực rỡ."</p>
+                </div>
+
+                <!-- Slide Text 2 -->
+                <div class="hero-slide-text absolute inset-0 flex flex-col items-center justify-center transition-all duration-700 ease-out transform translate-x-12 opacity-0 pointer-events-none" data-slide="1">
+                    <span class="font-label-caps text-label-caps text-amber-400 tracking-[0.3em] uppercase block mb-4 text-xs md:text-sm drop-shadow">Tinh Hoa Kỹ Nghệ</span>
+                    <h2 class="font-display-lg text-[36px] md:text-[60px] leading-tight text-white mb-6 font-bold drop-shadow-md">Hồn Cốt Nghệ Nhân Việt</h2>
+                    <p class="font-body-lg text-sm md:text-lg text-stone-200/90 max-w-2xl mx-auto italic leading-relaxed drop-shadow">"Mỗi tác phẩm thủ công mỹ nghệ là kết tinh trọn vẹn từ đôi bàn tay tài hoa gân guốc, lòng kiên trì sắt son dựng xây linh hồn các giá trị cổ truyền dân tộc."</p>
+                </div>
+
+                <!-- Slide Text 3 -->
+                <div class="hero-slide-text absolute inset-0 flex flex-col items-center justify-center transition-all duration-700 ease-out transform translate-x-12 opacity-0 pointer-events-none" data-slide="2">
+                    <span class="font-label-caps text-label-caps text-amber-400 tracking-[0.3em] uppercase block mb-4 text-xs md:text-sm drop-shadow">Vẻ Đẹp Hoài Cổ</span>
+                    <h2 class="font-display-lg text-[36px] md:text-[60px] leading-tight text-white mb-6 font-bold drop-shadow-md">Ánh Sáng Đêm Phố Cổ</h2>
+                    <p class="font-body-lg text-sm md:text-lg text-stone-200/90 max-w-2xl mx-auto italic leading-relaxed drop-shadow">"Khi màn đêm buông xuống phủ mờ mái ngói rêu phong, hàng nghìn chiếc đèn hoa đăng lung linh soi bóng nước sông Hoài dệt nên câu chuyện thần tiên kỳ ảo khôn nguôi."</p>
+                </div>
+            </div>
+
+            <!-- Sleek Interactive Dots Indicators -->
+            <div class="absolute bottom-12 left-0 w-full flex justify-center items-center gap-8 z-20 pointer-events-auto">
+                <button class="hero-dot active group flex items-center gap-2 focus:outline-none" data-dot="0">
+                    <span class="w-3 h-3 rounded-full bg-[#B22222] shadow-[0_0_8px_#B22222] transition-all duration-300 transform scale-110"></span>
+                    <span class="font-serif text-[11px] tracking-wider text-white font-medium transition-opacity duration-300">01. Di Sản</span>
+                </button>
+                <button class="hero-dot group flex items-center gap-2 focus:outline-none" data-dot="1">
+                    <span class="w-2.5 h-2.5 rounded-full bg-white/50 hover:bg-[#B22222] hover:shadow-[0_0_6px_#B22222] transition-all duration-300"></span>
+                    <span class="font-serif text-[11px] tracking-wider text-white/60 group-hover:text-white transition-opacity duration-300">02. Nghệ Nhân</span>
+                </button>
+                <button class="hero-dot group flex items-center gap-2 focus:outline-none" data-dot="2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-white/50 hover:bg-[#B22222] hover:shadow-[0_0_6px_#B22222] transition-all duration-300"></span>
+                    <span class="font-serif text-[11px] tracking-wider text-white/60 group-hover:text-white transition-opacity duration-300">03. Đêm Sông</span>
+                </button>
             </div>
         </section>
-        <!-- The Artisan Story: Lanterns -->
-        <section class="py-section-gap px-margin-mobile max-w-7xl mx-auto overflow-hidden">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-stack-lg items-center">
-                <div class="space-y-stack-md" data-aos="fade-right">
-                    <div class="w-12 h-px bg-primary mb-4"></div>
-                    <h3 class="font-headline-md text-headline-md text-[#4A2C2A]">Ánh Sáng Từ Đôi Tay Nghệ Nhân</h3>
-                    <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-                        Mỗi chiếc đèn lồng Hội An là một tác phẩm điêu khắc nhỏ. Nghệ nhân bắt đầu với những thanh tre
-                        già, được ngâm kỹ và vót mỏng, tạo nên bộ khung thanh thoát. Phía sau mỗi ánh sáng ấm áp là hàng
-                        giờ tỉ mẩn dán lụa tơ tằm, đảm bảo từng nếp gấp phải thật phẳng, thật đều.
-                    </p>
-                    <p class="font-body-md text-body-md text-on-surface-variant/80">
-                        Chúng tôi hợp tác trực tiếp với các xưởng thủ công gia đình tại phường Minh An, nơi kỹ thuật làm
-                        đèn lồng đã được truyền thừa qua bốn thế hệ, để mang đến những sản phẩm mang đậm hơi thở di sản.
-                    </p>
-                    <button
-                        class="bg-[#B22222] text-[#F9F5F0] px-8 py-3 rounded-lg font-label-caps text-label-caps tracking-widest hover:bg-[#8B0000] transition-colors mt-6">KHÁM
-                        PHÁ BỘ SƯU TẬP</button>
-                </div>
-                <div class="relative group">
-                    <div
-                        class="absolute -inset-4 bg-primary-fixed/20 rounded-full blur-3xl group-hover:bg-primary-fixed/30 transition-all duration-700">
-                    </div>
-                    <img alt="Artisan making lanterns"
-                        class="relative rounded-xl shadow-xl w-full aspect-[4/5] object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500"
-                        data-alt="Close-up of an elderly Vietnamese artisan's hands meticulously stretching colorful silk fabric over a bamboo lantern frame in a sunlit workshop"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSo-rJD2WmAbC9bBfzg1wB2toUsZWkUTf9nGPfC5-ZAzkQLNF9lL6d5Uelf-Cpr0c_y95UOHZXjXUc2geC8f4T82xxh-1lNkciZDKUvADda7fweExVsakylPqJyOYCFd_89jB3KEwXE375nwpzq_BbEnutT7fX6XYGCR9NBfsVqANGhDkRbtPR2t_oVWjcIkFN3bFeWXh71BPwJ7aaf25Kn_0OogP7dU9VgoDl7xl13vFpSWwP3agvrFlbegqT1HNhKX-DjZTC-6ny" />
-                </div>
-            </div>
-        </section>
-        <!-- Pottery Heritage: Asymmetric Layout -->
-        <section class="bg-surface-container-low py-section-gap">
+        <!-- Interactive Heritage Showcase: Ba Làng Nghề Cổ -->
+        <section class="py-section-gap bg-surface-container-low overflow-hidden">
             <div class="max-w-7xl mx-auto px-margin-mobile">
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
-                    <div class="md:col-span-7">
-                        <img alt="Thanh Ha Pottery" class="w-full h-full object-cover rounded-xl shadow-lg"
-                            data-alt="Soft focused image of red clay pottery drying in the sun at Thanh Ha village, with earthy tones and natural textures"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHZrE9yAjbvQbLJnaOf1KYjgNKin9Df_Sq7DiDbpI_Gw3DbNgZtHNqS7WcGbfscgzhU8q2mp9D-GbHictUCdKDM0wq_QnSRpMBLuZauPJqoo8Kfxgn2RUxErrcSrUB6uYZebXGOHsSsvHlaYK2nYbtKtpAnMjYel9Ubp1HYtrVB2oK9NKaw3eZJFgP0yBVNB5bz-RVLbYoqMiYXln4lJYFifvgtyLacF3MshfjtQW-4FCuem-TD2v1h8yRIxFtyKtlHNXnsYuN-h5r" />
-                    </div>
-                    <div
-                        class="md:col-span-5 flex flex-col justify-center p-8 bg-surface rounded-xl shadow-sm border border-outline-variant/30">
-                        <h3 class="font-headline-md text-headline-md text-[#4A2C2A] mb-6">Gốm Thanh Hà: Hồn Đất &amp;
-                            Lửa</h3>
-                        <p class="font-body-lg text-body-lg text-on-surface-variant mb-4">
-                            Dòng sông Thu Bồn không chỉ mang phù sa bồi đắp ruộng đồng mà còn tặng cho người dân Thanh
-                            Hà loại đất sét mịn đặc trưng.
+                <div class="text-center mb-12 reveal-on-scroll">
+                    <span class="font-label-caps text-label-caps text-secondary tracking-[0.2em] uppercase block mb-3">Hành Trình Qua Năm Tháng</span>
+                    <h3 class="font-display-lg text-display-lg text-[#4A2C2A] mb-4">Tinh Hoa Ba Làng Nghề Cổ</h3>
+                    <div class="w-16 h-0.5 bg-[#E5A022] mx-auto"></div>
+                </div>
+
+                <!-- Tab Selectors -->
+                <div class="flex justify-center border-b border-stone-200 dark:border-stone-800 mb-12 max-w-2xl mx-auto reveal-on-scroll reveal-delay-150">
+                    <button class="craft-tab-btn active font-serif text-base md:text-lg text-stone-800 px-6 py-3 font-semibold focus:outline-none craft-tab-btn active" data-tab="pottery">
+                        🏺 Gốm Thanh Hà
+                    </button>
+                    <button class="craft-tab-btn font-serif text-base md:text-lg text-stone-600 px-6 py-3 font-semibold focus:outline-none" data-tab="lantern">
+                        🏮 Lồng Đèn Phố Hội
+                    </button>
+                    <button class="craft-tab-btn font-serif text-base md:text-lg text-stone-600 px-6 py-3 font-semibold focus:outline-none" data-tab="silk">
+                        🧣 Lụa Duy Xuyên
+                    </button>
+                </div>
+
+                <!-- Dynamic Craft Content Container -->
+                <div id="craft-showcase-panel" class="craft-content-panel grid grid-cols-1 md:grid-cols-12 gap-12 items-center reveal-on-scroll reveal-delay-300">
+                    <!-- Text Side -->
+                    <div class="md:col-span-5 space-y-6">
+                        <div class="w-12 h-0.5 bg-primary"></div>
+                        <h4 class="font-display-lg text-[28px] text-[#4A2C2A] leading-tight" id="craft-title">Gốm Thanh Hà: Hồn Đất & Lửa</h4>
+                        <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed" id="craft-desc1">
+                            Dòng sông Thu Bồn không chỉ mang phù sa bồi đắp ruộng đồng mà còn tặng cho người dân Thanh Hà loại đất sét mịn đặc trưng.
                         </p>
-                        <blockquote class="border-l-4 border-primary pl-4 italic text-primary/80 font-body-md mb-4">
-                            "Bàn xoay quay nhanh, đôi tay khéo léo biến những khối đất vô tri thành những bình, những
-                            chén mang hơi thở của đất mẹ."
+                        <blockquote class="border-l-4 border-primary pl-4 italic text-primary/80 font-body-md" id="craft-quote">
+                            "Bàn xoay quay nhanh, đôi tay khéo léo biến những khối đất vô tri thành những bình, những chén mang hơi ấm của đất mẹ."
                         </blockquote>
-                        <p class="font-body-md text-body-md text-on-surface-variant/70 leading-relaxed">
-                            Quy trình nung củi truyền thống tạo nên những biến chuyển màu sắc tự nhiên trên bề mặt gốm,
-                            từ màu cam hồng rực rỡ đến nâu đậm trầm mặc, không sản phẩm nào giống hệt sản phẩm nào.
+                        <p class="font-body-md text-body-md text-on-surface-variant/70 leading-relaxed" id="craft-desc2">
+                            Quy trình nung củi truyền thống tạo nên những biến chuyển màu sắc tự nhiên trên bề mặt gốm, từ màu cam hồng rực rỡ đến nâu đậm trầm mặc, không sản phẩm nào giống hệt sản phẩm nào.
                         </p>
+                        <button class="bg-[#B22222] text-[#F9F5F0] px-8 py-3.5 rounded font-label-caps text-label-caps tracking-widest hover:bg-[#8B0000] transition-all shadow-md btn-shimmer inline-block mt-4" onclick="window.location.href='sanpham.html'">KHÁM PHÁ GỐM SỨ</button>
+                    </div>
+
+                    <!-- Image Side -->
+                    <div class="md:col-span-7 relative group">
+                        <div class="absolute -inset-4 bg-primary-fixed/20 rounded-full blur-3xl group-hover:bg-primary-fixed/30 transition-all duration-700 pointer-events-none"></div>
+                        <img id="craft-img" alt="Gốm Thanh Hà" class="relative rounded-2xl shadow-2xl w-full aspect-[16/10] object-cover transition-all duration-500" src="images/thu_cong_my_nghe.png" />
                     </div>
                 </div>
             </div>
         </section>
         <!-- Values Grid -->
         <section class="py-section-gap px-margin-mobile max-w-7xl mx-auto">
-            <div class="text-center mb-16">
+            <div class="text-center mb-16 reveal-on-scroll">
                 <h3 class="font-headline-md text-headline-md text-[#4A2C2A] mb-2">Giá Trị Cốt Lõi</h3>
                 <div class="w-16 h-1 bg-[#E5A022] mx-auto"></div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                <div class="text-center group">
-                    <div
-                        class="w-16 h-16 bg-primary-fixed rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-sm">
-                        <span class="material-symbols-outlined text-primary text-3xl"
-                            data-icon="volunteer_activism">volunteer_activism</span>
+                <!-- Card 1 -->
+                <div class="glass-value-card p-8 rounded-2xl text-center group tilt-card reveal-on-scroll" style="transform: translateZ(0);">
+                    <div class="tilt-inner space-y-6">
+                        <div class="w-16 h-16 bg-[#e5a022]/15 glow-ring rounded-full flex items-center justify-center mx-auto shadow-inner transition-all duration-500 group-hover:scale-110">
+                            <span class="material-symbols-outlined text-[#e5a022] text-3xl" data-icon="volunteer_activism">volunteer_activism</span>
+                        </div>
+                        <h4 class="font-title-sm text-title-sm text-[#4A2C2A] font-bold">Bảo Tồn Di Sản</h4>
+                        <p class="font-body-md text-body-md text-on-surface-variant/80 px-2">Giữ gìn những kỹ thuật thủ công cổ truyền đang dần mai một theo thời gian.</p>
                     </div>
-                    <h4 class="font-title-sm text-title-sm text-[#4A2C2A] mb-3">Bảo Tồn Di Sản</h4>
-                    <p class="font-body-md text-body-md text-on-surface-variant/80 px-4">Giữ gìn những kỹ thuật thủ công
-                        cổ truyền đang dần mai một theo thời gian.</p>
                 </div>
-                <div class="text-center group">
-                    <div
-                        class="w-16 h-16 bg-primary-fixed rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-sm">
-                        <span class="material-symbols-outlined text-primary text-3xl"
-                            data-icon="auto_awesome">auto_awesome</span>
+
+                <!-- Card 2 -->
+                <div class="glass-value-card p-8 rounded-2xl text-center group tilt-card reveal-on-scroll reveal-delay-150" style="transform: translateZ(0);">
+                    <div class="tilt-inner space-y-6">
+                        <div class="w-16 h-16 bg-[#e5a022]/15 glow-ring rounded-full flex items-center justify-center mx-auto shadow-inner transition-all duration-500 group-hover:scale-110">
+                            <span class="material-symbols-outlined text-[#e5a022] text-3xl" data-icon="auto_awesome">auto_awesome</span>
+                        </div>
+                        <h4 class="font-title-sm text-title-sm text-[#4A2C2A] font-bold">Nghệ Thuật Thủ Công</h4>
+                        <p class="font-body-md text-body-md text-on-surface-variant/80 px-2">Tôn vinh sự tinh xảo và độc bản trong từng sản phẩm được làm từ đôi bàn tay.</p>
                     </div>
-                    <h4 class="font-title-sm text-title-sm text-[#4A2C2A] mb-3">Nghệ Thuật Thủ Công</h4>
-                    <p class="font-body-md text-body-md text-on-surface-variant/80 px-4">Tôn vinh sự tinh xảo và độc bản
-                        trong từng sản phẩm được làm từ đôi bàn tay.</p>
                 </div>
-                <div class="text-center group">
-                    <div
-                        class="w-16 h-16 bg-primary-fixed rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-sm">
-                        <span class="material-symbols-outlined text-primary text-3xl" data-icon="public">public</span>
+
+                <!-- Card 3 -->
+                <div class="glass-value-card p-8 rounded-2xl text-center group tilt-card reveal-on-scroll reveal-delay-300" style="transform: translateZ(0);">
+                    <div class="tilt-inner space-y-6">
+                        <div class="w-16 h-16 bg-[#e5a022]/15 glow-ring rounded-full flex items-center justify-center mx-auto shadow-inner transition-all duration-500 group-hover:scale-110">
+                            <span class="material-symbols-outlined text-[#e5a022] text-3xl" data-icon="public">public</span>
+                        </div>
+                        <h4 class="font-title-sm text-title-sm text-[#4A2C2A] font-bold">Phát Triển Bền Vững</h4>
+                        <p class="font-body-md text-body-md text-on-surface-variant/80 px-2">Sử dụng nguyên liệu tự nhiên và hỗ trợ cộng đồng nghệ nhân địa phương.</p>
                     </div>
-                    <h4 class="font-title-sm text-title-sm text-[#4A2C2A] mb-3">Phát Triển Bền Vững</h4>
-                    <p class="font-body-md text-body-md text-on-surface-variant/80 px-4">Sử dụng nguyên liệu tự nhiên và
-                        hỗ trợ cộng đồng nghệ nhân địa phương.</p>
                 </div>
             </div>
         </section>
         <!-- Quote Banner -->
-        <section class="relative py-24 bg-[#4A2C2A] overflow-hidden">
-            <div class="absolute inset-0 opacity-10 flex items-center justify-center pointer-events-none">
+        <section class="relative py-28 bg-[#18100b] overflow-hidden reveal-on-scroll">
+            <!-- Starry Canvas background -->
+            <canvas id="quote-canvas" class="absolute inset-0 z-0 pointer-events-none w-full h-full"></canvas>
+            
+            <div class="absolute inset-0 opacity-5 flex items-center justify-center pointer-events-none z-10">
                 <span class="material-symbols-outlined text-[300px] text-white"
                     data-icon="history_edu">history_edu</span>
             </div>
-            <div class="relative z-10 max-w-4xl mx-auto px-8 text-center text-[#F9F5F0]">
-                <p class="font-headline-md text-headline-md italic mb-8 leading-relaxed">
+            <div class="relative z-20 max-w-4xl mx-auto px-8 text-center text-[#F9F5F0]">
+                <p class="font-headline-md text-headline-md italic mb-8 leading-relaxed text-amber-100/90">
                     "Chúng tôi không bán hàng hóa, chúng tôi chia sẻ một phần tâm hồn của Hội An. Mỗi đơn hàng của bạn
                     là một sự đóng góp trực tiếp cho sự tồn tại của các làng nghề truyền thống."
                 </p>
                 <div class="w-24 h-px bg-[#E5A022] mx-auto mb-4"></div>
-                <span class="font-label-caps text-label-caps tracking-widest text-[#E5A022]">BAN QUẢN TRỊ
-                    TRANQUILITY</span>
+                <span class="font-label-caps text-label-caps tracking-widest text-[#E5A022] font-semibold">HỘI AN TINH HOA</span>
             </div>
         </section>
     </main>
@@ -396,6 +636,8 @@
             <span class="font-serif text-[10px] font-medium">Tài khoản</span>
         </a>
     </nav>
+    <script src="js/gioithieu.js"></script>
+    
 </body>
 
 </html>

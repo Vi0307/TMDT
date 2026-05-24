@@ -107,11 +107,180 @@
         .textured-bg {
             background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 30c0-16.569 13.431-30 30-30v60c-16.569 0-30-13.431-30-30zM0 30c0 16.569 13.431 30 30 30V0C13.431 0 0 13.431 0 30z' fill='%234a2c2a' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
         }
+
+        /* Ambient Swaying Lanterns inside Hero */
+        @keyframes sway-slow {
+            0% { transform: rotate(-3deg); }
+            100% { transform: rotate(3deg); }
+        }
+        @keyframes sway-medium {
+            0% { transform: rotate(-4.5deg); }
+            100% { transform: rotate(4.5deg); }
+        }
+        @keyframes sway-fast {
+            0% { transform: rotate(-6deg); }
+            100% { transform: rotate(6deg); }
+        }
+        .swaying-container {
+            transition: filter 0.3s ease, transform 0.3s ease;
+        }
+        .swaying-container:hover {
+            filter: brightness(1.2) drop-shadow(0 0 15px rgba(255, 186, 71, 0.85));
+        }
+
+        /* Scroll Reveal System */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity;
+        }
+        .reveal-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Shimmering Button Effect */
+        .btn-shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-shimmer::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 30%;
+            height: 200%;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.3) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(25deg);
+            transition: all 0.75s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .btn-shimmer:hover::after {
+            left: 120%;
+            opacity: 1;
+        }
+
+        /* Glassmorphism Navigation */
+        .glass-header {
+            backdrop-filter: blur(12px) !important;
+            background-color: rgba(250, 249, 246, 0.82) !important;
+        }
+        .dark .glass-header {
+            background-color: rgba(12, 10, 9, 0.82) !important;
+        }
+
+        /* High-End Glassmorphic Scroll Tooltip */
+        .wish-tooltip {
+            position: absolute;
+            background: rgba(253, 251, 247, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 2px solid rgba(229, 160, 34, 0.65);
+            border-radius: 12px;
+            padding: 12px 18px;
+            box-shadow: 0 15px 35px rgba(40, 24, 0, 0.22), inset 0 0 10px rgba(229, 160, 34, 0.1);
+            color: #281800;
+            font-family: 'Noto Serif', serif;
+            font-size: 13.5px;
+            line-height: 1.5;
+            z-index: 99;
+            pointer-events: none;
+            transform: translate(-50%, -100%) translateY(-15px) scale(0.9) rotate(0deg);
+            transition: opacity 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            opacity: 0;
+            max-width: 280px;
+            text-align: center;
+        }
+        .dark .wish-tooltip {
+            background: rgba(24, 20, 15, 0.92);
+            border: 2px solid rgba(229, 160, 34, 0.45);
+            color: #fbf9f4;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(229, 160, 34, 0.05);
+        }
+        .wish-tooltip::before {
+            content: '🏮';
+            position: absolute;
+            top: -12px;
+            left: 12px;
+            font-size: 14px;
+            filter: drop-shadow(0 0 4px #b52424);
+        }
+        .wish-tooltip::after {
+            content: '';
+            position: absolute;
+            bottom: -9px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: 14px;
+            height: 14px;
+            background: rgba(253, 251, 247, 0.92);
+            border-right: 2px solid rgba(229, 160, 34, 0.65);
+            border-bottom: 2px solid rgba(229, 160, 34, 0.65);
+        }
+        .dark .wish-tooltip::after {
+            background: rgba(24, 20, 15, 0.92);
+            border-right: 2px solid rgba(229, 160, 34, 0.45);
+            border-bottom: 2px solid rgba(229, 160, 34, 0.45);
+        }
+
+        /* Glassmorphism components */
+        .glass-modal {
+            background: rgba(27, 28, 25, 0.6);
+            backdrop-filter: blur(8px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .glass-modal.active {
+            opacity: 1;
+        }
+        .glass-modal-content {
+            background: rgba(251, 249, 244, 0.98);
+            border: 1px solid rgba(229, 160, 34, 0.3);
+            box-shadow: 0 24px 60px rgba(40, 24, 0, 0.25);
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .glass-modal.active .glass-modal-content {
+            transform: scale(1);
+        }
+        .dark .glass-modal-content {
+            background: rgba(24, 22, 19, 0.98);
+            border: 1px solid rgba(229, 160, 34, 0.2);
+            color: #fbf9f4;
+        }
+        
+        /* Floating Lantern Animation for Sông Hoài background sparks */
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-800px) scale(0.6);
+                opacity: 0;
+            }
+        }
     </style>
+<script src="js/transition.js"></script>
 </head>
-<body class="bg-surface text-on-surface font-body-md overflow-x-hidden textured-bg">
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden textured-bg relative">
+
 <!-- Top Navigation Bar -->
-<header class="bg-[#FAF9F6] dark:bg-stone-950 border-b border-stone-200 dark:border-stone-800 shadow-sm shadow-stone-900/5 sticky top-0 z-50">
+<header class="bg-[#FAF9F6] dark:bg-stone-950 border-b border-stone-200 dark:border-stone-800 shadow-sm shadow-stone-900/5 sticky top-0 z-50 glass-header">
 <div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
 <a href="trangchu.html" class="text-2xl font-serif font-bold text-stone-900 dark:text-amber-500 hover:opacity-80 transition-opacity">Hội An Tinh Hoa</a>
 <nav id="main-nav" class="hidden md:flex space-x-8 font-serif tracking-wide text-stone-800 dark:text-stone-200">
@@ -146,6 +315,7 @@
 </div>
 <script src="auth.js"></script>
 <script src="js/trangchu.js"></script>
+
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     // Highlight active nav link
@@ -168,19 +338,110 @@ document.addEventListener('DOMContentLoaded', () => {
 <div class="absolute inset-0 z-0">
 <img class="w-full h-full object-cover" data-alt="cinematic shot of Hoi An ancient town at dusk with glowing yellow lanterns reflected in the Hoai river, warm nostalgic atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDCPaJKQjZR0aLZWHhjORzDByK8oLhIdapu9BpNcKgfea0ywqlLbZDw95SSbVJVDxGdA0Zzk1jQtgxUVJNq-AYheTW1kOXkvqiEG8IOM7AK7cudurb6LW6MsCN_oIN1gz5yNJYqB0Bzkvz6deZC1vzfN84RCnw_LVLDSEYE3sIBhIO64mwaMgBlfADDUxSsHzx0lPAY_z3APaW6rKmuZ49jXntEkhf974VJmVSMS3LumYIVtPuYyK6nLzgxR2V2alnbz4mL4kLFVo-"/>
 <div class="absolute inset-0 bg-black/40"></div>
+<canvas id="hero-canvas" class="absolute inset-0 z-10 pointer-events-none w-full h-full"></canvas>
+</div>
+
+<!-- Old Wooden Beam with Swaying Hoi An Lanterns -->
+<div class="absolute top-0 left-0 w-full flex justify-center gap-6 md:gap-14 z-20 pointer-events-none px-6">
+    <!-- Hanging String & Lantern 1: Red Lotus -->
+    <div class="flex flex-col items-center swaying-container" style="animation: sway-slow 4.5s ease-in-out infinite alternate; transform-origin: top center;">
+        <!-- String -->
+        <div class="w-0.5 h-16 bg-[#5a3b00]/85"></div>
+        <!-- Lantern -->
+        <svg class="pointer-events-auto cursor-pointer" width="48" height="85" viewBox="0 0 60 110" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 8px rgba(181,36,36,0.6));">
+            <path d="M15 0H45V5H15V0Z" fill="#3a200a"/>
+            <path d="M5 45C5 15 15 10 30 10C45 10 55 15 55 45C55 75 45 80 30 80C15 80 5 75 5 45Z" fill="#b52424" stroke="#ffba47" stroke-width="1.5"/>
+            <path d="M18 10C12 30 12 60 18 80" stroke="#ffba47" stroke-width="1" stroke-dasharray="2 2"/>
+            <path d="M42 10C48 30 48 60 42 80" stroke="#ffba47" stroke-width="1" stroke-dasharray="2 2"/>
+            <line x1="30" y1="10" x2="30" y2="80" stroke="#ffba47" stroke-width="1" stroke-dasharray="2 2"/>
+            <path d="M15 80H45V85H15V80Z" fill="#3a200a"/>
+            <!-- Tassel -->
+            <line x1="30" y1="85" x2="30" y2="95" stroke="#ffba47" stroke-width="2"/>
+            <path d="M25 95 L25 110 M30 95 L30 115 M35 95 L35 110" stroke="#ffba47" stroke-width="1"/>
+        </svg>
+    </div>
+
+    <!-- Hanging String & Lantern 2: Amber Diamond -->
+    <div class="flex flex-col items-center swaying-container" style="animation: sway-medium 3.5s ease-in-out infinite alternate; transform-origin: top center; margin-top: -10px;">
+        <!-- String -->
+        <div class="w-0.5 h-12 bg-[#5a3b00]/85"></div>
+        <!-- Lantern -->
+        <svg class="pointer-events-auto cursor-pointer" width="44" height="90" viewBox="0 0 60 120" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 10px rgba(229,160,34,0.7));">
+            <path d="M20 0H40V5H20V0Z" fill="#3a200a"/>
+            <path d="M30 5 L10 50 L30 95 L50 50 Z" fill="#e5a022" stroke="#b52424" stroke-width="1.5"/>
+            <path d="M20 5 L20 95" stroke="#b52424" stroke-width="1" stroke-dasharray="2 2"/>
+            <path d="M40 5 L40 95" stroke="#b52424" stroke-width="1" stroke-dasharray="2 2"/>
+            <line x1="30" y1="5" x2="30" y2="95" stroke="#b52424" stroke-width="1.5"/>
+            <path d="M20 95H40V100H20V95Z" fill="#3a200a"/>
+            <!-- Tassel -->
+            <line x1="30" y1="100" x2="30" y2="108" stroke="#b52424" stroke-width="2"/>
+            <path d="M25 108 L25 120 M30 108 L30 125 M35 108 L35 120" stroke="#b52424" stroke-width="1"/>
+        </svg>
+    </div>
+
+    <!-- Hanging String & Lantern 3: Green-Teal Balloon -->
+    <div class="flex flex-col items-center swaying-container" style="animation: sway-fast 3.2s ease-in-out infinite alternate; transform-origin: top center; margin-top: 5px;">
+        <!-- String -->
+        <div class="w-0.5 h-20 bg-[#5a3b00]/85"></div>
+        <!-- Lantern -->
+        <svg class="pointer-events-auto cursor-pointer" width="40" height="90" viewBox="0 0 50 110" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 8px rgba(13,148,136,0.65));">
+            <path d="M12 0H38V4H12V0Z" fill="#3a200a"/>
+            <path d="M7 40C7 15 15 10 25 10C35 10 43 15 43 40C43 65 35 70 25 70C15 70 7 65 7 40Z" fill="#0d9488" stroke="#ffddb0" stroke-width="1.5"/>
+            <path d="M16 10C12 25 12 55 16 70" stroke="#ffddb0" stroke-width="1" stroke-dasharray="2 2"/>
+            <path d="M34 10C38 25 38 55 34 70" stroke="#ffddb0" stroke-width="1" stroke-dasharray="2 2"/>
+            <line x1="25" y1="10" x2="25" y2="70" stroke="#ffddb0" stroke-width="1"/>
+            <path d="M15 70H35V74H15V70Z" fill="#3a200a"/>
+            <!-- Tassel -->
+            <line x1="25" y1="74" x2="25" y2="82" stroke="#ffddb0" stroke-width="2"/>
+            <path d="M20 82 L20 95 M25 82 L25 100 M30 82 L30 95" stroke="#ffddb0" stroke-width="1"/>
+        </svg>
+    </div>
+
+    <!-- Hanging String & Lantern 4: Pink Capsule -->
+    <div class="flex flex-col items-center swaying-container" style="animation: sway-fast 2.8s ease-in-out infinite alternate; transform-origin: top center; margin-top: 10px;">
+        <!-- String -->
+        <div class="w-0.5 h-18 bg-[#5a3b00]/85"></div>
+        <!-- Lantern -->
+        <svg class="pointer-events-auto cursor-pointer" width="40" height="95" viewBox="0 0 50 120" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 8px rgba(255,90,82,0.6));">
+            <path d="M15 0H35V4H15V0Z" fill="#3a200a"/>
+            <path d="M10 25 C10 10 15 10 25 10 C35 10 40 10 40 25 L40 75 C40 90 35 90 25 90 C15 90 10 90 10 75 Z" fill="#ff5a52" stroke="#ffddb0" stroke-width="1.5"/>
+            <path d="M18 10 L18 90 M32 10 L32 90" stroke="#ffddb0" stroke-width="1" stroke-dasharray="2 2"/>
+            <line x1="25" y1="10" x2="25" y2="90" stroke="#ffddb0" stroke-width="1" stroke-dasharray="2 2"/>
+            <path d="M15 90H35V94H15V90Z" fill="#3a200a"/>
+            <!-- Tassel -->
+            <line x1="25" y1="94" x2="25" y2="102" stroke="#ffddb0" stroke-width="2"/>
+            <path d="M20 102 L20 115 M25 102 L25 120 M30 102 L30 115" stroke="#ffddb0" stroke-width="1"/>
+        </svg>
+    </div>
+
+    <!-- Hanging String & Lantern 5: Orange Diamond -->
+    <div class="flex flex-col items-center swaying-container hidden md:flex" style="animation: sway-slow 4.0s ease-in-out infinite alternate; transform-origin: top center; margin-top: -5px;">
+        <!-- String -->
+        <div class="w-0.5 h-14 bg-[#5a3b00]/85"></div>
+        <!-- Lantern -->
+        <svg class="pointer-events-auto cursor-pointer" width="42" height="85" viewBox="0 0 60 115" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 9px rgba(245,158,11,0.7));">
+            <path d="M18 0H42V5H18V0Z" fill="#3a200a"/>
+            <path d="M30 5 L12 40 L12 65 L30 100 L48 65 L48 40 Z" fill="#f59e0b" stroke="#b52424" stroke-width="1.5"/>
+            <line x1="30" y1="5" x2="30" y2="100" stroke="#b52424" stroke-width="1.5"/>
+            <path d="M18 100H42V105H18V100Z" fill="#3a200a"/>
+            <!-- Tassel -->
+            <line x1="30" y1="105" x2="30" y2="112" stroke="#b52424" stroke-width="2"/>
+            <path d="M25 112 L25 125 M30 112 L30 128 M35 112 L35 125" stroke="#b52424" stroke-width="1"/>
+        </svg>
+    </div>
 </div>
 <div class="relative z-10 text-center px-6 max-w-5xl">
 <span class="font-label-caps text-label-caps text-primary-fixed mb-base block uppercase tracking-[0.3em]">Hơi Thở Di Sản</span>
 <h1 class="font-display-lg text-[48px] md:text-[64px] text-white leading-tight mb-stack-md whitespace-nowrap">Gói Trọn Tinh Hoa Phố Cổ</h1>
 <p class="font-body-lg text-white/90 mb-stack-lg italic">Khám phá vẻ đẹp thủ công truyền thống được chế tác bởi những nghệ nhân bậc thầy từ lòng Hội An.</p>
 <div class="flex flex-col sm:flex-row gap-gutter justify-center">
-<button class="bg-secondary text-on-secondary px-8 py-4 rounded font-label-caps text-label-caps hover:bg-secondary-container transition-colors shadow-lg">KHÁM PHÁ NGAY</button>
-<button class="border border-white text-white px-8 py-4 rounded font-label-caps text-label-caps hover:bg-white/10 transition-colors">TÌM HIỂU DI SẢN</button>
+<button class="bg-secondary text-on-secondary px-8 py-4 rounded font-label-caps text-label-caps hover:bg-secondary-container transition-colors shadow-lg btn-shimmer">KHÁM PHÁ NGAY</button>
+<button class="border border-white text-white px-8 py-4 rounded font-label-caps text-label-caps hover:bg-white/10 transition-colors btn-shimmer">TÌM HIỂU DI SẢN</button>
 </div>
 </div>
 </section>
 <!-- Category Bento Grid -->
-<section class="py-section-gap px-6 max-w-7xl mx-auto">
+<section class="py-section-gap px-6 max-w-7xl mx-auto reveal-on-scroll">
 <div class="text-center mb-stack-lg">
 <h2 class="font-display-lg text-display-lg text-on-surface mb-base">Danh Mục Tuyển Chọn</h2>
 <div class="w-16 h-0.5 bg-secondary mx-auto"></div>
@@ -190,7 +451,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 </section>
 <!-- New Arrivals Section -->
-<section class="bg-surface-container py-section-gap">
+<section class="bg-surface-container py-section-gap reveal-on-scroll">
 <div class="max-w-7xl mx-auto px-6">
 <div class="flex justify-between items-end mb-stack-lg">
 <div>
@@ -206,8 +467,93 @@ document.addEventListener('DOMContentLoaded', () => {
 </section>
 </div>
 </section>
+
+<!-- Interactive Sông Hoài Night Lantern Wishes Section -->
+<section class="relative bg-[#0d1527] py-section-gap overflow-hidden reveal-on-scroll">
+    <!-- Starry background stars -->
+    <div class="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#132349] via-[#090d1a] to-[#04060c]"></div>
+    
+    <!-- Silhouette background of Hoi An ancient houses at the top of the river -->
+    <div class="absolute top-0 left-0 w-full h-[60px] opacity-15 pointer-events-none z-10" style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 120%22><path d=%22M0,80 L40,65 L80,75 L120,55 L160,70 L200,60 L240,65 L280,45 L320,55 L360,75 L400,60 L440,70 L480,50 L520,60 L560,40 L600,65 L640,55 L680,60 L720,40 L760,50 L800,65 L840,45 L880,55 L920,60 L960,45 L1000,55 L1040,65 L1080,45 L1120,55 L1160,65 L1200,50 L1200,120 L0,120 Z%22 fill=%22%23ffba47%22/></svg>'); background-repeat: repeat-x; background-size: contain;"></div>
+
+    <div class="max-w-7xl mx-auto px-6 relative z-20 text-center">
+        <div class="mb-8">
+            <span class="font-label-caps text-label-caps text-primary-fixed-dim uppercase tracking-[0.25em] block mb-2">Trải Nghiệm Văn Hóa Tương Tác</span>
+            <h2 class="font-display-lg text-display-lg text-white mb-4">Sông Hoài Đêm Hoa Đăng</h2>
+            <div class="w-16 h-0.5 bg-primary-fixed-dim mx-auto mb-4"></div>
+            <p class="font-body-lg text-stone-300 max-w-2xl mx-auto italic">
+                Hãy gửi một điều ước bình an, may mắn để thả chiếc đèn hoa đăng lung linh lững lờ trôi xuôi dòng sông Hoài thơ mộng.
+            </p>
+        </div>
+
+        <!-- HTML5 Canvas River Container -->
+        <div class="relative w-full h-[360px] md:h-[420px] bg-[#080d1a]/60 border border-stone-800 rounded-xl overflow-hidden shadow-2xl">
+            <canvas id="river-canvas" class="w-full h-full cursor-pointer block"></canvas>
+            
+            <!-- Custom wish tooltip dynamically positioned via JS -->
+            <div id="wish-tooltip" class="wish-tooltip">
+                <div class="font-serif italic font-bold text-amber-600 mb-1" id="tooltip-author">Mai Lan</div>
+                <div class="text-stone-800" id="tooltip-text">"Cầu mong gia đình bình an"</div>
+            </div>
+
+            <!-- Absolute overlay controls in canvas corners -->
+            <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col sm:flex-row items-center gap-4">
+                <button id="btn-open-wish" class="bg-primary-container text-on-primary-fixed font-bold px-8 py-3.5 rounded-full font-label-caps text-label-caps hover:bg-white hover:scale-105 active:scale-95 transition-all shadow-xl glow-pulse flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[18px]">gavel</span>
+                    THẢ ĐÈN CẦU NGUYỆN
+                </button>
+            </div>
+            
+            <div class="absolute top-4 right-4 flex items-center gap-2 bg-stone-900/60 backdrop-blur-md px-3 py-1.5 rounded-full text-xs text-amber-400 border border-stone-800">
+                <span class="material-symbols-outlined text-[14px] animate-spin">progress_activity</span>
+                <span>Di chuột vào đèn hoa đăng để xem điều ước</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Glassmorphism Wish Modal -->
+<div id="wish-modal" class="fixed inset-0 z-50 flex items-center justify-center glass-modal pointer-events-none opacity-0">
+    <div class="glass-modal-content w-full max-w-md p-8 rounded-2xl mx-4 transition-all">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="font-display-lg text-[22px] text-stone-900 dark:text-amber-500 font-bold">Thả Hoa Đăng Ước Nguyện</h3>
+            <button id="btn-close-modal" class="text-stone-500 hover:text-stone-800 dark:hover:text-stone-100 transition-colors p-1 rounded-full hover:bg-stone-100 dark:hover:bg-stone-800">
+                <span class="material-symbols-outlined align-middle">close</span>
+            </button>
+        </div>
+        
+        <form id="wish-form" class="space-y-5">
+            <div>
+                <label for="wish-name" class="block font-serif text-sm font-medium text-stone-700 dark:text-stone-300 mb-1.5">Tên hoặc biệt danh của bạn</label>
+                <input type="text" id="wish-name" required max="20" class="w-full bg-white/50 dark:bg-stone-900/50 border border-stone-300 dark:border-stone-700 rounded-lg px-4 py-2.5 text-stone-900 dark:text-stone-100 focus:ring-2 focus:ring-amber-500 outline-none transition-all" placeholder="Ví dụ: Mai Lan, Hoài Nam...">
+            </div>
+            
+            <div>
+                <label for="wish-content" class="block font-serif text-sm font-medium text-stone-700 dark:text-stone-300 mb-1.5">Lời cầu nguyện / Ước nguyện</label>
+                <textarea id="wish-content" required max="120" rows="3" class="w-full bg-white/50 dark:bg-stone-900/50 border border-stone-300 dark:border-stone-700 rounded-lg px-4 py-2.5 text-stone-900 dark:text-stone-100 focus:ring-2 focus:ring-amber-500 outline-none transition-all resize-none" placeholder="Hãy viết những lời chúc bình an, may mắn cho gia đình và người thân..."></textarea>
+            </div>
+            
+            <!-- Quick Suggestion Tags -->
+            <div>
+                <span class="block text-xs font-serif text-stone-500 dark:text-stone-400 mb-2">Gợi ý điều ước truyền thống:</span>
+                <div class="flex flex-wrap gap-2" id="wish-suggestions">
+                    <button type="button" class="suggestion-tag bg-stone-100 dark:bg-stone-800 hover:bg-amber-100 dark:hover:bg-amber-950/40 text-stone-600 dark:text-stone-400 text-xs px-2.5 py-1.5 rounded transition-all">✨ Gia đình bình an</button>
+                    <button type="button" class="suggestion-tag bg-stone-100 dark:bg-stone-800 hover:bg-amber-100 dark:hover:bg-amber-950/40 text-stone-600 dark:text-stone-400 text-xs px-2.5 py-1.5 rounded transition-all">🏮 Vạn sự hanh thông</button>
+                    <button type="button" class="suggestion-tag bg-stone-100 dark:bg-stone-800 hover:bg-amber-100 dark:hover:bg-amber-950/40 text-stone-600 dark:text-stone-400 text-xs px-2.5 py-1.5 rounded transition-all">💼 Công việc phát đạt</button>
+                    <button type="button" class="suggestion-tag bg-stone-100 dark:bg-stone-800 hover:bg-amber-100 dark:hover:bg-amber-950/40 text-stone-600 dark:text-stone-400 text-xs px-2.5 py-1.5 rounded transition-all">🎓 Học hành tấn tới</button>
+                </div>
+            </div>
+            
+            <div class="pt-4 border-t border-stone-200 dark:border-stone-800 flex justify-end gap-3">
+                <button type="button" id="btn-cancel-wish" class="px-5 py-2.5 rounded font-label-caps text-[11px] text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors">HỦY BỎ</button>
+                <button type="submit" class="bg-secondary text-white px-6 py-2.5 rounded font-label-caps text-[11px] hover:bg-secondary-container transition-colors shadow-md btn-shimmer">THẢ HOA ĐĂNG</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <!-- Heritage Story Section -->
-<section class="py-section-gap px-6 max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12">
+<section class="py-section-gap px-6 max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12 reveal-on-scroll">
 <div class="flex-1">
 <div class="relative">
 <img class="rounded-lg shadow-2xl relative z-10" data-alt="elderly Vietnamese artisan with weathered hands meticulously painting a lantern frame" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvvpogS0FtJy_Bc_d6xYqBkp8r7imbGLdDfZX5XWTIfhN_bF_eQ4r6o5sK-8EQEkLyEC364MTa6uTfvK1L356ep-y7nPcJIpD8u32wEj5MMNURQhWsDMfGmqG9Eyv8tlQUX89LXSG6OrwgdRXiH6jxIpwWple2w8fBrEUtEjJX1VPTRiBCMqHE2w4IWUdiDdit3hjLGE3corZX795gMdZnZcphKtD7YX0SQU1SSVgHAKZyEUshToZFBQunXySrLfYVgqR3wqSSVN1F"/>
