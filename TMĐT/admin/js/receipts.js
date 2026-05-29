@@ -5,7 +5,7 @@ const searchInput = document.getElementById('searchInput');
 
 // Lấy danh sách phiếu nhập
 async function loadReceipts(search = '') {
-    receiptTableBody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:40px;color:#A0AEC0;">Đang tải...</td></tr>`;
+    receiptTableBody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:40px;color:#A0AEC0;">Đang tải...</td></tr>`;
     try {
         const url = search ? `${API_URL}?search=${encodeURIComponent(search)}` : API_URL;
         const res = await fetch(url);
@@ -14,11 +14,11 @@ async function loadReceipts(search = '') {
         if (json.success) {
             renderTable(json.data);
         } else {
-            receiptTableBody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:red;padding:40px;">Lỗi: ${json.message}</td></tr>`;
+            receiptTableBody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:red;padding:40px;">Lỗi: ${json.message}</td></tr>`;
         }
     } catch (err) {
         console.error('loadReceipts error:', err);
-        receiptTableBody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:red;padding:40px;">Không thể kết nối server. (${err.message})</td></tr>`;
+        receiptTableBody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:red;padding:40px;">Không thể kết nối server. (${err.message})</td></tr>`;
     }
 }
 
@@ -448,15 +448,15 @@ function addProductRow() {
     // Cập nhật tổng tiền
     updateTongTien();
 
-    // Reset input về trạng thái ban đầu và cho phép chọn lại nhà cung cấp mới
+    // Reset input sản phẩm
+    spEl.value  = '';
+    slEl.value  = '';
+    giaEl.value = '';
+
+    // Khóa trường nhà cung cấp để tránh chọn sai NCC khác
     const nccEl = document.getElementById('swal-ncc');
     if (nccEl) {
-        nccEl.value = '';
-        onNccChange('');
-    } else {
-        spEl.value  = '';
-        slEl.value  = '';
-        giaEl.value = '';
+        nccEl.disabled = true;
     }
 }
 
@@ -466,7 +466,7 @@ function removeProductRow(maSanPham) {
     const row = document.getElementById(`row-${maSanPham}`);
     if (row) row.remove();
 
-    // Nếu hết sản phẩm → hiện lại dòng trống
+    // Nếu hết sản phẩm → hiện lại dòng trống và mở khóa chọn nhà cung cấp
     if (window._receiptItems.length === 0) {
         const tbody = document.getElementById('product-tbody');
         if (tbody) {
@@ -477,6 +477,10 @@ function removeProductRow(maSanPham) {
                     </td>
                 </tr>
             `;
+        }
+        const nccEl = document.getElementById('swal-ncc');
+        if (nccEl) {
+            nccEl.disabled = false;
         }
     }
     updateTongTien();

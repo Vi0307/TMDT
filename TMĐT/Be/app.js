@@ -37,6 +37,7 @@ app.use('/api/admin/receipts',   require('./admin/receipts'));
 app.use('/api/admin/orders',     require('./admin/orders'));
 app.use('/api/admin/reviews',    require('./admin/reviews'));
 app.use('/api/admin/returns',    require('./admin/returns'));
+app.use('/api/admin/reports',    require('./admin/reports'));
 
 // ─────────────────────────────────────────────
 // AUTH routes
