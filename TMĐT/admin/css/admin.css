@@ -17,6 +17,9 @@ body {
 /* Sidebar */
 .sidebar {
     width: 280px;
+    min-width: 280px;
+    height: 100vh;
+    flex-shrink: 0;
     background-color: #FFFFFF;
     display: flex;
     flex-direction: column;
@@ -306,3 +309,11 @@ tr:last-child td {
     color: #E53E3E;
 }
 .btn-delete:hover { border-color: #E53E3E; background: #FFF5F5; }
+
+/* Ngăn chặn hoàn toàn SweetAlert2 làm thay đổi chiều cao hoặc dịch chuyển ngang (padding-right) của giao diện */
+html.swal2-shown, body.swal2-shown,
+html.swal2-height-auto, body.swal2-height-auto {
+    height: 100vh !important;
+    overflow: hidden !important;
+    padding-right: 0 !important;
+}
