@@ -43,6 +43,60 @@ router.get('/', async (req, res) => {
     }
 });
 
+// GET /api/admin/returns/:id - Lấy chi tiết yêu cầu hoàn hàng đầy đủ
+router.get('/:id', async (req, res) => {
+    try {
+        const request = new sql.Request();
+        request.input('id', sql.Int, req.params.id);
+
+        const returnRes = await request.query(`
+            SELECT 
+                yc.maYeuCau,
+                yc.maDonHang,
+                yc.lyDo,
+                yc.ghiChu,
+                yc.ngayYeuCau,
+                tt.tenTrangThai,
+                nd.ten AS tenKhachHang,
+                nd.soDienThoai,
+                nd.email,
+                pt.phuongThuc
+            FROM YeuCauHoanHang yc
+            INNER JOIN TrangThai tt ON yc.maTrangThai = tt.maTrangThai AND tt.loai = 'RETURN'
+            LEFT JOIN NguoiDung nd ON yc.maNguoiDung = nd.maNguoiDung
+            LEFT JOIN DonHang dh ON yc.maDonHang = dh.maDonHang
+            LEFT JOIN PhuongThucThanhToan pt ON dh.maPTTT = pt.maPTTT
+            WHERE yc.maYeuCau = @id
+        `);
+
+        if (returnRes.recordset.length === 0) {
+            return res.status(404).json({ success: false, message: 'Không tìm thấy yêu cầu hoàn hàng' });
+        }
+
+        const returnInfo = returnRes.recordset[0];
+        
+        // Lấy danh sách sản phẩm trong đơn hàng
+        const productsRequest = new sql.Request();
+        productsRequest.input('maDonHang', sql.Int, returnInfo.maDonHang);
+        const productsRes = await productsRequest.query(`
+            SELECT 
+                ct.maSanPham,
+                sp.tenSanPham,
+                ct.soLuong,
+                ct.gia
+            FROM ChiTietDonHang ct
+            INNER JOIN SanPham sp ON ct.maSanPham = sp.maSanPham
+            WHERE ct.maDonHang = @maDonHang
+        `);
+
+        returnInfo.sanPham = productsRes.recordset;
+
+        res.json({ success: true, data: returnInfo });
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+});
+
 // PUT /api/admin/returns/:id/approve - Xác nhận hoàn hàng
 router.put('/:id/approve', async (req, res) => {
     try {

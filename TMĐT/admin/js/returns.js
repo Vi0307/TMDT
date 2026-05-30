@@ -69,28 +69,128 @@ async function loadReturns() {
 }
 
 // Xem chi tiết
-function viewReturn(maYeuCau) {
-    const req = allReturns.find(r => r.maYeuCau === maYeuCau);
-    if (!req) return;
+async function viewReturn(maYeuCau) {
+    try {
+        const res = await fetch(`http://localhost:3005/api/admin/returns/${maYeuCau}`);
+        const json = await res.json();
+        
+        if (!json.success) {
+            Swal.fire('Lỗi!', json.message || 'Không thể lấy thông tin chi tiết.', 'error');
+            return;
+        }
 
-    const ngay = req.ngayYeuCau ? new Date(req.ngayYeuCau).toLocaleDateString('vi-VN') : '—';
+        const req = json.data;
+        const ngay = req.ngayYeuCau ? new Date(req.ngayYeuCau).toLocaleDateString('vi-VN') : '—';
 
-    Swal.fire({
-        title: 'Chi tiết yêu cầu hoàn hàng',
-        html: `
-            <div style="text-align:left;background:#F7FAFC;border-radius:10px;padding:16px;font-size:14px;color:#4A5568;">
-                <p><strong>Mã Đơn:</strong> #${req.maDonHang}</p>
-                <p><strong>Khách hàng:</strong> ${req.tenKhachHang || ''}</p>
-                <p><strong>Lý do:</strong> ${req.lyDo || ''}</p>
-                <p><strong>Ghi chú:</strong> ${req.ghiChu || 'Không có'}</p>
-                <p><strong>Ngày yêu cầu:</strong> ${ngay}</p>
-                <p><strong>Trạng thái:</strong> ${req.tenTrangThai}</p>
-            </div>
-        `,
-        confirmButtonColor: '#5C4033',
-        confirmButtonText: 'Đóng',
-        width: 600
-    });
+        // Render danh sách sản phẩm thành các hàng bảng
+        let productsHtml = '';
+        if (req.sanPham && req.sanPham.length > 0) {
+            productsHtml = req.sanPham.map(sp => {
+                const dongia = Number(sp.gia).toLocaleString('vi-VN') + ' đ';
+                const thanhtien = (Number(sp.gia) * Number(sp.soLuong)).toLocaleString('vi-VN') + ' đ';
+                return `
+                    <tr>
+                        <td style="text-align: left;"><strong>${sp.tenSanPham}</strong></td>
+                        <td style="text-align: center;">${sp.soLuong}</td>
+                        <td style="text-align: right;">${dongia}</td>
+                        <td style="text-align: right; color:#B52424; font-weight:700;">${thanhtien}</td>
+                    </tr>
+                `;
+            }).join('');
+        } else {
+            productsHtml = `<tr><td colspan="4" style="text-align:center;color:#A0AEC0;padding:16px;">Không có sản phẩm nào</td></tr>`;
+        }
+
+        const isPending = req.tenTrangThai === 'Chờ duyệt hoàn';
+        
+        Swal.fire({
+            html: `
+                <div class="hoan-modal">
+                    <!-- Header -->
+                    <div class="hoan-header">
+                        <h3 class="hoan-title">Chi tiết đơn hoàn hàng - <span>DH00${req.maDonHang}</span></h3>
+                    </div>
+                    
+                    <!-- Thông tin khách hàng -->
+                    <div class="hoan-section">
+                        <h4 class="section-title"><i class="ph ph-user-circle"></i> Thông tin khách hàng</h4>
+                        <div class="section-card hoan-grid-2">
+                            <div>
+                                <p class="info-label">Họ và tên</p>
+                                <p class="info-value">${req.tenKhachHang || 'Khách hàng'}</p>
+                            </div>
+                            <div>
+                                <p class="info-label">Số điện thoại</p>
+                                <p class="info-value"><i class="ph ph-phone text-stone-400"></i> ${req.soDienThoai || '—'}</p>
+                            </div>
+                            <div style="grid-column: span 2; margin-top: 10px;">
+                                <p class="info-label">Email</p>
+                                <p class="info-value"><i class="ph ph-envelope text-stone-400"></i> ${req.email || '—'}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thông tin sản phẩm -->
+                    <div class="hoan-section">
+                        <h4 class="section-title"><i class="ph ph-package"></i> Thông tin sản phẩm</h4>
+                        <div class="section-card" style="padding: 0; overflow: hidden;">
+                            <table class="hoan-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 45%; text-align: left;">Sản phẩm</th>
+                                        <th style="width: 15%; text-align: center;">Số lượng</th>
+                                        <th style="width: 20%; text-align: right;">Đơn giá</th>
+                                        <th style="width: 20%; text-align: right;">Thành tiền</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${productsHtml}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Thẻ lí do & phương thức hoàn tiền -->
+                    <div class="hoan-flex-2">
+                        <div class="reason-card">
+                            <h5 class="card-title"><i class="ph ph-info"></i> Lí do hoàn hàng</h5>
+                            <p class="card-desc">${req.lyDo || '—'}</p>
+                        </div>
+                        <div class="refund-card">
+                            <h5 class="card-title"><i class="ph ph-credit-card"></i> Phương thức hoàn tiền</h5>
+                            <p class="card-desc">${req.phuongThuc || 'Ví điện tử MOMO / Số dư'}</p>
+                        </div>
+                    </div>
+                </div>
+            `,
+            showCancelButton: isPending,
+            showDenyButton: isPending,
+            confirmButtonText: isPending ? 'Xác nhận hoàn hàng' : 'Đóng',
+            cancelButtonText: 'Hủy',
+            denyButtonText: 'Từ chối hoàn',
+            
+            customClass: {
+                popup: 'hoan-swal-popup',
+                htmlContainer: 'hoan-swal-html',
+                actions: 'hoan-swal-actions',
+                confirmButton: 'hoan-swal-confirm',
+                cancelButton: 'hoan-swal-cancel',
+                denyButton: 'swal2-deny hoan-swal-deny'
+            },
+            buttonsStyling: false,
+            width: 760
+        }).then((result) => {
+            if (result.isConfirmed && isPending) {
+                approveReturn(maYeuCau);
+            } else if (result.isDenied && isPending) {
+                rejectReturn(maYeuCau);
+            }
+        });
+
+    } catch (err) {
+        console.error('viewReturn error:', err);
+        Swal.fire('Lỗi!', 'Không thể kết nối đến máy chủ.', 'error');
+    }
 }
 
 // Xác nhận hoàn hàng
