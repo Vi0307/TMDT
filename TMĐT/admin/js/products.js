@@ -1,5 +1,7 @@
 const API_URL = 'http://localhost:3005/api/admin/products';
 const API_CATEGORIES = 'http://localhost:3005/api/admin/categories';
+const API_UPLOAD = 'http://localhost:3005/api/admin/upload/image';
+const BASE_IMAGE_URL = 'http://localhost:3005/images';
 
 const productTableBody = document.getElementById('productTableBody');
 const searchInput = document.getElementById('searchInput');
@@ -55,9 +57,11 @@ function renderTable(data) {
     data.forEach((sp, index) => {
         const giaFmt = Number(sp.gia).toLocaleString('vi-VN') + ' đ';
 
-        // Ảnh: DB lưu dạng "THUCONGMYNGHE/abc.jpg" → cần trỏ về thư mục fe/images/
+        // Ảnh: nếu là URL đầy đủ thì dùng thẳng, nếu là path tương đối thì ghép BASE_IMAGE_URL
         const imgSrc = sp.hinhAnh
-            ? `../../fe/images/${sp.hinhAnh}`
+            ? (sp.hinhAnh.startsWith('http://') || sp.hinhAnh.startsWith('https://') || sp.hinhAnh.startsWith('data:')
+                ? sp.hinhAnh
+                : `${BASE_IMAGE_URL}/${sp.hinhAnh}`)
             : null;
         const imgHtml = imgSrc
             ? `<img src="${imgSrc}" alt="${sp.tenSanPham}"
@@ -105,6 +109,13 @@ function renderTable(data) {
 
 // Form HTML dùng chung cho thêm/sửa
 function buildFormHtml(sp = {}) {
+    // Xác định URL ảnh hiện tại để preview
+    const currentImgUrl = sp.hinhAnh
+        ? (sp.hinhAnh.startsWith('http://') || sp.hinhAnh.startsWith('https://')
+            ? sp.hinhAnh
+            : `${BASE_IMAGE_URL}/${sp.hinhAnh}`)
+        : '';
+
     return `
         <div style="text-align:left;display:flex;flex-direction:column;gap:14px;padding:4px 0;">
             <div>
@@ -141,11 +152,27 @@ function buildFormHtml(sp = {}) {
             </div>
             <div>
                 <label style="display:block;font-size:14px;font-weight:600;color:#2D3748;margin-bottom:6px;">
-                    URL hình ảnh
+                    Hình ảnh sản phẩm
                 </label>
-                <input id="sp-hinhanh" class="swal2-input" style="width:100%;margin:0;box-sizing:border-box;border-radius:10px;"
-                    placeholder="Ví dụ: THUCONGMYNGHE/giomaytredan.webp" value="${sp.hinhAnh || ''}">
-                ${sp.hinhAnh ? `<img src="../../fe/images/${sp.hinhAnh}" style="margin-top:8px;width:80px;height:80px;object-fit:cover;border-radius:8px;border:1px solid #E2E8F0;" onerror="this.style.display='none'">` : ''}
+                <!-- Khu vực preview -->
+                <div id="img-preview-wrap" style="margin-bottom:8px;${currentImgUrl ? '' : 'display:none;'}">
+                    <img id="img-preview" src="${currentImgUrl}" alt="preview"
+                        style="width:90px;height:90px;object-fit:cover;border-radius:8px;border:1px solid #E2E8F0;"
+                        onerror="this.parentElement.style.display='none'">
+                </div>
+                <!-- Chọn file mới -->
+                <label style="display:inline-flex;align-items:center;gap:8px;cursor:pointer;
+                              background:#EDF2F7;border:1px dashed #CBD5E0;border-radius:10px;
+                              padding:10px 16px;font-size:13px;color:#4A5568;width:100%;box-sizing:border-box;">
+                    <i class="ph ph-upload-simple" style="font-size:18px;"></i>
+                    <span id="file-label">Chọn ảnh từ máy tính (jpg, png, webp)...</span>
+                    <input id="sp-file" type="file" accept="image/jpeg,image/png,image/webp,image/gif"
+                        style="display:none;" onchange="previewImage(this)">
+                </label>
+                <!-- Trạng thái upload -->
+                <div id="upload-status" style="font-size:12px;color:#718096;margin-top:4px;"></div>
+                <!-- Lưu path ảnh đã upload hoặc ảnh cũ -->
+                <input type="hidden" id="sp-hinhanh" value="${sp.hinhAnh || ''}">
             </div>
             <div>
                 <label style="display:block;font-size:14px;font-weight:600;color:#2D3748;margin-bottom:6px;">
@@ -158,12 +185,62 @@ function buildFormHtml(sp = {}) {
     `;
 }
 
-// Validate và lấy dữ liệu form
+// Preview ảnh khi chọn file
+function previewImage(input) {
+    if (!input.files || !input.files[0]) return;
+    const file = input.files[0];
+    document.getElementById('file-label').textContent = file.name;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        const wrap = document.getElementById('img-preview-wrap');
+        const img = document.getElementById('img-preview');
+        img.src = e.target.result;
+        wrap.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+}
+
+// Upload ảnh lên server, trả về path lưu DB
+// Trả về: string path nếu upload thành công, '' nếu không chọn file, null nếu lỗi
+async function uploadImageIfSelected() {
+    const fileInput = document.getElementById('sp-file');
+    if (!fileInput || !fileInput.files || !fileInput.files[0]) {
+        // Không chọn file mới → trả về ảnh cũ từ hidden input
+        const oldVal = document.getElementById('sp-hinhanh');
+        return oldVal ? oldVal.value : '';
+    }
+
+    const statusEl = document.getElementById('upload-status');
+    statusEl.textContent = 'Đang tải ảnh lên...';
+
+    const formData = new FormData();
+    formData.append('image', fileInput.files[0]);
+
+    try {
+        const res = await fetch(API_UPLOAD, { method: 'POST', body: formData });
+        const json = await res.json();
+        if (json.success) {
+            statusEl.textContent = '✓ Tải ảnh thành công';
+            statusEl.style.color = '#38A169';
+            return json.path; // VD: "UPLOADS/1717000000000_abc.jpg"
+        } else {
+            statusEl.textContent = '✗ ' + json.message;
+            statusEl.style.color = '#E53E3E';
+            return null;
+        }
+    } catch {
+        statusEl.textContent = '✗ Không thể kết nối server để upload ảnh';
+        statusEl.style.color = '#E53E3E';
+        return null;
+    }
+}
+
+// Validate và lấy dữ liệu form (không bao gồm hinhAnh — được xử lý riêng qua upload)
 function getFormData() {
     const tenSanPham = document.getElementById('sp-ten').value.trim();
     const gia = document.getElementById('sp-gia').value;
     const maDanhMuc = document.getElementById('sp-danhmuc').value;
-    const hinhAnh = document.getElementById('sp-hinhanh').value.trim();
     const moTa = document.getElementById('sp-mota').value.trim();
     const soLuongTon = document.getElementById('sp-ton').value;
 
@@ -175,7 +252,6 @@ function getFormData() {
         tenSanPham,
         gia: Number(gia),
         maDanhMuc: Number(maDanhMuc),
-        hinhAnh,
         moTa,
         soLuongTon: soLuongTon !== '' ? Number(soLuongTon) : 0
     };
@@ -198,11 +274,15 @@ async function addProduct() {
 
     if (!formValues) return;
 
+    // Upload ảnh (nếu có chọn file), null = lỗi upload
+    const hinhAnh = await uploadImageIfSelected();
+    if (hinhAnh === null) return; // upload thất bại, dừng lại
+
     try {
         const res = await fetch(API_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formValues)
+            body: JSON.stringify({ ...formValues, hinhAnh })
         });
         const json = await res.json();
         if (json.success) {
@@ -244,11 +324,15 @@ async function editProduct(id) {
 
     if (!formValues) return;
 
+    // Upload ảnh mới nếu có chọn file, ngược lại giữ ảnh cũ
+    const hinhAnh = await uploadImageIfSelected();
+    if (hinhAnh === null) return; // upload thất bại
+
     try {
         const res = await fetch(`${API_URL}/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formValues)
+            body: JSON.stringify({ ...formValues, hinhAnh })
         });
         const json = await res.json();
         if (json.success) {

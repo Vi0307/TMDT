@@ -148,7 +148,7 @@ async function loadProducts() {
 // ─── Render 1 card sản phẩm ──────────────────────────────────────────────────
 function renderProductCard(sp) {
     const imgSrc = sp.hinhAnh
-        ? `images/${sp.hinhAnh}`
+        ? (sp.hinhAnh.startsWith('http://') || sp.hinhAnh.startsWith('https://') || sp.hinhAnh.startsWith('data:') ? sp.hinhAnh : `images/${sp.hinhAnh}`)
         : 'images/placeholder.jpg';
 
     const giaFmt = Number(sp.gia).toLocaleString('vi-VN') + 'đ';

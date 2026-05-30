@@ -110,7 +110,7 @@ function renderOrderInfo(order) {
     if (order.chiTiet && order.chiTiet.length > 0) {
         const first = order.chiTiet[0]; // Hiển thị sản phẩm đầu tiên trong card
         const imgSrc = first.hinhAnh
-            ? `images/${first.hinhAnh}`
+            ? (first.hinhAnh.startsWith('http://') || first.hinhAnh.startsWith('https://') || first.hinhAnh.startsWith('data:') ? first.hinhAnh : `images/${first.hinhAnh}`)
             : 'https://placehold.co/128x128/f0eee9/837562?text=No+Image';
 
         document.getElementById('product-img').src = imgSrc;

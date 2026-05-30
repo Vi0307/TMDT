@@ -329,7 +329,9 @@ function renderTopProducts(products) {
     }
 
     products.forEach((sp, idx) => {
-        const imgSrc = sp.hinhAnh ? `../../fe/images/${sp.hinhAnh}` : '../../fe/images/placeholder.jpg';
+        const imgSrc = sp.hinhAnh 
+            ? (sp.hinhAnh.startsWith('http://') || sp.hinhAnh.startsWith('https://') || sp.hinhAnh.startsWith('data:') ? sp.hinhAnh : `../../fe/images/${sp.hinhAnh}`) 
+            : '../../fe/images/placeholder.jpg';
         const tr = document.createElement('tr');
         
         tr.innerHTML = `
@@ -371,7 +373,9 @@ function renderLowStock(products) {
     lowStockCount.className = 'card-badge bg-danger';
 
     products.forEach((sp) => {
-        const imgSrc = sp.hinhAnh ? `../../fe/images/${sp.hinhAnh}` : '../../fe/images/placeholder.jpg';
+        const imgSrc = sp.hinhAnh 
+            ? (sp.hinhAnh.startsWith('http://') || sp.hinhAnh.startsWith('https://') || sp.hinhAnh.startsWith('data:') ? sp.hinhAnh : `../../fe/images/${sp.hinhAnh}`) 
+            : '../../fe/images/placeholder.jpg';
         
         let stockBadgeClass = 'stock-warning';
         let stockText = `${sp.soLuongTon} cái`;

@@ -69,7 +69,7 @@ function renderCart(data) {
 // ─── Render 1 dòng sản phẩm ──────────────────────────────────────────────────
 function renderCartRow(item) {
     const imgSrc = item.hinhAnh
-        ? `images/${item.hinhAnh}`
+        ? (item.hinhAnh.startsWith('http://') || item.hinhAnh.startsWith('https://') || item.hinhAnh.startsWith('data:') ? item.hinhAnh : `images/${item.hinhAnh}`)
         : 'https://placehold.co/96x96/f0eee9/837562?text=No+Image';
 
     const giaFmt    = Number(item.gia).toLocaleString('vi-VN') + '₫';
