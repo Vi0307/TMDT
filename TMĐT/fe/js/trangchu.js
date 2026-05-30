@@ -320,7 +320,7 @@ async function loadNewProducts() {
             const products = json.data;
             container.innerHTML = products.map(sp => {
                 const giaFmt = Number(sp.gia).toLocaleString('vi-VN') + ' VNĐ';
-                const imgSrc = sp.hinhAnh ? `images/${sp.hinhAnh}` : 'https://placehold.co/400x500?text=' + encodeURIComponent(sp.tenSanPham);
+                const imgSrc = sp.hinhAnh ? (sp.hinhAnh.startsWith('http://') || sp.hinhAnh.startsWith('https://') || sp.hinhAnh.startsWith('data:') ? sp.hinhAnh : `images/${sp.hinhAnh}`) : 'https://placehold.co/400x500?text=' + encodeURIComponent(sp.tenSanPham);
                 
                 return `
                     <div class="bg-surface p-base rounded-lg shadow-sm hover:shadow-md transition-shadow group cursor-pointer" 

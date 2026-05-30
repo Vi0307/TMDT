@@ -127,7 +127,7 @@ function renderCartFromData(data) {
 
     container.innerHTML = data.items.map(item => {
         const imgSrc = item.hinhAnh
-            ? `images/${item.hinhAnh}`
+            ? (item.hinhAnh.startsWith('http://') || item.hinhAnh.startsWith('https://') || item.hinhAnh.startsWith('data:') ? item.hinhAnh : `images/${item.hinhAnh}`)
             : 'https://placehold.co/80x96/f0eee9/837562?text=No+Image';
         const giaFmt      = Number(item.gia).toLocaleString('vi-VN') + '₫';
         const thanhTienFmt = Number(item.gia * item.soLuong).toLocaleString('vi-VN') + '₫';
@@ -223,7 +223,7 @@ function renderOrderSummary() {
 
     container.innerHTML = items.map(item => {
         const imgSrc = item.hinhAnh
-            ? `images/${item.hinhAnh}`
+            ? (item.hinhAnh.startsWith('http://') || item.hinhAnh.startsWith('https://') || item.hinhAnh.startsWith('data:') ? item.hinhAnh : `images/${item.hinhAnh}`)
             : 'https://placehold.co/80x96/f0eee9/837562?text=No+Image';
         const giaFmt      = Number(item.gia).toLocaleString('vi-VN') + '₫';
         const thanhTienFmt = Number(item.thanhTien).toLocaleString('vi-VN') + '₫';

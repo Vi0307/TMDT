@@ -142,7 +142,7 @@ function renderOrderDetail(order) {
     if (order.chiTiet && order.chiTiet.length > 0) {
         productContainer.innerHTML = order.chiTiet.map(item => {
             const imgSrc = item.hinhAnh
-                ? `images/${item.hinhAnh}`
+                ? (item.hinhAnh.startsWith('http://') || item.hinhAnh.startsWith('https://') || item.hinhAnh.startsWith('data:') ? item.hinhAnh : `images/${item.hinhAnh}`)
                 : 'https://placehold.co/80x80/f0eee9/837562?text=No+Image';
             const giaFmt      = fmt(item.gia);
             const thanhTienFmt = fmt(item.thanhTien);

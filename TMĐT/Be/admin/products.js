@@ -80,15 +80,31 @@ router.post('/', async (req, res) => {
             return res.status(400).json({ success: false, message: 'Thiếu thông tin bắt buộc (tên, giá, danh mục)' });
 
         // Thêm vào SanPham (không có gia/hinhAnh/trangThai nữa)
-const request = new sql.Request();
+        const request = new sql.Request();
+        
+        // Tự động sinh mã sản phẩm tiếp theo (SPxx)
+        const idResult = await request.query(`SELECT maSanPham FROM SanPham WHERE maSanPham LIKE 'SP%'`);
+        let maxNum = 0;
+        idResult.recordset.forEach(row => {
+            if (row.maSanPham) {
+                const num = parseInt(row.maSanPham.substring(2), 10);
+                if (!isNaN(num) && num > maxNum) {
+                    maxNum = num;
+                }
+            }
+        });
+        const nextNum = maxNum + 1;
+        const newMaSanPham = 'SP' + String(nextNum).padStart(2, '0');
+
+        request.input('maSanPham',  sql.NVarChar(10),  newMaSanPham);
         request.input('tenSanPham', sql.NVarChar(100), tenSanPham);
         request.input('moTaNgan',   sql.NVarChar,      moTa || '');
         request.input('maDanhMuc',  sql.Int,           maDanhMuc);
 
         const result = await request.query(`
-            INSERT INTO SanPham (tenSanPham, moTaNgan, maDanhMuc)
+            INSERT INTO SanPham (maSanPham, tenSanPham, moTaNgan, maDanhMuc)
             OUTPUT INSERTED.maSanPham
-            VALUES (@tenSanPham, @moTaNgan, @maDanhMuc)
+            VALUES (@maSanPham, @tenSanPham, @moTaNgan, @maDanhMuc)
         `);
 
         const maSanPham = result.recordset[0].maSanPham;

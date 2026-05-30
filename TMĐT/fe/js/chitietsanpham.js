@@ -54,7 +54,7 @@ async function loadProductDetail(id) {
 function renderProduct(sp) {
     sp.soLuongTon = 50; // Always show Còn hàng (50) for all products
     const imgSrc = sp.hinhAnh
-        ? `images/${sp.hinhAnh}`
+        ? (sp.hinhAnh.startsWith('http://') || sp.hinhAnh.startsWith('https://') || sp.hinhAnh.startsWith('data:') ? sp.hinhAnh : `images/${sp.hinhAnh}`)
         : 'https://placehold.co/600x750/f0eee9/837562?text=No+Image';
 
     // Ảnh chính
@@ -313,7 +313,7 @@ async function loadRelatedProducts(maDanhMuc, currentId) {
 
         container.innerHTML = related.map(sp => {
             const imgSrc = sp.hinhAnh
-                ? `images/${sp.hinhAnh}`
+                ? (sp.hinhAnh.startsWith('http://') || sp.hinhAnh.startsWith('https://') || sp.hinhAnh.startsWith('data:') ? sp.hinhAnh : `images/${sp.hinhAnh}`)
                 : 'https://placehold.co/400x533/f0eee9/837562?text=No+Image';
             const giaFmt = Number(sp.gia).toLocaleString('vi-VN') + ' VNĐ';
 

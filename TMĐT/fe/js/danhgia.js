@@ -39,7 +39,7 @@ async function loadProductInfo(id) {
             document.getElementById('product-name').textContent = p.tenSanPham;
             document.getElementById('product-desc').textContent = `Mã SP: ${p.maSanPham}`;
             if (p.hinhAnh) {
-                document.getElementById('product-img').src = `images/${p.hinhAnh}`;
+                document.getElementById('product-img').src = p.hinhAnh.startsWith('http://') || p.hinhAnh.startsWith('https://') || p.hinhAnh.startsWith('data:') ? p.hinhAnh : `images/${p.hinhAnh}`;
             }
         }
     } catch (err) {

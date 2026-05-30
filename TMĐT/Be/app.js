@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 require('dotenv').config();
 const { connectDB } = require('./config/db');
 
@@ -10,6 +11,9 @@ const PORT = process.env.PORT || 3005;
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
+
+// Serve ảnh sản phẩm từ thư mục fe/images (truy cập qua /images/...)
+app.use('/images', express.static(path.join(__dirname, '../fe/images')));
 
 // Giữ cho tiến trình không tự thoát
 setInterval(() => {}, 1000 * 60 * 60);
@@ -33,6 +37,7 @@ startServer();
 app.use('/api/admin/users',      require('./admin/users'));
 app.use('/api/admin/categories', require('./admin/categories'));
 app.use('/api/admin/products',   require('./admin/products'));
+app.use('/api/admin/upload',     require('./admin/upload'));
 app.use('/api/admin/receipts',   require('./admin/receipts'));
 app.use('/api/admin/orders',     require('./admin/orders'));
 app.use('/api/admin/reviews',    require('./admin/reviews'));
