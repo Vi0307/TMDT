@@ -80,3 +80,243 @@
     border-color: #3182CE;
     background: #EBF8FF;
 }
+
+/* Custom Redesigned Returns Modal styles */
+.hoan-modal {
+    text-align: left;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    color: #1A202C;
+}
+
+.hoan-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #E2E8F0;
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+}
+
+.hoan-title {
+    font-family: 'Noto Serif', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #4A2C2A;
+}
+
+.hoan-title span {
+    color: #B52424;
+    background: #FFF5F5;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.hoan-section {
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #718096;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.section-title i {
+    font-size: 18px;
+    color: #5C4033;
+}
+
+.section-card {
+    background: #FAF8F5;
+    border: 1px solid #E4E2DD;
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.hoan-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.info-label {
+    font-size: 11px;
+    color: #A0AEC0;
+    margin-bottom: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.info-value {
+    font-size: 14px;
+    color: #2D3748;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.hoan-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.hoan-table th {
+    background: #F0EEE9;
+    color: #514534;
+    font-weight: 600;
+    font-size: 12px;
+    padding: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.hoan-table td {
+    padding: 12px;
+    font-size: 13px;
+    color: #2D3748;
+    border-bottom: 1px solid #E4E2DD;
+}
+
+.hoan-table tr:last-child td {
+    border-bottom: none;
+}
+
+.hoan-flex-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.reason-card {
+    background: #FFF5F5;
+    border: 1px solid #FED7D7;
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.reason-card .card-title {
+    color: #C53030;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.reason-card .card-desc {
+    color: #9B2C2C;
+    font-size: 13px;
+    line-height: 1.5;
+    font-weight: 500;
+}
+
+.refund-card {
+    background: #EBF8FF;
+    border: 1px solid #BEE3F8;
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.refund-card .card-title {
+    color: #2B6CB0;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.refund-card .card-desc {
+    color: #2C5282;
+    font-size: 13px;
+    line-height: 1.5;
+    font-weight: 500;
+}
+
+/* Custom SweetAlert styles overrides for our branding */
+.swal2-popup.hoan-swal-popup {
+    border-radius: 24px !important;
+    padding: 24px !important;
+    border: 1px solid #E4E2DD !important;
+    background: #FFFFFF !important;
+    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.05), 0 10px 10px -5px rgba(0,0,0,0.03) !important;
+}
+
+.swal2-html-container.hoan-swal-html {
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+}
+
+.swal2-actions.hoan-swal-actions {
+    margin-top: 24px !important;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.swal2-confirm.hoan-swal-confirm {
+    background-color: #5C4033 !important;
+    color: #FFFFFF !important;
+    border-radius: 12px !important;
+    padding: 12px 24px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    border: none !important;
+    box-shadow: 0 4px 6px -1px rgba(92, 64, 51, 0.2) !important;
+    transition: all 0.2s ease !important;
+}
+
+.swal2-confirm.hoan-swal-confirm:hover {
+    background-color: #4A2C2A !important;
+}
+
+.swal2-cancel.hoan-swal-cancel {
+    background-color: #FFFFFF !important;
+    color: #718096 !important;
+    border: 1px solid #E2E8F0 !important;
+    border-radius: 12px !important;
+    padding: 12px 24px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
+}
+
+.swal2-cancel.hoan-swal-cancel:hover {
+    background-color: #F7FAFC !important;
+    color: #4A5568 !important;
+}
+
+.swal2-deny.hoan-swal-deny {
+    background-color: #FFFFFF !important;
+    color: #E53E3E !important;
+    border: 1px solid #FED7D7 !important;
+    border-radius: 12px !important;
+    padding: 12px 24px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
+    margin-right: auto !important; /* Push it to the far left of the actions bar for maximum clarity */
+}
+
+.swal2-deny.hoan-swal-deny:hover {
+    background-color: #FFF5F5 !important;
+    color: #C53030 !important;
+    border-color: #FEB2B2 !important;
+}

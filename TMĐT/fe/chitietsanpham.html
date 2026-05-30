@@ -103,6 +103,40 @@
         .lantern-glow {
             box-shadow: 0 0 15px 2px rgba(229, 160, 34, 0.2);
         }
+        .zoom-container {
+            position: relative;
+            overflow: hidden;
+            cursor: zoom-in;
+        }
+        .zoom-image {
+            transition: transform 0.15s ease-out;
+            transform-origin: var(--zoom-x, 50%) var(--zoom-y, 50%);
+        }
+        .zoom-container:hover .zoom-image {
+            transform: scale(2);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fbf9f4;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d6c4ae;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #837562;
+        }
+        .lantern-glow-text {
+            text-shadow: 0 0 8px rgba(229, 160, 34, 0.3);
+            animation: warm-pulse 3s infinite alternate ease-in-out;
+        }
+        @keyframes warm-pulse {
+            0% { text-shadow: 0 0 4px rgba(229, 160, 34, 0.2); }
+            100% { text-shadow: 0 0 12px rgba(229, 160, 34, 0.5); }
+        }
     </style>
 <script src="js/transition.js"></script>
 </head>
@@ -111,7 +145,7 @@
 <header class="bg-[#FAF9F6] dark:bg-stone-950 border-b border-stone-200 dark:border-stone-800 shadow-sm sticky top-0 z-50">
 <div class="flex justify-between items-center w-full px-8 py-4 max-w-screen-2xl mx-auto">
   <!-- Brand -->
-  <div class="text-2xl font-bold text-[#4A2C2A] dark:text-amber-500 uppercase tracking-tighter" style="font-family:'Noto Serif',serif;">Hội An Tinh Hoa</div>
+  <div class="text-2xl font-bold text-[#4A2C2A] dark:text-amber-500 uppercase tracking-tighter lantern-glow-text" style="font-family:'Noto Serif',serif;">Hội An Tinh Hoa</div>
   <!-- Nav danh mục -->
   <nav id="main-nav" class="hidden md:flex items-center gap-8 text-base tracking-wide" style="font-family:'Noto Serif',serif;">
     <a class="nav-link text-stone-600 dark:text-stone-400 hover:text-[#8B0000] transition-colors" href="trangchu.html" style="font-family:'Noto Serif',serif;">Trang chủ</a>
@@ -148,129 +182,201 @@
 <script src="auth.js"></script>
 <main class="max-w-screen-2xl mx-auto px-8 py-12">
 <!-- Product Detail Section -->
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
 <!-- Gallery Column -->
-<div class="space-y-6">
-<div class="aspect-[4/5] bg-surface-container overflow-hidden rounded-lg shadow-sm border border-outline-variant/20">
-<img id="main-image" class="w-full h-full object-cover" src="" alt=""/>
+<div class="space-y-6 lg:col-span-5 max-w-[460px] w-full mx-auto lg:mx-0">
+<div class="zoom-container aspect-[4/5] bg-stone-50 dark:bg-stone-900 overflow-hidden rounded-2xl shadow-sm border border-stone-200/40 dark:border-stone-800/40 relative group">
+<img id="main-image" class="zoom-image w-full h-full object-cover cursor-zoom-in" src="" alt=""/>
+<!-- Zoom tooltip -->
+<div class="absolute bottom-4 right-4 bg-stone-900/80 text-stone-100 text-xs px-3.5 py-2 rounded-full flex items-center gap-1.5 backdrop-blur-sm pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+    <span class="material-symbols-outlined text-[16px]">zoom_in</span>
+    Phóng to & click để xem full
+</div>
 </div>
 <div id="thumbnails" class="grid grid-cols-4 gap-4">
     <!-- Render từ JS -->
 </div>
 </div>
 <!-- Information Column -->
-<div class="flex flex-col gap-8">
-<div class="space-y-2">
-<span id="product-category" class="text-primary font-label-caps uppercase tracking-widest bg-primary/10 px-3 py-1 rounded-full">...</span>
-<h1 id="product-name" class="font-display-lg text-display-lg text-on-surface">Đang tải...</h1>
-<div class="flex items-center gap-2 text-primary">
-<div id="product-stars" class="flex">
+<div class="flex flex-col gap-6 lg:gap-8 lg:col-span-7">
+<div class="space-y-3">
+<span id="product-category" class="inline-block text-primary font-bold text-xs tracking-widest uppercase bg-primary/10 border border-primary/20 px-3.5 py-1.5 rounded-full">...</span>
+<h1 id="product-name" class="font-display-lg text-4xl lg:text-5xl font-extrabold text-[#4A2C2A] dark:text-stone-100 tracking-tight leading-tight">Đang tải...</h1>
+<div class="flex items-center gap-3">
+<div id="product-stars" class="flex text-amber-500 gap-0.5">
     <!-- Render từ JS -->
 </div>
-<span id="review-count" class="font-body-md text-outline">(0 Đánh giá)</span>
+<span id="review-count" class="text-sm font-semibold text-stone-400">(0 Đánh giá)</span>
 </div>
 </div>
-<div id="product-price" class="text-3xl font-headline-md text-secondary font-bold">---</div>
-<div id="product-desc-short" class="font-body-lg text-on-surface-variant leading-relaxed border-l-2 border-primary/20 pl-6 italic mb-4"></div>
-<div id="product-desc" class="font-body-md text-on-surface-variant leading-relaxed"></div>
-<div id="product-stock" class="text-sm"></div>
-<div class="flex items-end gap-6">
-<div class="space-y-4 flex-grow max-w-[150px]">
-<label class="font-label-caps text-outline uppercase tracking-wider">Số Lượng</label>
-<div class="flex items-center border border-outline-variant rounded-lg p-1 bg-surface-container-low">
-<button onclick="changeQty(-1)" class="w-10 h-10 flex items-center justify-center hover:bg-surface-variant rounded text-xl font-bold">−</button>
-<input id="qty-input" class="w-full text-center bg-transparent border-none focus:ring-0 font-body-md" type="text" value="1" readonly/>
-<button onclick="changeQty(1)" class="w-10 h-10 flex items-center justify-center hover:bg-surface-variant rounded text-xl font-bold">+</button>
+
+<!-- Price Block -->
+<div class="flex items-baseline gap-4 py-3.5 px-5 bg-stone-50 dark:bg-stone-900/60 rounded-2xl border border-stone-200/50 dark:border-stone-800/50 w-fit">
+<span id="product-price" class="text-3xl lg:text-4xl font-extrabold text-secondary dark:text-red-400 font-headline-md tracking-tight">---</span>
+<span class="text-xs text-stone-400 font-bold uppercase tracking-wider">Mỹ Nghệ Thủ Công</span>
+</div>
+
+<!-- Short description with custom styling -->
+<div class="relative pl-6 py-1 border-l-4 border-primary/30">
+<p id="product-desc-short" class="font-body-lg text-stone-600 dark:text-stone-300 italic leading-relaxed"></p>
+</div>
+
+
+
+<div class="flex items-center gap-2">
+<span id="stock-dot" class="inline-block w-2.5 h-2.5 rounded-full bg-stone-300"></span>
+<span id="product-stock" class="text-sm font-semibold text-stone-700 dark:text-stone-300">Đang kiểm tra...</span>
+</div>
+
+<!-- Quantity Picker & Buttons -->
+<div class="flex flex-col gap-6 pt-4 border-t border-stone-100 dark:border-stone-800/85">
+<div class="space-y-3">
+<label class="block text-xs font-bold text-stone-400 uppercase tracking-widest">Số lượng mua</label>
+<div class="flex items-center border border-stone-200 dark:border-stone-800 rounded-xl p-1 bg-stone-50 dark:bg-stone-900 shadow-inner w-36">
+<button onclick="changeQty(-1)" class="w-10 h-10 flex items-center justify-center hover:bg-stone-200 dark:hover:bg-stone-850 rounded-lg text-lg font-bold transition-all text-stone-600 dark:text-stone-400 active:scale-90">−</button>
+<input id="qty-input" class="w-12 text-center bg-transparent border-none focus:ring-0 font-bold text-stone-800 dark:text-stone-100" type="text" value="1" readonly/>
+<button onclick="changeQty(1)" class="w-10 h-10 flex items-center justify-center hover:bg-stone-200 dark:hover:bg-stone-850 rounded-lg text-lg font-bold transition-all text-stone-600 dark:text-stone-400 active:scale-90">+</button>
 </div>
 </div>
-</div>
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 <button id="btn-add-cart" onclick="addToCart()"
-    class="bg-secondary text-on-primary py-4 rounded-lg font-label-caps text-sm tracking-widest uppercase hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+    class="bg-secondary text-white py-4 px-6 rounded-xl font-bold text-sm tracking-wider uppercase hover:bg-red-800 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-red-950/10 hover:shadow-red-900/20 active:scale-[0.98] cursor-pointer">
 <span class="material-symbols-outlined">shopping_bag</span>
     Thêm Vào Giỏ
 </button>
 <button id="btn-buy-now" onclick="buyNow()"
-    class="border-2 border-[#4A2C2A] text-[#4A2C2A] py-4 rounded-lg font-label-caps text-sm tracking-widest uppercase hover:bg-[#4A2C2A] hover:text-white transition-all flex items-center justify-center gap-2">
+    class="border-2 border-[#4A2C2A] dark:border-stone-700 text-[#4A2C2A] dark:text-stone-300 py-4 px-6 rounded-xl font-bold text-sm tracking-wider uppercase hover:bg-[#4A2C2A] hover:text-white dark:hover:bg-stone-800 dark:hover:text-white transition-all duration-300 flex items-center justify-center gap-2 active:scale-[0.98] cursor-pointer">
     Mua Ngay
 </button>
 </div>
-<div class="flex items-center gap-8 py-6 border-y border-outline-variant/30 text-sm font-body-md text-outline">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">local_shipping</span>
-    Giao hàng toàn quốc
 </div>
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">verified_user</span>
-    Bảo hành 12 tháng
+
+<!-- Value Props -->
+<div class="grid grid-cols-2 gap-4 py-6 border-y border-stone-200 dark:border-stone-850 text-sm">
+<div class="flex items-center gap-3 p-3 bg-stone-50 dark:bg-stone-900/40 rounded-xl border border-stone-100 dark:border-stone-850/60">
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">local_shipping</span>
+<div>
+    <h5 class="font-semibold text-stone-800 dark:text-stone-200">Giao toàn quốc</h5>
+    <p class="text-xs text-stone-500">Đóng gói an toàn, kỹ lưỡng</p>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 bg-stone-50 dark:bg-stone-900/40 rounded-xl border border-stone-100 dark:border-stone-850/60">
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">verified_user</span>
+<div>
+    <h5 class="font-semibold text-stone-800 dark:text-stone-200">Bảo hành 12T</h5>
+    <p class="text-xs text-stone-500">Hỗ trợ đổi trả minh bạch</p>
+</div>
 </div>
 </div>
 </div>
 </div>
 <!-- Specifications Section -->
 <section class="mt-24">
-<div class="border-b border-outline-variant/30 mb-8">
-<div class="flex gap-12">
+<div class="border-b border-stone-200 dark:border-stone-800 mb-8">
+<div class="flex gap-8">
 <button data-tab="specs" onclick="switchTab('specs')"
-    class="pb-4 border-b-2 border-primary text-primary font-title-sm">Thông số kỹ thuật</button>
+    class="pb-4 border-b-2 border-primary text-primary font-bold text-base transition-all duration-300">Thông số kỹ thuật</button>
 <button data-tab="reviews" onclick="switchTab('reviews')"
-    class="pb-4 border-b-2 border-transparent text-outline hover:text-on-surface transition-colors font-title-sm">Đánh giá khách hàng</button>
+    class="pb-4 border-b-2 border-transparent text-stone-400 hover:text-stone-800 dark:hover:text-stone-200 font-bold text-base transition-all duration-300">Đánh giá khách hàng</button>
 </div>
 </div>
 
 <!-- Tab: Thông số -->
 <div data-panel="specs">
-<div class="grid grid-cols-1 md:grid-cols-2 gap-12 bg-surface-container-low p-10 rounded-xl">
-<div class="space-y-6">
-<div class="flex justify-between border-b border-outline-variant/20 pb-3">
-<span class="font-label-caps text-outline">Danh mục</span>
-<span id="spec-category" class="font-body-md">—</span>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 1: Danh mục -->
+<div class="bg-white dark:bg-stone-900 p-5 rounded-2xl border border-stone-100 dark:border-stone-850 shadow-sm flex items-start gap-4 hover:shadow-md transition-all">
+    <div class="p-3 bg-amber-500/10 text-amber-600 rounded-xl">
+        <span class="material-symbols-outlined">category</span>
+    </div>
+    <div>
+        <p class="text-xs font-semibold text-stone-400 uppercase tracking-wider mb-1">Danh mục</p>
+        <p id="spec-category" class="font-bold text-stone-800 dark:text-stone-200">—</p>
+    </div>
 </div>
-<div class="flex justify-between border-b border-outline-variant/20 pb-3">
-<span class="font-label-caps text-outline">Mã sản phẩm</span>
-<span id="spec-id" class="font-body-md">—</span>
+<!-- Card 2: Mã sản phẩm -->
+<div class="bg-white dark:bg-stone-900 p-5 rounded-2xl border border-stone-100 dark:border-stone-850 shadow-sm flex items-start gap-4 hover:shadow-md transition-all">
+    <div class="p-3 bg-amber-500/10 text-amber-600 rounded-xl">
+        <span class="material-symbols-outlined">qr_code</span>
+    </div>
+    <div>
+        <p class="text-xs font-semibold text-stone-400 uppercase tracking-wider mb-1">Mã sản phẩm</p>
+        <p id="spec-id" class="font-bold text-stone-800 dark:text-stone-200">—</p>
+    </div>
 </div>
-<div class="flex justify-between border-b border-outline-variant/20 pb-3">
-<span class="font-label-caps text-outline">Tồn kho</span>
-<span id="spec-stock" class="font-body-md">—</span>
+<!-- Card 3: Xuất xứ -->
+<div class="bg-white dark:bg-stone-900 p-5 rounded-2xl border border-stone-100 dark:border-stone-850 shadow-sm flex items-start gap-4 hover:shadow-md transition-all">
+    <div class="p-3 bg-amber-500/10 text-amber-600 rounded-xl">
+        <span class="material-symbols-outlined">explore</span>
+    </div>
+    <div>
+        <p class="text-xs font-semibold text-stone-400 uppercase tracking-wider mb-1">Xuất xứ</p>
+        <p id="spec-origin" class="font-bold text-stone-800 dark:text-stone-200">—</p>
+    </div>
+</div>
+<!-- Card 4: Chất liệu -->
+<div class="bg-white dark:bg-stone-900 p-5 rounded-2xl border border-stone-100 dark:border-stone-850 shadow-sm flex items-start gap-4 hover:shadow-md transition-all">
+    <div class="p-3 bg-amber-500/10 text-amber-600 rounded-xl">
+        <span class="material-symbols-outlined">texture</span>
+    </div>
+    <div>
+        <p class="text-xs font-semibold text-stone-400 uppercase tracking-wider mb-1">Chất liệu</p>
+        <p id="spec-material" class="font-bold text-stone-800 dark:text-stone-200">—</p>
+    </div>
+</div>
+<!-- Card 5: Kích thước -->
+<div class="bg-white dark:bg-stone-900 p-5 rounded-2xl border border-stone-100 dark:border-stone-850 shadow-sm flex items-start gap-4 hover:shadow-md transition-all">
+    <div class="p-3 bg-amber-500/10 text-amber-600 rounded-xl">
+        <span class="material-symbols-outlined">straighten</span>
+    </div>
+    <div>
+        <p class="text-xs font-semibold text-stone-400 uppercase tracking-wider mb-1">Kích thước</p>
+        <p id="spec-size" class="font-bold text-stone-800 dark:text-stone-200">—</p>
+    </div>
+</div>
+<!-- Card 6: Trọng lượng -->
+<div class="bg-white dark:bg-stone-900 p-5 rounded-2xl border border-stone-100 dark:border-stone-850 shadow-sm flex items-start gap-4 hover:shadow-md transition-all">
+    <div class="p-3 bg-amber-500/10 text-amber-600 rounded-xl">
+        <span class="material-symbols-outlined">fitness_center</span>
+    </div>
+    <div>
+        <p class="text-xs font-semibold text-stone-400 uppercase tracking-wider mb-1">Trọng lượng</p>
+        <p id="spec-weight" class="font-bold text-stone-800 dark:text-stone-200">—</p>
+    </div>
 </div>
 </div>
-<div class="space-y-6">
-<div class="flex justify-between border-b border-outline-variant/20 pb-3">
-<span class="font-label-caps text-outline">Điểm đánh giá</span>
-<span id="spec-rating" class="font-body-md">—</span>
-</div>
-<div class="flex justify-between border-b border-outline-variant/20 pb-3">
-<span class="font-label-caps text-outline">Số lượt đánh giá</span>
-<span id="spec-review-count" class="font-body-md">—</span>
-</div>
-<div class="flex justify-between border-b border-outline-variant/20 pb-3">
-<span class="font-label-caps text-outline">Xuất xứ</span>
-<span id="spec-origin" class="font-body-md">—</span>
-</div>
-<div class="flex justify-between border-b border-outline-variant/20 pb-3">
-<span class="font-label-caps text-outline">Chất liệu</span>
-<span id="spec-material" class="font-body-md">—</span>
-</div>
-<div class="flex justify-between border-b border-outline-variant/20 pb-3">
-<span class="font-label-caps text-outline">Kích thước</span>
-<span id="spec-size" class="font-body-md">—</span>
-</div>
-<div class="flex justify-between border-b border-outline-variant/20 pb-3">
-<span class="font-label-caps text-outline">Trọng lượng</span>
-<span id="spec-weight" class="font-body-md">—</span>
-</div>
-</div>
-</div>
-<div class="mt-8 bg-surface-container-low p-10 rounded-xl">
-    <h3 class="font-title-sm mb-4">Hướng dẫn bảo quản</h3>
-    <p id="spec-care" class="font-body-md text-on-surface-variant leading-relaxed">—</p>
+<div class="mt-8 bg-amber-500/5 dark:bg-stone-900/40 p-8 rounded-2xl border border-amber-500/10 dark:border-stone-800/80">
+    <div class="flex items-center gap-3 mb-3">
+        <span class="material-symbols-outlined text-primary">eco</span>
+        <h3 class="font-title-sm text-lg font-bold text-[#4A2C2A] dark:text-amber-500">Hướng dẫn bảo quản</h3>
+    </div>
+    <p id="spec-care" class="font-body-md text-stone-600 dark:text-stone-300 leading-relaxed italic">—</p>
 </div>
 </div>
 
 <!-- Tab: Đánh giá -->
 <div data-panel="reviews" style="display:none">
-<div id="review-list" class="bg-surface-container-low p-10 rounded-xl space-y-6">
+<!-- Ratings Summary Dashboard -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8 bg-stone-50 dark:bg-stone-900/40 p-8 rounded-2xl border border-stone-100 dark:border-stone-850">
+<div class="flex flex-col items-center justify-center text-center p-4 border-r border-stone-200 dark:border-stone-800 last:border-0 lg:col-span-1">
+    <h4 class="text-xs font-semibold text-stone-400 uppercase tracking-wider mb-2">Đánh giá trung bình</h4>
+    <div class="flex items-baseline gap-1">
+        <span id="rating-avg-big" class="text-5xl font-extrabold text-amber-500">0.0</span>
+        <span class="text-xl text-stone-400 font-bold">/ 5</span>
+    </div>
+    <div id="rating-stars-big" class="flex text-amber-500 my-2 gap-0.5"></div>
+    <p id="rating-count-big" class="text-xs text-stone-500 font-medium">0 lượt đánh giá</p>
+</div>
+<div class="lg:col-span-2 flex flex-col justify-center space-y-3">
+    <h4 class="text-xs font-semibold text-stone-400 uppercase tracking-wider mb-1">Chi tiết điểm đánh giá</h4>
+    <div class="space-y-2.5" id="rating-bars-container">
+        <!-- Dynamic bars loaded from JS -->
+    </div>
+</div>
+</div>
+
+<div id="review-list" class="space-y-6">
     <!-- Render từ JS -->
 </div>
 </div>
@@ -351,6 +457,23 @@
 <span class="font-serif text-[10px] font-medium">Tài khoản</span>
 </a>
 </nav>
+<!-- Lightbox Modal -->
+<div id="lightbox-modal" class="fixed inset-0 bg-black/95 backdrop-blur-md hidden items-center justify-center z-[100] transition-opacity duration-300 opacity-0">
+    <button id="lightbox-close" class="absolute top-6 right-6 text-white hover:text-amber-500 transition-all p-3 rounded-full bg-stone-900/50 hover:bg-stone-900">
+        <span class="material-symbols-outlined text-3xl">close</span>
+    </button>
+    <button id="lightbox-prev" class="absolute left-6 text-white hover:text-amber-500 transition-all p-4 rounded-full bg-stone-900/50 hover:bg-stone-900">
+        <span class="material-symbols-outlined text-4xl">chevron_left</span>
+    </button>
+    <button id="lightbox-next" class="absolute right-6 text-white hover:text-amber-500 transition-all p-4 rounded-full bg-stone-900/50 hover:bg-stone-900">
+        <span class="material-symbols-outlined text-4xl">chevron_right</span>
+    </button>
+    <div class="max-w-4xl max-h-[85vh] px-4 flex flex-col items-center gap-4">
+        <img id="lightbox-image" class="max-w-full max-h-[75vh] object-contain rounded-lg shadow-2xl select-none" src="" alt="Lightbox View" />
+        <p id="lightbox-caption" class="text-stone-400 text-sm font-medium tracking-wide text-center mt-2"></p>
+    </div>
+</div>
+
 <script src="auth.js"></script>
 <script src="js/chitietsanpham.js"></script>
 <script>
